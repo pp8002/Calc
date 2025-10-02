@@ -1,0 +1,329 @@
+% !TEX root = ../main.tex
+\section{Úvod do světa diferenciálních rovnic}
+\label{sec:uvod-diffeq}
+
+\blocktitle{Cíl kapitoly}
+Vytvořit konceptuální a filozofický základ pro chápání diferenciálních rovnic jako univerzálního jazyka dynamických systémů. Zavedeme základní terminologii, klasifikační schémata a filozofii přístupu s důrazem na postupnou gradaci složitosti a propojení s kvantitativními aplikacemi.
+
+\spc
+
+\subsection{Filozofický a historický kontext diferenciálních rovnic}
+
+\subsubsection{Od deskripce stavu k modelování evoluce}
+
+\begin{motivation}
+Zatímco algebraické rovnice popisují \emph{stavy} (např. $x^2 = 4$ má řešení $x = \pm 2$ - statický výsledek), diferenciální rovnice modelují \emph{změnu} (např. $\frac{dx}{dt} = x$ popisuje exponenciální růst v čase - dynamický proces). Tento posun od statiky k dynamice představuje fundamentální milník v matematickém modelování reálných systémů.
+\end{motivation}
+
+Historický vývoj začíná v 17. století s Newtonem, který nejenže formuloval zákony mechaniky jako diferenciální rovnice, ale také vyvinul první numerické metody při absenci analytických řešení.
+
+\subsubsection{Deterministické paradigma a jeho limity}
+
+\begin{definition}[Laplaceův determinismus]
+Přesná znalost současného stavu systému a zákonů jeho evoluce umožňuje principiálně přesnou predikci budoucího vývoje.
+\end{definition}
+
+\begin{intuition}
+Deterministické ODR jsou ideální pro systémy s nízkou mírou nejistoty, ale v ekonomii a financích narážíme na inherentní limity tohoto přístupu.
+\end{intuition}
+
+\begin{example}[Limitace determinismu]
+Předpověď dlouhodobého vývoje finančních trhů pomocí čistě deterministických modelů je principiálně omezená kvůli vlivu neočekávaných událostí a behaviorálních faktorů.
+\end{example}
+
+\subsubsection{Univerzální vlastnosti diferenciálních rovnic}
+
+\begin{theorem}[Univerzální vlastnosti]
+Diferenciální rovnice vykazují:
+\begin{itemize}
+\item \emph{Univerzalitu}: Stejné rovnice popisují různé fyzikální a ekonomické systémy
+\item \emph{Strukturní stabilitu}: Malé změny parametrů vedou k malým změnám řešení
+\item \emph{Hierarchii složitosti}: Od integrovatelných systémů po komplexní chování
+\end{itemize}
+\end{theorem}
+
+\spc
+
+\subsection{Formální základ a systematická klasifikace ODR}
+
+\begin{motivation}
+Systematická klasifikace určuje které matematické nástroje jsou aplikovatelné a jaké chování řešení můžeme očekávat.
+\end{motivation}
+
+\subsubsection{Základní definice a notace}
+
+\begin{definition}[Obyčejná diferenciální rovnice]
+Nechť $n \in \mathbb{N}$ a $F: D \subset \mathbb{R}^{n+2} \to \mathbb{R}$. \emph{Obyčajnou diferenciální rovnicou $n$-tého řádu} rozumíme:
+\[
+F\left(x, y, y', y'', \dots, y^{(n)}\right) = 0,
+\]
+kde $y = y(x)$ je neznámá funkce.
+\end{definition}
+
+\begin{intuition}
+Řád rovnice odpovídá počtu počátečních podmínek potřebných pro jednoznačnou specifikaci řešení.
+\end{intuition}
+
+\subsubsection{Hierarchické klasifikační schéma}
+
+\begin{itemize}
+\item \textbf{Podle řádu}: Určuje dimenzi fázového prostoru
+\item \textbf{Podle linearity}: Lineární vs. nelineární systémy
+\item \textbf{Podle autonomnosti}: Závislost na nezávislé proměnné
+\end{itemize}
+
+\begin{example}[Autonomní vs. neautonomní systém]
+Autonomní: $\dot{x} = -x^2$ (řešení nezávisí na "času začátku") \\
+Neautonomní: $\dot{x} = -tx$ (explicitní závislost na čase)
+\end{example}
+
+
+
+\subsubsection{Singularity a regulární body}
+
+\begin{definition}[Singulární bod]
+Bod $x_0$ je \emph{singulární}, pokud funkce $f(x,y)$ není definována nebo není spojitá v jeho okolí.
+\end{definition}
+
+\begin{intuition}
+Singulární body často odpovídají fyzikálním singularitám nebo bodům, kde se mění kvalitativní chování systému.
+\end{intuition}
+
+\spc
+
+\subsection{Řešení a jeho interpretace v aplikacích}
+
+\begin{motivation}
+Různé typy řešení poskytují různé úrovně informace o chování systému. Pro aplikace je klíčové pochopení jejich interpretace.
+\end{motivation}
+
+\subsubsection{Druhy řešení a jejich význam}
+
+\begin{definition}[Řešení ODR]
+Funkce $\varphi: I \to \mathbb{R}$ je \emph{řešením} na intervalu $I$, pokud splňuje rovnici identicky na $I$.
+\end{definition}
+
+\begin{definition}[Obecné a partikulární řešení]
+\emph{Obecné řešení} obsahuje $n$ integračních konstant, \emph{partikulární řešení} vzniká jejich konkrétní volbou.
+\end{definition}
+
+\begin{example}[Fyzikální interpretace]
+V mechanice: obecné řešení popisuje všechny možné trajektorie, partikulární řešení konkrétní pohyb při daných počátečních podmínkách.
+\end{example}
+
+\subsubsection{Kvalitativní versus kvantitativní analýza}
+
+\begin{intuition}
+Někdy je kvalitativní informace (stabilita, periodicita) důležitější než explicitní vyjádření řešení.
+\end{intuition}
+
+\begin{definition}[Kvalitativní analýza]
+Studium vlastností řešení bez explicitního nalezení jejich tvaru, pomocí geometrických a analytických metod.
+\end{definition}
+
+\begin{keyinsight}
+Pro kvantové aplikace: kvalitativní vlastnosti (stabilita, periodičnost) jsou často důležitější než explicitní řešení. Pokročilé metody stability budou detailně rozebrány v \hyperref[sec:stability]{Kapitole 5}.
+\end{keyinsight}
+
+\subsubsection{Asymptotické chování}
+
+\begin{definition}[Asymptotická notace]
+$f(x) \sim g(x)$ pro $x \to x_0$ znamená $\lim_{x \to x_0} \frac{f(x)}{g(x)} = 1$.
+\end{definition}
+
+\begin{intuition}
+Asymptotika řešení pro velké časy často poskytuje důležitější informaci než přesný tvar řešení.
+\end{intuition}
+
+\spc
+
+\subsection{Formulace matematických problémů}
+
+\begin{motivation}
+Správná formulace problému je prvním krokem k jeho řešení. Různé typy podmínek vedou na různé matematické problémy.
+\end{motivation}
+
+\subsubsection{Počáteční úloha (Cauchyova úloha)}
+
+\[
+\begin{cases}
+y^{(n)} = f\left(x, y, y', \dots, y^{(n-1)}\right) \\
+y(x_0) = y_0, \ y'(x_0) = y_1, \ \dots, \ y^{(n-1)}(x_0) = y_{n-1}
+\end{cases}
+\]
+
+\begin{intuition}
+Počáteční úloha odpovídá standardní situaci: známe kompletní stav systému v počátečním čase a predikujeme jeho vývoj.
+\end{intuition}
+
+\subsubsection{Okrajová úloha}
+
+\[
+\begin{cases}
+y'' = f(x, y, y') \\
+y(a) = \alpha, \ y(b) = \beta
+\end{cases}
+\]
+
+\begin{intuition}
+Okrajové úlohy jsou typické pro problémy statické optimalizace a stacionární stavy.
+\end{intuition}
+
+\subsubsection{Problém vlastních čísel}
+
+\begin{definition}[Problém vlastních čísel]
+Hledáme netriviální řešení $\mathcal{L}y = \lambda y$ s okrajovými podmínkami.
+\end{definition}
+
+\begin{example}[Kvantová mechanika]
+Časově nezávislá Schrödingerova rovnice $\hat{H}\psi = E\psi$ je problémem vlastních hodnot.
+\end{example}
+
+\spc
+
+\subsection{Základní aplikační domény}
+
+\begin{motivation}
+Aplikace motivují teorii a poskytují kontext pro interpretaci výsledků. Zaměříme se na fundamentální modely relevantní pro kvantové experty.
+\end{motivation}
+
+\subsubsection{Deterministické modely v ekonomii}
+
+\begin{example}[Model spojitého úročení]
+\[
+\frac{\dd V}{\dd t} = rV \quad \Rightarrow \quad V(t) = V_0 e^{rt}
+\]
+Exponenciální růst při spojitém úročení.
+\end{example}
+
+\begin{example}[Cenová adaptace]
+\[
+\frac{\dd p}{\dd t} = \alpha [D(p) - S(p)]
+\]
+Adaptace ceny na nerovnováhu mezi poptávkou a nabídkou.
+\end{example}
+
+\subsubsection{Spojité modely úrokových měr}
+
+\begin{example}[Deterministická část Vasicekova modelu]
+\[
+\frac{\dd r}{\dd t} = \kappa(\theta - r(t)) \quad \Rightarrow \quad r(t) = \theta + (r_0 - \theta)e^{-\kappa t}
+\]
+Mean-reverting chování úrokových měr.
+\end{example}
+
+\begin{intuition}
+Parameter $\kappa$ určuje rychlost návratu k dlouhodobému průměru $\theta$, což je klíčové pro risk management v úrokových produktech. Deterministické modely tvoří základ pro složitější stochastické rozšíření.
+\end{intuition}
+
+\subsubsection{Úvod do kvantových systémů}
+
+\begin{example}[Časově nezávislá Schrödingerova rovnice]
+\[
+\hat{H}\psi = E\psi
+\]
+Problém vlastních hodnot pro lineární diferenciální operátor.
+\end{example}
+
+\begin{intuition}
+Kvantové systémy přirozeně vedou na lineární diferenciální rovnice a problémy vlastních hodnot.
+\end{intuition}
+
+\spc
+
+\subsection{Geometrická interpretace a základy dynamických systémů}
+
+\begin{motivation}
+Geometrický pohled poskytuje intuitivní porozumění chování řešení bez explicitního výpočtu.
+\end{motivation}
+
+\subsubsection{Fázové portréty a trajektorie}
+
+\begin{definition}[Fázový portrét]
+Geometrická reprezentace všech trajektorií autonomního systému $\dot{\mathbf{x}} = \mathbf{f}(\mathbf{x})$.
+\end{definition}
+
+\begin{example}[Harmonický oscilátor]
+Pro systém $\dot{x} = y$, $\dot{y} = -x$ jsou trajektorie kružnice v fázové rovině.
+\end{example}
+
+\begin{example}[Ekonomická interpretace fázového portrétu]
+Pro model $\dot{p} = \alpha(D(p) - S(p))$, $\dot{q} = \beta p$ můžeme v rovině $(p,q)$ vizualizovat společnou dynamiku ceny a množství.
+\end{example}
+
+\subsubsection{Rovnovážné body a jejich klasifikace}
+
+\begin{definition}[Rovnovážný bod]
+Bod $\mathbf{x}^*$ takový, že $\mathbf{f}(\mathbf{x}^*) = \mathbf{0}$.
+\end{definition}
+
+\begin{intuition}
+Rovnovážné body odpovídají stacionárním stavům systému.
+\end{intuition}
+
+\begin{itemize}
+\item \textbf{Stabilní uzel}: Všechny trajektorie konvergují
+\item \textbf{Sedlo}: Některé konvergují, některé divergují  
+\item \textbf{Střed}: Periodické trajektorie
+\end{itemize}
+
+\subsubsection{Elementární linearizace}
+
+\begin{intuition}
+V okolí rovnovážného bodu se systém chová přibližně jako jeho linearizace.
+\end{intuition}
+
+\begin{definition}[Linearizovaný systém]
+Pro systém $\dot{\mathbf{x}} = \mathbf{f}(\mathbf{x})$ v okolí $\mathbf{x}^*$:
+\[
+\dot{\mathbf{\xi}} = D\mathbf{f}(\mathbf{x}^*)\mathbf{\xi}
+\]
+kde $\mathbf{\xi} = \mathbf{x} - \mathbf{x}^*$.
+\end{definition}
+
+\begin{intuition}
+Geometrická interpretace je také klíčová pro design stabilních numerických schémat - numerická metoda by měla zachovávat kvalitativní vlastnosti analytického řešení.
+\end{intuition}
+
+\spc
+
+
+\begin{motivation}
+Porozumění celkové struktuře teorie pomáhá vidět souvislosti a směřování dalšího studia.
+\end{motivation}
+
+\subsubsection{Logická struktura pokročilé teorie}
+
+\begin{itemize}
+\item \textbf{Kapitola 2}: Matematický fundament - teorie míry, funkcionální analýza
+\item \textbf{Kapitola 3}: Základní teorémy - existence, jednoznačnost, spojitá závislost
+\item \textbf{Kapitola 4}: Pokročilý aparát - distribuce, slabá formulace
+\item \textbf{Kapitola 5}: Teorie stability - Ljapunovovy metody, bifurkace
+\item \textbf{Kapitola 6}: Pokročilé koncepty - Hamiltonovské systémy, variační principy
+\end{itemize}
+
+\subsubsection{Klíčové koncepty pro kvantové experty}
+
+\begin{keyinsight}
+Pro kvantové aplikace jsou klíčové: spektrální teorie, stochastické rozšíření, numerická stabilita a variační principy. Tyto pokročilé metody budou rozvíjeny v následujících kapitolách.
+\end{keyinsight}
+
+\spc
+
+\subsection*{Shrnutí kapitoly}
+
+\begin{itemize}
+\item Diferenciální rovnice poskytují formalismus pro modelování dynamických systémů s konečným počtem stupňů volnosti
+
+\item Systematická klasifikace určuje dostupné matematické nástroje a očekávané chování řešení
+
+\item Různé typy řešení (obecné, partikulární, singulární) poskytují různé úrovně informace o systému
+
+\item Geometrická interpretace pomocí fázových portrétů poskytuje intuitivní porozumění chování řešení
+
+\item Aplikace v ekonomii a kvantových systémech demonstrují relevanci teorie pro modelování reálných systémů
+
+\item Deterministické ODR tvoří teoretický základ pro složitější stochastické modely
+\end{itemize}
+
+

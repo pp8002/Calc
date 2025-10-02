@@ -1,0 +1,2404 @@
+% !TEX root = ../main.tex
+\section{Level 1: Základní metody řešení ODE 1.~řádu}
+\label{chap:level1}
+
+\subsection*{Cíl Levelu 1}
+Tento level představuje kompletní systém pro zvládnutí základních ODE 1.~řádu prostřednictvím strukturované sady příkladů od elementární po expertní úroveň. Každý příklad obsahuje kompletní teoretickou analýzu, finanční aplikace, praktickou implementaci a prvky risk managementu.
+
+\subsection{Úroveň 1A: Elementární příklady}
+\label{sec:uroven-1a}
+
+\subsubsection{Separovatelné rovnice — elementární}
+\label{subsec:1a-separovatelne}
+
+\begin{example}[1A.1: Základní separovatelná rovnice]
+\label{ex:1a1}
+
+\textbf{Identifikace}
+\begin{itemize}
+\item \textbf{Typ}: separovatelná
+\item \textbf{Úroveň}: 1A — elementární
+\item \textbf{Finanční kontext}: základní růstový model
+\end{itemize}
+
+\textbf{Zadání}
+\[
+\frac{dy}{dx} = 2x, \qquad y(0) = 1.
+\]
+
+\textbf{Teoretická analýza}
+\begin{itemize}
+\item $g(x)=2x$ spojité na $I=\mathbb{R}$,
+\item $h(y)=1$ spojité na $J=\mathbb{R}$,
+\item maximální interval existence: $\mathbb{R}$,
+\item Lipschitzovskost: triviálně splněna,
+\item singulární řešení: žádná.
+\end{itemize}
+
+\textbf{Postup řešení}
+\begin{enumerate}
+\item Identifikace typu: separovatelná.
+\item Separace proměnných: $dy = 2x\,dx$.
+\item Integrace: $\int dy = \int 2x\,dx$.
+\item Výsledek: $y = x^2 + C$.
+\item Konstantu určíme z $y(0)=1$: $1=0+C \Rightarrow C=1$.
+\item Řešení: $y(x)=x^2+1$.
+\end{enumerate}
+
+\textbf{Kontrolní body}
+\begin{itemize}
+\item Derivace dává zpět $2x$.
+\item Počáteční podmínka $y(0)=1$ splněna.
+\item Maximální interval $\mathbb{R}$.
+\end{itemize}
+
+\textbf{Finanční interpretace}
+\begin{itemize}
+\item Model: růst „deterministickou“ rychlostí rostoucí v čase,
+\item $y(x)$: hodnota portfolia v čase $x$,
+\item $2x$: okamžitá míra růstu.
+\end{itemize}
+
+\textbf{Praktická implementace}
+\begin{verbatim}
+import numpy as np
+import matplotlib.pyplot as plt
+
+def growth_model(x):
+    return x**2 + 1
+
+x = np.linspace(0, 5, 200)
+y = growth_model(x)
+
+plt.plot(x, y)
+plt.xlabel('Čas (roky)')
+plt.ylabel('Hodnota portfolia')
+plt.title('Růst investice – elementární model')
+plt.grid(True)
+plt.show()
+\end{verbatim}
+
+\textbf{Varování a pasti}
+\begin{itemize}
+\item Častá chyba: opomenutí integrační konstanty.
+\item Omezení: nerealistický neomezený růst.
+\end{itemize}
+\end{example}
+
+\begin{example}[1A.2: Separovatelná s exponenciálou]
+\label{ex:1a2}
+
+\textbf{Identifikace}
+\begin{itemize}
+\item \textbf{Typ}: separovatelná
+\item \textbf{Úroveň}: 1A — elementární
+\item \textbf{Finanční kontext}: růst k saturaci
+\end{itemize}
+
+\textbf{Zadání}
+\[
+\frac{dy}{dx} = e^{-x}, \qquad y(0)=0.
+\]
+
+\textbf{Teoretická analýza}
+\begin{itemize}
+\item $g(x)=e^{-x}$ spojité na $I=\mathbb{R}$,
+\item $h(y)=1$ na $J=\mathbb{R}$,
+\item existence a jednoznačnost: Picard–Lindelöf, maximální interval $\mathbb{R}$.
+\end{itemize}
+
+\textbf{Postup řešení}
+\begin{enumerate}
+\item Separace: $dy = e^{-x}\,dx$.
+\item Integrace: $y = -e^{-x} + C$.
+\item Z $y(0)=0$: $0 = -1 + C \Rightarrow C=1$.
+\item Řešení: $y(x) = 1 - e^{-x}$.
+\end{enumerate}
+
+\textbf{Kontrolní body}
+\begin{itemize}
+\item Derivace $y'(x)=e^{-x}$.
+\item Počáteční podmínka $y(0)=0$ splněna.
+\item $y(x)\to 1$ pro $x\to\infty$.
+\end{itemize}
+
+\textbf{Finanční interpretace}
+\begin{itemize}
+\item Model: saturace podílu na trhu / kapacity,
+\item $1$: maximální dosažitelná úroveň.
+\end{itemize}
+
+\textbf{Citlivost}
+\begin{itemize}
+\item Změna integrační konstanty posouvá řešení vertikálně lineárně.
+\end{itemize}
+\end{example}
+
+\subsubsection{Lineární rovnice — elementární}
+\label{subsec:1a-linearne}
+
+\begin{example}[1A.3: Lineární homogenní rovnice]
+\label{ex:1a3}
+
+\textbf{Identifikace}
+\begin{itemize}
+\item \textbf{Typ}: lineární homogenní
+\item \textbf{Úroveň}: 1A — elementární
+\item \textbf{Finanční kontext}: kontinuální diskontování
+\end{itemize}
+
+\textbf{Zadání}
+\[
+\frac{dy}{dx} + 2y = 0, \qquad y(0)=3.
+\]
+
+\textbf{Teoretická analýza}
+\begin{itemize}
+\item $P(x)=2$, $Q(x)=0$ na $I=\mathbb{R}$,
+\item integrační faktor $\mu(x)=e^{2x}$,
+\item obecné řešení $y(x)=C e^{-2x}$, maximální interval $\mathbb{R}$.
+\end{itemize}
+
+\textbf{Postup řešení}
+\begin{enumerate}
+\item $\frac{d}{dx}[e^{2x}y] = 0 \Rightarrow e^{2x}y=C$.
+\item $y(x)=C e^{-2x}$, z $y(0)=3$ plyne $C=3$.
+\item Řešení: $y(x)=3e^{-2x}$.
+\end{enumerate}
+
+\textbf{Finanční interpretace}
+\begin{itemize}
+\item Exponenciální pokles současné hodnoty budoucího CF při sazbě $2$.
+\end{itemize}
+
+\textbf{Praktická implementace}
+\begin{verbatim}
+import numpy as np
+
+def discount_model(x, v0=3, r=2):
+    return v0 * np.exp(-r * x)
+
+value_2y = discount_model(2)  # ~0.406
+\end{verbatim}
+
+\textbf{Risk management}
+\begin{itemize}
+\item Úrokové riziko: citlivost roste s časem (derivace dle sazby $\propto -x$).
+\item Vhodné pro krátké horizonty.
+\end{itemize}
+\end{example}
+
+\begin{example}[1A.4: Lineární nehomogenní rovnice]
+\label{ex:1a4}
+
+\textbf{Identifikace}
+\begin{itemize}
+\item \textbf{Typ}: lineární nehomogenní
+\item \textbf{Úroveň}: 1A — elementární
+\item \textbf{Finanční kontext}: růst s konstantním příspěvkem
+\end{itemize}
+
+\textbf{Zadání}
+\[
+\frac{dy}{dx} + y = 1, \qquad y(0)=0.
+\]
+
+\textbf{Teoretická analýza}
+\begin{itemize}
+\item $P(x)=1$, $Q(x)=1$, $\mu(x)=e^{x}$, maximální interval $\mathbb{R}$,
+\item stacionární řešení $y=1$.
+\end{itemize}
+
+\textbf{Postup řešení}
+\begin{enumerate}
+\item $\frac{d}{dx}[e^{x}y]=e^{x}$.
+\item $e^{x}y=e^{x}+C \Rightarrow y=1+Ce^{-x}$.
+\item $y(0)=0 \Rightarrow C=-1$; tedy $y(x)=1-e^{-x}$.
+\end{enumerate}
+
+\textbf{Numerická verifikace}
+\begin{verbatim}
+from scipy.integrate import solve_ivp
+import numpy as np
+
+def rhs(x, y):
+    return 1 - y
+
+sol = solve_ivp(rhs, [0, 5], [0], t_eval=np.linspace(0, 5, 200))
+err = np.max(np.abs(sol.y[0] - (1 - np.exp(-sol.t))))
+print(f"Maximální chyba: {err:.2e}")
+\end{verbatim}
+\end{example}
+
+\subsubsection{Homogenní rovnice — elementární}
+\label{subsec:1a-homogenni}
+
+\begin{example}[1A.5: Základní homogenní rovnice]
+\label{ex:1a5}
+
+\textbf{Identifikace}
+\begin{itemize}
+\item \textbf{Typ}: homogenní
+\item \textbf{Úroveň}: 1A — elementární
+\item \textbf{Finanční kontext}: relativní růst
+\end{itemize}
+
+\textbf{Zadání}
+\[
+\frac{dy}{dx}=\frac{y}{x}, \qquad y(1)=2.
+\]
+
+\textbf{Teoretická analýza}
+\begin{itemize}
+\item Homogenní stupně $0$: $f(tx,ty)=f(x,y)$,
+\item singulární bod $x=0$ rozděluje $\mathbb{R}$,
+\item speciální přímková řešení $y=kx$.
+\end{itemize}
+
+\textbf{Postup řešení}
+\begin{enumerate}
+\item Substituce $v=y/x$ $\Rightarrow$ $y=vx$, $y'=v+xv'$.
+\item $v+xv'=v \Rightarrow x v' = 0 \Rightarrow v=C$.
+\item $y=Cx$, z $y(1)=2$ plyne $C=2$: $y(x)=2x$.
+\end{enumerate}
+
+\textbf{Finanční interpretace}
+\begin{itemize}
+\item Poměrový (proporcionální) vztah mezi veličinami.
+\end{itemize}
+\end{example}
+
+\subsubsection{Exaktní rovnice — elementární}
+\label{subsec:1a-exaktni}
+
+\begin{example}[1A.6: Základní exaktní rovnice]
+\label{ex:1a6}
+
+\textbf{Identifikace}
+\begin{itemize}
+\item \textbf{Typ}: exaktní
+\item \textbf{Úroveň}: 1A — elementární
+\item \textbf{Finanční kontext}: konzervativní (rozpočtové) omezení
+\end{itemize}
+
+\textbf{Zadání}
+\[
+(2x+y)\,dx + (x+2y)\,dy = 0, \qquad y(0)=1.
+\]
+
+\textbf{Teoretická analýza}
+\begin{itemize}
+\item $M(x,y)=2x+y$, $N(x,y)=x+2y$,
+\item exaktnost: $M_y=N_x=1$,
+\item potenciál $F$ splňuje $F_x=M$, $F_y=N$.
+\end{itemize}
+
+\textbf{Postup řešení}
+\begin{enumerate}
+\item Integrace $F_x=2x+y \Rightarrow F=x^2+xy+g(y)$.
+\item $F_y = x + g'(y) = x + 2y \Rightarrow g'(y)=2y \Rightarrow g(y)=y^2 + C_1$.
+\item Potenciál: $F(x,y)=x^2+xy+y^2 + C_1$.
+\item Implicitní řešení: $x^2+xy+y^2 = C$.
+\item Z $y(0)=1$ plyne $C=1$: $x^2+xy+y^2=1$.
+\end{enumerate}
+
+\textbf{Praktická implementace}
+\begin{verbatim}
+import numpy as np
+import matplotlib.pyplot as plt
+
+def branches(x):
+    # y^2 + x*y + (x**2 - 1) = 0
+    D = x**2 - 4*(x**2 - 1)
+    D = np.maximum(D, 0)  # numerická ochrana
+    y1 = (-x + np.sqrt(D)) / 2
+    y2 = (-x - np.sqrt(D)) / 2
+    return y1, y2
+
+x = np.linspace(-1.5, 1.5, 400)
+y1, y2 = branches(x)
+
+plt.plot(x, y1, label='větev 1')
+plt.plot(x, y2, label='větev 2')
+plt.plot([0], [1], 'go', label='poč. podmínka')
+plt.gca().set_aspect('equal', 'box')
+plt.xlabel('x'); plt.ylabel('y'); plt.grid(True); plt.legend()
+plt.title(r'Implicitní křivka: $x^2 + xy + y^2 = 1$')
+plt.show()
+\end{verbatim}
+
+\textbf{Varování a pasti}
+\begin{itemize}
+\item Před řešením vždy ověřit exaktnost.
+\item Implicitní řešení nemusí být globálně jednoznačné (více větví).
+\end{itemize}
+\end{example}
+
+\subsubsection{Shrnutí úrovně 1A}
+\label{sec:shrnuti-1a}
+
+Úroveň 1A pokryla elementární příklady všech čtyř základních typů ODE 1.~řádu:
+
+\begin{table}[t]
+\centering
+\caption{Přehled úrovně 1A}
+\label{tab:prehled-1a}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Příklad} & \textbf{Typ} & \textbf{Řešení} & \textbf{Finanční aplikace} \\
+\hline
+1A.1 & Separovatelná & $y=x^2+1$ & Základní růst \\
+1A.2 & Separovatelná & $y=1-e^{-x}$ & Růst k saturaci \\
+1A.3 & Lineární homog. & $y=3e^{-2x}$ & Diskontování \\
+1A.4 & Lineární nehom. & $y=1-e^{-x}$ & Růst s příspěvky \\
+1A.5 & Homogenní & $y=2x$ & Relativní růst \\
+1A.6 & Exaktní & $x^2+xy+y^2=1$ & Rozpočtové omezení \\
+\hline
+\end{tabular}
+\end{table}
+
+\textbf{Dosažené dovednosti}:
+\begin{itemize}
+\item identifikace základních typů ODE 1.~řádu,
+\item aplikace příslušných řešicích metod,
+\item určení maximálních intervalů existence,
+\item finanční interpretace výsledků,
+\item základní numerická implementace a verifikace.
+\end{itemize}
+
+\emph{Pokračování v Úrovni 1B: příklady s komplexnějšími počátečními podmínkami a finančními aplikacemi.}
+
+\subsection{Úroveň 1B: Příklady s komplexními podmínkami}
+\label{sec:uroven-1b}
+
+\subsubsection{Separovatelné rovnice s analýzou singularit}
+\label{subsec:1b-separovatelne}
+
+\begin{example}[1B.1: Separovatelná s kvadratickou nelinearitou]
+\label{ex:1b1}
+
+\textbf{Identifikace}
+\begin{itemize}
+\item \textbf{Typ}: separovatelná
+\item \textbf{Úroveň}: 1B — s komplexní podmínkou
+\item \textbf{Finanční kontext}: růst s kvadratickým rizikem
+\end{itemize}
+
+\textbf{Zadání}
+\[
+\frac{dy}{dx} = x\, y^2, \qquad y(0) = 1.
+\]
+
+\textbf{Teoretická analýza}
+\begin{itemize}
+\item $g(x) = x$ spojité na $I=\mathbb{R}$,
+\item $h(y)=y^2$ spojité na $J=\mathbb{R}$,
+\item singulární řešení: $y\equiv 0$,
+\item maximální interval existence: určíme z řešení,
+\item lokální Lipschitzovskost v okolí $y\neq 0$.
+\end{itemize}
+
+\textbf{Kroky řešení}
+\begin{enumerate}
+\item Separace: $\dfrac{dy}{y^2} = x\,dx$.
+\item Integrace: $\int y^{-2}\,dy = \int x\,dx \Rightarrow -y^{-1} = \tfrac{x^2}{2} + C$.
+\item Explicitně: $y(x) = -\dfrac{1}{\frac{x^2}{2}+C}$.
+\item Z $y(0)=1$: $1 = -1/C \Rightarrow C=-1$.
+\item Řešení: $y(x)=\dfrac{2}{2-x^2}$.
+\end{enumerate}
+
+\textbf{Analýza intervalů existence}
+\begin{itemize}
+\item Singularita, kde $2-x^2=0 \Rightarrow x=\pm\sqrt{2}$.
+\item Maximální interval s $x_0=0$: $(-\sqrt{2},\sqrt{2})$.
+\item Blow-up v konečném čase při $x\to \pm\sqrt{2}$.
+\end{itemize}
+
+\textbf{Kontrolní body}
+\begin{itemize}
+\item ✓ Separovatelnost a integrace,
+\item ✓ správná konstanta z $y(0)=1$,
+\item ✓ správně určený maximální interval,
+\item ✓ $y(\sqrt{2}^{-})\to +\infty$.
+\end{itemize}
+
+\textbf{Finanční interpretace}
+\begin{itemize}
+\item Spekulativní růst s nelineárně rostoucím rizikem,
+\item blow-up jako proxy pro kolaps/bublinu.
+\end{itemize}
+
+\textbf{Praktická implementace}
+\begin{verbatim}
+import numpy as np
+import matplotlib.pyplot as plt
+
+def speculative_growth(x):
+    """Model spekulativního růstu s blow-up."""
+    return 2 / (2 - x**2)
+
+# Výpočet na maximálním intervalu
+x_vals = np.linspace(-1.4, 1.4, 1000)  # vyhneme se singularitám
+y_vals = speculative_growth(x_vals)
+
+plt.figure(figsize=(10, 6))
+plt.plot(x_vals, y_vals, linewidth=2, label='Spekulativní růst')
+plt.axvline(x=-np.sqrt(2), linestyle='--', label='Singularity')
+plt.axvline(x= np.sqrt(2), linestyle='--')
+plt.axhline(y=0, linestyle='-', alpha=0.3)
+plt.xlabel('Čas / rizikový faktor (x)')
+plt.ylabel('Hodnota investice (y)')
+plt.title(r'Spekulativní růst s blow-up v $x = \pm\sqrt{2}$')
+plt.legend(); plt.grid(True); plt.ylim(-10, 10); plt.show()
+
+# Risk analysis: čas do blow-up pro obecné y0 = y(0)
+def blow_up_time(y0):
+    """Čas do blow-up (pro počáteční podmínku y(0)=y0>0)."""
+    return np.sqrt(2 / y0)
+
+print([blow_up_time(y0) for y0 in [0.5, 1, 2]])  # [2.0, 1.414..., 1.0]
+\end{verbatim}
+
+\textbf{Risk management}
+\begin{itemize}
+\item blow-up riziko v konečném čase,
+\item indikátor: rychlý růst derivací u hranice intervalu,
+\item pravidlo: exit před dosažením kritických bodů.
+\end{itemize}
+
+\textbf{Citlivost}
+\begin{itemize}
+\item $\displaystyle \frac{\partial y}{\partial x}=\frac{4x}{(2-x^2)^2}$,
+\item $\displaystyle \frac{\partial^2 y}{\partial x^2}=\frac{4(3x^2+2)}{(2-x^2)^3}$ (explozivní nárůst u singularit).
+\end{itemize}
+\end{example}
+
+\begin{example}[1B.2: Separovatelná s exponenciálním růstem]
+\label{ex:1b2}
+
+\textbf{Identifikace}
+\begin{itemize}
+\item \textbf{Typ}: separovatelná
+\item \textbf{Úroveň}: 1B — s komplexní podmínkou
+\item \textbf{Finanční kontext}: růst s exponenciálním akcelerátorem
+\end{itemize}
+
+\textbf{Zadání}
+\[
+\frac{dy}{dx} = e^{-x}\,y, \qquad y(0) = 2.
+\]
+
+\textbf{Teoretická analýza}
+\begin{itemize}
+\item $g(x)=e^{-x}$, $h(y)=y$; singulární řešení $y\equiv 0$,
+\item existence/jednoznačnost: Picard–Lindelöf, maximální interval $\mathbb{R}$.
+\end{itemize}
+
+\textbf{Kroky řešení}
+\begin{enumerate}
+\item $\dfrac{dy}{y}=e^{-x}dx$.
+\item $\ln|y| = -e^{-x} + C$.
+\item $|y| = K e^{-e^{-x}}$.
+\item Z $y(0)=2$: $2=K e^{-1} \Rightarrow K=2e$.
+\item $\displaystyle y(x)=2e^{\,1 - e^{-x}}$.
+\end{enumerate}
+
+\textbf{Asymptotika}
+\begin{itemize}
+\item $x\to -\infty$: $e^{-x}\to \infty \Rightarrow y\to 0^+$,
+\item $x\to +\infty$: $e^{-x}\to 0 \Rightarrow y\to 2e\approx 5.436$,
+\item monotonně rostoucí bez singularit (globální existence).
+\end{itemize}
+
+\textbf{Finanční interpretace}
+\begin{itemize}
+\item Růst k asymptotické úrovni s „exponenciálním náběhem“,
+\item vhodné pro zralé firmy s klesající marginální dynamikou.
+\end{itemize}
+
+\textbf{Praktická implementace}
+\begin{verbatim}
+import numpy as np
+import matplotlib.pyplot as plt
+
+def saturated_growth(x, y0=2):
+    """Růst s exponenciální saturací; y(0)=y0."""
+    return y0 * np.exp(1 - np.exp(-x))
+
+x = np.linspace(-5, 10, 1000)
+y = saturated_growth(x)
+
+plt.figure(figsize=(12, 6))
+plt.subplot(1, 2, 1)
+plt.plot(x, y, linewidth=2)
+plt.xlabel('Čas (x)'); plt.ylabel('Hodnota investice (y)')
+plt.title('Růst s exponenciální saturací'); plt.grid(True)
+
+plt.subplot(1, 2, 2)
+plt.semilogy(x, y, linewidth=2)
+plt.xlabel('Čas (x)'); plt.ylabel('log y')
+plt.title('Logaritmický pohled'); plt.grid(True)
+plt.tight_layout(); plt.show()
+
+# Citlivost na počáteční podmínku
+def sensitivity_plot(x_range, y0s):
+    plt.figure(figsize=(10, 6))
+    for y0 in y0s:
+        plt.plot(x_range, saturated_growth(x_range, y0), label=f'y0={y0}')
+    plt.legend(); plt.grid(True)
+    plt.xlabel('x'); plt.ylabel('y'); plt.title('Citlivost na y0'); plt.show()
+
+sensitivity_plot(np.linspace(-2, 8, 150), [1, 2, 3, 4])
+\end{verbatim}
+
+\textbf{Risk management}
+\begin{itemize}
+\item omezený růst (strop $=2e$ pro dané $y_0=2$),
+\item zpomalování růstu v čase $\Rightarrow$ riziko nedosažení cíle v krátkém horizontu.
+\end{itemize}
+
+\textbf{Extenze}
+\begin{itemize}
+\item obecně: $y(x)=y_0 e^{\,1 - e^{-x}}$,
+\item $95\%$ limitu dosaženo přibližně při $x\approx -\ln(0.05)\approx 3$.
+\end{itemize}
+\end{example}
+
+\subsubsection{Lineární rovnice s proměnnými koeficienty}
+\label{subsec:1b-linearne}
+
+\begin{example}[1B.3: Lineární rovnice s proměnnou sazbou]
+\label{ex:1b3}
+
+\textbf{Identifikace}
+\begin{itemize}
+\item \textbf{Typ}: lineární homogenní s proměnnými koeficienty
+\item \textbf{Úroveň}: 1B — s komplexní podmínkou
+\item \textbf{Finanční kontext}: bond pricing s časově proměnnou sazbou
+\end{itemize}
+
+\textbf{Zadání}
+\[
+\frac{dP}{dt} + \bigl(0.02 + 0.001t\bigr)P = 0, \qquad P(0)=100.
+\]
+
+\textbf{Teoretická analýza}
+\begin{itemize}
+\item $a(t)=0.02+0.001t$ spojité na $[0,\infty)$,
+\item integrační faktor $\mu(t)=\exp\!\left(0.02t+0.0005t^2\right)$,
+\item řešení $P(t)=100\,\exp\!\left(-0.02t-0.0005t^2\right)$,
+\item $P(t)\searrow 0$ pro $t\to\infty$.
+\end{itemize}
+
+\textbf{Praktická implementace}
+\begin{verbatim}
+import numpy as np
+import matplotlib.pyplot as plt
+
+def bond_price(t, face=100, a=0.02, b=0.001):
+    """Zero-coupon cena s lineárně rostoucí okamžitou sazbou a(t)=a+b t."""
+    return face * np.exp(-a*t - 0.5*b*t**2)
+
+mats = np.linspace(0, 30, 200)
+prices = bond_price(mats)
+
+plt.figure(figsize=(12,5))
+plt.subplot(1,2,1)
+plt.plot(mats, prices, linewidth=2)
+plt.xlabel('Maturita (roky)'); plt.ylabel('Cena ($)')
+plt.title('Zero-Coupon Bond Pricing'); plt.grid(True)
+
+plt.subplot(1,2,2)
+def ytm_from_price(t, p, face=100):
+    return -np.log(p/face)/t
+
+ytm = [ytm_from_price(t, p) for t, p in zip(mats[1:], prices[1:])]
+plt.plot(mats[1:], ytm, linewidth=2)
+plt.xlabel('Maturita (roky)'); plt.ylabel('YTM'); plt.title('Yield Curve')
+plt.grid(True); plt.tight_layout(); plt.show()
+
+# Jednoduché proxy metriky citlivosti (ilustrativní)
+def duration_proxy(t, a=0.02, b=0.001):
+    return t  # efektivní citlivost na posun sazby ~ úměrná maturitě
+
+def convexity_proxy(t, a=0.02, b=0.001):
+    return t**2  # kvadratická závislost (ilustrativní)
+
+plt.figure(figsize=(10,6))
+plt.plot(mats, duration_proxy(mats), label='Duration proxy')
+plt.plot(mats, convexity_proxy(mats), label='Convexity proxy')
+plt.xlabel('Maturita (roky)'); plt.ylabel('Hodnota (rel.)')
+plt.title('Proxy citlivosti'); plt.legend(); plt.grid(True); plt.show()
+\end{verbatim}
+
+\textbf{Risk management}
+\begin{itemize}
+\item úrokové riziko roste s maturitou,
+\item pro rostoucí sazby preferovat kratší splatnosti,
+\item citlivost parametricky: $\partial_a P=-tP$, $\partial_b P=-\tfrac{1}{2}t^2 P$.
+\end{itemize}
+\end{example}
+
+\begin{example}[1B.4: Lineární rovnice s harmonickým forcingem]
+\label{ex:1b4}
+
+\textbf{Identifikace}
+\begin{itemize}
+\item \textbf{Typ}: lineární nehomogenní
+\item \textbf{Úroveň}: 1B — s komplexní podmínkou
+\item \textbf{Finanční kontext}: cyklický cash flow s úrokovým zatížením
+\end{itemize}
+
+\textbf{Zadání}
+\[
+\frac{dC}{dt} + 0.1\,C = 50\sin(0.5t), \qquad C(0)=1000,
+\]
+kde $C(t)$ je hotovostní zůstatek.
+
+\textbf{Teoretická analýza}
+\begin{itemize}
+\item $\mu(t)=e^{0.1 t}$, 
+\item $\displaystyle \int e^{0.1t}\sin(0.5t)\,dt=\frac{e^{0.1t}\bigl(0.1\sin(0.5t)-0.5\cos(0.5t)\bigr)}{0.1^2+0.5^2}+C$,
+\item $C(t)=\dfrac{50}{0.26}\bigl(0.1\sin(0.5t)-0.5\cos(0.5t)\bigr)+K e^{-0.1t}$,
+\item z $C(0)=1000$ plyne $K=1000 + \dfrac{50}{0.26}\cdot 0.5 \approx 1096.15$.
+\end{itemize}
+
+\textbf{Asymptotika}
+\begin{itemize}
+\item homogenní část $K e^{-0.1t}\to 0$,
+\item přechod do ustálené periodické odpovědi se špičkovou amplitudou $\approx \dfrac{50}{\sqrt{0.1^2+0.5^2}}\approx 98$.
+\end{itemize}
+
+\textbf{Praktická implementace}
+\begin{verbatim}
+import numpy as np
+import matplotlib.pyplot as plt
+
+def cash_balance(t, C0=1000, A=50, w=0.5, r=0.1):
+    """Cash balance s periodickým přílivem a úrokem."""
+    # Koeficienty partikulárního řešení
+    denom = r**2 + w**2
+    A_sin = A * r / denom
+    A_cos = -A * w / denom
+    # Konstanta homogenní části z C(0)
+    K = C0 - (A_sin * np.sin(w*0) + A_cos * np.cos(w*0))
+    return A_sin * np.sin(w*t) + A_cos * np.cos(w*t) + K * np.exp(-r*t)
+
+t = np.linspace(0, 50, 1000)
+C = cash_balance(t)
+
+plt.figure(figsize=(12,6))
+plt.subplot(1,2,1)
+plt.plot(t, C, linewidth=2)
+plt.axhline(0, linestyle='--')
+plt.xlabel('Čas (měsíce)'); plt.ylabel('Cash ($)')
+plt.title('Dynamika cash flow se sezónností'); plt.grid(True)
+
+plt.subplot(1,2,2)
+t2 = np.linspace(0, 24, 600)
+C2 = cash_balance(t2)
+plt.plot(t2, C2, linewidth=2, color='tab:green')
+plt.xlabel('Čas (měsíce)'); plt.ylabel('Cash ($)')
+plt.title('Detail: první 2 roky'); plt.grid(True)
+plt.tight_layout(); plt.show()
+
+# Rychlá risk analýza
+min_cash = np.min(C)
+asym_amp = 50 / np.sqrt(0.1**2 + 0.5**2)
+t95 = -np.log(0.05) / 0.1  # 95% zániku homogenní složky
+print(f"Minimální cash: ${min_cash:.2f}")
+print(f"Čas do ~stabilního stavu: {t95:.1f} měsíců")
+print(f"Amplituda ustálených oscilací: ${asym_amp:.2f}")
+\end{verbatim}
+
+\textbf{Risk management}
+\begin{itemize}
+\item \textit{Likvidita}: hlídat minima (negativní cash),
+\item \textit{Cykličnost}: rezervy na sezónní výkyvy,
+\item \textit{Úrok}: náklady držby hotovosti.
+\end{itemize}
+\end{example}
+
+\subsubsection{Shrnutí úrovně 1B}
+\label{sec:shrnuti-1b}
+
+Úroveň 1B pokryla pokročilejší příklady s komplexnějšími podmínkami a aplikacemi:
+
+\begin{table}[h]
+\centering
+\caption{Přehled úrovně 1B}
+\label{tab:prehled-1b}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Příklad} & \textbf{Typ} & \textbf{Klíčový prvek} & \textbf{Aplikace} \\
+\hline
+1B.1 & Separovatelná & Singularita, blow-up & Spekulativní bubliny \\
+1B.2 & Separovatelná & Exponenciální saturace & Růst zralé společnosti \\
+1B.3 & Lineární      & Proměnná sazba         & Bond pricing, yield curve \\
+1B.4 & Lineární      & Periodický forcing      & Sezónní cash flow \\
+\hline
+\end{tabular}
+\end{table}
+
+\textbf{Rozšířené dovednosti}:
+\begin{itemize}
+\item práce s maximálními intervaly existence a singularitami,
+\item lineární ODE s proměnnými koeficienty a periodickými vstupy,
+\item hlubší finanční interpretace a základní risk metriky,
+\item numerická verifikace a vizualizace.
+\end{itemize}
+
+\emph{Pokračování v Úrovni 1C: pokročilé finanční aplikace a komplexnější modely.}
+
+\subsection{Úroveň 1C: Pokročilé finanční aplikace}
+\label{sec:uroven-1c}
+
+\subsubsection{Logistický růst a kapacita trhu}
+\label{subsec:logisticky-rust}
+
+\begin{example}[Logistický růst portfolia s analýzou stability]
+\label{ex:logisticky-rust-portfolio}
+
+\begin{itemize}
+\item \textbf{Identifikace}: Separovatelná rovnice
+\item \textbf{Úroveň}: 1C -- Pokročilé finanční aplikace
+\item \textbf{Finanční kontext}: Růst fondu s kapacitou trhu
+\end{itemize}
+
+\noindent\textbf{Zadání}
+\[
+\frac{dA}{dt} = 0.15\, A \left(1 - \frac{A}{2\,000\,000\,000}\right), \quad A(0) = 100\,000\,000
+\]
+kde $A(t)$ je hodnota portfolia v USD, $2\,000\,000\,000$ je kapacita trhu.
+
+\noindent\textbf{Teoretická analýza}
+\begin{itemize}
+\item Stacionární body: $A = 0$ (nestabilní), $A = K = 2\,000\,000\,000$ (stabilní)
+\item Maximální interval: $\mathbb{R}$ pro $0 < A(0) < K$
+\item Logistická rovnice -- separovatelný typ
+\item Existence a jednoznačnost: zaručena Picard--Lindelöf
+\end{itemize}
+
+\noindent\textbf{Kroky řešení}
+\begin{enumerate}
+\item \textbf{Separace proměnných}:
+\[
+\frac{dA}{A(1 - A/K)} = r\, dt
+\]
+\item \textbf{Rozklad na parciální zlomky}:
+\[
+\frac{1}{A(1 - A/K)} = \frac{1}{A} + \frac{1/K}{1 - A/K}
+\]
+\item \textbf{Integrace}:
+\[
+\int \!\left(\frac{1}{A} + \frac{1/K}{1 - A/K}\right) dA = \int r\, dt
+\]
+\item \textbf{Výpočet integrálů}:
+\[
+\ln|A| - \ln|1 - A/K| = rt + C
+\]
+\item \textbf{Logaritmická úprava}:
+\[
+\ln\!\left|\frac{A}{1 - A/K}\right| = rt + C
+\]
+\item \textbf{Exponenciace}:
+\[
+\frac{A}{1 - A/K} = e^{rt + C} = C_1 e^{rt}
+\]
+\item \textbf{Explicitní vyjádření}:
+\[
+A(t) = \frac{K}{1 + \left(\frac{K}{A_0} - 1\right) e^{-rt}}
+\]
+\item \textbf{Dosazení hodnot}:
+\[
+A(t) = \frac{2\,000\,000\,000}{1 + 19\, e^{-0.15 t}}
+\]
+\end{enumerate}
+
+\noindent\textbf{Analýza stability}
+\begin{itemize}
+\item Derivace pravé strany: $J(A) = r - \frac{2rA}{K}$
+\item Vlastní čísla: $\lambda(0) = r > 0$ (nestabilní), $\lambda(K) = -r < 0$ (stabilní)
+\item Basin přitažlivosti: $(0, K)$
+\end{itemize}
+
+\noindent\textbf{Kontrolní body}
+\begin{itemize}
+\item ✓ Ověření separovatelnosti
+\item ✓ Správnost parciálních zlomků
+\item ✓ Integrace a exponenciace
+\item ✓ Počáteční podmínka: $A(0) = 100\,000\,000$
+\item ✓ Asymptotické chování: $A(t) \to K$ pro $t \to \infty$
+\end{itemize}
+
+\noindent\textbf{Finanční interpretace}
+\begin{itemize}
+\item Model: Růst hedge fondu s omezením kapacity trhu
+\item $K$: Maximální možná velikost fondu v daném segmentu
+\item $r$: Míra růstu (15\% p.a.)
+\item Aplikace: Strategické plánování růstu fondu
+\end{itemize}
+
+\begin{lstlisting}[language=Python, caption={Implementace logistického růstu v Pythonu}, label={lst:logistic-growth}]
+import numpy as np
+import matplotlib.pyplot as plt
+
+def logistic_growth(t, A0=1e8, r=0.15, K=2e9):
+    """Logistický růst portfolia"""
+    return K / (1 + (K/A0 - 1) * np.exp(-r*t))
+
+# Výpočet trajektorie růstu
+t_vals = np.linspace(0, 50, 1000)
+A_vals = logistic_growth(t_vals)
+
+plt.figure(figsize=(12, 6))
+plt.plot(t_vals, A_vals / 1e6, 'b-', linewidth=2)
+plt.axhline(y=2000, color='r', linestyle='--', label='Kapacita trhu: 2 mld USD')
+plt.xlabel('Čas (roky)')
+plt.ylabel('Hodnota portfolia (mil. USD)')
+plt.title('Logistický růst hedge fondu')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# Analýza času dosažení cílových hodnot
+def time_to_target(target_value, A0=1e8, r=0.15, K=2e9):
+    """Čas potřebný k dosažení cílové hodnoty"""
+    return -np.log((K/target_value - 1) / (K/A0 - 1)) / r
+
+targets = [5e8, 1e9, 1.5e9]  # 500 mil, 1 mld, 1.5 mld USD
+times = [time_to_target(target) for target in targets]
+for target, time in zip(targets, times):
+    print(f"Dosažení {target/1e6:.0f} mil. USD: {time:.1f} let")
+\end{lstlisting}
+
+\noindent\textbf{Risk management}
+\begin{itemize}
+\item \textbf{Kapacitní riziko}: Omezený růstový potenciál
+\item \textbf{Časové riziko}: Zpomalování růstu s blížící se kapacitě
+\item \textbf{Doporučení}: Diverzifikace do nových trhů při blížící se kapacitě
+\end{itemize}
+
+\noindent\textbf{Sensitivní analýza}
+\begin{itemize}
+\item \textbf{Delta vůči $r$}: $\displaystyle \frac{\partial A}{\partial r} = \frac{K\bigl(\frac{K}{A_0} - 1\bigr)\, t\, e^{-rt}}{\bigl[1 + (\frac{K}{A_0} - 1)e^{-rt}\bigr]^2}$
+\item \textbf{Delta vůči $K$}: $\displaystyle \frac{\partial A}{\partial K} = \frac{1 + \bigl(\frac{1}{A_0} - \frac{1}{K}\bigr)e^{-rt}}{\bigl[1 + (\frac{K}{A_0} - 1)e^{-rt}\bigr]^2}$
+\item \textbf{Největší citlivost}: Na míru růstu $r$ v raných fázích
+\end{itemize}
+\end{example}
+
+\subsubsection{Mertonův model optimální spotřeby}
+\label{subsec:merton-model}
+
+\begin{example}[Mertonův model s konstantní spotřebou]
+\label{ex:merton-model}
+
+\begin{itemize}
+\item \textbf{Identifikace}: Lineární nehomogenní rovnice
+\item \textbf{Úroveň}: 1C -- Pokročilé finanční aplikace
+\item \textbf{Finanční kontext}: Optimální portfolio a spotřeba
+\end{itemize}
+
+\noindent\textbf{Zadání}
+\[
+\frac{dW}{dt} = 0.06\,W + 0.5\,(0.08 - 0.06)\,W - 50\,000, \quad W(0) = 1\,000\,000
+\]
+kde $W(t)$ je bohatství, $6\%$ bezriziková sazba, $8\%$ výnos akcií, $50\%$ alokace do akcií, $50\,000$ roční spotřeba.
+
+\noindent\textbf{Teoretická analýza}
+\begin{itemize}
+\item Zjednodušení: $\displaystyle \frac{dW}{dt} = 0.07\,W - 50\,000$
+\item $P(t) = -0.07$, $Q(t) = -50\,000$
+\item Maximální interval: $\mathbb{R}$
+\item Kritická hodnota: $W^* = 50\,000/0.07 \approx 714\,286$
+\item Stacionární bod: $W = 714\,286$ (stabilní)
+\end{itemize}
+
+\noindent\textbf{Kroky řešení}
+\begin{enumerate}
+\item \textbf{Standardní tvar}: $W' - 0.07\,W = -50\,000$
+\item \textbf{Integrační faktor}: $\mu(t) = e^{\int -0.07\, dt} = e^{-0.07t}$
+\item \textbf{Derivace součinu}:
+\[
+\frac{d}{dt}\!\bigl(e^{-0.07t}W\bigr) = e^{-0.07t}\,(W' - 0.07W) = -50\,000\, e^{-0.07t}
+\]
+\item \textbf{Integrace}:
+\[
+e^{-0.07t}W = \frac{50\,000}{0.07}\, e^{-0.07t} + C
+\]
+\item \textbf{Obecné řešení}:
+\[
+W(t) = \frac{50\,000}{0.07} + C\, e^{0.07t}
+\]
+\item \textbf{Určení konstanty}:
+\[
+1\,000\,000 = 714\,286 + C \quad\Rightarrow\quad C = 285\,714
+\]
+\item \textbf{Konečné řešení}:
+\[
+W(t) = 714\,286 + 285\,714\, e^{0.07t}
+\]
+\end{enumerate}
+
+\noindent\textbf{Analýza dlouhodobého chování}
+\begin{itemize}
+\item Pro $t \to \infty$: $W(t) \to \infty$, pokud $C > 0$
+\item Kritický případ: $C = 0$ vede ke konstantnímu bohatství
+\item Riziko vyčerpání: $W(t) < 0$ nenastane pro $C > 0$
+\end{itemize}
+
+\noindent\textbf{Kontrolní body}
+\begin{itemize}
+\item ✓ Správná identifikace lineární ODE
+\item ✓ Výpočet integračního faktoru
+\item ✓ Integrace a určení konstanty
+\item ✓ Počáteční podmínka: $W(0) = 1\,000\,000$
+\item ✓ Finanční smysluplnost: rostoucí bohatství
+\end{itemize}
+
+\noindent\textbf{Finanční interpretace}
+\begin{itemize}
+\item Model: Optimální spotřeba a investice (Merton, 1969)
+\item $W(t)$: Celkové bohatství
+\item $50\,000$: Konstantní roční spotřeba
+\item $7\%$: Očekávaný výnos portfolia
+\item Aplikace: Dlouhodobé finanční plánování
+\end{itemize}
+
+\begin{lstlisting}[language=Python, caption={Implementace Mertonova modelu v Pythonu}, label={lst:merton}]
+import numpy as np
+import matplotlib.pyplot as plt
+
+def merton_wealth(t, W0=1e6, consumption=50000, portfolio_return=0.07):
+    """Mertonův model optimální spotřeby"""
+    W_star = consumption / portfolio_return
+    C = W0 - W_star
+    return W_star + C * np.exp(portfolio_return * t)
+
+# Simulace vývoje bohatství
+t_vals = np.linspace(0, 30, 100)
+W_vals = merton_wealth(t_vals)
+
+plt.figure(figsize=(12, 6))
+
+plt.subplot(1, 2, 1)
+plt.plot(t_vals, W_vals / 1e6, 'b-', linewidth=2, label='Bohatství')
+plt.axhline(y=0.714, color='r', linestyle='--', label='Kritická hodnota')
+plt.xlabel('Čas (roky)')
+plt.ylabel('Bohatství (mil. USD)')
+plt.title('Mertonův model optimální spotřeby')
+plt.legend()
+plt.grid(True)
+
+plt.subplot(1, 2, 2)
+# Analýza citlivosti na spotřebu
+consumptions = [40000, 50000, 60000]
+for cons in consumptions:
+    W_vals_cons = merton_wealth(t_vals, consumption=cons)
+    plt.plot(t_vals, W_vals_cons / 1e6, label=f'Spotřeba: {cons/1000:.0f}k USD')
+plt.xlabel('Čas (roky)')
+plt.ylabel('Bohatství (mil. USD)')
+plt.title('Citlivost na úroveň spotřeby')
+plt.legend()
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
+
+# Analýza bezpečnosti strategie
+def safety_analysis(W0=1e6, consumption=50000, portfolio_return=0.07, years=30):
+    """Analýza bezpečnosti spotřební strategie"""
+    final_wealth = merton_wealth(years, W0, consumption, portfolio_return)
+    critical_consumption = W0 * portfolio_return
+    
+    print(f"Počáteční bohatství: {W0:,.0f} USD")
+    print(f"Roční spotřeba: {consumption:,.0f} USD")
+    print(f"Kritická spotřeba: {critical_consumption:,.0f} USD")
+    print(f"Bohatství po {years} letech: {final_wealth:,.0f} USD")
+    
+    if consumption > critical_consumption:
+        print("⚠️  VAROVÁNÍ: Spotřeba převyšuje kritickou úroveň!")
+        print("Riziko vyčerpání bohatství v konečném čase")
+    else:
+        print("✅ Strategie je bezpečná")
+
+safety_analysis()
+\end{lstlisting}
+
+\noindent\textbf{Risk management}
+\begin{itemize}
+\item \textbf{Spotřební riziko}: Příliš vysoká spotřeba vede k vyčerpání
+\item \textbf{Tržní riziko}: Nižší než očekávané výnosy portfolia
+\item \textbf{Doporučení}: Spotřeba pod kritickou úrovní $r W_0$
+\end{itemize}
+
+\noindent\textbf{Extenze modelu}
+\begin{itemize}
+\item Obecné řešení: $\displaystyle W(t) = \frac{c}{r} + \left(W_0 - \frac{c}{r}\right) e^{rt}$
+\item Kalibrace: Odhad $r$ z historických dat portfolia
+\item Dynamická spotřeba: $c(t)$ jako funkce času
+\end{itemize}
+\end{example}
+
+\subsubsection{Dividendový diskontní model s růstem}
+\label{subsec:dividendovy-model}
+
+\begin{example}[Gordonův růstový model s dynamikou]
+\label{ex:gordon-growth}
+
+\begin{itemize}
+\item \textbf{Identifikace}: Lineární nehomogenní rovnice
+\item \textbf{Úroveň}: 1C -- Pokročilé finanční aplikace
+\item \textbf{Finanční kontext}: Oceňování akcií s rostoucími dividendami
+\end{itemize}
+
+\noindent\textbf{Zadání}
+\[
+\frac{dS}{dt} = 0.05\,S - D_0\, e^{g t}, \quad S(0) = S_0
+\]
+kde $S(t)$ je cena akcie, požadovaná výnosnost $r=0.05$, $D_0 = 2$ počáteční dividenda, $g = 0.03$ míra růstu dividend.
+
+\noindent\textbf{Teoretická analýza}
+\begin{itemize}
+\item $P(t) = -0.05$, $Q(t) = -2\,e^{0.03t}$
+\item Maximální interval: $\mathbb{R}$
+\item Integrační faktor: $\mu(t) = e^{-0.05t}$
+\item Partikulární řešení: variace konstant
+\end{itemize}
+
+\noindent\textbf{Kroky řešení}
+\begin{enumerate}
+\item \textbf{Standardní tvar}: $S' - 0.05\,S = -2 e^{0.03t}$
+\item \textbf{Integrační faktor}: $\mu(t) = e^{-0.05t}$
+\item \textbf{Derivace součinu}:
+\[
+\frac{d}{dt}\!\bigl(e^{-0.05t} S\bigr) = e^{-0.05t}\,(S' - 0.05 S) = -2\, e^{-0.02 t}
+\]
+\item \textbf{Integrace}:
+\[
+e^{-0.05t} S = -2 \int e^{-0.02 t}\, dt = \frac{2}{0.02}\, e^{-0.02 t} + C
+\]
+\item \textbf{Obecné řešení}:
+\[
+S(t) = 100\, e^{0.03 t} + C\, e^{0.05 t}
+\]
+\item \textbf{Určení konstanty} z počáteční podmínky $S(0) = S_0$:
+\[
+S_0 = 100 + C \quad\Rightarrow\quad C = S_0 - 100
+\]
+\item \textbf{Konečné řešení}:
+\[
+S(t) = 100\, e^{0.03 t} + (S_0 - 100)\, e^{0.05 t}
+\]
+\end{enumerate}
+
+\noindent\textbf{Analýza fundamentální hodnoty}
+\begin{itemize}
+\item Pro $S_0 = 100$: $S(t) = 100\, e^{0.03t}$ (spravedlivě oceněno)
+\item Pro $S_0 > 100$: Nadhodnocená akcie -- rychlejší růst
+\item Pro $S_0 < 100$: Podhodnocená akcie -- konvergence k fundamentální složce je pomalejší než růst s $r$
+\end{itemize}
+
+\noindent\textbf{Kontrolní body}
+\begin{itemize}
+\item ✓ Správná identifikace lineární ODE
+\item ✓ Integrace exponenciální funkce
+\item ✓ Určení partikulárního řešení
+\item ✓ Finanční interpretace různých scénářů
+\end{itemize}
+
+\noindent\textbf{Finanční interpretace}
+\begin{itemize}
+\item Model: Gordonův růstový model s dynamickou cenou
+\item $100\, e^{0.03t}$: Fundamentální složka ceny (diskontované rostoucí dividendy)
+\item $S_0 - 100$: Počáteční odchylka od fundamentu
+\item Aplikace: Identifikace nadhodnocených/podhodnocených akcií
+\end{itemize}
+
+\begin{lstlisting}[language=Python, caption={Implementace Gordonova modelu v Pythonu}, label={lst:gordon}]
+import numpy as np
+import matplotlib.pyplot as plt
+
+def gordon_price(t, S0, D0=2, r=0.05, g=0.03):
+    """Gordonův růstový model s dynamikou"""
+    fundamental = (D0 / (r - g)) * np.exp(g * t)
+    deviation = (S0 - D0/(r - g)) * np.exp(r * t)
+    return fundamental + deviation
+
+# Analýza různých počátečních ocenění
+t_vals = np.linspace(0, 20, 100)
+initial_prices = [80, 100, 120]  # Podhodnocená, spravedlivá, nadhodnocená
+
+plt.figure(figsize=(12, 6))
+
+for S0 in initial_prices:
+    S_vals = gordon_price(t_vals, S0)
+    label = f'$S_0$ = {S0} ({"pod" if S0 < 100 else "nad" if S0 > 100 else "spravedlivá"})'
+    plt.plot(t_vals, S_vals, label=label, linewidth=2)
+
+plt.xlabel('Čas (roky)')
+plt.ylabel('Cena akcie (USD)')
+plt.title('Gordonův růstový model - dynamika cen')
+plt.legend()
+plt.grid(True)
+plt.yscale('log')  # Logaritmické měřítko pro lepší viditelnost
+plt.show()
+
+# Trading strategie založená na odchylce od fundamentu
+def trading_strategy(S0, D0=2, r=0.05, g=0.03, horizon=5):
+    """Trading strategie založená na odchylce od fundamentální hodnoty"""
+    fundamental_value = D0 / (r - g)
+    mispricing = S0 - fundamental_value
+    expected_return = g if abs(mispricing) < 10 else r  # hrubá heurstika
+    
+    if mispricing < -10:  # Podhodnocená - koupit
+        action = "KOUPIT"
+        confidence = min(100, abs(mispricing))
+    elif mispricing > 10:  # Nadhodnocená - prodat
+        action = "PRODAT"
+        confidence = min(100, mispricing)
+    else:  # Spravedlivě oceněna - držet
+        action = "DRŽET"
+        confidence = 0
+    
+    print(f"Akcie s počáteční cenou: {S0:.1f} USD")
+    print(f"Fundamentální hodnota: {fundamental_value:.1f} USD")
+    print(f"Odchylka: {mispricing:+.1f} USD")
+    print(f"Doporučení: {action} (jistota: {confidence:.0f}%)")
+    print(f"Očekávaný výnos: {expected_return*100:.1f}% p.a.")
+
+# Test strategie pro různé scénáře
+test_prices = [75, 95, 100, 105, 125]
+for price in test_prices:
+    print(f"\n--- Analýza pro S0 = {price} USD ---")
+    trading_strategy(price)
+    print("-" * 40)
+\end{lstlisting}
+
+\noindent\textbf{Risk management}
+\begin{itemize}
+\item \textbf{Oceňovací riziko}: Chybný odhad parametrů $r$ a $g$
+\item \textbf{Dividendové riziko}: Neočekávaná změna růstu dividend
+\item \textbf{Doporučení}: Pravidelná rekalibrace modelu
+\end{itemize}
+
+\noindent\textbf{Sensitivní analýza}
+\begin{itemize}
+\item \textbf{Citlivost na $r$}: $\displaystyle \frac{\partial S}{\partial r} = -\frac{D_0}{(r-g)^2}\,e^{gt}$
+\item \textbf{Citlivost na $g$}: $\displaystyle \frac{\partial S}{\partial g} = \frac{D_0}{(r-g)^2}\,e^{gt}$
+\item \textbf{Největší riziko}: Chybný odhad míry růstu dividend $g$
+\end{itemize}
+\end{example}
+
+\subsubsection{Shrnutí úrovně 1C}
+\label{sec:shrnuti-uroven-1c}
+
+Úroveň 1C představila pokročilé finanční aplikace základních ODE 1. řádu:
+
+\begin{table}[h]
+\centering
+\caption{Přehled úrovně 1C}
+\label{tab:prehled-1c}
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Příklad} & \textbf{Typ} & \textbf{Klíčový koncept} & \textbf{Finanční aplikace} \\
+\midrule
+Logistický růst & Separovatelná & Kapacita trhu & Růst hedge fondu \\
+Mertonův model & Lineární & Optimální spotřeba & Finanční plánování \\
+Gordonův model & Lineární & Růst dividend & Oceňování akcií \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent\textbf{Zvládnuté dovednosti}:
+\begin{itemize}
+\item Aplikace separovatelných rovnic na modely s kapacitou
+\item Řešení lineárních rovnic s exponenciální pravou stranou
+\item Analýza stability a basinů přitažlivosti
+\item Pokročilá finanční interpretace a trading strategie
+\end{itemize}
+
+\noindent\textbf{Klíčové finanční koncepty}:
+\begin{itemize}
+\item Logistický růst a omezení kapacity trhu
+\item Mertonův model optimální spotřeby
+\item Gordonův růstový model pro oceňování akcií
+\item Identifikace odchylek od fundamentální hodnoty
+\end{itemize}
+
+% !TEX root = ../main.tex
+
+% !TEX root = ../main.tex
+
+\subsection{Úroveň 1D: Pokročilé aplikace základních typů}
+\label{sec:uroven-1d}
+
+\subsubsection{Pokročilé separovatelné rovnice v ekonomii}
+\label{subsec:pokrocile-separovatelne}
+
+\begin{example}[Model ekonomického růstu s technologickým pokrokem]
+\label{ex:ekonomicky-rust}
+
+\begin{itemize}
+\item \textbf{Identifikace}: Separovatelná rovnice
+\item \textbf{Úroveň}: 1D — Pokročilé aplikace
+\item \textbf{Finanční kontext}: Modelování dlouhodobého ekonomického růstu
+\end{itemize}
+
+\noindent\textbf{Zadání}
+Solowův model s technologickým pokrokem:
+\[
+\frac{dk}{dt} = s\,k^\alpha e^{\beta t} - (\delta + n)k, \quad k(0) = k_0,
+\]
+kde $k(t)$ je kapitál na jednotku efektivní práce, $s$ míra úspor, $\alpha$ elasticita výstupu, $\beta$ míra technologického pokroku, $\delta$ míra depreciace, $n$ míra růstu populace.
+
+\noindent\textbf{Teoretická analýza}
+\begin{itemize}
+\item Separovatelná rovnice: pravá strana je funkcí $k$ a $t$.
+\item Stacionární body: řešení $s\,k^\alpha e^{\beta t} = (\delta + n)k$.
+\item Maximální interval: $\mathbb{R}$ pro $k_0 > 0$.
+\item Existence a jednoznačnost: zaručena pro $k_0 > 0$.
+\end{itemize}
+
+\noindent\textbf{Kroky řešení}
+\begin{enumerate}
+\item \textbf{Separace proměnných}:
+\[
+\frac{dk}{s\,k^\alpha e^{\beta t} - (\delta + n)k} = dt.
+\]
+\item \textbf{Substituce}: $u = k^{1-\alpha}$.
+\item \textbf{Transformace rovnice}:
+\[
+\frac{du}{dt} = (1-\alpha)s\,e^{\beta t} - (1-\alpha)(\delta + n)u.
+\]
+\item \textbf{Lineární ODE pro $u$}:
+\[
+\frac{du}{dt} + (1-\alpha)(\delta + n)u = (1-\alpha)s\,e^{\beta t}.
+\]
+\item \textbf{Integrační faktor}: $\mu(t) = e^{(1-\alpha)(\delta + n)t}$.
+\item \textbf{Řešení pro $u(t)$}:
+\[
+u(t) = e^{-(1-\alpha)(\delta + n)t}\!\left[u_0 + (1-\alpha)s \!\int_0^t e^{\big((1-\alpha)(\delta + n) + \beta\big)\tau} d\tau \right].
+\]
+\item \textbf{Integrace}:
+\[
+u(t) = e^{-(1-\alpha)(\delta + n)t}\!\left[u_0 + \frac{(1-\alpha)s}{(1-\alpha)(\delta + n) + \beta}\!\left(e^{\big((1-\alpha)(\delta + n) + \beta\big)t} - 1\right)\right].
+\]
+\item \textbf{Návrat k $k(t)$}:
+\[
+k(t) = \left[e^{-(1-\alpha)(\delta + n)t}\!\left(k_0^{1-\alpha} + \frac{(1-\alpha)s}{(1-\alpha)(\delta + n) + \beta}\!\left(e^{\big((1-\alpha)(\delta + n) + \beta\big)t} - 1\right)\right)\right]^{\tfrac{1}{1-\alpha}}.
+\]
+\end{enumerate}
+
+\noindent\textbf{Analýza dlouhodobého chování}
+\begin{itemize}
+\item Pro $\beta > 0$: $k(t) \to \infty$ pro $t \to \infty$ (trvalý růst).
+\item Pro $\beta = 0$: konvergence ke stacionárnímu stavu.
+\item Růstová trajektorie: závislá na parametrech.
+\end{itemize}
+
+\noindent\textbf{Kontrolní body}
+\begin{itemize}
+\item ✓ Správná separace proměnných.
+\item ✓ Úspěšná substituce a transformace.
+\item ✓ Řešení lineární ODE.
+\item ✓ Finanční/ekonomická smysluplnost výsledku.
+\end{itemize}
+
+\noindent\textbf{Ekonomická interpretace}
+\begin{itemize}
+\item Model: Solowův model s technologickým pokrokem.
+\item $k(t)$: kapitál na jednotku efektivní práce.
+\item $s$: míra úspor a investic.
+\item $\beta$: míra technologického pokroku.
+\item Aplikace: analýza dlouhodobého ekonomického růstu.
+\end{itemize}
+
+\begin{lstlisting}[language=Python, caption={Implementace Solowova modelu v~Pythonu}]
+import numpy as np
+import matplotlib.pyplot as plt
+
+def solow_model(t, k0, s=0.3, alpha=0.3, beta=0.02, delta=0.05, n=0.01):
+    """Solowův model s technologickým pokrokem"""
+    A = (1 - alpha) * (delta + n)
+    B = (1 - alpha) * s / ((1 - alpha) * (delta + n) + beta)
+
+    u0 = k0 ** (1 - alpha)
+    u_t = np.exp(-A * t) * (u0 + B * (np.exp((A + beta) * t) - 1))
+    k_t = u_t ** (1 / (1 - alpha))
+    return k_t
+
+# Parametry modelu
+params_basic = {'s': 0.3, 'alpha': 0.3, 'beta': 0.02, 'delta': 0.05, 'n': 0.01}
+params_high_saving = {'s': 0.4, 'alpha': 0.3, 'beta': 0.02, 'delta': 0.05, 'n': 0.01}
+params_tech_boom = {'s': 0.3, 'alpha': 0.3, 'beta': 0.05, 'delta': 0.05, 'n': 0.01}
+
+# Simulace růstu
+t_vals = np.linspace(0, 100, 1000)
+k0 = 1.0
+
+plt.figure(figsize=(15, 5))
+
+# 1. Základní scénář
+plt.subplot(1, 3, 1)
+k_basic = solow_model(t_vals, k0, **params_basic)
+plt.plot(t_vals, k_basic, linewidth=2, label='Základní scénář')
+plt.xlabel('Čas (roky)')
+plt.ylabel('Kapitál na práci (k)')
+plt.title('Solowův model: Základní scénář')
+plt.grid(True)
+
+# 2. Vliv vyšší míry úspor
+plt.subplot(1, 3, 2)
+k_high_saving = solow_model(t_vals, k0, **params_high_saving)
+plt.plot(t_vals, k_basic, linewidth=2, label='Základní (s=0.3)')
+plt.plot(t_vals, k_high_saving, linewidth=2, label='Vysoké úspory (s=0.4)')
+plt.xlabel('Čas (roky)')
+plt.ylabel('Kapitál na práci (k)')
+plt.title('Vliv míry úspor')
+plt.legend()
+plt.grid(True)
+
+# 3. Vliv technologického pokroku
+plt.subplot(1, 3, 3)
+k_tech_boom = solow_model(t_vals, k0, **params_tech_boom)
+plt.plot(t_vals, k_basic, linewidth=2, label='Základní (β=0.02)')
+plt.plot(t_vals, k_tech_boom, linewidth=2, label='Tech boom (β=0.05)')
+plt.xlabel('Čas (roky)')
+plt.ylabel('Kapitál na práci (k)')
+plt.title('Vliv technologického pokroku')
+plt.legend()
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
+
+# Analýza růstových trajektorií
+def growth_analysis():
+    """Analýza růstových trajektorií"""
+    print("=== ANALÝZA SOLOWOVA MODELU ===")
+    periods = [(0, 10), (10, 30), (30, 50), (50, 100)]
+    for start, end in periods:
+        i0 = np.argmin(np.abs(t_vals - start))
+        i1 = np.argmin(np.abs(t_vals - end))
+        growth = (k_basic[i1] / k_basic[i0]) ** (1 / (end - start)) - 1
+        print(f"Období {start}-{end} let: růst {growth * 100:.2f}% p.a.")
+    long_term = (k_basic[-1] / k_basic[0]) ** (1 / 100) - 1
+    print(f"\nDlouhodobý růst: {long_term * 100:.2f}% p.a.")
+    print(f"Teoretický růst (β/(1-α)): {0.02/(1-0.3)*100:.2f}% p.a.")
+
+growth_analysis()
+\end{lstlisting}
+
+\noindent\textbf{Ekonomické implikace}
+\begin{itemize}
+\item \textbf{Míra úspor}: krátkodobý vliv na růst.
+\item \textbf{Technologický pokrok}: klíčový pro dlouhodobý růst.
+\item \textbf{Politická doporučení}: investice do výzkumu a vývoje.
+\end{itemize}
+
+\noindent\textbf{Sensitivní analýza}
+\begin{itemize}
+\item \textbf{Citlivost na $s$}: krátkodobý multiplikační efekt.
+\item \textbf{Citlivost na $\beta$}: dlouhodobý růstový efekt.
+\item \textbf{Citlivost na $\alpha$}: ovlivňuje efektivnost kapitálu.
+\end{itemize}
+\end{example}
+
+\subsubsection{Komplexní lineární modely v ekonomii}
+\label{subsec:komplexni-linearne}
+
+\begin{example}[Keynesiánský model s vládními výdaji]
+\label{ex:keynesian-model}
+
+\begin{itemize}
+\item \textbf{Identifikace}: Lineární nehomogenní rovnice
+\item \textbf{Úroveň}: 1D — Pokročilé aplikace
+\item \textbf{Finanční kontext}: Makroekonomická stabilizace
+\end{itemize}
+
+\noindent\textbf{Zadání}
+Keynesiánský model důchod–výdaje s vládními zásahy:
+\[
+\frac{dY}{dt} = \alpha(I + G - sY) + \beta(Y^* - Y), \quad Y(0) = Y_0,
+\]
+kde $Y(t)$ je HDP, $I$ autonomní investice, $G$ vládní výdaje, $s$ mezní sklon k úsporám, $Y^*$ potenciální produkt, $\alpha$ rychlost adjustace, $\beta$ stabilizační parametr.
+
+\noindent\textbf{Teoretická analýza}
+\begin{itemize}
+\item Lineární nehomogenní ODE: $Y' + (\alpha s + \beta)Y = \alpha(I + G) + \beta Y^*$.
+\item Stacionární stav: $Y_{ss} = \dfrac{\alpha(I + G) + \beta Y^*}{\alpha s + \beta}$.
+\item Stabilita: $\alpha s + \beta > 0$ zaručuje konvergenci.
+\item Maximální interval: $\mathbb{R}$.
+\end{itemize}
+
+\noindent\textbf{Kroky řešení}
+\begin{enumerate}
+\item \textbf{Standardní tvar}:
+\[
+\frac{dY}{dt} + (\alpha s + \beta)Y = \alpha(I + G) + \beta Y^*.
+\]
+\item \textbf{Integrační faktor}: $\mu(t) = e^{(\alpha s + \beta)t}$.
+\item \textbf{Derivace součinu}:
+\[
+\frac{d}{dt}\!\big[e^{(\alpha s + \beta)t}Y\big] = e^{(\alpha s + \beta)t}\,[\alpha(I + G) + \beta Y^*].
+\]
+\item \textbf{Integrace}:
+\[
+e^{(\alpha s + \beta)t}Y = \frac{\alpha(I + G) + \beta Y^*}{\alpha s + \beta}\,e^{(\alpha s + \beta)t} + C.
+\]
+\item \textbf{Obecné řešení}:
+\[
+Y(t) = \frac{\alpha(I + G) + \beta Y^*}{\alpha s + \beta} + C\,e^{-(\alpha s + \beta)t}.
+\]
+\item \textbf{Určení konstanty}:
+\[
+C = Y_0 - \frac{\alpha(I + G) + \beta Y^*}{\alpha s + \beta}.
+\]
+\item \textbf{Konečné řešení}:
+\[
+Y(t) = Y_{ss} + (Y_0 - Y_{ss})\,e^{-(\alpha s + \beta)t}.
+\]
+\end{enumerate}
+
+\noindent\textbf{Analýza ekonomické dynamiky}
+\begin{itemize}
+\item Konvergence: $Y(t) \to Y_{ss}$ exponenciálně rychlostí $\alpha s + \beta$.
+\item Multiplikátor: $\dfrac{\partial Y_{ss}}{\partial G} = \dfrac{\alpha}{\alpha s + \beta}$.
+\item Stabilizační efekt: $\beta$ zrychluje konvergenci.
+\end{itemize}
+
+\noindent\textbf{Kontrolní body}
+\begin{itemize}
+\item ✓ Správná identifikace lineární ODE.
+\item ✓ Výpočet integračního faktoru.
+\item ✓ Určení stacionárního stavu.
+\item ✓ Ekonomická smysluplnost.
+\end{itemize}
+
+\noindent\textbf{Ekonomická interpretace}
+\begin{itemize}
+\item Model: Keynesiánský model s automatickými stabilizátory.
+\item $Y_{ss}$: rovnovážný produkt.
+\item $\alpha s + \beta$: rychlost konvergence k rovnováze.
+\item Aplikace: návrh fiskální politiky.
+\end{itemize}
+
+\begin{lstlisting}[language=Python, caption={Implementace Keynesiánského modelu v~Pythonu}]
+import numpy as np
+import matplotlib.pyplot as plt
+
+def keynesian_model(t, Y0, I=100, G=100, s=0.2, Y_star=600, alpha=0.5, beta=0.1):
+    """Keynesiánský model důchod–výdaje"""
+    Y_ss = (alpha * (I + G) + beta * Y_star) / (alpha * s + beta)
+    speed = alpha * s + beta
+    return Y_ss + (Y0 - Y_ss) * np.exp(-speed * t)
+
+# Scénáře hospodářské politiky
+scenarios = {
+    'Základní': {'I': 100, 'G': 100, 's': 0.2, 'Y_star': 600, 'alpha': 0.5, 'beta': 0.1},
+    'Fiskální expanze': {'I': 100, 'G': 150, 's': 0.2, 'Y_star': 600, 'alpha': 0.5, 'beta': 0.1},
+    'Konsolidace': {'I': 100, 'G': 80, 's': 0.2, 'Y_star': 600, 'alpha': 0.5, 'beta': 0.1},
+    'Investiční boom': {'I': 150, 'G': 100, 's': 0.2, 'Y_star': 600, 'alpha': 0.5, 'beta': 0.1}
+}
+
+# Simulace
+t_vals = np.linspace(0, 20, 100)
+Y0 = 400  # Počáteční recese
+
+plt.figure(figsize=(15, 10))
+
+# 1. Trajektorie HDP
+plt.subplot(2, 2, 1)
+for label, params in scenarios.items():
+    Y_t = keynesian_model(t_vals, Y0, **params)
+    plt.plot(t_vals, Y_t, linewidth=2, label=label)
+plt.axhline(y=600, color='r', linestyle='--', label='Potenciální produkt')
+plt.xlabel('Čas (čtvrtletí)')
+plt.ylabel('HDP (Y)')
+plt.title('Keynesiánský model: Trajektorie HDP')
+plt.legend()
+plt.grid(True)
+
+# 2. Multiplikátory vládních výdajů
+plt.subplot(2, 2, 2)
+G_values = np.linspace(50, 150, 50)
+Y_eq = [keynesian_model(100, Y0, I=100, G=G, s=0.2, Y_star=600, alpha=0.5, beta=0.1) for G in G_values]
+plt.plot(G_values, Y_eq, linewidth=2)
+plt.xlabel('Vládní výdaje (G)')
+plt.ylabel('Rovnovážný HDP')
+plt.title('Multiplikátor vládních výdajů')
+plt.grid(True)
+
+# 3. Stabilizační efekt
+plt.subplot(2, 2, 3)
+for beta_val in [0.05, 0.1, 0.2, 0.5]:
+    Y_t = keynesian_model(t_vals, Y0, I=100, G=100, s=0.2, Y_star=600, alpha=0.5, beta=beta_val)
+    plt.plot(t_vals, Y_t, linewidth=2, label=f'β = {beta_val}')
+plt.xlabel('Čas (čtvrtletí)')
+plt.ylabel('HDP (Y)')
+plt.title('Vliv stabilizačního parametru β')
+plt.legend()
+plt.grid(True)
+
+# 4. Rychlost konvergence
+plt.subplot(2, 2, 4)
+for alpha_val in [0.2, 0.5, 1.0, 2.0]:
+    Y_t = keynesian_model(t_vals, Y0, I=100, G=100, s=0.2, Y_star=600, alpha=alpha_val, beta=0.1)
+    plt.plot(t_vals, Y_t, linewidth=2, label=f'α = {alpha_val}')
+plt.xlabel('Čas (čtvrtletí)')
+plt.ylabel('HDP (Y)')
+plt.title('Vliv rychlosti adjustace α')
+plt.legend()
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
+
+def policy_analysis():
+    """Analýza dopadů hospodářské politiky"""
+    print("=== ANALÝZA KEYNESIÁNSKÉHO MODELU ===")
+    base = scenarios['Základní']
+    Y_ss_base = keynesian_model(100, Y0, **base)
+    print(f"\nZákladní scénář:\nPočáteční HDP: {Y0}\nRovnovážný HDP: {Y_ss_base:.1f}")
+    print(f"Produkční mezera: {(Y_ss_base - 600)/600*100:.1f}%")
+    multiplier = base['alpha'] / (base['alpha'] * base['s'] + base['beta'])
+    print(f"\nMultiplikátor vládních výdajů: {multiplier:.2f}")
+    exp_params = scenarios['Fiskální expanze']
+    Y_ss_exp = keynesian_model(100, Y0, **exp_params)
+    print(f"\nFiskální expanze (G: 100 → 150):\nNový rovnovážný HDP: {Y_ss_exp:.1f}\nCelkový dopad: {Y_ss_exp - Y_ss_base:.1f}")
+    inv_params = scenarios['Investiční boom']
+    Y_ss_inv = keynesian_model(100, Y0, **inv_params)
+    print(f"\nInvestiční boom (I: 100 → 150):\nNový rovnovážný HDP: {Y_ss_inv:.1f}\nCelkový dopad: {Y_ss_inv - Y_ss_base:.1f}")
+
+policy_analysis()
+\end{lstlisting}
+
+\noindent\textbf{Politické implikace}
+\begin{itemize}
+\item \textbf{Fiskální politika}: vládní výdaje mají multiplikační efekt.
+\item \textbf{Stabilizace}: automatické stabilizátory urychlují konvergenci.
+\item \textbf{Investice}: soukromé investice také stimulují ekonomiku.
+\end{itemize}
+
+\noindent\textbf{Sensitivní analýza}
+\begin{itemize}
+\item \textbf{Multiplikátor}: $\dfrac{\alpha}{\alpha s + \beta}$ klesá s~$\beta$.
+\item \textbf{Rychlost konvergence}: roste s~$\alpha$ a $\beta$.
+\item \textbf{Stabilita}: zaručena pro $\alpha s + \beta > 0$.
+\end{itemize}
+\end{example}
+
+\subsubsection{Pokročilé homogenní rovnice v ekonomii}
+\label{subsec:pokrocile-homogenni}
+
+\begin{example}[Model relativních cen a substituce]
+\label{ex:relativni-ceny}
+
+\begin{itemize}
+\item \textbf{Identifikace}: Homogenní rovnice
+\item \textbf{Úroveň}: 1D — Pokročilé aplikace
+\item \textbf{Finanční kontext}: Teorie substituce a relativních cen
+\end{itemize}
+
+\noindent\textbf{Zadání}
+Model substituce mezi kapitálovými a pracovními vstupy:
+\[
+\frac{dK}{dL} = f\!\left(\frac{K}{L}\right) = A\!\left(\frac{K}{L}\right)^\alpha, \quad K(L_0) = K_0,
+\]
+kde $K$ je kapitál, $L$ práce, $A$ technologický parametr, $\alpha$ elasticita substituce.
+
+\noindent\textbf{Teoretická analýza}
+\begin{itemize}
+\item Homogenní rovnice stupně 0: pravá strana závisí pouze na $K/L$.
+\item Substituce: $k = K/L$ vede na separovatelnou rovnici.
+\item Maximální interval: $L > 0$.
+\item Ekonomická interpretace: trajektorie kapitálové intensity.
+\end{itemize}
+
+\noindent\textbf{Kroky řešení}
+\begin{enumerate}
+\item \textbf{Substituce}: $k = \dfrac{K}{L}$, tedy $K = kL$, $\dfrac{dK}{dL} = k + L\dfrac{dk}{dL}$.
+\item \textbf{Dosazení}:
+\[
+k + L\frac{dk}{dL} = A\,k^\alpha.
+\]
+\item \textbf{Separace proměnných}:
+\[
+L\frac{dk}{dL} = A\,k^\alpha - k.
+\]
+\item \textbf{Úprava}:
+\[
+\frac{dk}{A\,k^\alpha - k} = \frac{dL}{L}.
+\]
+\item \textbf{Integrace}:
+\[
+\int \frac{dk}{k(A\,k^{\alpha-1} - 1)} = \int \frac{dL}{L}.
+\]
+\item \textbf{Substituce}: $u = k^{1-\alpha}$.
+\item \textbf{Transformace}:
+\[
+\int \frac{du}{(1-\alpha)(A - u)} = \ln L + C.
+\]
+\item \textbf{Integrace}:
+\[
+-\frac{1}{1-\alpha}\ln|A - u| = \ln L + C.
+\]
+\item \textbf{Exponenciace}:
+\[
+A - u = C_1\,L^{-(1-\alpha)}.
+\]
+\item \textbf{Návrat k $k$}:
+\[
+A - k^{1-\alpha} = C_1\,L^{-(1-\alpha)}.
+\]
+\item \textbf{Řešení pro $k(L)$}:
+\[
+k(L) = \left[A - C_1\,L^{-(1-\alpha)}\right]^{\tfrac{1}{1-\alpha}}.
+\]
+\item \textbf{Určení konstanty}:
+\[
+k_0 = \left[A - C_1\,L_0^{-(1-\alpha)}\right]^{\tfrac{1}{1-\alpha}}
+\;\Rightarrow\;
+C_1 = L_0^{1-\alpha}\!\left(A - k_0^{1-\alpha}\right).
+\]
+\item \textbf{Konečné řešení}:
+\[
+k(L) = \left[A - \big(A - k_0^{1-\alpha}\big)\left(\frac{L_0}{L}\right)^{1-\alpha}\right]^{\tfrac{1}{1-\alpha}}.
+\]
+\end{enumerate}
+
+\noindent\textbf{Analýza dlouhodobého chování}
+\begin{itemize}
+\item Pro $L \to \infty$: $k(L) \to A^{\tfrac{1}{1-\alpha}}$ (rovnovážná intenzita).
+\item Pro $\alpha < 1$: konvergence k rovnováze.
+\item Pro $\alpha > 1$: divergentní chování.
+\end{itemize}
+
+\noindent\textbf{Kontrolní body}
+\begin{itemize}
+\item ✓ Ověření homogenity.
+\item ✓ Správná substituce a transformace.
+\item ✓ Integrace a zpětná substituce.
+\item ✓ Ekonomická smysluplnost.
+\end{itemize}
+
+\noindent\textbf{Ekonomická interpretace}
+\begin{itemize}
+\item Model: produkční funkce s variabilní intenzitou.
+\item $k(L)$: kapitálová intenzita jako funkce množství práce.
+\item $A^{\tfrac{1}{1-\alpha}}$: rovnovážná kapitálová intenzita.
+\item Aplikace: analýza substituce výrobních faktorů.
+\end{itemize}
+
+\begin{lstlisting}[language=Python, caption={Implementace modelu substituce v~Pythonu}]
+import numpy as np
+import matplotlib.pyplot as plt
+
+def capital_intensity(L, L0, k0, A=2.0, alpha=0.5):
+    """Kapitálová intenzita jako funkce práce"""
+    term1 = A - (A - k0 ** (1 - alpha)) * (L0 / L) ** (1 - alpha)
+    return term1 ** (1 / (1 - alpha))
+
+# Parametry modelu
+A_values = [1.5, 2.0, 2.5]
+alpha_values = [0.3, 0.5, 0.7]
+L0 = 1.0
+k0 = 1.0
+
+plt.figure(figsize=(15, 5))
+
+# 1. Vliv technologie (A)
+plt.subplot(1, 3, 1)
+L_vals = np.linspace(1, 10, 100)
+for A in A_values:
+    k_vals = capital_intensity(L_vals, L0, k0, A=A, alpha=0.5)
+    plt.plot(L_vals, k_vals, linewidth=2, label=f'A = {A}')
+plt.xlabel('Práce (L)')
+plt.ylabel('Kapitálová intenzita (k)')
+plt.title('Vliv technologického parametru A')
+plt.legend()
+plt.grid(True)
+
+# 2. Vliv elasticity substituce (α)
+plt.subplot(1, 3, 2)
+for alpha in alpha_values:
+    k_vals = capital_intensity(L_vals, L0, k0, A=2.0, alpha=alpha)
+    plt.plot(L_vals, k_vals, linewidth=2, label=f'α = {alpha}')
+plt.xlabel('Práce (L)')
+plt.ylabel('Kapitálová intenzita (k)')
+plt.title('Vliv elasticity substituce α')
+plt.legend()
+plt.grid(True)
+
+# 3. Trajektorie růstu v čase
+plt.subplot(1, 3, 3)
+t_vals = np.linspace(0, 20, 100)
+L_growth = L0 * np.exp(0.05 * t_vals)
+k_traj = capital_intensity(L_growth, L0, k0, A=2.0, alpha=0.5)
+K_traj = k_traj * L_growth
+plt.plot(t_vals, k_traj, linewidth=2, label='Kapitálová intenzita (k)')
+plt.plot(t_vals, K_traj, linewidth=2, label='Celkový kapitál (K)')
+plt.plot(t_vals, L_growth, linewidth=2, label='Práce (L)')
+plt.xlabel('Čas (roky)')
+plt.ylabel('Hodnota')
+plt.title('Trajektorie růstu')
+plt.legend()
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
+
+def substitution_analysis():
+    """Analýza substitučních efektů"""
+    print("=== ANALÝZA MODELU SUBSTITUCE ===")
+
+    def k_eq(A, alpha):  # rovnovážná kapitálová intenzita
+        return A ** (1 / (1 - alpha))
+
+    print("\nRovnovážná kapitálová intenzita:")
+    for A in [1.5, 2.0, 2.5]:
+        for alpha in [0.3, 0.5, 0.7]:
+            print(f"A={A}, α={alpha}: k_eq = {k_eq(A, alpha):.2f}")
+
+    print("\nElasticita substituce: σ = 1/(1-α)")
+    for alpha in [0.3, 0.5, 0.7]:
+        print(f"α={alpha}: σ = {1/(1-alpha):.2f}")
+
+    print("\nDopad technologického pokroku (A 1.5 → 2.0):")
+    for alpha in [0.3, 0.5, 0.7]:
+        g = (k_eq(2.0, alpha) / k_eq(1.5, alpha) - 1) * 100
+        print(f"α={alpha}: růst kapitálové intensity o {g:.1f}%")
+
+substitution_analysis()
+\end{lstlisting}
+
+\noindent\textbf{Ekonomické implikace}
+\begin{itemize}
+\item \textbf{Technologický pokrok}: zvyšuje rovnovážnou kapitálovou intenzitu.
+\item \textbf{Elasticita substituce}: určuje rychlost adaptace.
+\item \textbf{Růst práce}: ovlivňuje trajektorii kapitálové intensity.
+\end{itemize}
+
+\noindent\textbf{Sensitivní analýza}
+\begin{itemize}
+\item \textbf{Citlivost na $A$}: rovnovážná intenzita roste s~$A$.
+\item \textbf{Citlivost na $\alpha$}: vyšší elasticita vede k~rychlejší konvergenci.
+\item \textbf{Elasticita substituce}: $\sigma = \dfrac{1}{1-\alpha}$.
+\end{itemize}
+\end{example}
+
+\subsubsection{Shrnutí úrovně 1D}
+\label{sec:shrnuti-uroven-1d}
+
+Úroveň 1D představila pokročilé aplikace základních typů ODE 1. řádu v~ekonomii a financích:
+
+\begin{table}[h]
+\centering
+\caption{Přehled úrovně 1D}
+\label{tab:prehled-1d}
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Příklad} & \textbf{Typ ODE} & \textbf{Klíčový koncept} & \textbf{Aplikace} \\
+\midrule
+Solowův model & Separovatelná & Technologický pokrok & Ekonomický růst \\
+Keynesiánský model & Lineární & Multiplikátory & Fiskální politika \\
+Substituční model & Homogenní & Relativní ceny & Teorie produkce \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent\textbf{Zvládnuté pokročilé dovednosti}:
+\begin{itemize}
+\item Transformace komplexních separovatelných rovnic.
+\item Řešení lineárních rovnic s ekonomickou interpretací.
+\item Aplikace homogenních rovnic na modely relativních cen.
+\item Ekonomická analýza stacionárních stavů a stability.
+\item Simulace a sensitivní analýza ekonomických modelů.
+\end{itemize}
+
+\noindent\textbf{Klíčové ekonomické koncepty}:
+\begin{itemize}
+\item Dlouhodobý ekonomický růst a technologický pokrok.
+\item Fiskální politika a multiplikační efekty.
+\item Substituce výrobních faktorů a kapitálová intenzita.
+\item Rovnováha a stabilizační mechanismy.
+\end{itemize}
+
+\label{sec:uroven-1d}
+
+\subsubsection{Stochastické úrokové modely}
+\label{subsec:stochasticke-urokove-modely}
+
+\begin{example}[Vasicekův model úrokových sazeb]
+\label{ex:vasicek-model}
+
+\begin{itemize}
+\item \textbf{Identifikace}: Lineární nehomogenní rovnice
+\item \textbf{Úroveň}: 1D — Expertní finanční modely
+\item \textbf{Finanční kontext}: Modelování úrokových sazeb a oceňování bondů
+\end{itemize}
+
+\noindent\textbf{Zadání}
+Určete cenový vzorec pro zero-coupon bond ve Vasicekově modelu:
+\[
+dr_t = \kappa(\theta - r_t)\,dt + \sigma\, dW_t,
+\qquad
+P(t,T) = \mathbb{E}\!\left[e^{-\int_t^T r_s\, ds}\right].
+\]
+
+\noindent\textbf{Teoretická analýza}
+\begin{itemize}
+\item Vasicekův model: mean-reverting proces s rychlostí $\kappa$, dlouhodobým průměrem $\theta$, volatilitou $\sigma$.
+\item Deterministická část: $\dfrac{dr}{dt} = \kappa(\theta - r)$.
+\item Řešení vede na Riccatiho ODE pro $A(t,T)$ a $B(t,T)$.
+\item Cena bondu: $P(t,T) = e^{A(t,T) - B(t,T)\, r_t}$.
+\end{itemize}
+
+\noindent\textbf{Kroky řešení}
+\begin{enumerate}
+\item \textbf{ODE pro $B(t,T)$}:
+\[
+\frac{\partial B}{\partial t} = \kappa B - 1, \qquad B(T,T) = 0.
+\]
+\item \textbf{Řešení $B(t,T)$}:
+\[
+B(t,T) = \frac{1 - e^{-\kappa (T-t)}}{\kappa}.
+\]
+\item \textbf{ODE pro $A(t,T)$}:
+\[
+\frac{\partial A}{\partial t} = \kappa\theta\, B - \frac{1}{2}\sigma^2 B^2, 
+\qquad A(T,T) = 0.
+\]
+\item \textbf{Řešení $A(t,T)$}:
+\[
+A(t,T) = \left(\theta - \frac{\sigma^2}{2\kappa^2}\right)\!\big[B(t,T) - (T-t)\big]
+- \frac{\sigma^2}{4\kappa}\, B(t,T)^2.
+\]
+\item \textbf{Výsledný cenový vzorec}:
+\[
+P(t,T) = \exp\!\big\{A(t,T) - B(t,T)\, r_t\big\}.
+\]
+\end{enumerate}
+
+\noindent\textbf{Analýza vlastností modelu}
+\begin{itemize}
+\item Mean-reversion: $r_t \to \theta$ pro $t \to \infty$.
+\item Volatilita výnosů: klesá s dobou do splatnosti.
+\item Možnost záporných sazeb: při dostatečně vysoké volatilitě.
+\end{itemize}
+
+\noindent\textbf{Kontrolní body}
+\begin{itemize}
+\item ✓ Splněny okrajové podmínky $B(T,T)=0$, $A(T,T)=0$.
+\item ✓ Ověřená vlastnost mean-reversion.
+\item ✓ Konzistence s bezarbitrážní teorií oceňování.
+\end{itemize}
+
+\noindent\textbf{Finanční interpretace}
+\begin{itemize}
+\item Model: Vasicek (1977) — první analyticky řešitelný úrokový model.
+\item Aplikace: Oceňování úrokových derivátů, risk management.
+\item Výhody: Analytická řešitelnost, snadná kalibrace.
+\item Nevýhody: Možné záporné sazby, normální rozdělení.
+\end{itemize}
+
+\begin{lstlisting}[language=Python, caption={Implementace Vasicekova modelu v Pythonu}]
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.optimize import minimize
+
+def vasicek_bond_price(t, T, r_t, kappa, theta, sigma):
+    """Cena zero-coupon bondu ve Vasicekově modelu"""
+    tau = T - t
+    B = (1 - np.exp(-kappa * tau)) / kappa
+    A = (theta - sigma**2/(2*kappa**2)) * (B - tau) - (sigma**2 * B**2)/(4*kappa)
+    return np.exp(A - B * r_t)
+
+def vasicek_yield_curve(t, T_values, r_t, kappa, theta, sigma):
+    """Výpočet výnosové křivky"""
+    prices = [vasicek_bond_price(t, T, r_t, kappa, theta, sigma) for T in T_values]
+    yields = [-np.log(P) / (T - t) for P, T in zip(prices, T_values)]
+    return np.array(yields)
+
+# Parametry modelu
+kappa = 0.3
+theta = 0.05
+sigma = 0.02
+r_t = 0.03
+
+# Výnosová křivka
+T_values = np.linspace(0.1, 10, 50)
+yields = vasicek_yield_curve(0, T_values, r_t, kappa, theta, sigma)
+
+plt.figure(figsize=(12, 6))
+
+plt.subplot(1, 2, 1)
+plt.plot(T_values, yields * 100, linewidth=2)
+plt.xlabel('Doba do splatnosti (roky)')
+plt.ylabel('Výnos (%)')
+plt.title('Vasicek: Výnosová křivka')
+plt.grid(True)
+
+plt.subplot(1, 2, 2)
+# Simulace vývoje sazeb
+def simulate_vasicek(r0, kappa, theta, sigma, T, n_steps, n_paths):
+    dt = T / n_steps
+    rates = np.zeros((n_paths, n_steps + 1))
+    rates[:, 0] = r0
+    for t in range(n_steps):
+        dw = np.random.normal(0, np.sqrt(dt), n_paths)
+        rates[:, t+1] = rates[:, t] + kappa * (theta - rates[:, t]) * dt + sigma * dw
+    return rates
+
+np.random.seed(42)
+T_sim, n_steps, n_paths = 5, 1000, 100
+simulated_rates = simulate_vasicek(r_t, kappa, theta, sigma, T_sim, n_steps, n_paths)
+
+time_axis = np.linspace(0, T_sim, n_steps + 1)
+for i in range(min(20, n_paths)):
+    plt.plot(time_axis, simulated_rates[i] * 100, alpha=0.3)
+plt.axhline(y=theta * 100, color='r', linestyle='--', label='Dlouhodobý průměr')
+plt.xlabel('Čas (roky)')
+plt.ylabel('Úroková sazba (%)')
+plt.title('Vasicek: Simulace sazeb')
+plt.legend()
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
+
+# Kalibrace
+def calibrate_vasicek(market_yields, T_values, r0):
+    def objective(params):
+        kappa, theta, sigma = params
+        model_yields = vasicek_yield_curve(0, T_values, r0, kappa, theta, sigma)
+        return np.sum((model_yields - market_yields)**2)
+    initial_guess = [0.5, 0.04, 0.01]
+    bounds = [(0.01, 2), (0.001, 0.1), (0.001, 0.05)]
+    result = minimize(objective, initial_guess, bounds=bounds, method='L-BFGS-B')
+    return result.x
+
+market_data = np.array([0.02, 0.025, 0.028, 0.03, 0.031, 0.032, 0.0325, 0.033, 0.0335, 0.034])
+T_market = np.array([0.5, 1, 2, 3, 4, 5, 7, 10, 15, 20])
+calibrated_params = calibrate_vasicek(market_data, T_market, 0.03)
+print(f"Kalibrované parametry: kappa={calibrated_params[0]:.3f}, theta={calibrated_params[1]:.3f}, sigma={calibrated_params[2]:.3f}")
+\end{lstlisting}
+
+\noindent\textbf{Risk management}
+\begin{itemize}
+\item \textbf{Úrokové riziko}: Citlivost na $\kappa$, $\theta$, $\sigma$.
+\item \textbf{Modelové riziko}: Normální rozdělení a možnost záporných sazeb.
+\item \textbf{Kalibrační riziko}: Nestabilita odhadu parametrů.
+\end{itemize}
+
+\noindent\textbf{Sensitivní analýza}
+\begin{itemize}
+\item \textbf{Duration}: $\dfrac{\partial P}{\partial r} = -B(t,T)P$.
+\item \textbf{Convexita}: $\dfrac{\partial^2 P}{\partial r^2} = B(t,T)^2 P$.
+\item \textbf{Citlivost na $\kappa$}: Nelineární dopad na $A,B$ i cenu.
+\end{itemize}
+\end{example}
+
+\subsubsection{Cox–Ingersoll–Rossův model}
+\label{subsec:cir-model}
+
+\begin{example}[CIR model s analytickým řešením]
+\label{ex:cir-model}
+
+\begin{itemize}
+\item \textbf{Identifikace}: Soustava Riccatiho ODE pro $A(t,T)$ a $B(t,T)$.
+\item \textbf{Úroveň}: 1D — Expertní finanční modely.
+\item \textbf{Finanční kontext}: Modelování úrokových sazeb bez záporných hodnot.
+\end{itemize}
+
+\noindent\textbf{Zadání}
+Cox–Ingersoll–Rossův model:
+\[
+dr_t = \kappa(\theta - r_t)\, dt + \sigma\sqrt{r_t}\, dW_t, \qquad r(0)=r_0>0.
+\]
+Určete cenu zero-coupon bondu.
+
+\noindent\textbf{Teoretická analýza}
+\begin{itemize}
+\item Pozitivita pro $2\kappa\theta > \sigma^2$.
+\item Cena: $P(t,T)=A(t,T)e^{-B(t,T)r_t}$.
+\item $B$ řeší Riccatiho ODE, $A$ je dána integrací $\kappa\theta B$.
+\end{itemize}
+
+\noindent\textbf{Kroky řešení}
+\begin{enumerate}
+\item \textbf{ODE pro $B(t,T)$}:
+\[
+\frac{\partial B}{\partial t} = \frac{1}{2}\sigma^2 B^2 + \kappa B - 1, \qquad B(T,T)=0.
+\]
+\item \textbf{Řešení $B(t,T)$}:
+\[
+B(t,T) = \frac{2\big(e^{\gamma (T-t)} - 1\big)}{(\gamma + \kappa)\big(e^{\gamma (T-t)} - 1\big) + 2\gamma},
+\quad \gamma = \sqrt{\kappa^2 + 2\sigma^2}.
+\]
+\item \textbf{ODE/řešení pro $A(t,T)$}:
+\[
+\frac{\partial \ln A}{\partial t} = \kappa\theta\, B, \qquad
+A(t,T) = \left[\frac{2\gamma\, e^{(\gamma+\kappa)(T-t)/2}}{(\gamma + \kappa)\big(e^{\gamma (T-t)} - 1\big) + 2\gamma}\right]^{\!\!2\kappa\theta/\sigma^2}.
+\]
+\item \textbf{Cenový vzorec}:
+\[
+P(t,T) = A(t,T)\, e^{-B(t,T)\, r_t}.
+\]
+\end{enumerate}
+
+\noindent\textbf{Analýza vlastností modelu}
+\begin{itemize}
+\item Pozitivita sazeb: pokud $2\kappa\theta > \sigma^2$.
+\item Mean-reversion: $r_t \to \theta$ pro $t\to\infty$.
+\item Nerealíní momenty: $r_t$ má necentrální $\chi^2$ rozdělení.
+\end{itemize}
+
+\noindent\textbf{Kontrolní body}
+\begin{itemize}
+\item ✓ Ověřena podmínka pozitivity $2\kappa\theta > \sigma^2$.
+\item ✓ Splněny okrajové podmínky.
+\item ✓ Konzistence s affine strukturou výnosové křivky.
+\end{itemize}
+
+\noindent\textbf{Finanční interpretace}
+\begin{itemize}
+\item Model: CIR (1985) — vylepšení Vasiceka s pozitivními sazbami.
+\item Aplikace: Oceňování úrokových derivátů, krátkodobé sazby.
+\item Výhody: Pozitivita sazeb, realističtější rozdělení.
+\item Nevýhody: Složitější kalibrace a simulace.
+\end{itemize}
+
+\begin{lstlisting}[language=Python, caption={Implementace CIR modelu v Pythonu}]
+import numpy as np
+import matplotlib.pyplot as plt
+
+def cir_bond_price(t, T, r_t, kappa, theta, sigma):
+    """Cena zero-coupon bondu v CIR modelu"""
+    if 2*kappa*theta <= sigma**2:
+        raise ValueError("Porušena podmínka pozitivity: 2κθ > σ²")
+    tau = T - t
+    gamma = np.sqrt(kappa**2 + 2*sigma**2)
+    numerator_B = 2*(np.exp(gamma*tau) - 1)
+    denominator_B = (gamma + kappa)*(np.exp(gamma*tau) - 1) + 2*gamma
+    B = numerator_B / denominator_B
+    numerator_A = 2*gamma*np.exp((gamma + kappa)*tau/2)
+    denominator_A = (gamma + kappa)*(np.exp(gamma*tau) - 1) + 2*gamma
+    A = (numerator_A / denominator_A)**(2*kappa*theta/sigma**2)
+    return A * np.exp(-B * r_t)
+
+def cir_yield_curve(t, T_values, r_t, kappa, theta, sigma):
+    prices = [cir_bond_price(t, T, r_t, kappa, theta, sigma) for T in T_values]
+    yields = [-np.log(P) / (T - t) for P, T in zip(prices, T_values)]
+    return np.array(yields)
+
+# Základní parametry
+kappa, theta, sigma, r_t = 0.5, 0.04, 0.1, 0.03
+T_values = np.linspace(0.1, 10, 50)
+yields_cir = cir_yield_curve(0, T_values, r_t, kappa, theta, sigma)
+
+plt.figure(figsize=(12, 6))
+
+plt.subplot(1, 2, 1)
+plt.plot(T_values, yields_cir * 100, linewidth=2, label='CIR model')
+# Srovnání s Vasicekem
+from math import isfinite
+def vasicek_yield_curve(t, T_values, r_t, kappa, theta, sigma):
+    prices = []
+    for T in T_values:
+        tau = T - t
+        B = (1 - np.exp(-kappa * tau)) / kappa
+        A = (theta - sigma**2/(2*kappa**2)) * (B - tau) - (sigma**2 * B**2)/(4*kappa)
+        prices.append(np.exp(A - B * r_t))
+    return np.array([-np.log(P)/(T - t) for P, T in zip(prices, T_values)])
+
+yields_vas = vasicek_yield_curve(0, T_values, r_t, 0.3, 0.05, 0.02)
+plt.plot(T_values, yields_vas * 100, linestyle='--', linewidth=2, label='Vasicek')
+plt.xlabel('Doba do splatnosti (roky)')
+plt.ylabel('Výnos (%)')
+plt.title('CIR vs. Vasicek: Výnosové křivky')
+plt.legend()
+plt.grid(True)
+
+plt.subplot(1, 2, 2)
+# Citlivost na parametry
+param_variations = {
+    'Základní': (kappa, theta, sigma),
+    'Vysoká mean-reversion': (1.0, theta, sigma),
+    'Vysoký průměr': (kappa, 0.06, sigma),
+    'Vysoká volatilita': (kappa, theta, 0.15)
+}
+for label, (k, th, sig) in param_variations.items():
+    try:
+        yc = cir_yield_curve(0, T_values, r_t, k, th, sig)
+        plt.plot(T_values, yc * 100, label=label, linewidth=2)
+    except ValueError as e:
+        print(f"Chyba pro {label}: {e}")
+
+plt.xlabel('Doba do splatnosti (roky)')
+plt.ylabel('Výnos (%)')
+plt.title('CIR: Citlivost na parametry')
+plt.legend()
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
+
+# Simulace CIR procesu (Euler–Maruyama s bariérou v nule)
+def simulate_cir(r0, kappa, theta, sigma, T, n_steps, n_paths):
+    dt = T / n_steps
+    rates = np.zeros((n_paths, n_steps + 1))
+    rates[:, 0] = r0
+    for t in range(n_steps):
+        dw = np.random.normal(0, np.sqrt(dt), n_paths)
+        next_rates = rates[:, t] + kappa*(theta - rates[:, t]) * dt + sigma*np.sqrt(np.maximum(rates[:, t], 0))*dw
+        rates[:, t+1] = np.maximum(next_rates, 0)
+    return rates
+
+np.random.seed(42)
+T_sim, n_steps, n_paths = 5, 1000, 100
+cir_rates = simulate_cir(r_t, kappa, theta, sigma, T_sim, n_steps, n_paths)
+
+plt.figure(figsize=(10, 6))
+time_axis = np.linspace(0, T_sim, n_steps + 1)
+for i in range(min(20, n_paths)):
+    plt.plot(time_axis, cir_rates[i] * 100, alpha=0.3)
+plt.axhline(y=theta * 100, color='r', linestyle='--', label='Dlouhodobý průměr')
+plt.axhline(y=0, color='k', linestyle='-', alpha=0.5)
+plt.xlabel('Čas (roky)')
+plt.ylabel('Úroková sazba (%)')
+plt.title('CIR: Simulace sazeb (pozitivní)')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+print(f"Podmínka pozitivity: 2κθ = {2*kappa*theta:.4f} > σ² = {sigma**2:.4f} -> "
+      f"{'SPLNĚNA' if 2*kappa*theta > sigma**2 else 'PORUŠENA'}")
+\end{lstlisting}
+
+\noindent\textbf{Risk management}
+\begin{itemize}
+\item \textbf{Pozitivita}: Monitorovat $2\kappa\theta > \sigma^2$.
+\item \textbf{Modelové riziko}: Square-root difúze.
+\item \textbf{Kalibrace}: Citlivost na změny parametrů.
+\end{itemize}
+
+\noindent\textbf{Sensitivní analýza}
+\begin{itemize}
+\item \textbf{$\kappa$}: Ovlivňuje rychlost návratu k průměru.
+\item \textbf{$\theta$}: Určuje dlouhodobou úroveň sazeb.
+\item \textbf{$\sigma$}: Zvyšuje volatilitu, mění tvar křivky.
+\end{itemize}
+\end{example}
+
+\subsubsection{Black–Karasinski model}
+\label{subsec:black-karasinski-model}
+
+\begin{example}[Black–Karasinski model lognormálních sazeb]
+\label{ex:black-karasinski-model}
+
+\begin{itemize}
+\item \textbf{Identifikace}: Transformace na lineární ODE v logaritmické škále.
+\item \textbf{Úroveň}: 1D — Expertní finanční modely.
+\item \textbf{Finanční kontext}: Úrokové sazby s lognormálním rozdělením.
+\end{itemize}
+
+\noindent\textbf{Zadání}
+Black–Karasinski model:
+\[
+d\ln r_t = \kappa(\theta - \ln r_t)\, dt + \sigma\, dW_t.
+\]
+Určete vlastnosti modelu a implikace pro oceňování.
+
+\noindent\textbf{Teoretická analýza}
+\begin{itemize}
+\item Transformace: $x_t=\ln r_t$ vede na OU proces
+\(
+dx_t = \kappa(\theta - x_t)\, dt + \sigma\, dW_t.
+\)
+\item Lognormální rozdělení sazeb, pozitivita $r_t>0$.
+\item Analytická řešitelnost v log-škále; ceny bondů numericky.
+\end{itemize}
+
+\noindent\textbf{Kroky řešení}
+\begin{enumerate}
+\item \textbf{Řešení pro $x_t$}:
+\[
+x_t = x_0 e^{-\kappa t} + \theta\,(1-e^{-\kappa t}) + 
+\sigma \int_0^t e^{-\kappa (t-s)}\, dW_s.
+\]
+\item \textbf{Návrat k $r_t$}:
+\[
+r_t = \exp\!\left\{x_0 e^{-\kappa t} + \theta(1-e^{-\kappa t}) + 
+\sigma \int_0^t e^{-\kappa (t-s)}\, dW_s\right\}.
+\]
+\item \textbf{Momentové vztahy}:
+\[
+\mathbb{E}[\ln r_t] = x_0 e^{-\kappa t} + \theta(1-e^{-\kappa t}),\qquad
+\mathrm{Var}[\ln r_t] = \frac{\sigma^2}{2\kappa}\big(1-e^{-2\kappa t}\big).
+\]
+\end{enumerate}
+
+\noindent\textbf{Analýza vlastností modelu}
+\begin{itemize}
+\item Pozitivita sazeb je zajištěna: $r_t = e^{x_t} > 0$.
+\item Lognormální tvar rozdělení (realističtější vůči normálnímu).
+\item Mean-reversion v logaritmické škále.
+\end{itemize}
+
+\noindent\textbf{Kontrolní body}
+\begin{itemize}
+\item ✓ Pozitivita $r_t>0$.
+\item ✓ Konzistence s lognormálním rozdělením.
+\item ✓ Mean-reversion v log-škále.
+\end{itemize}
+
+\noindent\textbf{Finanční interpretace}
+\begin{itemize}
+\item Model: Black–Karasinski (1991) — lognormální alternativa.
+\item Aplikace: Úrokové deriváty s nutnou pozitivitou sazeb.
+\item Výhody: Pozitivní sazby, flexibilnější chování ocasů.
+\item Nevýhody: Absence uzavřeného tvaru pro ceny bondů.
+\end{itemize}
+
+\begin{lstlisting}[language=Python, caption={Implementace Black–Karasinski modelu v Pythonu}]
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import lognorm, norm
+
+def black_karasinski_simulation(r0, kappa, theta, sigma, T, n_steps, n_paths):
+    """Simulace Black–Karasinskiho modelu"""
+    dt = T / n_steps
+    x0 = np.log(r0)
+    x_paths = np.zeros((n_paths, n_steps + 1))
+    r_paths = np.zeros((n_paths, n_steps + 1))
+    x_paths[:, 0] = x0
+    r_paths[:, 0] = r0
+    for t in range(n_steps):
+        dw = np.random.normal(0, np.sqrt(dt), n_paths)
+        x_paths[:, t+1] = x_paths[:, t] + kappa*(theta - x_paths[:, t]) * dt + sigma * dw
+        r_paths[:, t+1] = np.exp(x_paths[:, t+1])
+    return r_paths, x_paths
+
+# Parametry
+kappa = 0.3
+theta = np.log(0.04)
+sigma = 0.2
+r0 = 0.03
+T, n_steps, n_paths = 5, 1000, 1000
+
+np.random.seed(42)
+r_paths, x_paths = black_karasinski_simulation(r0, kappa, theta, sigma, T, n_steps, n_paths)
+
+plt.figure(figsize=(15, 5))
+
+# 1) Trajektorie
+plt.subplot(1, 3, 1)
+time_axis = np.linspace(0, T, n_steps + 1)
+for i in range(min(50, n_paths)):
+    plt.plot(time_axis, r_paths[i] * 100, alpha=0.1)
+plt.axhline(y=np.exp(theta) * 100, color='r', linestyle='--', label='Dlouhodobý průměr')
+plt.xlabel('Čas (roky)')
+plt.ylabel('Úroková sazba (%)')
+plt.title('Black–Karasinski: Trajektorie sazeb')
+plt.legend()
+plt.grid(True)
+
+# 2) Rozdělení sazeb v čase T
+plt.subplot(1, 3, 2)
+final_rates = r_paths[:, -1]
+plt.hist(final_rates * 100, bins=50, density=True, alpha=0.7)
+plt.xlabel('Úroková sazba v čase T (%)')
+plt.ylabel('Hustota')
+plt.title('Rozdělení konečných sazeb')
+mu_theoretical = np.log(r0) * np.exp(-kappa*T) + theta * (1 - np.exp(-kappa*T))
+sigma_theoretical = sigma * np.sqrt((1 - np.exp(-2*kappa*T))/(2*kappa))
+x_range = np.linspace(0, np.max(final_rates)*1.2, 100)
+pdf_theoretical = lognorm.pdf(x_range, s=sigma_theoretical, scale=np.exp(mu_theoretical))
+plt.plot(x_range * 100, pdf_theoretical, linewidth=2, label='Teoretické')
+plt.legend()
+
+# 3) Q-Q plot v log-škále
+plt.subplot(1, 3, 3)
+log_final_rates = np.log(final_rates)
+log_final_rates_sorted = np.sort(log_final_rates)
+theoretical_quantiles = norm.ppf(np.linspace(0.01, 0.99, len(log_final_rates_sorted)),
+                                 loc=mu_theoretical, scale=sigma_theoretical)
+plt.plot(theoretical_quantiles, log_final_rates_sorted, 'o', alpha=0.5)
+lo = min(theoretical_quantiles.min(), log_final_rates_sorted.min())
+hi = max(theoretical_quantiles.max(), log_final_rates_sorted.max())
+plt.plot([lo, hi], [lo, hi], linewidth=2)
+plt.xlabel('Teoretické kvantily')
+plt.ylabel('Výběrové kvantily')
+plt.title('Q–Q plot: lognormalita')
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
+
+# Momentová a bezpečnostní analýza
+expected_rate_T = np.exp(mu_theoretical + 0.5*sigma_theoretical**2)
+volatility_rate_T = expected_rate_T * np.sqrt(np.exp(sigma_theoretical**2) - 1)
+print("=== STATISTICKÁ ANALÝZA BLACK–KARASINSKI MODELU ===")
+print(f"Počáteční sazba: {r0*100:.2f}%")
+print(f"Dlouhodobý průměr: {np.exp(theta)*100:.2f}%")
+print(f"Střední hodnota v T: {expected_rate_T*100:.2f}%")
+print(f"Směrodatná odchylka v T: {volatility_rate_T*100:.2f}%")
+print(f"Pozitivita sazeb: {np.all(final_rates > 0)}")
+print(f"Min sazba: {np.min(final_rates)*100:.4f}%, Max sazba: {np.max(final_rates)*100:.2f}%")
+\end{lstlisting}
+
+\noindent\textbf{Risk management}
+\begin{itemize}
+\item \textbf{Pozitivita}: Zaručena konstrukcí ($r_t=e^{x_t}>0$).
+\item \textbf{Modelové riziko}: Lognormální předpoklad může mít těžší ocasy.
+\item \textbf{Numerika}: Pro oceňování bondů nutné numerické metody.
+\end{itemize}
+
+\noindent\textbf{Sensitivní analýza}
+\begin{itemize}
+\item \textbf{$\kappa$}: Rychlost konvergence k dlouhodobému průměru.
+\item \textbf{$\theta$}: Nastavuje rovnovážnou úroveň sazeb.
+\item \textbf{$\sigma$}: Šířka rozdělení (volatilita), tloušťka ocasů.
+\end{itemize}
+\end{example}
+
+\subsubsection{Shrnutí úrovně 1D}
+\label{sec:shrnuti-uroven-1d}
+
+Úroveň 1D představila expertní úrokové modely používané v kvantitativních financích:
+
+\begin{table}[h]
+\centering
+\caption{Přehled úrovně 1D}
+\label{tab:prehled-1d}
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Model} & \textbf{Typ ODE} & \textbf{Klíčová vlastnost} & \textbf{Aplikace} \\
+\midrule
+Vasicek & Lineární & Normální rozdělení & Základní oceňování \\
+CIR & Riccatiho & Pozitivní sazby & Realističtější modelování \\
+Black–Karasinski & Transformace & Lognormální rozdělení & Pokročilé deriváty \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent\textbf{Zvládnuté expertní dovednosti}:
+\begin{itemize}
+\item Řešení Riccatiho diferenciálních rovnic.
+\item Transformace proměnných pro analytická řešení.
+\item Kalibrace modelů na tržní data.
+\item Simulace stochastických procesů.
+\item Statistická analýza vlastností modelů.
+\end{itemize}
+
+\noindent\textbf{Klíčové finanční koncepty}:
+\begin{itemize}
+\item Affine term structure modely.
+\item Mean-reversion úrokových sazeb.
+\item Podmínky pozitivity a realistická rozdělení.
+\item Oceňování úrokových derivátů.
+\item Risk management úrokového rizika.
+\end{itemize}
+

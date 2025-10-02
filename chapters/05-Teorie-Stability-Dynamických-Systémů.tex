@@ -1,0 +1,627 @@
+% !TEX root = ../main.tex
+\section{Teorie Stability Dynamických Systémů}
+\label{sec:teorie-stability}
+
+\blocktitle{Cíl kapitoly}
+Tato kapitola systematicky buduje aparát pro analýzu stability dynamických systémů, který je klíčový pro robustní kvantitativní modelování. Pokrývá jak teoretické základy Ljapunovovy stability, tak praktické metody pro finanční modely, numerické schémata a stochastické systémy.
+
+Provedeme čtenáře od základních pojmů stability přes pokročilé koncepty jako strukturální stabilita a input-to-state stabilita až po aplikace v analýze finančních modelů a numerických metod. Každý koncept je ilustrován na konkrétních příkladech z kvantitativních věd.
+
+\begin{figure}[H]
+\begin{tcolorbox}[title=Roadmap Kapitoly 5]
+\item[] \textbf{5.1 Základy Stability} \\- Definice stability, atraktivity, klasifikace bodů
+\item[] \textbf{5.2 Lineární Systémy} \\- Spektrální kritéria, Jordanova forma, explicitní řešení  
+\item[] \textbf{5.3 Linearizace} \\- Hartman-Grobman věta, středová varieta, redukce dimenze
+\item[] \textbf{5.4 Ljapunovova Metoda} \\- Konstrukce Ljapunovských funkcí, věty o stabilitě
+\item[] \textbf{5.5 Pokročilé Koncepty} \\- LaSalleův princip, strukturální stabilita, ISS
+\item[] \textbf{5.6 Fázová Analýza} \\- Klasifikace v rovině, limitní cykly, bifurkace
+\item[] \textbf{5.7 Aplikace} \\- Finanční modely, numerické schémata, stochastické systémy
+\end{tcolorbox}
+\caption{Roadmap kapitoly 5: Teorie Stability Dynamických Systémů}
+\label{fig:roadmap-chapter5}
+\end{figure}
+
+\spc
+
+\subsection{Základní Pojmy Stability}
+
+\subsubsection{Rovnovážné body a jejich klasifikace}
+
+\begin{definition}[Fixní bod]
+Nechť $\dot{x} = f(x)$ je autonomní dynamický systém. Bod $x^* \in \mathbb{R}^n$ se nazývá \emph{rovnovážný bod} (fixní bod), jestliže $f(x^*) = 0$.
+\end{definition}
+
+\begin{intuition}
+Rovnovážné body reprezentují stacionární stavy systému, kde dynamika "stojí". V ekonomických modelech odpovídají steady-state rovnováhám, v mechanice bodům, kde jsou síly vyrovnány.
+\end{intuition}
+
+\begin{definition}[Hyperbolický bod]
+Rovnovážný bod $x^*$ se nazývá \emph{hyperbolický}, jestliže všechny vlastní hodnoty Jacobiho matice $Df(x^*)$ mají nenulové reálné části.
+\end{definition}
+
+\begin{intuition}
+Hyperbolicita zaručuje, že lokální chování je určeno linearizací. Nehyperbolické body jsou "hranicí stability" a vyžadují speciální analýzu pomocí středové variety. Viz Obrázek \ref{fig:hyperbolic_classification}.
+\end{intuition}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{hyperbolic_classification.pdf}
+\caption{Klasifikace rovnovážných bodů podle spektra Jacobiho matice}
+\label{fig:hyperbolic_classification}
+\end{figure}
+
+\subsubsection{Stabilita dle Ljapunova - přesné definice}
+
+\begin{definition}[Lokální stabilita]
+Rovnovážný bod $x^*$ je \emph{lokálně stabilní} (ve smyslu Ljapunova), jestliže:
+\[
+\forall \epsilon > 0, \exists \delta > 0: \|x(0) - x^*\| < \delta \implies \|x(t) - x^*\| < \epsilon \quad \forall t \geq 0.
+\]
+\end{definition}
+
+\begin{intuition}
+δ-ε podmínka znamená: "Pro libovolně malou toleranci ε existuje výchozí okolí δ takové, že trajektorie nikdy neopustí ε-okí." Toto je základní koncept kvalitativní robustness.
+\end{intuition}
+
+\begin{example}[Stabilita Cobb-Douglasova modelu]
+Uvažujme dynamický systém popisující ekonomiku s Cobb-Douglasovou produkční funkcí:
+\begin{align*}
+\dot{k} &= s k^\alpha - (\delta + n)k, \\
+k^* &= \left(\frac{s}{\delta + n}\right)^{1/(1-\alpha)}.
+\end{align*}
+Rovnovážný bod $k^*$ je lokálně stabilní pro $\alpha < 1$, neboť $Df(k^*) = \alpha s (k^*)^{\alpha-1} - (\delta + n) < 0$.
+\end{example}
+
+\begin{definition}[Globální stabilita]
+Rovnovážný bod $x^*$ je \emph{globálně stabilní}, jestliže je stabilní a navíc:
+\[
+\lim_{t \to \infty} x(t) = x^* \quad \text{pro všechny počáteční podmínky } x(0) \in \mathbb{R}^n.
+\]
+\end{definition}
+
+\begin{example}[Globální stabilita v ekonomických modelech]
+Model Solowova růstu s konstantními výnosy z rozsahu vykazuje globální stabilitu. Ljapunovova funkce $V(k) = (k - k^*)^2$ splňuje $\dot{V} < 0$ pro všechna $k > 0$, což zaručuje konvergenci z libovolné pozitivní počáteční podmínky.
+\end{example}
+
+\subsubsection{Atraktivita, asymptotická a exponenciální stabilita}
+
+\begin{definition}[Atraktivita]
+Rovnovážný bod $x^*$ je \emph{lokálně atrahující}, jestliže existuje $\delta > 0$ takové, že:
+\[
+\|x(0) - x^*\| < \delta \implies \lim_{t \to \infty} x(t) = x^*.
+\]
+\end{definition}
+
+\begin{definition}[Asymptotická a exponenciální stabilita]
+Rovnovážný bod $x^*$ je \emph{asymptoticky stabilní}, jestliže je stabilní a atrahující. Je \emph{exponenciálně stabilní}, jestliže existují $C, \lambda > 0$ takové, že:
+\[
+\|x(t) - x^*\| \leq C e^{-\lambda t} \|x(0) - x^*\| \quad \forall t \geq 0.
+\]
+\end{definition}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{convergence_types.pdf}
+\caption{Srovnání asymptotické a exponenciální konvergence}
+\label{fig:convergence_types}
+\end{figure}
+
+\begin{application}[Rychlost konvergence v Ramseyově modelu]
+V Ramsey-Cass-Koopmansově modelu konverguje spotřeba k steady-state exponenciálně:
+\[
+|c(t) - c^*| \approx e^{-\theta t}|c(0) - c^*|,
+\]
+kde $\theta$ je určeno mezní mírou substituce a časovou preferencí. Tato rychlost konvergence je klíčová pro kalibraci modelu na empirická data.
+\end{application}
+
+\spc
+
+\subsection{Stabilita Lineárních Systémů}
+
+\subsubsection{Autonomní lineární systémy a jejich explicitní řešení}
+
+\begin{theorem}[Explicitní řešení lineárního systému]
+Nechť $\dot{x} = Ax$ je autonomní lineární systém. Pak řešení s počáteční podmínkou $x(0) = x_0$ je dáno vztahem:
+\begin{align*}
+x(t) &= e^{At}x_0, \\
+\text{kde } e^{At} &= \sum_{k=0}^\infty \frac{(At)^k}{k!}.
+\end{align*}
+\end{theorem}
+
+\begin{proof}
+Přímým dosazením ověříme:
+\begin{align*}
+\dot{x}(t) &= \frac{d}{dt}\left(e^{At}x_0\right) = A e^{At}x_0 = Ax(t), \\
+x(0) &= e^{A\cdot 0}x_0 = I x_0 = x_0. \qed
+\end{align*}
+\end{proof}
+
+\subsubsection{Vztah spektra a stability}
+
+\begin{theorem}[Stabilita lineárních systémů]
+Nechť $\dot{x} = Ax$ je lineární systém. Pak:
+\begin{itemize}
+\item Systém je stabilní právě tehdy, když všechny vlastní hodnoty $A$ mají nekladné reálné části a vlastní hodnoty s nulovou reálnou částí mají algebraickou násobnost rovnou geometrické.
+\item Systém je asymptoticky stabilní právě tehdy, když všechny vlastní hodnoty $A$ mají záporné reálné části.
+\item Systém je exponenciálně stabilní právě tehdy, když je asymptoticky stabilní.
+\end{itemize}
+\end{theorem}
+
+\begin{keyinsight}
+Spektrum matice $A$ určuje asymptotickou rychlost konvergence. Vlastní hodnota s největší reálnou částí (dominantní vlastní hodnota) určuje pomalost konvergence systému k rovnováze. Pro exponenciální stabilitu musí být $\max_i \mathrm{Re}(\lambda_i) < 0$.
+\end{keyinsight}
+
+\subsubsection{Jordanova forma a její role v multiplicitě}
+
+\begin{theorem}[Jordanova forma a stabilita]
+Nechť $J$ je Jordanova forma matice $A$. Systém $\dot{x} = Ax$ je stabilní právě tehdy, když všechny Jordanovy bloky odpovídající vlastním číslům s nezápornou reálnou částí jsou $1 \times 1$.
+\end{theorem}
+
+\begin{proofsketch}
+Jordanova forma umožňuje explicitní výpočet maticové exponenciály. Pro Jordanův blok $J_k(\lambda)$ platí:
+\begin{align*}
+e^{J_k(\lambda)t} &= e^{\lambda t} \begin{bmatrix}
+1 & t & \frac{t^2}{2!} & \cdots & \frac{t^{k-1}}{(k-1)!} \\
+0 & 1 & t & \cdots & \frac{t^{k-2}}{(k-2)!} \\
+\vdots & \vdots & \ddots & \ddots & \vdots \\
+0 & 0 & \cdots & 1 & t \\
+0 & 0 & \cdots & 0 & 1
+\end{bmatrix}.
+\end{align*}
+Polynomiální členy rostou, pokud $\mathrm{Re}(\lambda) \geq 0$. \qed
+\end{proofsketch}
+
+\begin{keyinsight}
+Polynomiální členy při defektech (když geometrická násobnost < algebraická) vedou k členům tvaru $t^k e^{\lambda t}$. I pro $\mathrm{Re}(\lambda) = 0$ mohou tyto polynomiální faktory způsobit nestabilitu, což je klíčové pro systémy s násobnými vlastními čísly na imaginární ose.
+\end{keyinsight}
+
+\spc
+
+\subsection{Linearizace Nelineárních Systémů}
+
+\subsubsection{Linearizace v okolí rovnovážného bodu}
+
+\begin{definition}[Jacobiho matice]
+Nechť $\dot{x} = f(x)$ je nelineární systém s rovnovážným bodem $x^*$. \emph{Jacobiho matice} v $x^*$ je definována jako:
+\[
+J = Df(x^*) = \left[\frac{\partial f_i}{\partial x_j}(x^*)\right]_{i,j=1}^n.
+\]
+\end{definition}
+
+\subsubsection{Hartman-Grobmanova věta o linearizaci}
+
+\begin{theorem}[Hartman-Grobman]
+Nechť $x^*$ je hyperbolický rovnovážný bod systému $\dot{x} = f(x)$, kde $f \in C^1$. Pak existuje homeomorfismus $h$ definovaný na okolí $x^*$, který zobrazuje trajektorie nelineárního systému na trajektorie linearizovaného systému $\dot{y} = Jy$.
+\end{theorem}
+
+\begin{proofsketch}
+\begin{itemize}
+\item Konstrukce h pomocí integrálních rovnic podél trajektorií
+\item Použití Banachovy věty o pevném bodě pro malá okolí
+\item Důkaz, že h je homeomorfismus zachovávající směr času
+\end{itemize}
+\end{proofsketch}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{hartman_grobman.pdf}
+\caption{Lokální homeomorfismus mezi nelineárním a linearizovaným systémem}
+\label{fig:hartman_grobman}
+\end{figure}
+
+\subsubsection{Středová varieta a redukce dimenze}
+
+\begin{definition}[Středová varieta]
+Nechť $x^*$ je rovnovážný bod s vlastními čísly majícími nulové reálné části. \emph{Středová varieta} je invariantní manifold tangentní ke středovému vlastnímu podprostoru.
+\end{definition}
+
+\begin{theorem}[Existence středové variety]
+Za předpokladu dostatečné hladkosti $f$ existuje lokálně hladká středová varieta dimenze rovné počtu vlastních čísel s nulovou reálnou částí.
+\end{theorem}
+
+\begin{algorithm}[Numerická konstrukce středové variety]
+\label{alg:center_manifold}
+\begin{enumerate}
+\item Vypočti Jacobiho matici $J = Df(x^*)$ a diagonalizuj ji
+\item Identifikuj středový podprostor $E^c$ odpovídající vlastním číslům s $\mathrm{Re}(\lambda) = 0$
+\item Polož ansatz pro středovou varietu: $y = h(z)$, kde $z \in E^c$
+\item Řeš invariantní podmínku: $Dh(z) \cdot g(z) = f(h(z))$
+\item Aplikuj Newtonovu metodu pro refinemet tvaru $h(z)$
+\end{enumerate}
+\end{algorithm}
+
+\begin{application}[Redukce dimenze v Hopfově bifurkaci]
+Pro systém exhibující Hopfovu bifurkaci s dvourozměrnou středovou varietou lze analýzu redukovat z $\mathbb{R}^n$ na $\mathbb{R}^2$ pomocí Algoritmu \ref{alg:center_manifold}, což podstatně zjednodušuje studium vzniku limitních cyklů.
+\end{application}
+
+\spc
+
+\subsection{Přímá Metoda Ljapunova}
+
+\subsubsection{Ljapunovské funkce a jejich vlastnosti}
+
+\begin{definition}[Ljapunovská funkce]
+Spojitě diferencovatelná funkce $V: U \to \mathbb{R}$ na okolí $U$ rovnovážného bodu $x^*$ se nazývá \emph{Ljapunovská funkce}, jestliže:
+\begin{enumerate}
+\item $V(x^*) = 0$ a $V(x) > 0$ pro $x \neq x^*$ (kladně definitní)
+\item $\dot{V}(x) = \nabla V(x) \cdot f(x) \leq 0$ pro $x \in U \setminus \{x^*\}$
+\end{enumerate}
+\end{definition}
+
+\subsubsection{Hlavní teorémy stability a instability}
+
+\begin{theorem}[Ljapunovova věta o stabilitě]
+Existuje-li Ljapunovská funkce, pak $x^*$ je stabilní.
+\end{theorem}
+
+\begin{theorem}[Ljapunovova věta o asymptotické stabilitě]
+Je-li navíc $\dot{V}(x) < 0$ pro $x \neq x^*$, pak $x^*$ je asymptoticky stabilní.
+\end{theorem}
+
+\subsubsection{Konstrukce Ljapunovských funkcí}
+
+\begin{theorem}[Ljapunovova rovnice]
+Pro lineární systém $\dot{x} = Ax$ je funkce $V(x) = x^T P x$ Ljapunovskou funkcí, jestliže $P$ je symetrická pozitivně definitní matice splňující:
+\begin{align*}
+A^T P + P A = -Q,
+\end{align*}
+kde $Q$ je libovolná symetrická pozitivně definitní matice.
+\end{theorem}
+
+\begin{pseudocode}[Řešení Ljapunovovy rovnice v Pythonu]
+\begin{verbatim}
+import scipy.linalg as la
+import numpy as np
+
+def solve_lyapunov(A, Q):
+    """
+    Řeší Ljapunovovu rovnici AᵀP + PA = -Q
+    pro symetrické pozitivně definitní matice.
+    
+    Parameters:
+    A: systémová matice (n x n)
+    Q: pravostranná matice (n x n)
+    
+    Returns:
+    P: řešení Ljapunovovy rovnice
+    """
+    # Kontrola stability A
+    if np.max(np.real(np.linalg.eigvals(A))) >= 0:
+        raise ValueError("Matice A není stabilní")
+    
+    # Řešení spojité Ljapunovovy rovnice
+    P = la.solve_continuous_lyapunov(A.T, -Q)
+    return P
+
+# Příklad použití pro stabilní systém
+A = np.array([[-2, 1], [0, -1]])
+Q = np.eye(2)  # Volba jednotkové matice
+P = solve_lyapunov(A, Q)
+\end{verbatim}
+\end{pseudocode}
+
+\begin{intuition}
+Volba matice $Q$ ovlivňuje tvar Ljapunovské funkce. Jednotková matice $Q = I$ často vede k dobře podmíněným řešením. V praxi lze volit $Q$ tak, aby reflektovala důležité proměnné systému.
+\end{intuition}
+
+\begin{example}[Hamiltonovský oscilátor s tlumením]
+Uvažujme systém:
+\begin{align*}
+\dot{q} &= p, \\
+\dot{p} &= -q - \delta p.
+\end{align*}
+Ljapunovova funkce $V(q,p) = \frac{1}{2}(q^2 + p^2)$ splňuje $\dot{V} = -\delta p^2 \leq 0$, což dokazuje stabilitu pro $\delta > 0$.
+\end{example}
+
+\spc
+
+\subsection{Pokročilé Koncepty Stability}
+
+\subsubsection{LaSalleův princip invariance}
+
+\begin{theorem}[LaSalleův princip invariance]
+Nechť $V$ je Ljapunovská funkce na kompaktní invariantní množině $\Omega$ a nechť $E = \{x \in \Omega : \dot{V}(x) = 0\}$. Pak každé řešení začínající v $\Omega$ konverguje k největší invariantní množině obsažené v $E$.
+\end{theorem}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{lasalle_invariance.pdf}
+\caption{Ilustrace invariantní množiny kde $\dot{V} = 0$}
+\label{fig:lasalle_invariance}
+\end{figure}
+
+\begin{proofsketch}
+\begin{itemize}
+\item Konstrukce Ljapunovské funkce $V$ s $\dot{V} \leq 0$
+\item Identifikace množiny $E$ kde $\dot{V} = 0$
+\item Analýza největší invariantní množiny v $E$
+\item Aplikace věty o limitní množině
+\end{itemize}
+\end{proofsketch}
+
+\subsubsection{Strukturální stabilita a robustní systémy}
+
+\begin{theorem}[Peixotova věta]
+Generický dynamický systém na kompaktní varietě dimenze 2 je strukturálně stabilní právě tehdy, když:
+\begin{itemize}
+\item Všechny rovnovážné body jsou hyperbolické
+\item Všechny periodické orbity jsou hyperbolické
+\item Neexistuje trajektorie spojující sedlové body
+\end{itemize}
+\end{theorem}
+
+\begin{keyinsight}
+Strukturální stabilita zaručuje, že malé perturbace nemění kvalitativní chování systému. Tato vlastnost je klíčová pro robustní kvantitativní modely, které musí být odolné vůči malým změnám parametrů a měření šumu.
+\end{keyinsight}
+
+\subsubsection{Input-to-state stabilita a stabilita vůči poruchám}
+
+\begin{definition}[Input-to-State Stabilita (ISS)]
+Systém $\dot{x} = f(x,u)$ je \emph{input-to-state stabilní}, jestliže existují funkce $\beta \in \mathcal{KL}$ a $\gamma \in \mathcal{K}$ takové, že:
+\[
+\|x(t)\| \leq \beta(\|x(0)\|, t) + \gamma\left(\sup_{0\leq \tau \leq t} \|u(\tau)\|\right).
+\]
+\end{definition}
+
+\begin{proofsketch}[Důkaz ISS pomocí Ljapunovské funkce]
+\begin{itemize}
+\item Konstrukce Ljapunovské funkce $V(x)$ splňující $\alpha_1(\|x\|) \leq V(x) \leq \alpha_2(\|x\|)$
+\item Odhad derivace: $\dot{V} \leq -\alpha_3(\|x\|) + \sigma(\|u\|)$
+\item Aplikace comparačního lemmatu
+\item Odvození konečného odhadu pomocí $\mathcal{KL}$ a $\mathcal{K}$ funkcí
+\end{itemize}
+\end{proofsketch}
+
+\begin{application}[ISS analýza pro lineární SDE]
+Uvažujme systém $\dot{x} = Ax + Bw + \sigma(x)dW_t$, kde $w$ je deterministická porucha a $dW_t$ je Wienerův proces. Je-li $A$ Hurwitzova, pak systém je ISS s:
+\[
+\gamma(r) = \frac{\|B\|}{\lambda_{\min}(Q)}r + \frac{\|\sigma\|^2}{2\lambda_{\min}(Q)}r^2,
+\]
+kde $A^T P + PA = -Q$. Tento výsledek je klíčový pro analýzu robustnosti finančních modelů vůči tržnímu šumu.
+\end{application}
+
+\spc
+
+\subsection{Fázová Analýza v Rovině}
+
+\subsubsection{Klasifikace lineárních systémů v $\mathbb{R}^2$}
+
+\begin{theorem}[Klasifikace lineárních systémů v rovině]
+Nechť $\dot{x} = Ax$ s $A \in \mathbb{R}^{2\times 2}$. Podle vlastních čísel rozlišujeme:
+\begin{itemize}
+\item \textbf{Uzel}: reálná vlastní čísla stejného znaménka
+\item \textbf{Sedlo}: reálná vlastní čísla opačných znamének  
+\item \textbf{Ohnisko}: komplexní vlastní čísla s nenulovou reálnou částí
+\item \textbf{Střed}: čistě imaginární vlastní čísla
+\end{itemize}
+\end{theorem}
+
+\subsubsection{Limitační cykly a Poincarého-Bendixsonova věta}
+
+\begin{theorem}[Poincarého-Bendixson]
+Nechť $\dot{x} = f(x)$ je spojitý dynamický systém v $\mathbb{R}^2$ a nechť $\omega$-limita množina trajektorie je neprázdná, kompaktní a neobsahuje rovnovážné body. Pak je tato množina periodickou orbitou.
+\end{theorem}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{poincare_map.pdf}
+\caption{Poincarého mapa a průřez pro analýzu limitního cyklu}
+\label{fig:poincare_map}
+\end{figure}
+
+\begin{application}[Numerická detekce limitního cyklu]
+\label{app:limit_cycle_detection}
+\begin{enumerate}
+\item Zvol Poincarého průřez $\Sigma$ transverzální k předpokládanému cyklu
+\item Definuj Poincarého mapu $P: \Sigma \to \Sigma$ pomocí integrace trajektorie
+\item Hledej pevný bod $p^* = P(p^*)$ pomocí Newtonovy metody
+\item Analyzuj stabilitu pomocí derivace $DP(p^*)$:
+   \begin{itemize}
+   \item $|DP(p^*)| < 1$: stabilní limitní cyklus
+   \item $|DP(p^*)| > 1$: nestabilní limitní cyklus
+   \end{itemize}
+\end{enumerate}
+\end{application}
+
+\subsubsection{Úvod do bifurkací v rovině}
+
+\begin{definition}[Základní bifurkace]
+\begin{itemize}
+\item \textbf{Saddle-node}: Zánik dvojice rovnovážných bodů
+\item \textbf{Transkritická}: Výměna stability mezi dvěma rovnovážnými body  
+\item \textbf{Pitchfork}: Vznik nebo zánik symetrických větví
+\item \textbf{Hopfova}: Vznik limitního cyklu z rovnovážného bodu
+\end{itemize}
+\end{definition}
+
+\spc
+
+\subsection{Aplikace Stability v Kvantitativních Vědách}
+
+\subsubsection{Stabilita finančních a ekonomických modelů}
+
+\begin{application}[Stabilita Black-Scholesova modelu]
+Uvažujme stochastickou diferenciální rovnici pro cenový proces:
+\[
+dS_t = \mu S_t dt + \sigma S_t dW_t.
+\]
+Deterministická část $\dot{S} = \mu S$ má rovnovážný bod $S^* = 0$, který je nestabilní pro $\mu > 0$, což odpovídá exponenciálnímu růstu cen.
+\end{application}
+
+\begin{definition}[Euler-Maruyama metoda]
+Numerická schéma pro SDE $dX_t = f(X_t)dt + g(X_t)dW_t$:
+\[
+X_{n+1} = X_n + f(X_n)\Delta t + g(X_n)\Delta W_n,
+\]
+kde $\Delta W_n \sim \mathcal{N}(0, \Delta t)$.
+\end{definition}
+
+\begin{theorem}[Stabilita Euler-Maruyama metody]
+Pro lineární SDE $dX_t = aX_t dt + bX_t dW_t$ je Euler-Maruyama schéma stabilní, jestliže:
+\[
+|1 + a\Delta t|^2 + b^2\Delta t < 1.
+\]
+\end{theorem}
+
+\begin{code}[Implementace Euler-Maruyama v Pythonu]
+\begin{verbatim}
+import numpy as np
+import matplotlib.pyplot as plt
+
+def euler_maruyama(f, g, x0, T, dt, params):
+    """
+    Euler-Maruyama metoda pro SDE.
+    
+    Parameters:
+    f: drift funkce
+    g: difúzní funkce  
+    x0: počáteční podmínka
+    T: časový horizont
+    dt: časový krok
+    params: parametry modelu
+    
+    Returns:
+    t: časová mřížka
+    x: numerická trajektorie
+    """
+    n_steps = int(T/dt)
+    t = np.linspace(0, T, n_steps+1)
+    x = np.zeros(n_steps+1)
+    x[0] = x0
+    
+    for i in range(n_steps):
+        dW = np.sqrt(dt) * np.random.normal()
+        x[i+1] = x[i] + f(x[i], *params)*dt + g(x[i], *params)*dW
+    
+    return t, x
+
+# Příklad: Geometrický Brownův pohyb
+def gbm_drift(S, mu):
+    return mu * S
+
+def gbm_diffusion(S, sigma):
+    return sigma * S
+
+# Simulace
+t, S = euler_maruyama(gbm_drift, gbm_diffusion, 
+                      x0=100, T=1, dt=0.001, 
+                      params=(0.05, 0.2))
+\end{verbatim}
+\end{code}
+
+\begin{keyinsight}
+Parametry volatility přímo ovlivňují stabilitu řešení - vysoká volatilita může vést k numerické nestabilitě a vyžaduje menší časové kroky v simulacích Monte Carlo. Stabilní volba $\Delta t$ je klíčová pro konzistentní výsledky.
+\end{keyinsight}
+
+\subsubsection{Stabilita numerických schémat}
+
+\begin{definition}[A-stabilita]
+Numerické schéma pro ODE je \emph{A-stabilní}, jestliže jeho oblast stability obsahuje celou levou komplexní polorovinu $\{z \in \mathbb{C} : \mathrm{Re}(z) < 0\}$.
+\end{definition}
+
+\begin{theorem}[Dahlquistova bariéra]
+A-stabilní lineární multistep metoda může mít maximálně řád 2. Nejvýše druhého řádu je i A-stabilní implicitní Runge-Kuttova metoda.
+\end{theorem}
+
+\begin{proofsketch}
+\begin{itemize}
+\item Analýza charakteristického polynomu numerického schématu
+\item Aplikace maximum principu pro komplexní funkce
+\item Důkaz, že vyšší řády vedou k neomezeným oblastem stability
+\item Konstrukce protipříkladů pro řády vyšší než 2
+\end{itemize}
+\end{proofsketch}
+
+\begin{intuition}
+Explicitní metody mají omezené oblasti stability, což v praxi znamená nutnost velmi malých časových kroků pro stiff rovnice. Implicitní metody obětují řád přesnosti za lepší stabilní vlastnosti, což je výhodné pro dlouhodobé simulace finančních modelů.
+\end{intuition}
+
+\subsubsection{Stabilita kvantových a stochastických systémů}
+
+\begin{definition}[Středně kvadratická stabilita]
+Stochastický systém $dX_t = f(X_t)dt + g(X_t)dW_t$ je \emph{středně kvadraticky stabilní}, jestliže:
+\[
+\lim_{t \to \infty} \mathbb{E}[\|X_t\|^2] = 0.
+\]
+\end{definition}
+
+\begin{theorem}[Ljapunova metoda pro SDE]
+Nechť existuje funkce $V(x)$ taková, že pro infinitesimální generátor $\mathcal{L}$ platí:
+\[
+\mathcal{L}V(x) = \nabla V \cdot f + \frac{1}{2}\mathrm{tr}(g^T \nabla^2 V g) \leq -cV(x).
+\]
+Pak je systém exponenciálně středně kvadraticky stabilní.
+\end{theorem}
+
+\begin{example}[Ornstein-Uhlenbeckův proces]
+Pro OU proces $dX_t = -\theta X_t dt + \sigma dW_t$:
+\begin{align*}
+\mathbb{E}[X_t] &= X_0 e^{-\theta t} \to 0, \\
+\mathrm{Var}(X_t) &= \frac{\sigma^2}{2\theta}(1 - e^{-2\theta t}) \to \frac{\sigma^2}{2\theta}.
+\end{align*}
+Systém je středně kvadraticky stabilní pro $\theta > 0$.
+\end{example}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{ou_process_empirical.pdf}
+\caption{Empirický časový průběh OU procesu s fit exponenciálního rozkladu}
+\label{fig:ou_empirical}
+\end{figure}
+
+\spc
+
+\subsection*{Shrnutí kapitoly}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{0.22\textwidth}|p{0.28\textwidth}|p{0.4\textwidth}|}
+\hline
+\textbf{Metoda} & \textbf{Typ systému} & \textbf{Kvantitativní aplikace} \\
+\hline
+\hyperref[sec:teorie-stability]{Linearizace a spektrální analýza} & Lineární a lokálně nelineární systémy & Rychlá analýza stability ekonomických modelů \\
+\hline
+\hyperref[sec:teorie-stability]{Ljapunovova přímá metoda} & Globálně nelineární systémy & Důkazy stability tradingových strategií \\
+\hline
+\hyperref[sec:teorie-stability]{Input-to-State Stabilita (ISS)} & Systémy s vnějšími poruchami & Robustnost vůči tržnímu šumu a nejistotě \\
+\hline
+\hyperref[sec:teorie-stability]{Bifurkační analýza} & Nelineární systémy s parametry & Detekce regime changes v finančních datech \\
+\hline
+\hyperref[sec:teorie-stability]{Numerická stabilita analýza} & Diskrétní schémata & Optimalizace časových kroků v Monte Carlo simulacích \\
+\hline
+\hyperref[sec:teorie-stability]{Stochastická stabilita} & SDE a jump procesy & Analýza riika v kvantových a finančních modelech \\
+\hline
+\end{tabular}
+\caption{Přehled metod stability a jejich aplikací v kvantitativních vědách}
+\label{tab:stability_methods}
+\end{table}
+
+\begin{tcolorbox}[title=Doporučená literatura: Teoretické základy, floatplacement=H]
+\begin{itemize}
+\item Khalil, H.K. - \emph{Nonlinear Systems} (3rd ed.) - Komplexní pokrytí Ljapunovovy teorie
+\item Evans, L.C. - \emph{Partial Differential Equations} - Propojení s PDE a regularitou
+\end{itemize}
+\begin{center}
+\begin{tabular}{m{0.2\textwidth}m{0.2\textwidth}}
+\includegraphics[width=0.35\textwidth]{qr_khalil.pdf} & \includegraphics[width=0.35\textwidth]{qr_evans.pdf} \\
+Khalil (2015) & Evans (2010) \\
+\end{tabular}
+\end{center}
+\end{tcolorbox}
+
+\begin{tcolorbox}[title=Doporučená literatura: Numerické metody, floatplacement=H]
+\begin{itemize}
+\item Oksendal, B. - \emph{Stochastic Differential Equations} - Stochastická stabilita
+\item Hairer, E., Wanner, G. - \emph{Solving Ordinary Differential Equations II} - Numerická stabilita
+\end{itemize}
+\begin{center}
+\begin{tabular}{m{0.2\textwidth}m{0.2\textwidth}}
+\includegraphics[width=0.35\textwidth]{qr_oksendal.pdf} & \includegraphics[width=0.35\textwidth]{qr_hairer.pdf} \\
+Oksendal (2013) & Hairer \& Wanner (2010) \\
+\end{tabular}
+\end{center}
+\end{tcolorbox}
+
+\begin{transition}
+Pro Kapitolu 6 (Parciální Diferenciální Rovnice v Kvantitativních Vědách) bude klíčové navázat na teorii Sobolevových prostorů z Kapitoly 2. Tyto prostory poskytují přirozený rámec pro formulaci a analýzu slabých řešení PDE, která jsou základem moderních numerických metod jako konečné prvky a spektrální metody. Stabilita řešení PDE bude vyžadovat rozšíření Ljapunovovy teorie do nekonečně-dimenzionálních prostorů.
+\end{transition}

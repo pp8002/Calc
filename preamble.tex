@@ -1,5 +1,4 @@
 % !TEX root = main.tex
-\documentclass[a4paper,12pt]{article}
 
 % --- jazyk a kódování ---
 \usepackage[main=czech]{babel}
@@ -45,6 +44,20 @@
 % --- mikrotypografie ---
 \usepackage{microtype}
 \emergencystretch=1.5em
+
+% --- listings (pro kód) ---
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny,
+  showstringspaces=false
+}
+
+% --- booktabs (pro profesionální tabulky) ---
+\usepackage{booktabs}
 
 % --- theoremstyle: vlastní nastavení s mezerami a nadpisem na novém řádku ---
 \newtheoremstyle{mytheoremstyle}%
