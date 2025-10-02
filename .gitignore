@@ -1,0 +1,70 @@
+# --------------------------
+# OS & editor junk
+# --------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --------------------------
+# LaTeX auxiliary files
+# --------------------------
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.nav
+*.snm
+*.vrb
+*.xdv
+*.dvi
+*.pdfsync
+*.ps
+*.eps
+*.ilg
+*.idx
+*.ind
+*.ist
+*.glg
+*.glo
+*.gls
+*.acn
+*.acr
+*.alg
+*.mw
+*.loa
+*.lox
+*.thm
+
+# minted / pygments cache (pokud bys používal \usepackage{minted})
+_minted*
+*.pyg
+
+# arara (pokud bys někdy použil)
+*.arx
+*.arxml
+
+# --------------------------
+# Build output directory
+# --------------------------
+out/
+# pokud chceš mít složku ve repu kvůli struktuře, nech si prázdný soubor:
+# !out/.gitkeep
+
+# --------------------------
+# Exporty (zvaž smazání, pokud chceš verzovat PDF)
+# --------------------------
+*.pdf
+*.pdf_tex

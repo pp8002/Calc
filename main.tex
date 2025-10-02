@@ -1,0 +1,70 @@
+% !TEX program = pdflatex
+% Hlavní kořenový soubor skript
+\documentclass[a4paper,12pt]{article}
+
+% Načtení globální preambule a maker
+\input{preamble}
+\input{macros}
+
+% ---- Titulní údaje (uprav dle potřeby) ----
+\title{\textbf{Calculus 2}\\\large Skripta s důrazem na rigoróznost a příklady}
+
+\date{\today}
+
+\begin{document}
+
+% ---- Titulní strana ----
+\maketitle
+\thispagestyle{empty}
+\clearpage
+
+% ---- Předmluva (nečíslovaná, ale v obsahu) ----
+\section*{Předmluva}
+\addcontentsline{toc}{section}{Předmluva}
+Tato skripta vznikají s cílem poskytnout systematický a rigorózní úvod do Calculusu a diferenciálních rovnic.
+Důraz je kladen na jasné definice, věty a důkazy, doplněné o řešené příklady.
+Struktura je rozdělena do \emph{Levelů}, aby bylo možné progresivně zvyšovat náročnost.
+
+\bigskip
+\noindent\textbf{Jak číst:}
+Každý Level obsahuje úvodní motivaci, přehled klíčových výsledků a výběr příkladů.
+Doporučujeme procházet kapitoly postupně a průběžně ověřovat porozumění na cvičeních.
+
+\clearpage
+
+% ---- Globální obsah ----
+\setcounter{secnumdepth}{3}   % číslování až do \subsubsection
+\setcounter{tocdepth}{2}      % obsah zobrazuje do \subsection (změň na 3 dle chuti)
+\tableofcontents
+\clearpage
+
+% ---- (Volitelně) seznam obrázků/tabulek/vět – odkomentuj, pokud používáš ----
+% \listoffigures
+% \clearpage
+% \listoftables
+% \clearpage
+% \usepackage{thmtools} % v preamble, pokud chceš seznam vět
+% \listoftheorems[ignoreall,show={theorem,lemma,proposition}]
+% \clearpage
+
+% ---- Hlavní text (kapitoly) ----
+% Každá kapitola je samostatný soubor v 'chapters/'. Přidávej/ubírej dle potřeby.
+\input{chapters/00-uvod} 
+\input{chapters/01-funkcionalni-analyza}
+\input{chapters/02-Teorie-metrických-prostorů}
+
+
+
+% --- (Volitelně) další sekce Calculusu ---
+% \input{chapters/20-limity}
+% \input{chapters/21-derivace}
+% \input{chapters/22-integraly}
+% \input{chapters/23-mv-calculus}
+
+% ---- Přílohy (pokud chceš) ----
+% \appendix
+% \section{Dodatek A: Notace a zkratky}
+% \label{app:notace}
+% Stručný souhrn používané notace. (Můžeš také držet v macros.tex)
+
+\end{document}

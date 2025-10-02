@@ -1,0 +1,172 @@
+% !TEX root = ../main.tex
+\section{Úvod do diferenciálních rovnic}
+\label{sec:uvod-diffeq}
+
+\blocktitle{Cíl kapitoly}
+Tato kapitola uvede čtenáře do problematiky diferenciálních rovnic, vysvětlí jejich základní význam a naznačí, proč jsou tak zásadním nástrojem pro modelování reálného světa. 
+Důraz je kladen na pochopení toho, že diferenciální rovnice popisují \emph{změny} — dynamiku procesů.
+
+\spc
+
+\subsection{Co je to diferenciální rovnice?}
+\begin{definition}[Diferenciální rovnice]
+Diferenciální rovnice je vztah mezi neznámou funkcí a jejími derivacemi. 
+Pokud funkce závisí pouze na jedné proměnné a v rovnici vystupují pouze obyčejné derivace, hovoříme o \emph{obyčejné diferenciální rovnici} (ODE). 
+Pokud funkce závisí na více proměnných a objevují se parciální derivace, jedná se o \emph{parciální diferenciální rovnici} (PDE).
+\end{definition}
+
+\begin{remark}
+Zatímco algebraické rovnice hledají čísla, která splňují určitý vztah, diferenciální rovnice hledají \emph{funkce}, jejichž derivace splňují danou podmínku.
+\end{remark}
+
+\spc
+
+\subsection{Motivační příklady z praxe}
+
+\begin{example}[Volný pád]
+Podle Newtonova druhého zákona má těleso hmotnosti $m$ padající volně k Zemi rovnici
+\[
+m \frac{\dd^2 y}{\dd t^2} = -mg.
+\]
+Tato rovnice druhého řádu má řešení tvaru
+\[
+y(t) = -\tfrac{1}{2} g t^2 + C_1 t + C_2,
+\]
+kde $C_1, C_2$ určíme z počátečních podmínek (počáteční výška, rychlost).
+\end{example}
+
+\begin{example}[Rádioaktivní rozpad]
+Množství radioaktivní látky $N(t)$ splňuje rovnici
+\[
+\frac{\dd N}{\dd t} = -\lambda N,
+\]
+kde $\lambda > 0$ je rozpadová konstanta. 
+Řešením je exponenciální zákon rozpadu
+\[
+N(t) = N_0 \e^{-\lambda t}.
+\]
+\end{example}
+
+\begin{example}[Růst populace]
+Nejjednodušší model růstu populace (Malthusův model) má tvar
+\[
+\frac{\dd P}{\dd t} = k P,
+\]
+který vede k exponenciálnímu růstu $P(t) = P_0 \e^{kt}$. 
+Pokročilejší model (logistický) zohledňuje omezené zdroje:
+\[
+\frac{\dd P}{\dd t} = k P \left(1 - \frac{P}{K}\right).
+\]
+\end{example}
+
+\begin{example}[Ekonomie]
+Jednoduchý model cenové adaptace může mít tvar
+\[
+\frac{\dd p}{\dd t} = \alpha \big(D(p) - S(p)\big),
+\]
+kde $p(t)$ je cena, $D(p)$ poptávka, $S(p)$ nabídka a $\alpha > 0$ rychlost adaptace.
+\end{example}
+
+\spc
+
+\subsection{Základní pojmy}
+
+\begin{definition}[Řešení diferenciální rovnice] Funkce $y=\varphi(x)$ definovaná na intervalu $I$ je řešením diferenciální rovnice na $I$, pokud po jejím dosazení (spolu s derivacemi) získáme identitu. \end{definition}
+    
+
+\begin{definition}
+    \blocktitle{Obecné a partikulární řešení}
+    \begin{romanenum}
+    \item \emph{Obecné řešení} obsahuje rodinu funkcí s integračními konstantami.
+    \item \emph{Partikulární řešení} vzniká konkrétní volbou konstant, často určenou podmínkami.
+    \end{romanenum}
+    \end{definition}
+    
+
+\begin{remark}
+Někdy se vyskytují i tzv. \emph{singulární řešení}, která nelze získat z obecného řešení volbou konstant (např. obálka rodiny křivek).
+\end{remark}
+
+\spc
+
+\subsection{Historický exkurz}
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[>=Latex, x=2.2cm, y=1cm]
+      % Osa času
+      \draw[->] (0,0) -- (5.2,0) node[right] {Čas};
+    
+      % Značky + roky (dole)
+      \foreach \x/\label in {
+        0/{17.\,st.},
+        1/{18.\,st.},
+        2/{19.\,st.},
+        3/{20.\,st.},
+        4/{21.\,st.}
+      }{
+        \draw (\x,0.12) -- (\x,-0.12);
+        \node[below=4pt] at (\x,-0.12) {\label};
+      }
+    
+      % Názvy (nahoře) – zarovnáno na střed, šířka pro zalomení do 2 řádků
+      \node[above=6pt, align=center, text width=2.2cm] at (0, 0.12) {\small Newton\\Leibniz};
+      \node[above=6pt, align=center, text width=2.2cm] at (1, 0.12) {\small Bernoulliové\\Euler};
+      \node[above=6pt, align=center, text width=2.2cm] at (2, 0.12) {\small Cauchy\\Lipschitz};
+      \node[above=6pt, align=center, text width=2.2cm] at (3, 0.12) {\small Poincaré\\Ljapunov};
+      \node[above=6pt, align=center, text width=2.2cm] at (4, 0.12) {\small Moderní\\teorie};
+    \end{tikzpicture}
+    \end{figure}
+
+
+    \spc
+
+    \paragraph*{17. století — Newton a Leibniz}
+    Vznik diferenciálního počtu i diferenciálních rovnic. 
+    Newton řešil pohybové zákony a gravitační problémy pomocí rovnic druhého řádu. 
+    Leibniz zavedl symboliku a jeho škola (Bernoulliové) rozvinula metody separace proměnných.
+    
+    \spc
+    
+    \paragraph*{18. století — Bernoulliové a Euler}
+    Bernoulliové přinesli první obecné metody řešení jednoduchých ODE. 
+    Euler systematizoval teorii, zavedl metodu variace konstant a ukázal význam lineárních rovnic s konstantními koeficienty.
+    
+    \spc
+    
+    \paragraph*{19. století — Cauchy a Lipschitz}
+    Nastává éra rigorózní matematiky. 
+    Cauchy přesně formuloval pojem řešení diferenciální rovnice a položil základy existenčních vět. 
+    Lipschitz rozpracoval podmínky jednoznačnosti řešení, které dnes známe jako Lipschitzovu podmínku.
+    
+    \spc
+    
+    \paragraph*{20. století — Poincaré a Ljapunov}
+    Pozornost se přesouvá od explicitních řešení k analýze chování systémů. 
+    Poincaré zakládá kvalitativní teorii diferenciálních rovnic a dynamických systémů, 
+    Ljapunov formuluje teorii stability rovnovážných stavů.
+    
+    \spc
+    
+    \paragraph*{21. století — Moderní teorie}
+    Současný vývoj se zaměřuje na numerické metody, modelování složitých systémů, chaotické chování a aplikace v biologii, fyzice, ekonomii a strojovém učení.
+    
+
+\begin{remark}
+Vývoj teorie diferenciálních rovnic prošel od konkrétních příkladů (Newton, Bernoulli, Euler) přes rigorózní existenční a jednoznačnostní věty (Cauchy, Lipschitz) až po kvalitativní teorii a stabilitu (Poincaré, Ljapunov).
+\end{remark}
+
+\spc
+
+\subsection*{Shrnutí kapitoly}
+\begin{itemize}
+\item Diferenciální rovnice popisují vztah mezi funkcí a jejími derivacemi a modelují dynamické procesy.
+\item Rozlišujeme ODE (jedna proměnná) a PDE (více proměnných).
+\item Řešení může být obecné, partikulární či singulární.
+\item Historie ukazuje posun od konkrétních řešení k abstraktní teorii.
+\end{itemize}
+
+\spc
+
+
+

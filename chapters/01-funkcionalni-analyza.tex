@@ -1,0 +1,247 @@
+% !TEX root = ../main.tex
+\section{Pokročilá funkcionální analýza ve prostorech funkcí}
+\label{sec:funkcionalni-analyza}
+
+\blocktitle{Cíl kapitoly}
+V této kapitole vybudujeme abstraktní rámec normovaných a Hilbertových prostorů, který je základním jazykem moderní teorie diferenciálních rovnic. Zavedeme klíčové koncepty jako duální prostory, kompaktnost a spektrální teorii, které jsou nezbytné pro rigorózní formulaci a řešení diferenciálních rovnic v nekonečně-dimenzionálních prostorech.
+
+\spc
+
+\subsection{Normované a Banachovy prostory — rekapitulace a prohloubení}
+\label{subsec:banach-prostory}
+
+\begin{definition}[Normovaný prostor]
+\label{def:normovany-prostor}
+Normovaným prostorem rozumíme dvojici $(X,\norm{\cdot})$, kde $X$ je vektorový prostor nad $\R$ nebo $\C$ a $\norm{\cdot}:X\to\R$ splňuje:
+\begin{romanenum}
+\item $\norm{x}\ge 0$ pro všechna $x\in X$ a $\norm{x}=0$ právě když $x=0$,
+\item $\norm{\alpha x}=|\alpha|\,\norm{x}$ pro všechna $\alpha\in\R$ (resp.\ $\C$) a $x\in X$,
+\item $\norm{x+y}\le \norm{x}+\norm{y}$ pro všechna $x,y\in X$ (trojúhelníková nerovnost).
+\end{romanenum}
+\end{definition}
+
+\begin{example}[Klasické příklady normovaných prostorů]
+\label{ex:normovane-prostory}
+\begin{enumerate}
+\item $\R^n$ s eukleidovskou normou $\norm{\vb{x}}_2=\big(\sum_{i=1}^n x_i^2\big)^{1/2}$.
+\item Prostor spojitých funkcí $C([a,b])$ s normou $\norm{f}_\infty=\sup_{x\in[a,b]}|f(x)|$.
+\item Prostor $p$-sumovatelných posloupností $\ell^p=\{(x_n)_{n\ge1}:\sum_{n=1}^\infty |x_n|^p<\infty\}$ s normou $\norm{x}_p=\big(\sum_{n=1}^\infty |x_n|^p\big)^{1/p}$.
+\end{enumerate}
+\end{example}
+
+\begin{definition}[Banachův prostor]
+\label{def:banach-prostor}
+Normovaný prostor $(X,\norm{\cdot})$ se nazývá Banachův prostor, je-li úplný v metrice indukované normou, tj.\ každá Cauchyovská posloupnost v $X$ konverguje k nějakému prvku $X$.
+\end{definition}
+
+\begin{theorem}[Úplnost $C([a,b])$]
+\label{vet:uplnost-C}
+Prostor $(C([a,b]),\norm{\cdot}_\infty)$ je Banachův prostor.
+\end{theorem}
+
+\begin{proof}
+Nechť $\{f_n\}$ je Cauchyovská posloupnost v $C([a,b])$. Pak pro každé $\varepsilon>0$ existuje $N$ takové, že pro všechna $m,n\ge N$ platí
+\[
+\norm{f_m-f_n}_\infty=\sup_{x\in[a,b]}|f_m(x)-f_n(x)|<\varepsilon.
+\]
+Pro pevné $x$ je tedy $\{f_n(x)\}$ Cauchyovská v $\R$, a tudíž konverguje k $f(x)$. Z nerovnosti přechodem $m\to\infty$ dostaneme $|f(x)-f_n(x)|\le\varepsilon$ pro $n\ge N$ a všechna $x$, tedy $f_n\to f$ stejnoměrně. Stejnoměrná limita spojitých funkcí je spojitá, takže $f\in C([a,b])$.
+\end{proof}
+
+\spc
+
+\subsection{Lineární operátory a funkcionály}
+\label{subsec:linearni-operatory}
+
+\begin{definition}[Lineární operátor]
+\label{def:linearni-operator}
+Nechť $X,Y$ jsou normované prostory. Zobrazení $T:X\to Y$ se nazývá lineární operátor, jestliže pro všechna $x,y\in X$ a $\alpha\in\R$ (resp.\ $\C$) platí:
+\begin{romanenum}
+\item $T(x+y)=T(x)+T(y)$,
+\item $T(\alpha x)=\alpha T(x)$.
+\end{romanenum}
+\end{definition}
+
+\begin{definition}[Omezený operátor]
+\label{def:omezeny-operator}
+Lineární operátor $T:X\to Y$ je \emph{omezený}, existuje-li konstanta $C>0$ taková, že
+\[
+\norm{Tx}_Y\le C\,\norm{x}_X \quad \text{pro všechna } x\in X.
+\]
+\end{definition}
+
+\begin{theorem}[Ekivalence omezenosti a spojitosti]
+\label{vet:omezenost-spojitost}
+Pro lineární operátor $T:X\to Y$ jsou ekvivalentní:
+\begin{romanenum}
+\item $T$ je spojitý,
+\item $T$ je spojitý v nule,
+\item $T$ je omezený.
+\end{romanenum}
+\end{theorem}
+
+\begin{definition}[Norma operátoru]
+\label{def:norma-operatoru}
+Je-li $T:X\to Y$ omezený lineární operátor, definujeme jeho normu
+\[
+\norm{T}=\sup\{\norm{Tx}_Y:\ \norm{x}_X\le1\}
+       =\sup\Big\{\frac{\norm{Tx}_Y}{\norm{x}_X}: x\ne0\Big\}.
+\]
+\end{definition}
+
+\begin{definition}[Prostor omezených operátorů]
+\label{def:prostor-operatoru}
+Množina všech omezených lineárních operátorů z $X$ do $Y$ tvoří vektorový prostor $\mathcal{L}(X,Y)$. Je-li $Y$ Banachův, pak i $\mathcal{L}(X,Y)$ je Banachův s operátorovou normou.
+\end{definition}
+
+\begin{theorem}[Princip stejnoměrné omezenosti]
+\label{vet:princip-stejnomerne-omezenosti}
+Nechť $X$ je Banachův prostor a $Y$ normovaný prostor. Je-li $\{T_\alpha\}_{\alpha\in A}$ rodina omezených lineárních operátorů $X\to Y$ taková, že pro každé $x\in X$ je množina $\{\norm{T_\alpha x}_Y:\alpha\in A\}$ omezená, pak je omezená i množina $\{\norm{T_\alpha}:\alpha\in A\}$.
+\end{theorem}
+
+\spc
+
+\subsection{Hilbertovy prostory}
+\label{subsec:hilbert-prostory}
+
+\begin{definition}[Skalární součin]
+\label{def:skalarni-soucin}
+Nechť $H$ je vektorový prostor nad $\C$. Zobrazení $\ip{\cdot}{\cdot}:H\times H\to\C$ je skalární součin, jestliže:
+\begin{romanenum}
+\item $\ip{x}{x}\ge 0$ a $\ip{x}{x}=0$ právě když $x=0$,
+\item $\ip{x}{y}=\overline{\ip{y}{x}}$,
+\item $\ip{\alpha x+\beta y}{z}=\alpha\,\ip{x}{z}+\beta\,\ip{y}{z}$.
+\end{romanenum}
+\end{definition}
+
+\begin{definition}[Hilbertův prostor]
+\label{def:hilbert-prostor}
+Hilbertův prostor je prostor se skalárním součinem, který je úplný v metrice indukované normou $\norm{x}=\sqrt{\ip{x}{x}}$.
+\end{definition}
+
+\begin{example}[Klasické Hilbertovy prostory]
+\label{ex:hilbert-prostory}
+\begin{enumerate}
+\item $\R^n$ se standardním skalárním součinem $\ip{\vb{x}}{\vb{y}}=\sum_{i=1}^n x_i y_i$.
+\item Prostor $\ell^2$ se součinem $\ip{x}{y}=\sum_{n=1}^\infty x_n\overline{y_n}$.
+\item Prostor $L^2([a,b])$ se součinem $\ip{f}{g}=\int_a^b f(x)\overline{g(x)}\,\dd x$.
+\end{enumerate}
+\end{example}
+
+\begin{theorem}[Cauchy–Schwarzova nerovnost]
+\label{vet:cauchy-schwarz}
+Pro každé $x,y$ v prostoru se skalárním součinem platí
+\[
+|\ip{x}{y}|\le \norm{x}\,\norm{y},
+\]
+přičemž rovnost nastává právě tehdy, když $x$ a $y$ jsou lineárně závislé.
+\end{theorem}
+
+\begin{theorem}[Věta o projekci]
+\label{vet:o-projekci}
+Nechť $H$ je Hilbertův prostor a $M\subset H$ jeho neprázdná uzavřená konvexní množina. Pak pro každé $x\in H$ existuje právě jeden bod $y\in M$ (projekce) takový, že
+\[
+\norm{x-y}=\inf_{z\in M}\norm{x-z}.
+\]
+Navíc platí charakterizace: $y\in M$ a $\ip{x-y}{z-y}\le 0$ pro všechna $z\in M$.
+\end{theorem}
+
+\begin{proof}
+Existence: Nechť $d=\inf_{z\in M}\norm{x-z}$ a zvolme posloupnost $\{y_n\}\subset M$ s $\norm{x-y_n}\to d$. Rovnoběžníkový zákon dává Cauchyovskost $\{y_n\}$; uzavřenost a úplnost implikuje existenci limity $y\in M$ s $\norm{x-y}=d$. Jednoznačnost plyne opět z rovnoběžníkového zákona: kdyby $y,y'$ byly dvě projekce, vyšla by $\norm{y-y'}=0$.
+\end{proof}
+
+\spc
+
+\subsection{Duální prostory a věta Hahn–Banach}
+\label{subsec:dualni-prostory}
+
+\begin{definition}[Duální prostor]
+\label{def:dualni-prostor}
+Nechť $X$ je normovaný prostor. Duální prostor $X^*$ je prostor všech spojitých lineárních funkcionálů na $X$, tj.\ $X^*=\mathcal{L}(X,\R)$ (resp.\ $\mathcal{L}(X,\C)$).
+\end{definition}
+
+\begin{theorem}[Hahn–Banachova věta (reálná verze)]
+\label{vet:hahn-banach}
+Nechť $X$ je reálný vektorový prostor, $p:X\to\R$ sublineární funkcionál, $Y\subset X$ podprostor a $f:Y\to\R$ lineární funkcionál s $f(y)\le p(y)$ pro všechna $y\in Y$. Pak existuje lineární funkcionál $F:X\to\R$ takový, že $F|_Y=f$ a $F(x)\le p(x)$ pro všechna $x\in X$.
+\end{theorem}
+
+\begin{corollary}[Rozšíření funkcionálů]
+\label{dusl:rozsireni-funkcionalu}
+Nechť $X$ je normovaný prostor, $Y\subset X$ podprostor a $f\in Y^*$. Pak existuje $F\in X^*$ takové, že $F|_Y=f$ a $\norm{F}_{X^*}=\norm{f}_{Y^*}$.
+\end{corollary}
+
+\begin{theorem}[Reprezentace duálu k $L^p$]
+\label{vet:reprezentace-Lp}
+Pro $1<p<\infty$ je $(L^p(\mu))^*$ izometricky izomorfní s $L^q(\mu)$, kde $\frac1p+\frac1q=1$. Konkrétně, každý $\phi\in (L^p(\mu))^*$ má tvar
+\[
+\phi(f)=\int f\,g\,\dd\mu
+\]
+pro nějaké $g\in L^q(\mu)$ a $\norm{\phi}=\norm{g}_q$.
+\end{theorem}
+
+\spc
+
+\subsection{Kompaktnost v prostorech funkcí}
+\label{subsec:kompaktnost}
+
+\begin{definition}[Kompaktní množina]
+\label{def:kompaktni-mnozina}
+Množina $K$ v metrickém prostoru je kompaktní, jestliže z každé posloupnosti bodů v $K$ lze vybrat podposloupnost konvergentní k bodu z $K$.
+\end{definition}
+
+\begin{definition}[Stejná spojitost]
+\label{def:stejna-spojitost}
+Množina funkcí $\mathcal{F}\subset C([a,b])$ je stejně spojitá, jestliže pro každé $\varepsilon>0$ existuje $\delta>0$ takové, že pro všechny $f\in\mathcal{F}$ a $x,y\in[a,b]$ s $|x-y|<\delta$ platí $|f(x)-f(y)|<\varepsilon$.
+\end{definition}
+
+\begin{theorem}[Arzelà–Ascoli]
+\label{vet:arzela-ascoli}
+Množina $\mathcal{F}\subset C([a,b])$ je relativně kompaktní právě tehdy, když:
+\begin{romanenum}
+\item je stejně omezená: existuje $M>0$ takové, že $\norm{f}_\infty\le M$ pro všechna $f\in\mathcal{F}$,
+\item je stejně spojitá.
+\end{romanenum}
+\end{theorem}
+
+\begin{proof}
+($\Leftarrow$) Z libovolné posloupnosti v $\mathcal{F}$ vyberte diagonální metodou podposloupnost konvergující na husté množině; stejná spojitost dá stejnoměrnou konvergenci.\\
+($\Rightarrow$) Sporem: není-li některá z podmínek splněna, sestrojí se posloupnost bez stejnoměrně konvergentní podposloupnosti.
+\end{proof}
+
+\begin{example}[Aplikace Arzelà–Ascoliho věty]
+\label{ex:aplikace-arzela}
+Uvažujme Picardův operátor $(\Phi y)(x)=y_0+\int_{x_0}^x f(t,y(t))\,\dd t$ na množině
+\[
+M=\{\,y\in C([x_0-h,x_0+h]) : \norm{y-y_0}_\infty\le b\,\}.
+\]
+Je-li $f$ omezená na příslušném obdélníku, je $\Phi(M)$ stejně omezená; je-li $f$ spojitá, je $\Phi(M)$ stejně spojitá. Tedy $\Phi(M)$ je relativně kompaktní, což je klíčové pro použití Schauderovy věty o pevném bodě.
+\end{example}
+
+\begin{theorem}[Kompaktní operátory]
+\label{vet:kompaktni-operatory}
+Lineární operátor $T:X\to Y$ je \emph{kompaktní}, jestliže obraz jednotkové koule v $X$ má kompaktní uzávěr v $Y$. Každý kompaktní operátor je omezený.
+\end{theorem}
+
+\spc
+
+\subsection*{Shrnutí kapitoly}
+\begin{itemize}
+\item Banachovy a Hilbertovy prostory poskytují přirozený rámec pro studium diferenciálních rovnic.
+\item Lineární operátory a funkcionály převádějí diferenciální rovnice na operátorové rovnice.
+\item Hahn–Banachova věta garantuje bohatství funkcionálů (variace, dualita).
+\item Arzelà–Ascoli a kompaktní operátory jsou klíčové pro existenční výsledky v nelineárních problémech.
+\end{itemize}
+
+\spc
+
+\subsection*{Cvičení}
+\begin{enumerate}
+\item Dokažte, že prostor $C^1([a,b])$ s normou $\norm{f}=\norm{f}_\infty+\norm{f'}_\infty$ je Banachův.
+\item Ukažte, že derivace $D:C^1([0,1])\to C([0,1])$, $Df=f'$, je lineární, ale není omezená, pokud $C^1([0,1])$ vezmeme s normou $\norm{\cdot}_\infty$.
+\item V Hilbertově prostoru dokažte rovnoběžníkový zákon:
+\[
+\norm{x+y}^2+\norm{x-y}^2=2\big(\norm{x}^2+\norm{y}^2\big).
+\]
+\item Pomocí Hahn–Banacha dokažte: pro každý nenulový $x\in X$ existuje $f\in X^*$ s $\norm{f}=1$ a $f(x)=\norm{x}$.
+\item Ukažte, že množina $\{f\in C([0,1]) : |f(x)|\le1,\ |f(x)-f(y)|\le |x-y|\ \forall x,y\}$ je kompaktní v $C([0,1])$.
+\item Je-li $k\in C([0,1]\times[0,1])$, definujte $(Tf)(x)=\int_0^1 k(x,y)f(y)\,\dd y$. Dokažte, že $T:C([0,1])\to C([0,1])$ je kompaktní lineární operátor.
+\end{enumerate}

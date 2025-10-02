@@ -1,0 +1,83 @@
+% !TEX root = main.tex
+\documentclass[a4paper,12pt]{article}
+
+% --- jazyk a kódování ---
+\usepackage[main=czech]{babel}
+\usepackage[utf8]{inputenc}   % pro pdfLaTeX
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% --- matematika ---
+\usepackage{amsmath,amssymb,amsthm}
+\allowdisplaybreaks[3] % dovol rozdělování vícerovnic přes stránky
+
+% --- okraje ---
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+% --- čitelnost ---
+\linespread{1.1}
+
+% --- jednoduché prostředí s římským číslováním (bez potřeby enumitem) ---
+\newenvironment{romanenum}%
+  {\begin{enumerate}\renewcommand\labelenumi{\roman{enumi})}}%
+  {\end{enumerate}}
+
+% --- hyperref vždy; cleveref fallback (když není nainstalován) ---
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=black
+}
+
+\makeatletter
+\@ifundefined{ver@cleveref.sty}{%
+  % fallback: základní aliasy, pokud cleveref není k dispozici
+  \newcommand{\cref}[1]{\ref{#1}}
+  \newcommand{\Cref}[1]{\ref{#1}}
+}{%
+  \usepackage[capitalize,nameinlink]{cleveref}
+}
+\makeatother
+
+% --- mikrotypografie ---
+\usepackage{microtype}
+\emergencystretch=1.5em
+
+% --- theoremstyle: vlastní nastavení s mezerami a nadpisem na novém řádku ---
+\newtheoremstyle{mytheoremstyle}%
+  {12pt}{12pt}% space above/below
+  {\normalfont}{}%
+  {\bfseries}{}%
+  {\newline}{} % head–body separator = new line
+
+\theoremstyle{mytheoremstyle}
+
+% --- prostředí, každé má vlastní číslování ---
+\newtheorem{definition}{Definice}[section]
+\newtheorem{example}{Příklad}[section]
+\newtheorem{remark}{Poznámka}[section]
+\newtheorem{theorem}{Věta}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Tvrzení}[section]
+\newtheorem{corollary}{Důsledek}[section]
+
+% --- důkazy ---
+\renewcommand{\proofname}{Důkaz}
+
+% --- číslování rovnic, obrázků a tabulek podle sekcí ---
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+
+% --- vlastní příkazy ---
+\providecommand{\diff}{\mathrm{d}}
+
+% --- pomocné blokové nadpisy a jemné svislé mezery ---
+\newcommand{\blocktitle}[1]{\vspace{0.6\baselineskip}\noindent\textbf{#1}\par\vspace{0.25\baselineskip}}
+\newcommand{\spc}{\vspace{0.6\baselineskip}}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta} % volitelné, jen pro hezčí šipky

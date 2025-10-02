@@ -1,0 +1,142 @@
+% ===========================
+% macros.tex — vlastní příkazy
+% (bez \usepackage — vše řeší preamble)
+% ===========================
+
+% ---------- Základní množiny ----------
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+% ---------- Základní konstanty a symboly ----------
+\newcommand{\e}{\mathrm{e}}           % Eulerovo číslo
+\newcommand{\ii}{\mathrm{i}}          % imaginární jednotka
+\newcommand{\dd}{\mathrm{d}}          % diferenciál (pro integrály)
+\newcommand{\Dif}[1][]{\,\mathrm{d}#1} % alternativní diferenciál s mezerou: \Dif{x}
+
+% ---------- Derivace ----------
+% Skalární
+\newcommand{\deriv}[3][]{\frac{\mathrm{d}^{#1} #2}{\mathrm{d} #3^{#1}}}     % \deriv[k]{y}{x}
+\newcommand{\pderiv}[3][]{\frac{\partial^{#1} #2}{\partial #3^{#1}}}        % \pderiv[2]{u}{x}
+\newcommand{\mderiv}[3][]{\frac{\mathrm{D}^{#1} #2}{\mathrm{D} #3^{#1}}}    % materiální/úplná derivace
+% Evaluace na bodě
+\newcommand{\at}[2]{\left.#1\right|_{#2}}                                   % \at{f'(x)}{x=x_0}
+
+% ---------- Vektory, matice, normy ----------
+\newcommand{\vect}[1]{\boldsymbol{#1}}                   % tučný symbol (vektor)
+\newcommand{\mat}[1]{\mathbf{#1}}                        % tučné písmo pro matice
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\ip}[2]{\left\langle #1,\, #2 \right\rangle} % skalární součin
+
+% ---------- Závorky a pomocné ----------
+\newcommand{\paren}[1]{\left( #1 \right)}
+\newcommand{\bracket}[1]{\left[ #1 \right]}
+\newcommand{\bracec}[1]{\left\{ #1 \right\}}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+% ---------- Operátory (deklarované správně) ----------
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\diver}{div}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\rot}{rot}        % alias curl
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\Real}{Re}
+\DeclareMathOperator{\Imag}{Im}
+
+% Vytažené operátory s „*“ (správné umístění limitů pod/nahoru)
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+% ---------- Pravděpodobnost a statistika (pokud se ti hodí) ----------
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\1}{\mathbf{1}}            % indikační funkce
+
+% ---------- Diferenciální rovnice – specifické ----------
+\newcommand{\Lcal}{\mathcal{L}}         % lineární operátor
+\newcommand{\Fcal}{\mathcal{F}}         % Fourierova transformace (pokud použiješ)
+\newcommand{\Gcal}{\mathcal{G}}         % Greenova funkce / operátor
+\newcommand{\Wr}{\mathrm{W}}            % Wronskián (příp. doplníš definici)
+\newcommand{\Heaviside}{\mathrm{H}}     % Heaviside
+\newcommand{\dirac}{\delta}             % Dirac delta
+
+% Notace pro ODE/PDE
+\newcommand{\ode}[2]{#1'\!(#2)}         % např. \ode{y}{x} = y'(x)
+\newcommand{\odeN}[3]{#1^{(#2)}\!(#3)}  % \odeN{y}{n}{x} = y^{(n)}(x)
+\newcommand{\pde}[3]{\frac{\partial #1}{\partial #2}\!(#3)}
+\newcommand{\pdeN}[4]{\frac{\partial^{#2} #1}{\partial #3^{#2}}\!(#4)}
+
+% Standardní tvary
+\newcommand{\odeStd}{y' = f(x,y)}                                   % rychlé vložení obecné 1. ř.
+\newcommand{\odeLin}{y' + p(x)\,y = q(x)}                           % lineární 1. řádu
+\newcommand{\odeSep}{y' = f(x)\,g(y)}                               % separabilní
+\newcommand{\pdeHeat}{u_t = \kappa\,u_{xx}}                         % rovnice vedení tepla
+\newcommand{\pdeWave}{u_{tt} = c^2 u_{xx}}                          % vlnová rovnice
+\newcommand{\pdeLaplace}{\Delta u = 0}                              % Laplaceova rovnice
+
+% Integrující faktor
+\newcommand{\IF}{\mu(x)}                                            % \IF = e^{\int p(x)\,\dd x} typicky
+% Wronskián dvou funkcí
+\newcommand{\Wronskian}[2]{%
+  \begin{vmatrix}
+    #1 & #2 \\
+    #1' & #2' \\
+  \end{vmatrix}
+}
+
+% Laplaceův/Poissonův operátor
+\newcommand{\Lapl}{\Delta}                                          % \Lapl u = u_{xx}+u_{yy}(+...)
+
+% Okrajové a počáteční podmínky (rychlá notace)
+\newcommand{\IC}[1]{\text{IC: } #1}                                 % \IC{y(0)=y_0}
+\newcommand{\BC}[1]{\text{BC: } #1}                                 % \BC{u(0,t)=0,\;u(L,t)=0}
+
+% Greenova funkce – symbolická notace
+\newcommand{\Green}[2]{G\!\paren{#1\,;\,#2}}                        % G(x;\xi)
+
+% ---------- Fourier / konvoluce ----------
+\newcommand{\FT}[1]{\widehat{#1}}                                   % Fourierův obraz
+\newcommand{\IFT}[1]{\check{#1}}                                    % inverzní FT (notace dle zvyku)
+\newcommand{\conv}{\ast}                                            % konvoluce
+
+% ---------- Intervals a set-builder ----------
+\newcommand{\set}[1]{\left\{\, #1 \,\right\}}
+\newcommand{\openInterval}[2]{\left(#1,\,#2\right)}
+\newcommand{\closedInterval}[2]{\left[#1,\,#2\right]}
+\newcommand{\halfOpenInterval}[2]{\left[#1,\,#2\right)}
+\newcommand{\halfClosedInterval}[2]{\left(#1,\,#2\right]}
+
+% ---------- Zkrácené odkazy a eqref ----------
+\newcommand{\eqn}[1]{\eqref{#1}}                                    % zkrácený odkaz na rovnici
+\newcommand{\crefp}[1]{(\cref{#1})}                                 % "viz (1.2)" s cleveref
+
+% ---------- Malé užitečnosti ----------
+\newcommand{\ddx}{\frac{\mathrm{d}}{\mathrm{d}x}}
+\newcommand{\ddy}{\frac{\mathrm{d}}{\mathrm{d}y}}
+\newcommand{\ppt}{\frac{\partial}{\partial t}}
+\newcommand{\ppx}{\frac{\partial}{\partial x}}
+\newcommand{\ppy}{\frac{\partial}{\partial y}}
+\newcommand{\ppxx}{\frac{\partial^2}{\partial x^2}}
+\newcommand{\ppyy}{\frac{\partial^2}{\partial y^2}}
+\newcommand{\ppxy}{\frac{\partial^2}{\partial x\,\partial y}}
+
+% ---------- Textové zvýraznění v matematice ----------
+\newcommand{\textemph}[1]{\textbf{\textit{#1}}}                     % rychlé zdůraznění v odstavcích
+
+% ---------- Krátké značky pro kolonky/souhrny ----------
+\newcommand{\Def}[1]{\textbf{Def.:} #1}
+\newcommand{\Thm}[1]{\textbf{Věta:} #1}
+\newcommand{\Rem}[1]{\textbf{Pozn.:} #1}
+\newcommand{\Exa}[1]{\textbf{Př.:} #1}
