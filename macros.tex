@@ -3,9 +3,8 @@
 % --- NASTAVENÍ ZÁ HLAVÍ A ZÁPATÍ ---
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[LE,RO]{\thepage}
-\fancyhead[RE]{\leftmark}
-\fancyhead[LO]{\rightmark}
+\fancyhead[R]{\thepage}
+\fancyhead[L]{\leftmark}
 \renewcommand{\headrulewidth}{0.4pt}
 
 % --- DEFINICE BAREV PRO KVANTITATIVNÍ APLIKACE ---
@@ -89,7 +88,7 @@
   {\bfseries}{}%
   {\newline}{}
 
-\theoremstyle{mytheormstyle}
+\theoremstyle{mytheoremstyle}
 
 \newtheorem{definition}{Definice}[section]
 \newtheorem{example}{Příklad}[section]
@@ -202,4 +201,3 @@
 \emergencystretch=1.5em
 
 % --- ČESKÉ DĚLENÍ SLOV ---
-\babelprovide[hyphenrules=cs]{czech}

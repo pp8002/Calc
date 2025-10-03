@@ -27,7 +27,7 @@ Rovnovážný bod $x^*$ se nazývá \emph{hyperbolický}, jestliže všechny vla
 \end{definition}
 
 \begin{intuition}
-Hyperbolicita zaručuje, že lokální chování je určeno linearizací. Nehyperbolické body jsou "hranicí stability" a vyžadují speciální analýzu pomocí středové variety. Viz Obrázek \ref{fig:hyperbolic_classification}.
+Hyperbolicita zaručuje, že lokální chování je určeno linearizací. Nehyperbolické body jsou "hranicí stability" a vyžadují speciální analýzu pomocí středové variety; viz například standardní diagramy hyperbolické klasifikace v literatuře.
 \end{intuition}
 
 \subsubsection{Stabilita dle Ljapunova - přesné definice}
@@ -187,7 +187,8 @@ Nechť $x^*$ je rovnovážný bod s vlastními čísly majícími nulové reáln
 Za předpokladu dostatečné hladkosti $f$ existuje lokálně hladká středová varieta dimenze rovné počtu vlastních čísel s nulovou reálnou částí.
 \end{theorem}
 
-\begin{algorithm}[Numerická konstrukce středové variety]
+\begin{algorithm}[ht]
+\caption{Numerická konstrukce středové variety}
 \label{alg:center_manifold}
 \begin{enumerate}
 \item Vypočti Jacobiho matici $J = Df(x^*)$ a diagonalizuj ji
@@ -553,4 +554,3 @@ Systém je středně kvadraticky stabilní pro $\theta > 0$.
 \item Oksendal, B. - \emph{Stochastic Differential Equations} - Stochastická stabilita
 \item Hairer, E., Wanner, G. - \emph{Solving Ordinary Differential Equations II} - Numerická stabilita
 \end{itemize}
-

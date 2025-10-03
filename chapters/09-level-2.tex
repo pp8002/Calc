@@ -1,0 +1,214 @@
+% !TEX root = ../main.tex
+\section{Úroveň 2: Speciální Nelineární Rovnice 1. Řádu}
+\label{sec:level2}
+
+\subsection{Úvod do Úrovně 2}
+\label{subsec:uvod-uroven-2}
+
+Tato úroveň představuje systematický přechod od lineární k nelineární dynamice, otevírající cestu k modelování komplexních reálných systémů v kvantitativních vědách. Zatímco úroveň 1 poskytla kompletní fundament pro lineární a kvazilineární systémy, úroveň 2 rozšiřuje tento aparát na podstatně bohatší třídu nelineárních jevů.
+
+\vspace{0.8\baselineskip}
+
+\begin{principle}[Filozofie úrovně 2]
+Úroveň 2 kombinuje rigorózní matematickou analýzu s hlubokým důrazem na kvalitativní chování řešení. Neusilujeme pouze o nalezení explicitního řešení, ale o pochopení strukturálních vlastností nelineárních systémů a jejich implikací pro kvantitativní modelování.
+\end{principle}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection*{Organizace a cíle úrovně}
+
+Úroveň 2 je strukturována do pěti klíčových tříd nelineárních ODE 1. řádu, z nichž každá reprezentuje specifický typ nelinearity a vyžaduje specializovaný matematický přístup:
+
+\begin{itemize}
+\item \textbf{Bernoulliho rovnice} - nelinearita ve formě mocniny a její transformace na lineární tvar
+\item \textbf{Riccatiho rovnice} - kvadratická nelinearita s aplikacemi v optimalizaci a řízení
+\item \textbf{Clairautovy rovnice} - singulární řešení a teorie obálek
+\item \textbf{Lagrangeovy rovnice} - parametrické řešení a zobecnění předchozího případu
+\item \textbf{Abelovy rovnice} - kubická nelinearita a její speciální integrabilní případy
+\end{itemize}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection*{Kvantitativní význam}
+
+Pro kvantitativního experta představují nelineární rovnice 1. řádu nezbytný nástroj pro:
+
+\begin{itemize}
+\item Modelování nelineárních růstových procesů v ekonomii a financích
+\item Analýzu stability komplexních systémů s více rovnovážnými stavy
+\item Studium bifurkací a přechodů mezi režimy chování
+\item Přípravu na pokročilé nelineární modely včetně systémů vyšších řádů
+\end{itemize}
+
+\vspace{0.8\baselineskip}
+
+\begin{example}[Motivační příklad z ekonomického modelování]
+Uvažujme model technologické difuze s nelineární saturační efektem:
+\[
+\frac{dA}{dt} = rA\left(1 - \frac{A}{K}\right) - \alpha A^2
+\]
+Tato Bernoulliho rovnice s kvadratickým členem popisuje kompetitivní dynamiku v adaptaci nových technologií, kde dodatečný člen reprezentuje konkurenční tlaky na trhu.
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection*{Metodologický přístup}
+
+Každý typ nelineární rovnice bude prezentován prostřednictvím kompletní teoretické analýzy, systematické řešicí metodologie, hierarchicky uspořádaných příkladů a bezprostředních aplikací v kvantitativních vědách. Důraz je kladen na porozumění transformacím, které umožňují redukci složitých nelineárních problémů na řešitelné podoby.
+
+Tato úroveň nejenže rozšiřuje technický instrumentář, ale také kultivuje matematickou intuici pro práci s nelineárními systémy, což je nezbytná kompetence pro moderní kvantitativní výzkum.
+\end{example}
+
+
+\subsection{Bernoulliho Diferenciální Rovnice}
+\label{subsec:bernoulliho-rovnice}
+
+\subsubsection{Teoretický Fundament Bernoulliho Rovnic}
+\label{subsubsec:teoreticky-fundament-bernoulli}
+
+\begin{historical}[Jacob Bernoulli a historický kontext]
+Jacob Bernoulli (1655-1705) zavedl tento typ rovnice při studiu problémů mechaniky a populační dynamiky. Jeho práce položila základy pro systematické studium nelineárních diferenciálních rovnic a jejich transformací na lineární tvary.
+\end{historical}
+
+\vspace{0.8\baselineskip}
+
+\begin{definition}[Bernoulliho diferenciální rovnice]
+\label{def:bernoulliho-rovnice}
+Rovnice tvaru
+\[
+\frac{dy}{dx} + p(x)y = q(x)y^n
+\]
+kde $p(x)$ a $q(x)$ jsou spojité funkce na intervalu $I \subseteq \mathbb{R}$ a $n \in \mathbb{R}$, $n \neq 0, 1$, se nazývá \emph{Bernoulliho diferenciální rovnice}.
+\end{definition}
+
+\vspace{0.6\baselineskip}
+
+\begin{remark}[Speciální případy a redukce]
+\label{rem:specialni-pripady}
+\begin{itemize}
+\item Pro $n = 0$: Rovnice se redukuje na lineární nehomogenní rovnici
+\item Pro $n = 1$: Rovnice se redukuje na lineární homogenní rovnici
+\item Pro $n \neq 0, 1$: Jedná se o vlastní nelineární Bernoulliho rovnici
+\end{itemize}
+\end{remark}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Transformace na Lineární Rovnici}
+\label{subsubsec:transformace-linearni}
+
+\begin{theorem}[Transformace Bernoulliho rovnice]
+\label{th:transformace-bernoulli}
+Nechť $y(x)$ je řešení Bernoulliho rovnice $\frac{dy}{dx} + p(x)y = q(x)y^n$ s $n \neq 0, 1$. Potom substituce
+\[
+v = y^{1-n}
+\]
+transformuje Bernoulliho rovnici na lineární rovnici
+\[
+\frac{dv}{dx} + (1-n)p(x)v = (1-n)q(x)
+\]
+\end{theorem}
+
+\vspace{0.6\baselineskip}
+
+\begin{proof}[Kompletní odvození transformace]
+\label{proof:transformace-odvozeni}
+Začneme s Bernoulliho rovnicí:
+\[
+\frac{dy}{dx} + p(x)y = q(x)y^n
+\]
+
+Zavedeme substituci $v = y^{1-n}$. Derivujeme podle $x$:
+\[
+\frac{dv}{dx} = \frac{d}{dx}(y^{1-n}) = (1-n)y^{-n}\frac{dy}{dx}
+\]
+
+Vyjádříme $\frac{dy}{dx}$:
+\[
+\frac{dy}{dx} = \frac{y^n}{1-n}\frac{dv}{dx}
+\]
+
+Dosadíme do původní rovnice:
+\[
+\frac{y^n}{1-n}\frac{dv}{dx} + p(x)y = q(x)y^n
+\]
+
+Vydělíme celou rovnici $y^n$ (za předpokladu $y \neq 0$):
+\[
+\frac{1}{1-n}\frac{dv}{dx} + p(x)y^{1-n} = q(x)
+\]
+
+Substituujeme $v = y^{1-n}$:
+\[
+\frac{1}{1-n}\frac{dv}{dx} + p(x)v = q(x)
+\]
+
+Vynásobíme $(1-n)$:
+\[
+\frac{dv}{dx} + (1-n)p(x)v = (1-n)q(x)
+\]
+
+Tím jsme získali lineární rovnici pro $v(x)$.
+\end{proof}
+
+\vspace{0.8\baselineskip}
+
+\begin{method}[Systematická metodologie řešení]
+\label{met:systematicka-metodologie}
+\begin{enumerate}
+\item \textbf{Krok 1: Identifikace parametrů}
+\begin{itemize}
+\item Určete $p(x)$, $q(x)$ a $n$
+\item Analyzujte definiční obory funkcí $p(x)$, $q(x)$
+\item Identifikujte možné singularitní body
+\end{itemize}
+
+\item \textbf{Krok 2: Transformace}
+\begin{itemize}
+\item Proveďte substituci $v = y^{1-n}$
+\item Ověřte platnost transformace ($y \neq 0$)
+\item Zapište transformovanou lineární rovnici
+\end{itemize}
+
+\item \textbf{Krok 3: Řešení lineární rovnice}
+\begin{itemize}
+\item Určete integrační faktor $\mu(x) = e^{\int (1-n)p(x)dx}$
+\item Nalezněte obecné řešení $v(x)$
+\item Ověřte správnost řešení derivací
+\end{itemize}
+
+\item \textbf{Krok 4: Zpětná transformace}
+\begin{itemize}
+\item Proveďte inverzní substituci $y = v^{1/(1-n)}$
+\item Analyzujte definiční obor výsledného řešení
+\item Ověřte řešení dosazením do původní rovnice
+\end{itemize}
+\end{enumerate}
+\end{method}
+
+\vspace{0.8\baselineskip}
+
+\begin{example}[Kompletní ilustrace transformace]
+\label{ex:kompletni-transformace}
+Řešte rovnici: $\frac{dy}{dx} + 2xy = x^3y^3$
+
+\textbf{Řešení}:
+\begin{enumerate}
+\item \textbf{Identifikace}: $p(x) = 2x$, $q(x) = x^3$, $n = 3$
+\item \textbf{Transformace}: $v = y^{1-3} = y^{-2}$, tedy $y = v^{-1/2}$
+\item \textbf{Derivace}: $\frac{dv}{dx} = -2y^{-3}\frac{dy}{dx}$
+\item \textbf{Dosazení}: $-2y^{-3}\frac{dy}{dx} + (1-3)(2x)v = (1-3)x^3$
+\item \textbf{Zjednodušení}: $\frac{dv}{dx} - 4xv = -2x^3$
+\item \textbf{Integrační faktor}: $\mu(x) = e^{\int -4x dx} = e^{-2x^2}$
+\item \textbf{Řešení pro $v$}: $v(x) = e^{2x^2}\left(\int -2x^3 e^{-2x^2} dx + C\right)$
+\item \textbf{Výpočet integrálu}: $\int -2x^3 e^{-2x^2} dx = \frac{1}{2}(x^2 + \frac{1}{2})e^{-2x^2}$
+\item \textbf{Výsledek}: $v(x) = \frac{1}{2}x^2 + \frac{1}{4} + Ce^{2x^2}$
+\item \textbf{Zpětná transformace}: $y(x) = \left(\frac{1}{2}x^2 + \frac{1}{4} + Ce^{2x^2}\right)^{-1/2}$
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\begin{transition}
+V další části prozkoumáme analýzu singularit, geometrickou interpretaci a systematickou klasifikaci různých typů Bernoulliho rovnic.
+\end{transition}

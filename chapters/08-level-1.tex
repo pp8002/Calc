@@ -875,7 +875,7 @@ Pro $P(x)$ obsahující goniometrické funkce může integrace vyžadovat trigon
 \vspace{0.8\baselineskip}
 
 \subsubsection{Početní Sekce - Kategorie A: Podle typu P(x)}
-\label{subsubsec:pocetni-kategorie-a}
+\label{subsubsec:pocetni-kategorie-a-px}
 
 \paragraph*{A1: Konstantní P(x)}
 
@@ -1074,7 +1074,7 @@ y(x) = e^{-x^3/3}\left[\sum_{n=0}^{\infty} \frac{x^{3n+2}}{(3n+2)3^n n!} + C\rig
 
 
 \subsubsection{Početní Sekce - Kategorie A (pokračování)}
-\label{subsubsec:pocetni-kategorie-a-pokracovani}
+\label{subsubsec:pocetni-kategorie-a-px-pokracovani}
 
 \paragraph*{A3: Racionální P(x)}
 
@@ -1414,7 +1414,7 @@ y(x) = \frac{1}{2}(\sin x - \cos x) + Ce^{-x}
 \vspace{0.8\baselineskip}
 
 \subsubsection{Aplikace v Kvantitativních Vědách}
-\label{subsubsec:aplikace-kvantitativni}
+\label{subsubsec:aplikace-kvantitativni-linear}
 
 \begin{application}[Spojité úročení s pravidelnými vklady]
 Model: $\frac{dA}{dt} = rA + I(t)$, kde:
@@ -1511,7 +1511,7 @@ V poslední části pokryjeme kombinované příklady, numerickou verifikaci a k
 % ČÁST 3/3 - Dokončení 1.2 Lineární Rovnice
 
 \subsubsection{Početní Sekce - Kategorie C: Kombinované Příklady}
-\label{subsubsec:pocetni-kategorie-c}
+\label{subsubsec:pocetni-kategorie-c-linear}
 
 \paragraph*{C1: Jednoduché kombinace}
 
@@ -1711,7 +1711,7 @@ y(x) = -\frac{\ln(2-x)}{2-x} = \frac{\ln(2-x)}{x-2} \quad \text{pro } x < 2
 \vspace{0.8\baselineskip}
 
 \subsubsection{Početní Sekce - Kategorie D: Aplikované Příklady}
-\label{subsubsec:pocetni-kategorie-d}
+\label{subsubsec:pocetni-kategorie-d-linear}
 
 \paragraph*{D1: Finanční modely}
 
@@ -2114,7 +2114,7 @@ Substituce vede na rovnici se separovanými proměnnými, ale integrace může v
 \vspace{0.8\baselineskip}
 
 \subsubsection{Početní Sekce - Kategorie A: Podle typu f(y/x)}
-\label{subsubsec:pocetni-kategorie-a}
+\label{subsubsec:pocetni-kategorie-a-fv}
 
 \paragraph*{A1: Lineární f(v)}
 
@@ -2363,7 +2363,7 @@ v + x\frac{dv}{dx} = \frac{1 + v}{1 - v} \implies x\frac{dv}{dx} = \frac{1 + v}{
 % ČÁST 2/3 - Pokračování 1.3 Homogenní Rovnice
 
 \subsubsection{Početní Sekce - Kategorie A (pokračování)}
-\label{subsubsec:pocetni-kategorie-a-pokracovani}
+\label{subsubsec:pocetni-kategorie-a-fv-pokracovani}
 
 \paragraph*{A4: Algebraické f(v)}
 
@@ -2711,7 +2711,7 @@ u^2 + x\cdot 2u\frac{du}{dx} = \sqrt{u^2 + u} = \sqrt{u(u + 1)}
 \vspace{0.8\baselineskip}
 
 \subsubsection{Aplikace v Kvantitativních Vědách}
-\label{subsubsec:aplikace-kvantitativni}
+\label{subsubsec:aplikace-kvantitativni-homog}
 
 \begin{application}[Cobb-Douglasova produkční funkce]
 \label{app:cobb-douglas}
@@ -2764,7 +2764,7 @@ kde $v$ je rychlost, $r$ poloměr. Homogenita zajišťuje podobnostní zákony.
 % ČÁST 3/3 - Dokončení 1.3 Homogenní Rovnice
 
 \subsubsection{Početní Sekce - Kategorie C: Aplikované Příklady}
-\label{subsubsec:pocetni-kategorie-c}
+\label{subsubsec:pocetni-kategorie-c-homog}
 
 \paragraph*{C1: Ekonomické modely}
 
@@ -2841,7 +2841,7 @@ k - \sqrt{\frac{r}{t}} = \frac{B}{\sqrt{t}} \implies r(t) = t\left(k - \frac{B}{
 \vspace{0.8\baselineskip}
 
 \subsubsection{Početní Sekce - Kategorie D: Speciální Případy}
-\label{subsubsec:pocetni-kategorie-d}
+\label{subsubsec:pocetni-kategorie-d-homog}
 
 \paragraph*{D1: Rovnice s parametry}
 
@@ -3086,5 +3086,1575 @@ Homogenní rovnice představují elegantní třídu diferenciálních rovnic s h
 Zvládnutí homogenních rovnic je zásadní pro rozvoj geometrické intuice v teorii diferenciálních rovnic a připravuje půdu pro pokročilejší témata v následujících úrovních.
 
 
+\subsection{Exaktní Rovnice - Teorie Potenciálů a Konzervativní Pole}
+\label{subsec:exaktni-rovnice}
 
+\subsubsection{Teoretický Fundament Exaktnosti}
+\label{subsubsec:teoreticky-fundament-exaktni}
+
+\begin{definition}[Exaktní diferenciální rovnice]
+Rovnice tvaru
+\[
+M(x, y)dx + N(x, y)dy = 0
+\]
+je \emph{exaktní}, jestliže existuje funkce $F(x, y)$ taková, že:
+\[
+\frac{\partial F}{\partial x} = M(x, y) \quad \text{a} \quad \frac{\partial F}{\partial y} = N(x, y)
+\]
+na nějaké oblasti $D \subseteq \mathbb{R}^2$.
+\end{definition}
+
+\vspace{0.6\baselineskip}
+
+\begin{theorem}[Nutná a postačující podmínka exaktnosti]
+Nechť $M(x, y)$ a $N(x, y)$ mají spojité parciální derivace prvního řádu na jednoduše souvislé oblasti $D$. Pak rovnice $M dx + N dy = 0$ je exaktní právě tehdy, když:
+\[
+\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x} \quad \text{na } D
+\]
+\end{theorem}
+
+\vspace{0.4\baselineskip}
+
+\begin{proof}
+\textbf{(⇒)} Je-li rovnice exaktní, existuje $F$ taková, že $F_x = M$, $F_y = N$. Ze Schwarzovy věty:
+\[
+\frac{\partial M}{\partial y} = \frac{\partial^2 F}{\partial y \partial x} = \frac{\partial^2 F}{\partial x \partial y} = \frac{\partial N}{\partial x}
+\]
+
+\textbf{(⇐)} Konstruujeme $F(x, y)$ přímo. Zafixujeme $(x_0, y_0) \in D$ a definujeme:
+\[
+F(x, y) = \int_{x_0}^x M(t, y)dt + \int_{y_0}^y N(x_0, s)ds
+\]
+Pak $\frac{\partial F}{\partial x} = M(x, y)$ a pomocí podmínky $\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}$ dostaneme $\frac{\partial F}{\partial y} = N(x, y)$.
+\end{proof}
+
+\vspace{0.6\baselineskip}
+
+\begin{theorem}[Věta o nezávislosti na cestě]
+Nechť $M dx + N dy$ je exaktní diferenciální forma na jednoduše souvislé oblasti $D$. Pak integrál
+\[
+\int_C M dx + N dy
+\]
+závisí pouze na počátečním a koncovém bodě křivky $C$, nikoli na její konkrétní trajektorii.
+\end{theorem}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Metoda Hledání Potenciálu - Kompletní Analýza}
+\label{subsubsec:metoda-hledani-potencialu}
+
+\begin{method}[Přímá integrační metoda]
+\label{met:primaintegrace-potencial}
+\begin{enumerate}
+\item \textbf{Ověření exaktnosti}: Zkontrolujte že $\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}$
+
+\item \textbf{Integrace podle x}:
+\[
+F(x, y) = \int M(x, y)dx + \phi(y)
+\]
+kde $\phi(y)$ je "integrační konstanta" závislá na $y$
+
+\item \textbf{Určení $\phi(y)$}: Derivujte podle $y$ a porovnejte s $N(x, y)$:
+\[
+\frac{\partial F}{\partial y} = \frac{\partial}{\partial y}\left[\int M(x, y)dx\right] + \phi'(y) = N(x, y)
+\]
+
+\item \textbf{Integrace $\phi(y)$}:
+\[
+\phi(y) = \int \left[N(x, y) - \frac{\partial}{\partial y}\left(\int M(x, y)dx\right)\right] dy
+\]
+
+\item \textbf{Konečný tvar}:
+\[
+F(x, y) = \int M(x, y)dx + \int \left[N(x, y) - \frac{\partial}{\partial y}\left(\int M(x, y)dx\right)\right] dy
+\]
+
+\item \textbf{Řešení rovnice}: $F(x, y) = C$
+\end{enumerate}
+\end{method}
+
+\vspace{0.8\baselineskip}
+
+\begin{method}[Alternativní metoda - integrace podle y]
+\label{met:alternativni-integracce}
+\begin{enumerate}
+\item \textbf{Integrace podle y}:
+\[
+F(x, y) = \int N(x, y)dy + \psi(x)
+\]
+
+\item \textbf{Určení $\psi(x)$}:
+\[
+\frac{\partial F}{\partial x} = \frac{\partial}{\partial x}\left[\int N(x, y)dy\right] + \psi'(x) = M(x, y)
+\]
+
+\item \textbf{Výběr metody}: Volíme tu, která vede k jednodušší integraci
+\end{enumerate}
+\end{method}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Kompletní postup přímé integrace]
+Řešte: $(2x + y)dx + (x + 2y)dy = 0$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item \textbf{Ověření exaktnosti}:
+\[
+M(x, y) = 2x + y, \quad N(x, y) = x + 2y
+\]
+\[
+\frac{\partial M}{\partial y} = 1, \quad \frac{\partial N}{\partial x} = 1 \quad \checkmark
+\]
+
+\item \textbf{Integrace M podle x}:
+\[
+\int (2x + y)dx = x^2 + xy + \phi(y)
+\]
+
+\item \textbf{Derivace podle y}:
+\[
+\frac{\partial F}{\partial y} = x + \phi'(y)
+\]
+
+\item \textbf{Porovnání s N}:
+\[
+x + \phi'(y) = x + 2y \implies \phi'(y) = 2y
+\]
+
+\item \textbf{Integrace $\phi(y)$}:
+\[
+\phi(y) = \int 2y  dy = y^2 + C_1
+\]
+
+\item \textbf{Potenciál}:
+\[
+F(x, y) = x^2 + xy + y^2 + C_1
+\]
+
+\item \textbf{Řešení}:
+\[
+x^2 + xy + y^2 = C \quad (C = -C_1)
+\]
+
+\item \textbf{Ověření}:
+\[
+d(x^2 + xy + y^2) = (2x + y)dx + (x + 2y)dy \quad \checkmark
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Početní Sekce - Kategorie A: Přímé Exaktní Rovnice}
+\label{subsubsec:pocetni-kategorie-a}
+
+\paragraph*{A1: Jednoduché polynomy}
+
+\begin{example}[Lineární polynomy]
+Řešte: $(3x^2 + 2y)dx + (2x + 4y)dy = 0$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item \textbf{Ověření exaktnosti}:
+\[
+\frac{\partial}{\partial y}(3x^2 + 2y) = 2, \quad \frac{\partial}{\partial x}(2x + 4y) = 2 \quad \checkmark
+\]
+
+\item \textbf{Integrace M podle x}:
+\[
+\int (3x^2 + 2y)dx = x^3 + 2xy + \phi(y)
+\]
+
+\item \textbf{Derivace a porovnání}:
+\[
+\frac{\partial F}{\partial y} = 2x + \phi'(y) = 2x + 4y \implies \phi'(y) = 4y
+\]
+
+\item \textbf{Potenciál}:
+\[
+F(x, y) = x^3 + 2xy + 2y^2
+\]
+
+\item \textbf{Řešení}:
+\[
+x^3 + 2xy + 2y^2 = C
+\end{enumerate}
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Kvadratické polynomy]
+Řešte: $(2xy + y^2)dx + (x^2 + 2xy)dy = 0$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item \textbf{Ověření}:
+\[
+\frac{\partial}{\partial y}(2xy + y^2) = 2x + 2y, \quad \frac{\partial}{\partial x}(x^2 + 2xy) = 2x + 2y \quad \checkmark
+\]
+
+\item \textbf{Integrace M podle x}:
+\[
+\int (2xy + y^2)dx = x^2y + xy^2 + \phi(y)
+\]
+
+\item \textbf{Derivace a porovnání}:
+\[
+\frac{\partial F}{\partial y} = x^2 + 2xy + \phi'(y) = x^2 + 2xy \implies \phi'(y) = 0
+\]
+
+\item \textbf{Potenciál}:
+\[
+F(x, y) = x^2y + xy^2
+\]
+
+\item \textbf{Řešení}:
+\[
+x^2y + xy^2 = C \quad \text{nebo} \quad xy(x + y) = C
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\paragraph*{A2: Racionální funkce}
+
+\begin{example}[Jednoduché racionální funkce]
+Řešte: $\left(\frac{1}{y} - \frac{y}{x^2}\right)dx + \left(\frac{1}{x} - \frac{x}{y^2}\right)dy = 0$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item \textbf{Ověření exaktnosti}:
+\[
+M = \frac{1}{y} - \frac{y}{x^2}, \quad N = \frac{1}{x} - \frac{x}{y^2}
+\]
+\[
+\frac{\partial M}{\partial y} = -\frac{1}{y^2} - \frac{1}{x^2}, \quad \frac{\partial N}{\partial x} = -\frac{1}{x^2} - \frac{1}{y^2} \quad \checkmark
+\]
+
+\item \textbf{Integrace M podle x}:
+\[
+\int \left(\frac{1}{y} - \frac{y}{x^2}\right)dx = \frac{x}{y} + \frac{y}{x} + \phi(y)
+\]
+
+\item \textbf{Derivace a porovnání}:
+\[
+\frac{\partial F}{\partial y} = -\frac{x}{y^2} + \frac{1}{x} + \phi'(y) = \frac{1}{x} - \frac{x}{y^2}
+\]
+\[
+\phi'(y) = 0
+\]
+
+\item \textbf{Potenciál}:
+\[
+F(x, y) = \frac{x}{y} + \frac{y}{x}
+\]
+
+\item \textbf{Řešení}:
+\[
+\frac{x}{y} + \frac{y}{x} = C
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\begin{transition}
+V další části pokryjeme goniometrické a exponenciální funkce, integrační faktory a jejich systematickou klasifikaci.
+\end{transition}
+
+\subsubsection{Početní Sekce - Kategorie A: Přímé Exaktní Rovnice (pokračování)}
+\label{subsubsec:pocetni-kategorie-a-pokracovani}
+
+\paragraph*{A3: Goniometrické funkce}
+
+\begin{example}[Základní goniometrické funkce]
+Řešte: $(\sin y + y\cos x)dx + (\sin x + x\cos y)dy = 0$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item \textbf{Ověření exaktnosti}:
+\[
+M(x, y) = \sin y + y\cos x, \quad N(x, y) = \sin x + x\cos y
+\]
+\[
+\frac{\partial M}{\partial y} = \cos y + \cos x, \quad \frac{\partial N}{\partial x} = \cos x + \cos y \quad \checkmark
+\]
+
+\item \textbf{Integrace M podle x}:
+\[
+\int (\sin y + y\cos x)dx = x\sin y + y\sin x + \phi(y)
+\]
+
+\item \textbf{Derivace a porovnání}:
+\[
+\frac{\partial F}{\partial y} = x\cos y + \sin x + \phi'(y) = \sin x + x\cos y
+\]
+\[
+\phi'(y) = 0
+\]
+
+\item \textbf{Potenciál}:
+\[
+F(x, y) = x\sin y + y\sin x
+\]
+
+\item \textbf{Řešení}:
+\[
+x\sin y + y\sin x = C
+\]
+
+\item \textbf{Geometrická interpretace}: Rovnice popisuje rodinu křivek v potenciálovém poli s periodickou strukturou.
+\end{enumerate}
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Kombinace goniometrických funkcí]
+Řešte: $(2x\sin y + y^2\cos x)dx + (x^2\cos y + 2y\sin x)dy = 0$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item \textbf{Ověření exaktnosti}:
+\[
+\frac{\partial M}{\partial y} = 2x\cos y + 2y\cos x, \quad \frac{\partial N}{\partial x} = 2x\cos y + 2y\cos x \quad \checkmark
+\]
+
+\item \textbf{Integrace M podle x}:
+\[
+\int (2x\sin y + y^2\cos x)dx = x^2\sin y + y^2\sin x + \phi(y)
+\]
+
+\item \textbf{Derivace a porovnání}:
+\[
+\frac{\partial F}{\partial y} = x^2\cos y + 2y\sin x + \phi'(y) = x^2\cos y + 2y\sin x
+\]
+\[
+\phi'(y) = 0
+\]
+
+\item \textbf{Potenciál}:
+\[
+F(x, y) = x^2\sin y + y^2\sin x
+\]
+
+\item \textbf{Řešení}:
+\[
+x^2\sin y + y^2\sin x = C
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\paragraph*{A4: Exponenciální a logaritmické funkce}
+
+\begin{example}[Jednoduché exponenciály]
+Řešte: $(e^x \ln y + \frac{y}{x})dx + (\frac{e^x}{y} + \ln x)dy = 0$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item \textbf{Ověření exaktnosti}:
+\[
+M = e^x \ln y + \frac{y}{x}, \quad N = \frac{e^x}{y} + \ln x
+\]
+\[
+\frac{\partial M}{\partial y} = \frac{e^x}{y} + \frac{1}{x}, \quad \frac{\partial N}{\partial x} = \frac{e^x}{y} + \frac{1}{x} \quad \checkmark
+\]
+
+\item \textbf{Integrace M podle x}:
+\[
+\int \left(e^x \ln y + \frac{y}{x}\right)dx = e^x \ln y + y\ln x + \phi(y)
+\]
+
+\item \textbf{Derivace a porovnání}:
+\[
+\frac{\partial F}{\partial y} = \frac{e^x}{y} + \ln x + \phi'(y) = \frac{e^x}{y} + \ln x
+\]
+\[
+\phi'(y) = 0
+\]
+
+\item \textbf{Potenciál}:
+\[
+F(x, y) = e^x \ln y + y\ln x
+\]
+
+\item \textbf{Řešení}:
+\[
+e^x \ln y + y\ln x = C
+\end{enumerate}
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Složené exponenciálně-logaritmické výrazy]
+Řešte: $(y^x \ln y + e^{x+y})dx + (xy^{x-1} + e^{x+y})dy = 0$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item \textbf{Ověření exaktnosti}:
+\[
+M = y^x \ln y + e^{x+y}, \quad N = xy^{x-1} + e^{x+y}
+\]
+\[
+\frac{\partial M}{\partial y} = xy^{x-1} \ln y + y^x \cdot \frac{1}{y} + e^{x+y} = xy^{x-1} \ln y + y^{x-1} + e^{x+y}
+\]
+\[
+\frac{\partial N}{\partial x} = y^{x-1} + xy^{x-1} \ln y + e^{x+y} \quad \checkmark
+\]
+
+\item \textbf{Integrace M podle x}:
+\[
+\int (y^x \ln y + e^{x+y})dx = y^x + e^{x+y} + \phi(y)
+\]
+
+\item \textbf{Derivace a porovnání}:
+\[
+\frac{\partial F}{\partial y} = xy^{x-1} + e^{x+y} + \phi'(y) = xy^{x-1} + e^{x+y}
+\]
+\[
+\phi'(y) = 0
+\]
+
+\item \textbf{Potenciál}:
+\[
+F(x, y) = y^x + e^{x+y}
+\]
+
+\item \textbf{Řešení}:
+\[
+y^x + e^{x+y} = C
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Integrační Faktory pro Neexaktní Rovnice}
+\label{subsubsec:integracni-faktory}
+
+\begin{definition}[Integrační faktor]
+Funkce $\mu(x, y)$ je \emph{integrační faktor} pro rovnici $M dx + N dy = 0$, jestliže rovnice
+\[
+\mu M dx + \mu N dy = 0
+\]
+je exaktní.
+\end{definition}
+
+\vspace{0.6\baselineskip}
+
+\begin{theorem}[Rovnice pro integrační faktor]
+Funkce $\mu(x, y)$ je integrační faktor právě tehdy, když splňuje parciální diferenciální rovnici:
+\[
+M\frac{\partial \mu}{\partial y} - N\frac{\partial \mu}{\partial x} + \mu\left(\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}\right) = 0
+\]
+\end{theorem}
+
+\vspace{0.4\baselineskip}
+
+\begin{proof}
+Podmínka exaktnosti pro $\mu M dx + \mu N dy = 0$ je:
+\[
+\frac{\partial (\mu M)}{\partial y} = \frac{\partial (\mu N)}{\partial x}
+\]
+\[
+M\frac{\partial \mu}{\partial y} + \mu\frac{\partial M}{\partial y} = N\frac{\partial \mu}{\partial x} + \mu\frac{\partial N}{\partial x}
+\]
+Po úpravě dostaneme uvedenou rovnici.
+\end{proof}
+
+\vspace{0.8\baselineskip}
+
+\begin{method}[Hledání integračních faktorů speciálního tvaru]
+\label{met:integracni-faktory-speciální}
+\begin{enumerate}
+\item \textbf{Předpoklad $\mu = \mu(x)$}: Pak $\frac{\partial \mu}{\partial y} = 0$ a rovnice se zjednoduší na:
+\[
+\frac{d\mu}{dx} = \frac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{N} \mu
+\]
+Tento předpoklad je rozumný, pokud výraz $\frac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{N}$ závisí pouze na $x$.
+
+\item \textbf{Předpoklad $\mu = \mu(y)$}: Analogicky:
+\[
+\frac{d\mu}{dy} = \frac{\frac{\partial N}{\partial x} - \frac{\partial M}{\partial y}}{M} \mu
+\]
+Rozumný, pokud výraz závisí pouze na $y$.
+
+\item \textbf{Řešení separované rovnice}:
+\[
+\mu(x) = \exp\left(\int \frac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{N} dx\right)
+\]
+\[
+\mu(y) = \exp\left(\int \frac{\frac{\partial N}{\partial x} - \frac{\partial M}{\partial y}}{M} dy\right)
+\]
+\end{enumerate}
+\end{method}
+
+\vspace{0.8\baselineskip}
+
+\begin{example}[Integrační faktor $\mu(x)$]
+Řešte: $(3xy + y^2)dx + (x^2 + xy)dy = 0$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item \textbf{Ověření exaktnosti}:
+\[
+\frac{\partial M}{\partial y} = 3x + 2y, \quad \frac{\partial N}{\partial x} = 2x + y
+\]
+Rovnice není exaktní.
+
+\item \textbf{Hledání $\mu(x)$}:
+\[
+\frac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{N} = \frac{(3x + 2y) - (2x + y)}{x^2 + xy} = \frac{x + y}{x(x + y)} = \frac{1}{x}
+\]
+Závisí pouze na $x$ → předpoklad je platný.
+
+\item \textbf{Výpočet $\mu(x)$}:
+\[
+\mu(x) = \exp\left(\int \frac{1}{x} dx\right) = \exp(\ln|x|) = |x| \quad (\text{volíme } x > 0 \Rightarrow \mu = x)
+\]
+
+\item \textbf{Násobení rovnice}:
+\[
+x[(3xy + y^2)dx + (x^2 + xy)dy] = 0
+\]
+\[
+(3x^2y + xy^2)dx + (x^3 + x^2y)dy = 0
+\]
+
+\item \textbf{Ověření exaktnosti nové rovnice}:
+\[
+\frac{\partial}{\partial y}(3x^2y + xy^2) = 3x^2 + 2xy
+\]
+\[
+\frac{\partial}{\partial x}(x^3 + x^2y) = 3x^2 + 2xy \quad \checkmark
+\]
+
+\item \textbf{Řešení exaktní rovnice}:
+\[
+F(x, y) = \int (3x^2y + xy^2)dx = x^3y + \frac{1}{2}x^2y^2 + \phi(y)
+\]
+\[
+\frac{\partial F}{\partial y} = x^3 + x^2y + \phi'(y) = x^3 + x^2y \Rightarrow \phi'(y) = 0
+\]
+\[
+F(x, y) = x^3y + \frac{1}{2}x^2y^2
+\]
+
+\item \textbf{Konečné řešení}:
+\[
+x^3y + \frac{1}{2}x^2y^2 = C \quad \text{nebo} \quad x^2y(2x + y) = 2C
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\begin{transition}
+V další části pokryjeme integrační faktory tvaru $\mu(xy)$, $\mu(x/y)$ a jejich aplikace na symetrické rovnice, včetně geometrické interpretace a pokročilých technik.
+\end{transition}
+
+
+% !TEX root = ../main.tex
+\subsubsection{Integrační Faktory Speciálních Tvarů}
+\label{subsubsec:integracni-faktory-specialni}
+
+\begin{method}[Integrační faktor $\mu = \mu(xy)$]
+\label{met:integracni-faktor-xy}
+Předpokládáme, že $\mu = \mu(z)$ kde $z = xy$. Pak:
+\[
+\frac{\partial \mu}{\partial x} = \mu'(z)y, \quad \frac{\partial \mu}{\partial y} = \mu'(z)x
+\]
+Rovnice pro integrační faktor se zjednoduší na:
+\[
+\frac{d\mu}{dz} = \frac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{Ny - Mx} \mu
+\]
+Tento předpoklad je rozumný, pokud výraz $\frac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{Ny - Mx}$ závisí pouze na $z = xy$.
+\end{method}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Integrační faktor $\mu(xy)$]
+Řešte: $(y + xy^2)dx + (x - x^2y)dy = 0$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}:
+\begin{enumerate}
+\item \textbf{Ověření exaktnosti}:
+\[
+\frac{\partial M}{\partial y} = 1 + 2xy, \quad \frac{\partial N}{\partial x} = 1 - 2xy \quad \text{NEJSOU STEJNÉ}
+\]
+
+\item \textbf{Test pro $\mu(xy)$}:
+\[
+Ny - Mx = (x - x^2y)y - (y + xy^2)x = xy - x^2y^2 - xy - x^2y^2 = -2x^2y^2
+\]
+\[
+\frac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{Ny - Mx} = \frac{(1 + 2xy) - (1 - 2xy)}{-2x^2y^2} = \frac{4xy}{-2x^2y^2} = -\frac{2}{xy}
+\]
+Závisí pouze na $z = xy$ → předpoklad platný.
+
+\item \textbf{Výpočet $\mu(z)$}:
+\[
+\frac{d\mu}{dz} = -\frac{2}{z} \mu \Rightarrow \frac{d\mu}{\mu} = -\frac{2}{z} dz
+\]
+\[
+\ln|\mu| = -2\ln|z| + C \Rightarrow \mu = \frac{1}{z^2} = \frac{1}{x^2y^2}
+\]
+
+\item \textbf{Násobení a řešení}:
+\[
+\frac{1}{x^2y^2}[(y + xy^2)dx + (x - x^2y)dy] = 0
+\]
+\[
+\left(\frac{1}{x^2y} + \frac{1}{x}\right)dx + \left(\frac{1}{xy^2} - \frac{1}{y}\right)dy = 0
+\]
+Tato rovnice je již exaktní. Řešením dostaneme:
+\[
+F(x, y) = -\frac{1}{xy} + \ln\left|\frac{x}{y}\right| = C
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\begin{method}[Integrační faktor $\mu = \mu(x/y)$]
+\label{met:integracni-faktor-x-y}
+Předpokládáme, že $\mu = \mu(z)$ kde $z = x/y$. Pak:
+\[
+\frac{\partial \mu}{\partial x} = \frac{\mu'(z)}{y}, \quad \frac{\partial \mu}{\partial y} = -\frac{x\mu'(z)}{y^2}
+\]
+Rovnice pro integrační faktor:
+\[
+\frac{d\mu}{dz} = \frac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{\frac{N}{y} + \frac{Mx}{y^2}} \mu
+\]
+Předpoklad platný, pokud výraz vpravo závisí pouze na $z = x/y$.
+\end{method}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Integrační faktor $\mu(x/y)$]
+Řešte: $(x^2 + y^2)dx + (x^2 - xy)dy = 0$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}:
+\begin{enumerate}
+\item \textbf{Ověření exaktnosti}:
+\[
+\frac{\partial M}{\partial y} = 2y, \quad \frac{\partial N}{\partial x} = 2x - y \quad \text{NEJSOU STEJNÉ}
+\]
+
+\item \textbf{Test pro $\mu(x/y)$}:
+\[
+\frac{N}{y} + \frac{Mx}{y^2} = \frac{x^2 - xy}{y} + \frac{(x^2 + y^2)x}{y^2} = \frac{x^2}{y} - x + \frac{x^3}{y^2} + \frac{x}{y}
+\]
+\[
+\frac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{\frac{N}{y} + \frac{Mx}{y^2}} = \frac{2y - (2x - y)}{\frac{x^2}{y} - x + \frac{x^3}{y^2} + \frac{x}{y}} = \frac{3y - 2x}{\frac{x^2}{y} - x + \frac{x^3}{y^2} + \frac{x}{y}}
+\]
+Vynásobením čitatele i jmenovatele $y^2$:
+\[
+= \frac{(3y - 2x)y^2}{x^2y - xy^2 + x^3 + xy} = \frac{y^2(3y - 2x)}{x(x^2 + xy + y^2 - y^2)}
+\]
+Po zjednodušení zjistíme, že výraz závisí pouze na $x/y$.
+
+\item \textbf{Výpočet $\mu(z)$} a řešení vede na:
+\[
+\mu = \frac{1}{x^2} \quad \text{a řešení} \quad \ln|x| - \frac{y}{x} + \frac{1}{2}\left(\frac{y}{x}\right)^2 = C
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Geometrická Interpretace a Fázová Analýza}
+\label{subsubsec:geometricka-interpretace}
+
+\begin{definition}[Ekvipotenciální křivky]
+Pro exaktní rovnici $M dx + N dy = 0$ s potenciálem $F(x, y)$ jsou \emph{ekvipotenciální křivky} definovány jako:
+\[
+F(x, y) = C, \quad C \in \mathbb{R}
+\]
+Tyto křivky tvoří řešení diferenciální rovnice.
+\end{definition}
+
+\vspace{0.6\baselineskip}
+
+\begin{theorem}[Ortogonální trajektorie]
+Nechť $F(x, y) = C$ je rodina ekvipotenciálních křivek. Pak rodina křivek $G(x, y) = K$ splňující:
+\[
+\frac{\partial F}{\partial x} \frac{\partial G}{\partial x} + \frac{\partial F}{\partial y} \frac{\partial G}{\partial y} = 0
+\]
+jsou \emph{ortogonální trajektorie} k původní rodině.
+\end{theorem}
+
+\vspace{0.4\baselineskip}
+
+\begin{proof}
+Gradient $\nabla F$ je normálový vektor k ekvipotenciálním křivkám. Podmínka ortogonality vyžaduje, aby $\nabla F \cdot \nabla G = 0$.
+\end{proof}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Ekvipotenciály a ortogonální trajektorie]
+Najděte ortogonální trajektorie k rodině: $x^2 + y^2 = C$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}:
+\begin{enumerate}
+\item \textbf{Původní rodina}: $F(x, y) = x^2 + y^2 = C$
+\[
+\nabla F = (2x, 2y)
+\]
+
+\item \textbf{Diferenciální rovnice ortogonálních trajektorií}:
+\[
+\frac{dy}{dx} = \frac{-F_x}{F_y} = \frac{-2x}{2y} = -\frac{x}{y}
+\]
+
+\item \textbf{Řešení}:
+\[
+\frac{dy}{dx} = -\frac{x}{y} \Rightarrow y dy = -x dx
+\]
+\[
+\frac{1}{2}y^2 = -\frac{1}{2}x^2 + K \Rightarrow x^2 + y^2 = 2K
+\]
+
+\item \textbf{Interpretace}: Ortogonální trajektorie jsou opět kružnice se středem v počátku.
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\begin{definition}[Singulární body]
+Bod $(x_0, y_0)$ je \emph{singulárním bodem} rovnice $M dx + N dy = 0$, jestliže:
+\[
+M(x_0, y_0) = N(x_0, y_0) = 0
+\]
+V těchto bodech není směrové pole definováno.
+\end{definition}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Analýza singulárních bodů]
+Analyzujte singulární body rovnice: $(x^2 - y^2)dx + 2xydy = 0$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}:
+\begin{enumerate}
+\item \textbf{Singulární body}: 
+\[
+M = x^2 - y^2 = 0, \quad N = 2xy = 0
+\]
+Jediný singulární bod je $(0, 0)$.
+
+\item \textbf{Chvání v okolí singularity}:
+\[
+\frac{dy}{dx} = -\frac{M}{N} = -\frac{x^2 - y^2}{2xy} = \frac{y^2 - x^2}{2xy}
+\]
+V polárních souřadnicích $x = r\cos\theta$, $y = r\sin\theta$:
+\[
+\frac{dy}{dx} = \frac{\sin^2\theta - \cos^2\theta}{2\sin\theta\cos\theta} = -\frac{\cos 2\theta}{\sin 2\theta} = -\cot 2\theta
+\]
+
+\item \textbf{Interpretace}: Směrové pole závisí pouze na úhlu $\theta$, ne na poloměru $r$. Jedná se o \emph{radiálně homogenní} pole.
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Početní Sekce - Kategorie B: Rovnice s Integračními Faktory}
+\label{subsubsec:pocetni-kategorie-b}
+
+\paragraph*{B1: Jednoduché integrační faktory $\mu(x)$ a $\mu(y)$}
+
+\begin{example}[$\mu(x)$ - fyzikální aplikace]
+Řešte rovnici popisující izotermický děj: $(PV - a)dP + P^2 dV = 0$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}:
+\begin{enumerate}
+\item \textbf{Ověření exaktnosti}:
+\[
+\frac{\partial}{\partial V}(PV - a) = P, \quad \frac{\partial}{\partial P}(P^2) = 2P \quad \text{NEJSOU STEJNÉ}
+\]
+
+\item \textbf{Hledání $\mu(P)$}:
+\[
+\frac{\frac{\partial M}{\partial V} - \frac{\partial N}{\partial P}}{N} = \frac{P - 2P}{P^2} = -\frac{1}{P}
+\]
+\[
+\mu(P) = \exp\left(-\int \frac{1}{P} dP\right) = \frac{1}{P}
+\]
+
+\item \textbf{Řešení}:
+\[
+\frac{1}{P}[(PV - a)dP + P^2 dV] = 0 \Rightarrow (V - \frac{a}{P})dP + P dV = 0
+\]
+Tato rovnice je exaktní. Potenciál:
+\[
+F(P, V) = PV - a\ln|P| = C
+\]
+\end{enumerate}
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[$\mu(y)$ - ekonomická aplikace]
+Řešte rovnici indiferenční křivky: $(2xy + y^2)dx + (x^2 + 2xy - 1)dy = 0$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}:
+\begin{enumerate}
+\item \textbf{Ověření exaktnosti}:
+\[
+\frac{\partial M}{\partial y} = 2x + 2y, \quad \frac{\partial N}{\partial x} = 2x + 2y \quad \checkmark
+\]
+Poznámka: Tato rovnice je již exaktní, slouží jako ilustrace.
+
+\item \textbf{Potenciál}:
+\[
+F(x, y) = \int (2xy + y^2)dx = x^2y + xy^2 + \phi(y)
+\]
+\[
+\frac{\partial F}{\partial y} = x^2 + 2xy + \phi'(y) = x^2 + 2xy - 1 \Rightarrow \phi'(y) = -1
+\]
+\[
+F(x, y) = x^2y + xy^2 - y
+\]
+
+\item \textbf{Řešení}:
+\[
+x^2y + xy^2 - y = C \quad \text{nebo} \quad y(x^2 + xy - 1) = C
+\]
+
+\item \textbf{Ekonomická interpretace}: Jedná se o indiferenční křivku utility funkce $U(x, y) = x^2y + xy^2 - y$.
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\paragraph*{B2: Pokročilé integrační faktory}
+
+\begin{example}[$\mu(x^2 + y^2)$ - radiálně symetrické pole]
+Řešte: $(x^2 + y^2 + y)dx + (x^2 + y^2 - x)dy = 0$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}:
+\begin{enumerate}
+\item \textbf{Ověření exaktnosti}:
+\[
+\frac{\partial M}{\partial y} = 2y + 1, \quad \frac{\partial N}{\partial x} = 2x - 1 \quad \text{NEJSOU STEJNÉ}
+\]
+
+\item \textbf{Test pro $\mu(r^2)$ kde $r^2 = x^2 + y^2$}:
+Výpočtem zjistíme, že vhodný integrační faktor je $\mu = \frac{1}{x^2 + y^2}$.
+
+\item \textbf{Násobení a řešení}:
+\[
+\left(1 + \frac{y}{x^2 + y^2}\right)dx + \left(1 - \frac{x}{x^2 + y^2}\right)dy = 0
+\]
+Řešením dostaneme:
+\[
+x + y + \arctan\left(\frac{y}{x}\right) = C
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\begin{transition}
+V závěrečné části pokryjeme aplikace ve fyzikálních a ekonomických modelech, numerické metody a přípravu na pokročilejší témata v diferenciální geometrii.
+\end{transition}
+
+% !TEX root = ../main.tex
+\subsubsection{Aplikace v Kvantitativních Vědách - Kategorie C}
+\label{subsubsec:aplikace-kategorie-c}
+
+\paragraph*{C1: Fyzikální modely}
+
+\begin{example}[Gravitační pole]
+Odvoďte rovnice pro gravitační pole hmotného bodu a najděte ekvipotenciální plochy.
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}:
+\begin{enumerate}
+\item \textbf{Gravitační síla}: Pro hmotný bod $M$ v počátku je síla na jednotkovou hmotnost:
+\[
+\vec{F} = -\frac{GM}{r^2} \hat{r} = -\frac{GM}{(x^2 + y^2)^{3/2}}(x, y)
+\]
+
+\item \textbf{Diferenciální forma}:
+\[
+-\frac{GMx}{(x^2 + y^2)^{3/2}}dx - \frac{GMy}{(x^2 + y^2)^{3/2}}dy = 0
+\]
+
+\item \textbf{Ověření exaktnosti}:
+\[
+\frac{\partial M}{\partial y} = GMx \cdot \frac{3}{2}(x^2 + y^2)^{-5/2} \cdot 2y = \frac{3GMxy}{(x^2 + y^2)^{5/2}}
+\]
+\[
+\frac{\partial N}{\partial x} = \frac{3GMxy}{(x^2 + y^2)^{5/2}} \quad \checkmark
+\]
+
+\item \textbf{Potenciál}:
+\[
+F(x, y) = \int -\frac{GMx}{(x^2 + y^2)^{3/2}}dx = \frac{GM}{\sqrt{x^2 + y^2}} + \phi(y)
+\]
+\[
+\frac{\partial F}{\partial y} = -\frac{GMy}{(x^2 + y^2)^{3/2}} + \phi'(y) = -\frac{GMy}{(x^2 + y^2)^{3/2}} \Rightarrow \phi'(y) = 0
+\]
+
+\item \textbf{Gravitační potenciál}:
+\[
+F(x, y) = \frac{GM}{\sqrt{x^2 + y^2}} = \frac{GM}{r}
+\]
+
+\item \textbf{Ekvipotenciální křivky}: $r = \text{konst}$ - kružnice se středem v počátku.
+\end{enumerate}
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Termodynamika - stavová rovnice ideálního plynu]
+Odvoďte vztah mezi tlakem, objemem a teplotou pro adiabatický děj.
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}:
+\begin{enumerate}
+\item \textbf{První termodynamický zákon}: $dU = \delta Q - \delta W$
+\item \textbf{Adiabatický děj}: $\delta Q = 0$, $dU = c_V dT$, $\delta W = P dV$
+\item \textbf{Rovnice}: $c_V dT + P dV = 0$
+\item \textbf{Stavová rovnice}: $PV = nRT \Rightarrow P = \frac{nRT}{V}$
+\item \textbf{Diferenciální rovnice}:
+\[
+c_V dT + \frac{nRT}{V} dV = 0
+\]
+
+\item \textbf{Integrační faktor}: $\mu = \frac{1}{T}$
+\[
+\frac{c_V}{T} dT + \frac{nR}{V} dV = 0
+\]
+
+\item \textbf{Řešení}:
+\[
+c_V \ln T + nR \ln V = \text{konst} \Rightarrow TV^{\frac{nR}{c_V}} = \text{konst}
+\]
+
+\item \textbf{Poměr měrných tepel}: $\gamma = \frac{c_P}{c_V}$, $c_P - c_V = nR$
+\[
+TV^{\gamma-1} = \text{konst} \quad \text{nebo} \quad PV^\gamma = \text{konst}
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\paragraph*{C2: Ekonomické aplikace}
+
+\begin{example}[Utility funkce a indiferenční křivky]
+Mějme Cobb-Douglasovu utility funkci $U(x, y) = x^\alpha y^\beta$. Najděte indiferenční křivky.
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}:
+\begin{enumerate}
+\item \textbf{Totální diferenciál utility}:
+\[
+dU = \frac{\partial U}{\partial x}dx + \frac{\partial U}{\partial y}dy = \alpha x^{\alpha-1}y^\beta dx + \beta x^\alpha y^{\beta-1} dy
+\]
+
+\item \textbf{Podél indiferenční křivky}: $dU = 0$
+\[
+\alpha x^{\alpha-1}y^\beta dx + \beta x^\alpha y^{\beta-1} dy = 0
+\]
+
+\item \textbf{Diferenciální rovnice}:
+\[
+\alpha y dx + \beta x dy = 0
+\]
+
+\item \textbf{Ověření exaktnosti}:
+\[
+\frac{\partial}{\partial y}(\alpha y) = \alpha, \quad \frac{\partial}{\partial x}(\beta x) = \beta
+\]
+Exaktní pouze pokud $\alpha = \beta$.
+
+\item \textbf{Integrační faktor pro $\alpha \neq \beta$}: $\mu = \frac{1}{xy}$
+\[
+\frac{\alpha}{x} dx + \frac{\beta}{y} dy = 0
+\]
+
+\item \textbf{Řešení}:
+\[
+\alpha \ln|x| + \beta \ln|y| = C \Rightarrow x^\alpha y^\beta = e^C = K
+\]
+
+\item \textbf{Interpretace}: Indiferenční křivky jsou dány $U(x, y) = \text{konst}$.
+\end{enumerate}
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Edgeworthův box - směna mezi dvěma spotřebiteli]
+Analyzujte rovnováhu v modelu čisté směny.
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}:
+\begin{enumerate}
+\item \textbf{Spotřebitel A}: Utility $U_A(x_A, y_A) = x_A^\alpha y_A^{1-\alpha}$
+\item \textbf{Spotřebitel B}: Utility $U_B(x_B, y_B) = x_B^\beta y_B^{1-\beta}$
+\item \textbf{Prostředkové omezení}: $x_A + x_B = \bar{x}$, $y_A + y_B = \bar{y}$
+\item \textbf{Podmínka Pareto optimality}:
+\[
+\frac{\partial U_A/\partial x_A}{\partial U_A/\partial y_A} = \frac{\partial U_B/\partial x_B}{\partial U_B/\partial y_B}
+\]
+\[
+\frac{\alpha y_A}{(1-\alpha)x_A} = \frac{\beta y_B}{(1-\beta)x_B}
+\]
+
+\item \textbf{Diferenciální forma}:
+\[
+[\alpha(1-\beta)y_A x_B - \beta(1-\alpha)x_A y_B] = 0
+\]
+S využitím $x_B = \bar{x} - x_A$, $y_B = \bar{y} - y_A$ dostaneme exaktní rovnici.
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Pokročilé Techniky - Kategorie D}
+\label{subsubsec:pokrocile-techniky}
+
+\paragraph*{D1: Vícerozměrné integrační faktory}
+
+\begin{method}[Soustava integračních faktorů]
+Pro rovnici $M dx + N dy = 0$ může existovat více integračních faktorů. Pokud $\mu_1$ a $\mu_2$ jsou integrační faktory, pak:
+\[
+\frac{\mu_1}{\mu_2} = \Phi(F(x, y))
+\]
+kde $F(x, y)$ je potenciál.
+\end{method}
+
+\vspace{0.4\baselineskip}
+
+\begin{proof}
+Nechť $\mu_1 M dx + \mu_1 N dy = dF_1$ a $\mu_2 M dx + \mu_2 N dy = dF_2$. Pak:
+\[
+\frac{\mu_1}{\mu_2} = \frac{dF_1}{dF_2} = \Phi(F_1) \quad \text{nebo} \quad \frac{\mu_1}{\mu_2} = \Psi(F_2)
+\]
+\end{proof}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Více integračních faktorů]
+Pro rovnici $y dx - x dy = 0$ najděte všechny integrační faktory tvaru $\mu = x^m y^n$.
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}:
+\begin{enumerate}
+\item \textbf{Původní rovnice}: $M = y$, $N = -x$
+\item \textbf{Podmínka exaktnosti pro $\mu M dx + \mu N dy$}:
+\[
+\frac{\partial (\mu y)}{\partial y} = \frac{\partial (-\mu x)}{\partial x}
+\]
+\[
+\mu + y\frac{\partial \mu}{\partial y} = -\mu - x\frac{\partial \mu}{\partial x}
+\]
+
+\item \textbf{Pro $\mu = x^m y^n$}:
+\[
+\frac{\partial \mu}{\partial x} = m x^{m-1} y^n, \quad \frac{\partial \mu}{\partial y} = n x^m y^{n-1}
+\]
+\[
+x^m y^n + y \cdot n x^m y^{n-1} = -x^m y^n - x \cdot m x^{m-1} y^n
+\]
+\[
+x^m y^n + n x^m y^n = -x^m y^n - m x^m y^n
+\]
+\[
+(1 + n) = -(1 + m) \Rightarrow m + n = -2
+\]
+
+\item \textbf{Obecné řešení}: $\mu = x^m y^{-2-m}$ pro libovolné $m \in \mathbb{R}$
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\paragraph*{D2: Numerická analýza a verifikace}
+
+\begin{method}[Numerický výpočet potenciálu]
+Pro komplikované rovnice můžeme potenciál počítat numericky:
+\[
+F(x, y) \approx \int_{\gamma} M dx + N dy
+\]
+kde $\gamma$ je vhodná integrační cesta.
+\end{method}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Numerická verifikace exaktnosti]
+Ověřte exaktnost rovnice $(x^2 + \sin y)dx + (x\cos y + e^y)dy = 0$ numericky.
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}:
+\begin{enumerate}
+\item \textbf{Analytická podmínka}:
+\[
+\frac{\partial M}{\partial y} = \cos y, \quad \frac{\partial N}{\partial x} = \cos y \quad \checkmark
+\]
+
+\item \textbf{Numerická verifikace}:
+\begin{verbatim}
+import numpy as np
+from scipy import integrate
+
+def M(x, y): return x**2 + np.sin(y)
+def N(x, y): return x*np.cos(y) + np.exp(y)
+
+# Test na mřížce
+x_vals = np.linspace(0.1, 2, 10)
+y_vals = np.linspace(0.1, 2, 10)
+
+for x in x_vals:
+    for y in y_vals:
+        dM_dy = (M(x, y+1e-6) - M(x, y))/1e-6
+        dN_dx = (N(x+1e-6, y) - N(x, y))/1e-6
+        assert abs(dM_dy - dN_dx) < 1e-8
+\end{verbatim}
+
+\item \textbf{Numerický výpočet potenciálu}:
+\[
+F(x, y) = \int_0^x M(t, 0)dt + \int_0^y N(x, s)ds
+\]
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Shrnutí a Expertní Metodologie}
+\label{subsubsec:shrnutí-metodologie}
+
+\begin{method}[Decision tree pro řešení rovnic 1. řádu]
+\label{met:decision-tree}
+\begin{enumerate}
+\item \textbf{Krok 1: Test exaktnosti}
+\[
+\text{Vypočítej } \frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}
+\]
+\begin{itemize}
+\item Pokud $= 0$ → přejdi na Krok 2A
+\item Pokud $\neq 0$ → přejdi na Krok 2B
+\end{itemize}
+
+\item \textbf{Krok 2A: Řešení exaktní rovnice}
+\begin{itemize}
+\item Integruj $M$ podle $x$: $F(x, y) = \int M dx + \phi(y)$
+\item Derivuj podle $y$: $\frac{\partial F}{\partial y} = \frac{\partial}{\partial y}(\int M dx) + \phi'(y)$
+\item Porovnej s $N$: $\phi'(y) = N - \frac{\partial}{\partial y}(\int M dx)$
+\item Integruj $\phi(y)$
+\end{itemize}
+
+\item \textbf{Krok 2B: Hledání integračního faktoru}
+\begin{enumerate}
+\item \textbf{Test $\mu(x)$}: $\frac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{N}$ závisí pouze na $x$?
+\item \textbf{Test $\mu(y)$}: $\frac{\frac{\partial N}{\partial x} - \frac{\partial M}{\partial y}}{M}$ závisí pouze na $y$?
+\item \textbf{Test $\mu(xy)$}: $\frac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{Ny - Mx}$ závisí pouze na $xy$?
+\item \textbf{Test $\mu(x/y)$}: $\frac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{\frac{N}{y} + \frac{Mx}{y^2}}$ závisí pouze na $x/y$?
+\item \textbf{Obecný případ}: Řeš rovnici $M\frac{\partial \mu}{\partial y} - N\frac{\partial \mu}{\partial x} + \mu(\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}) = 0$
+\end{enumerate}
+
+\item \textbf{Krok 3: Analýza řešení}
+\begin{itemize}
+\item Urči definiční obor
+\item Identifikuj singulární body
+\item Analyzuj asymptotické chování
+\item Ověř řešení derivací
+\end{itemize}
+\end{enumerate}
+\end{method}
+
+\vspace{0.8\baselineskip}
+
+\begin{table}[h]
+\centering
+\caption{Přehled metod pro exaktní rovnice}
+\label{tab:prehled-metod}
+\begin{tabular}{p{0.2\textwidth}p{0.35\textwidth}p{0.35\textwidth}}
+\toprule
+\textbf{Typ rovnice} & \textbf{Metoda řešení} & \textbf{Kontrolní podmínka} \\
+\midrule
+Přímá exaktní & Přímá integrace & $\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}$ \\
+$\mu = \mu(x)$ & $\mu(x) = \exp\left(\int \frac{M_y - N_x}{N} dx\right)$ & $\frac{M_y - N_x}{N}$ závisí pouze na $x$ \\
+$\mu = \mu(y)$ & $\mu(y) = \exp\left(\int \frac{N_x - M_y}{M} dy\right)$ & $\frac{N_x - M_y}{M}$ závisí pouze na $y$ \\
+$\mu = \mu(xy)$ & Řeš $\frac{d\mu}{dz} = \frac{M_y - N_x}{Ny - Mx} \mu$ & $\frac{M_y - N_x}{Ny - Mx}$ závisí pouze na $xy$ \\
+Obecný případ & Řeš $M\mu_y - N\mu_x + (M_y - N_x)\mu = 0$ & - \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Příprava na Pokročilejší Témata}
+\label{subsubsec:priprava-pokrocila-temata}
+
+\begin{transition}[Spojitost s parciálními diferenciálními rovnicemi]
+Teorie exaktních rovnice přímo navazuje na řešení parciálních diferenciálních rovnic 1. řádu. Rovnice:
+\[
+M(x, y) \frac{\partial F}{\partial x} + N(x, y) \frac{\partial F}{\partial y} = 0
+\]
+je řešitelná metodou charakteristik, která zobecňuje metodu integračních faktorů.
+\end{transition}
+
+\vspace{0.6\baselineskip}
+
+\begin{transition}[Diferenciální geometrie a diferenciální formy]
+V diferenciální geometrii se exaktní rovnice zapisují jako:
+\[
+\omega = M dx + N dy = 0
+\]
+kde $\omega$ je 1-forma. Podmínka exaktnosti $d\omega = 0$ odpovídá uzavřenosti diferenciální formy. Věta o nezávislosti na cestě je speciálním případem Stokesovy věty.
+\end{transition}
+
+\vspace{0.6\baselineskip}
+
+\begin{transition}[Příprava na systémy rovnic]
+Metody pro exaktní rovnice se zobecňují pro systémy:
+\[
+M_1 dx + M_2 dy + M_3 dz = 0
+\]
+s podmínkami uzavřenosti:
+\[
+\frac{\partial M_1}{\partial y} = \frac{\partial M_2}{\partial x}, \quad
+\frac{\partial M_1}{\partial z} = \frac{\partial M_3}{\partial x}, \quad
+\frac{\partial M_2}{\partial z} = \frac{\partial M_3}{\partial y}
+\]
+\end{transition}
+
+\vspace{0.8\baselineskip}
+
+\begin{conclusion}
+Exaktní diferenciální rovnice představují fundamentální nástroj pro modelování konzervativních systémů v přírodních, technických i ekonomických vědách. Zvládnutí jejich teorie a řešitelských metod poskytuje:
+\begin{itemize}
+\item \textbf{Hluboké porozumění} geometrické struktuce diferenciálních rovnic
+\item \textbf{Efektivní nástroje} pro řešení široké třídy fyzikálních a ekonomických modelů
+\item \textbf{Pevný základ} pro studium pokročilejších témat v parciálních diferenciálních rovnicích a diferenciální geometrii
+\item \textbf{Systematický přístup} k analýze a verifikaci řešení
+\end{itemize}
+
+Metody prezentované v této kapitole tvoří esenciální součást instrumentáře každého kvantitativního experta.
+\end{conclusion}
+
+% !TEX root = ../main.tex
+\subsection{Závěr: Exaktní Rovnice - Syntéza Metod}
+\label{subsec:zaver-exaktni}
+
+\subsubsection{Klíčové Poznatky a Metodologické Shrnutí}
+\label{subsubsec:klicove-poznatky-exaktni}
+
+\begin{summary}[Kompletní metodologie exaktních rovnic]
+\label{sum:kompletni-metodologie}
+Po prostudování této kapitoly by měl kvantitativní expert ovládat:
+
+\begin{enumerate}
+\item \textbf{Teoretický fundament}:
+\begin{itemize}
+\item Definice exaktní rovnice a geometrická interpretace
+\item Nutná a postačující podmínka exaktnosti
+\item Věta o nezávislosti na cestě integrace
+\end{itemize}
+
+\item \textbf{Řešitelské metody}:
+\begin{itemize}
+\item Přímá integrační metoda s křížovou verifikací
+\item Alternativní integrace podle různých proměnných
+\item Systematické hledání integračních faktorů
+\end{itemize}
+
+\item \textbf{Klasifikační schopnosti}:
+\begin{itemize}
+\item Rozpoznání typu $M(x,y)$ a $N(x,y)$ (polynomiální, racionální, goniometrické, exponenciální)
+\item Identifikace vhodného typu integračního faktoru
+\item Analýza singularit a definičních oborů
+\end{itemize}
+
+\item \textbf{Aplikační kompetence}:
+\begin{itemize}
+\item Modelování konzervativních fyzikálních systémů
+\item Analýza ekonomických modelů s potenciálem
+\item Numerická verifikace řešení
+\end{itemize}
+\end{enumerate}
+\end{summary}
+
+\vspace{0.8\baselineskip}
+
+\begin{method}[Rozhodovací strom pro exaktní rovnice - EXPERTNÍ VERZE]
+\label{met:rozhodovaci-strom-expert}
+\begin{enumerate}
+\item \textbf{KROK 0: Příprava}
+\begin{itemize}
+\item Normalizace rovnice do tvaru $M dx + N dy = 0$
+\item Kontrola spojitosti $M$, $N$ a jejich parciálních derivací
+\item Identifikace definičního oboru a singularit
+\end{itemize}
+
+\item \textbf{KROK 1: Test exaktnosti}
+\[
+\Delta = \frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}
+\]
+\begin{itemize}
+\item \textbf{ANO} ($\Delta = 0$): → KROK 2A
+\item \textbf{NE} ($\Delta \neq 0$): → KROK 2B
+\end{itemize}
+
+\item \textbf{KROK 2A: Řešení exaktní rovnice}
+\begin{itemize}
+\item Volba integrační strategie (podle $x$ nebo $y$)
+\item Integrace a určení "integrační funkce"
+\item Křížová verifikace řešení
+\item Analýza řešení: singularita, asymptotické chování
+\end{itemize}
+
+\item \textbf{KROK 2B: Hledání integračního faktoru}
+\begin{enumerate}
+\item \textbf{Test $\mu(x)$}: $\frac{\Delta}{N}$ závisí pouze na $x$?
+\item \textbf{Test $\mu(y)$}: $\frac{-\Delta}{M}$ závisí pouze na $y$?
+\item \textbf{Test $\mu(xy)$}: $\frac{\Delta}{Ny - Mx}$ závisí pouze na $xy$?
+\item \textbf{Test $\mu(x/y)$}: $\frac{\Delta}{\frac{N}{y} + \frac{Mx}{y^2}}$ závisí pouze na $x/y$?
+\item \textbf{Obecný případ}: Řešení PDE pro $\mu(x,y)$
+\end{enumerate}
+
+\item \textbf{KROK 3: Validace řešení}
+\begin{itemize}
+\item Dosazení do původní rovnice
+\item Kontinuita a diferencovatelnost v definičním oboru
+\item Analýza singularit a hraničního chování
+\end{itemize}
+\end{enumerate}
+\end{method}
+
+\vspace{0.8\baselineskip}
+
+\begin{table}[h]
+\centering
+\caption{Srovnání metod pro různé typy funkcí $M(x,y)$, $N(x,y)$}
+\label{tab:srovnani-metod-exaktni}
+\begin{tabular}{p{0.25\textwidth}p{0.3\textwidth}p{0.35\textwidth}}
+\toprule
+\textbf{Typ funkcí} & \textbf{Doporučená metoda} & \textbf{Kritické body} \\
+\midrule
+\textbf{Polynomiální} & Přímá integrace & Kontrola stupňů polynomů, identifikace singularit \\
+\textbf{Racionální} & Integrační faktory $\mu(x)$, $\mu(y)$ & Analýza nulových bodů jmenovatelů \\
+\textbf{Goniometrické} & Substituce před integrací & Periodicita, definiční obor \\
+\textbf{Exponenciální} & Přímá integrace & Růstové chování, asymptotiky \\
+\textbf{Smíšené typy} & Systematické testování $\mu$ & Volba optimální strategie \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Příprava na Pokročilejší Témata}
+\label{subsubsec:priprava-pokrocila-exaktni}
+
+\begin{transition}[Spojitost s parciálními diferenciálními rovnicemi]
+Teorie exaktních rovnic tvoří fundament pro:
+\[
+M(x,y) \frac{\partial F}{\partial x} + N(x,y) \frac{\partial F}{\partial y} = 0
+\]
+která se řeší metodou charakteristik. Exaktní rovnice představují speciální případ, kdy charakteristiky jsou ekvipotenciální křivky.
+\end{transition}
+
+\vspace{0.6\baselineskip}
+
+\begin{transition}[Diferenciální formy a variabilní počet]
+V pokročilejší matematice se exaktní rovnice zapisují jako:
+\[
+\omega = M dx + N dy = 0
+\]
+kde $\omega$ je diferenciální 1-forma. Podmínka $d\omega = 0$ odpovídá uzavřenosti formy a zobecňuje se ve Stokesově větě.
+\end{transition}
+
+\vspace{0.6\baselineskip}
+
+\begin{conclusion}[Exaktní rovnice v kvantitativních vědách]
+Exaktní rovnice poskytují mocný nástroj pro:
+\begin{itemize}
+\item \textbf{Modelování konzervativních systémů} v mechanice a elektrodynamice
+\item \textbf{Analýzu potenciálů} v ekonomických a finančních modelech  
+\item \textbf{Geometrickou interpretaci} řešení pomocí ekvipotenciálních křivek
+\item \textbf{Numerickou verifikaci} pomocí nezávislosti na integrační cestě
+\end{itemize}
+Zvládnutí této problematiky tvoří pevný základ pro přechod k nelineárním rovnicím v Level 2.
+\end{conclusion}
+
+\subsection{Závěr Level 1: Základní ODE 1. Řádu - Kompletní Syntéza}
+\label{sec:zaver-level1}
+
+\subsubsection{Systematický Přehled Metod Řešení}
+\label{subsec:systematicky-prehled}
+
+\begin{overview}[Kompletní metodologie ODE 1. řádu]
+\label{over:kompletni-metodologie-level1}
+Po absolvování Level 1 disponuje kvantitativní expert následujícími kompetencemi:
+
+\begin{table}[h]
+\centering
+\caption{Srovnání všech metod ODE 1. řádu}
+\label{tab:srovnani-vsech-metod}
+\begin{tabular}{p{0.2\textwidth}p{0.25\textwidth}p{0.2\textwidth}p{0.25\textwidth}}
+\toprule
+\textbf{Typ rovnice} & \textbf{Standardní tvar} & \textbf{Klíčová metoda} & \textbf{Kontrolní podmínka} \\
+\midrule
+\textbf{Separabilní} & $y' = f(x)g(y)$ & Separace proměnných & Rozdělitelnost na $f(x)$ a $g(y)$ \\
+\textbf{Lineární} & $y' + p(x)y = q(x)$ & Integrační faktor & Linearita v $y$ a $y'$ \\
+\textbf{Homogenní} & $y' = f(y/x)$ & Substituce $v = y/x$ & Homogenita stupně 0 \\
+\textbf{Exaktní} & $M dx + N dy = 0$ & Hledání potenciálu & $\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{overview}
+
+\vspace{0.8\baselineskip}
+
+\begin{method}[Univerzální rozhodovací algoritmus pro ODE 1. řádu]
+\label{met:univerzalni-algoritmus-level1}
+\begin{enumerate}
+\item \textbf{KROK 1: Identifikace typu}
+\begin{itemize}
+\item Test separability: Lze psát jako $y' = f(x)g(y)$?
+\item Test linearity: Je tvaru $y' + p(x)y = q(x)$?
+\item Test homogenity: Platí $f(tx, ty) = f(x, y)$?
+\item Test exaktnosti: Platí $M_y = N_x$?
+\end{itemize}
+
+\item \textbf{KROK 2: Aplikace specifické metody}
+\begin{itemize}
+\item \textbf{Separabilní}: $\int \frac{dy}{g(y)} = \int f(x) dx$
+\item \textbf{Lineární}: $\mu(x) = e^{\int p(x)dx}$, pak $y = \frac{1}{\mu}\int \mu q dx$
+\item \textbf{Homogenní}: $v = y/x$, řeš $v' = \frac{f(v)-v}{x}$
+\item \textbf{Exaktní}: Najdi $F(x,y)$ tak, že $F_x = M$, $F_y = N$
+\end{itemize}
+
+\item \textbf{KROK 3: Transformace mezi typy}
+\begin{itemize}
+\item Některé rovnice lze řešit více způsoby
+\item Homogenní rovnice mohou být exaktní
+\item Lineární rovnice mohou mít separabilní homogenní část
+\end{itemize}
+
+\item \textbf{KROK 4: Validace a interpretace}
+\begin{itemize}
+\item Dosazení do původní rovnice
+\item Analýza definičního oboru
+\item Fyzikální/ekonomická interpretace
+\end{itemize}
+\end{enumerate}
+\end{method}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Aplikační Syntéza v Kvantitativních Vědách}
+\label{subsec:aplikacni-syntéza}
+
+\begin{application}[Komparativní analýza růstových modelů]
+\label{app:komparativni-rustove-modely}
+\begin{table}[h]
+\centering
+\caption{Srovnání růstových modelů řešitelných metodami Level 1}
+\label{tab:srovnani-rustovych-modelu}
+\begin{tabular}{p{0.25\textwidth}p{0.25\textwidth}p{0.2\textwidth}p{0.2\textwidth}}
+\toprule
+\textbf{Model} & \textbf{Rovnice} & \textbf{Typ} & \textbf{Řešení} \\
+\midrule
+Exponenciální růst & $\frac{dP}{dt} = rP$ & Separabilní & $P(t) = P_0 e^{rt}$ \\
+Logistický růst & $\frac{dP}{dt} = rP(1-\frac{P}{L})$ & Separabilní & $P(t) = \frac{L}{1+Ae^{-rt}}$ \\
+Gompertzův růst & $\frac{dP}{dt} = rP\ln(\frac{L}{P})$ & Separabilní & $P(t) = L e^{\ln(P_0/L)e^{-rt}}$ \\
+Lineární s forcing & $\frac{dP}{dt} = aP + b$ & Lineární & $P(t) = Ce^{at} - \frac{b}{a}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{application}
+
+\vspace{0.6\baselineskip}
+
+\begin{application}[Finanční modely - spojité procesy]
+\label{app:financni-modely-level1}
+\begin{itemize}
+\item \textbf{Spojité úročení}: $\frac{dK}{dt} = rK$ (separabilní)
+\item \textbf{Dluhová dynamika}: $\frac{dD}{dt} = rD - A$ (lineární)  
+\item \textbf{Optimalizace spotřeby}: $\frac{dC}{dt} = f(C, W)$ (různé typy)
+\item \textbf{Tržní difuze}: $\frac{dS}{dt} = kS(M-S)$ (logistický růst)
+\end{itemize}
+\end{application}
+
+\vspace{0.6\baselineskip}
+
+\begin{application}[Fyzikální systémy - konzervativní modely]
+\label{app:fyzikalni-systemy-level1}
+\begin{itemize}
+\item \textbf{Radioaktivní rozpad}: $\frac{dN}{dt} = -\lambda N$ (separabilní)
+\item \textbf{Newtonův zákon ochlazování}: $\frac{dT}{dt} = k(T - T_{env})$ (lineární)
+\item \textbf{Konzervativní silová pole}: $F_x dx + F_y dy = 0$ (exaktní)
+\item \textbf{Kapacitní vybíjení}: $\frac{dQ}{dt} = -\frac{Q}{RC}$ (separabilní)
+\end{itemize}
+\end{application}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Přechod k Level 2: Nelineární Rovnice 1. Řádu}
+\label{subsec:prechod-level2}
+
+\begin{transition}[Od lineárních k nelineárním systémům]
+\label{trans:linearni-nelinearni}
+Level 1 poskytuje kompletní nástroje pro \textbf{lineární a kvazilineární} systémy. Level 2 rozšiřuje tuto schopnost na:
+
+\begin{itemize}
+\item \textbf{Bernoulliho rovnice}: $y' + p(x)y = q(x)y^n$ - nelineární zobecnění lineárních rovnic
+\item \textbf{Riccatiho rovnice}: $y' = p(x)y^2 + q(x)y + r(x)$ - kvadratická nelinearita
+\item \textbf{Clairautovy rovnice}: $y = xy' + f(y')$ - singulární řešení a obálky
+\item \textbf{Lagrangeovy rovnice}: $y = xf(y') + g(y')$ - parametrické řešení
+\item \textbf{Abelovy rovnice}: $y' = f(x)y^3 + g(x)y^2 + h(x)y$ - kubická nelinearita
+\end{itemize}
+\end{transition}
+
+\vspace{0.6\baselineskip}
+
+\begin{transition}[Rozšíření aplikačního spektra]
+\label{trans:rozsireni-aplikaci}
+Zatímco Level 1 pokrývá základní růstové a dynamické modely, Level 2 umožní modelování:
+
+\begin{itemize}
+\item \textbf{Nelineární oscilace} v ekonomických cyklech
+\item \textbf{Saturační efekty} v tržní penetraci
+\item \textbf{Competitivní dynamiku} ve víceagentových systémech
+\item \textbf{Singulární chování} v kritických bodech systémů
+\end{itemize}
+\end{transition}
+
+\vspace{0.6\baselineskip}
+
+\begin{conclusion}[Level 1 - Kvantitativní Fundament]
+\label{con:level1-kvantitativni-fundament}
+Level 1 představuje \textbf{nezbytný fundament} pro každého kvantitativního experta:
+
+\begin{itemize}
+\item \textbf{Teoretická hloubka}: Důkladné pochopení čtyř základních typů ODE 1. řádu
+\item \textbf{Praktické dovednosti}: Systematická metodologie identifikace a řešení
+\item \textbf{Aplikační kompetence}: Modelování reálných systémů v ekonomii, financích a přírodních vědách
+\item \textbf{Příprava na pokročilá témata}: Solidní základ pro nelineární rovnice a systémy vyšších řádů
+\end{itemize}
+
+\textbf{Zvládnutí Level 1 garantuje schopnost analyzovat a řešit převážnou většinu základních dynamických modelů v kvantitativních vědách.}
+\end{conclusion}
+
+\vspace{0.8\baselineskip}
+
+\begin{remark}[Certifikační úroveň]
+\label{rem:certifikacni-uroven}
+Úspěšné zvládnutí Level 1 odpovídá úrovni \textbf{Junior Quantitative Analyst} a je předpokladem pro přechod k pokročilejším tématům v Level 2 a vyšších.
+\end{remark}
+
+\vspace{0.8\baselineskip}
 

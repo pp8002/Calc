@@ -8,13 +8,14 @@
 
 % --- ZÁKLADNÍ BALÍČKY ---
 \usepackage{geometry}
-\geometry{margin=2.5cm, headheight=15pt}
+\geometry{margin=2.5cm, headheight=32pt}
 \usepackage{fancyhdr}
 \usepackage{parskip}
 \linespread{1.1}
 
 % --- POKROČILÉ BALÍČKY PRO MATEMATIKU ---
 \usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
 \usepackage{bm}
 \allowdisplaybreaks[3]
 
@@ -39,7 +40,8 @@
 % --- TIKZ PRO DIAGRAMY ---
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta, positioning, shapes.geometric, calc, patterns}
-\usetikzlibrary{decorations.pathreplacing, calligraphy}
+\usetikzlibrary{decorations.pathreplacing}
+\IfFileExists{tikzlibrarycalligraphy.code.tex}{\usetikzlibrary{calligraphy}}{}
 
 % --- HYPERREF A CLEVEREF ---
 \usepackage{hyperref}
@@ -56,4 +58,5 @@
 \usepackage{listings}
 
 % --- BIBLIOGRAFIE ---
+\IfFileExists{csquotes.sty}{\usepackage{csquotes}}{\PackageWarningNoLine{calcPreamble}{Balíček csquotes.sty není dostupný; biblatex přejde na standardní uvozovky.}}
 \usepackage[style=iso-numeric, autolang=other]{biblatex}
