@@ -5472,3 +5472,1541 @@ Pro libovolnou Riccatiho rovnici expert systematicky aplikuje:
 Tato kapitola o Riccatiho rovnicích představuje kompletní a rigorózní přípravu na řešení kvadratických nelineárních systémů na úrovni vyžadované špičkovými kvantitativními experty. Zvládnutí prezentovaných technik poskytuje kompetence pro samostatný výzkum v oblasti nelineární dynamiky a její aplikace v moderních kvantitativních vědách. Riccatiho rovnice, se svou bohatou strukturou a hlubokými aplikacemi, představují nezbytný nástroj v instrumentáři každého kvantitativního experta pracujícího s komplexními dynamickými systémy.
 
 \end{subsection}
+
+\subsection{Clairautovy rovnice}
+\label{subsec:clairautovy-rovnice}
+
+\subsubsection{Úvod do Clairautových rovnic}
+\label{subsubsec:úvod-clairaut}
+
+Clairautovy diferenciální rovnice představují fundamentální třídu nelineárních obyčejných diferenciálních rovnic prvního řádu s explicitní geometrickou interpretací. Tato kapitola poskytuje kompletní teoretický fundament a systematický přístup k jejich řešení v kontextu kvantitativních věd na úrovni odpovídající nejnáročnějším požadavkům expertní praxe.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Historický kontext a význam}
+
+Alexis Claude Clairaut (1713-1765), francouzský matematik, astronom a geofyzik, zavedl tento typ rovnic při studiu problémů geometrie a mechaniky. Jeho práce \textit{"Théorie de la figure de la Terre"} (1743) položila základy teorie obálek, která nachází hluboké aplikace v ekonomii, fyzice a teorii optimálního řízení. Clairautovy rovnice představují jeden z mála případů nelineárních diferenciálních rovnic, které umožňují úplnou explicitní analýzu řešení.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Matematická definice a standardní tvar}
+
+Standardní tvar Clairautovy rovnice je:
+\[
+y = x \frac{dy}{dx} + f\left(\frac{dy}{dx}\right)
+\]
+kde $f: \mathbb{R} \to \mathbb{R}$ je libovolná funkce třídy $C^2$. Zavedením standardní substituce $p = \frac{dy}{dx}$ získáváme explicitní parametrický tvar:
+\[
+y = xp + f(p)
+\]
+s diferenciální formou:
+\[
+dy = p\,dx + x\,dp + f'(p)\,dp
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Klíčové vlastnosti a charakteristiky}
+
+\begin{itemize}
+\item \textbf{Dvojí struktura řešení}: Vždy existují dvě disjunktní třídy řešení -- obecné (přímková) řešení a singulární (obálkové) řešení
+\item \textbf{Geometrická interpretace}: Singulární řešení představuje obálku (envelopu) rodiny přímek z obecného řešení
+\item \textbf{Explicitní konstrukce}: Obě třídy řešení lze získat přímou integrací bez potřeby numerických metod
+\item \textbf{Parametrická reprezentace}: Singulární řešení má přirozené parametrické vyjádření
+\item \textbf{Aplikace v optimalizaci}: Úzce souvisí s problémy variačního počtu a teorie optimálního řízení prostřednictvím principu maxima
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Vztah k předchozím typům rovnic}
+
+Clairautovy rovnice lze chápat jako speciální případ obecnějších Lagrangeových rovnic tvaru:
+\[
+y = xf(y') + g(y')
+\]
+kde volba $f(p) = p$ dává standardní Clairautův tvar. Toto zjednodušení umožňuje explicitní konstrukci obou typů řešení a hlubší analýzu jejich geometrických vlastností. Zároveň představují přirozené zobecnění lineárních rovnic prvního řádu.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Přehled aplikací v kvantitativních vědách}
+
+\begin{itemize}
+\item \textbf{Ekonomie}: Modely optimálního zdanění (Lafferova křivka), teorie spotřebitele, analýza tržní rovnováhy, modely ekonomického růstu
+\item \textbf{Teorie řízení}: Optimální trajektorie, bang-bang řízení, časově optimální problémy, Pontrjaginův princip maxima
+\item \textbf{Finanční modely}: Oceňování derivátů, optimální portfolio, rizikové modely, modelování volatilit
+\item \textbf{Fyzikální aplikace}: Geometrická optika (zákon lomu), mechanika (trajektorie částic), teorie pole, termodynamika
+\item \textbf{Operační výzkum}: Optimální plánování, rozvrhování, logistika, teorie front
+\item \textbf{Biologické systémy}: Populační dynamika, epidemiologické modely, biomechanika
+\end{itemize}
+
+\subsubsection{Teoretický fundament}
+\label{subsubsec:teorie-clairaut}
+
+\noindent\textbf{Formální definice s přesnými matematickými podmínkami}
+
+Nechť $f: I \to \mathbb{R}$ je funkce třídy $C^2$ na otevřeném intervalu $I \subseteq \mathbb{R}$ a nechť $\Omega \subseteq \mathbb{R}^2$ je oblast definice. Clairautova diferenciální rovnice je definována jako:
+\[
+F(x, y, y') = y - x y' - f(y') = 0
+\]
+nebo ekvivalentně v parametrickém tvaru:
+\[
+y = xp + f(p), \quad p = \frac{dy}{dx}
+\]
+Definiční obor řešení je množina všech bodů $(x, y) \in \Omega$, pro které existuje řešení splňující podmínky existence a jednoznačnosti.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Klíčové věty s kompletními důkazy}
+
+\begin{theorem}[Obecné řešení Clairautovy rovnice]
+Nechť $f \in C^2(I)$ a $I \subseteq \mathbb{R}$ otevřený interval. Pak obecné řešení Clairautovy rovnice je dáno rodinou přímek:
+\[
+y = Cx + f(C), \quad C \in I
+\]
+které tvoří úplnou integrální plochu rovnice.
+\end{theorem}
+
+\begin{proof}
+Uvažujme Clairautovu rovnici v parametrickém tvaru:
+\[
+y = xp + f(p)
+\]
+Derivováním této identity podle $x$ dostaneme:
+\[
+\frac{dy}{dx} = p + x\frac{dp}{dx} + f'(p)\frac{dp}{dx}
+\]
+Protože $\frac{dy}{dx} = p$, po dosazení a úpravě obdržíme:
+\[
+p = p + (x + f'(p))\frac{dp}{dx}
+\]
+\[
+(x + f'(p))\frac{dp}{dx} = 0
+\]
+Tato rovnice má dvě disjunktní možnosti:
+\begin{enumerate}
+\item $\frac{dp}{dx} = 0$ na nějakém intervalu, což implikuje $p = C$ (konstanta), a tedy:
+\[
+y = Cx + f(C)
+\]
+\item $x + f'(p) = 0$, což vede k singulárnímu řešení
+\end{enumerate}
+První případ dává obecné řešení ve tvaru rodiny přímek parametrizovaných konstantou $C \in I$.
+\end{proof}
+
+\begin{theorem}[Singulární řešení a obálka]
+Singulární řešení Clairautovy rovnice je dáno parametrickými rovnicemi:
+\[
+x = -f'(p), \quad y = -pf'(p) + f(p)
+\]
+a představuje obálku rodiny přímek z obecného řešení. Toto řešení nelze získat žádnou volbou konstanty $C$ z obecného řešení.
+\end{theorem}
+
+\begin{proof}
+Z druhé možnosti $x + f'(p) = 0$ dostáváme explicitně:
+\[
+x = -f'(p)
+\]
+Dosazením této identity do původní rovnice:
+\[
+y = (-f'(p))p + f(p) = -pf'(p) + f(p)
+\]
+Abychom ukázali, že toto řešení je obálkou, uvažujme rodinu křivek z obecného řešení:
+\[
+F(x, y, C) = y - Cx - f(C) = 0
+\]
+Obálka této rodiny je definována podmínkami:
+\[
+F(x, y, C) = 0, \quad \frac{\partial F}{\partial C}(x, y, C) = 0
+\]
+Z druhé podmínky:
+\[
+\frac{\partial F}{\partial C} = -x - f'(C) = 0 \Rightarrow x = -f'(C)
+\]
+Dosazením do první podmínky:
+\[
+y = C(-f'(C)) + f(C) = -Cf'(C) + f(C)
+\]
+Což je přesně singulární řešení s parametrem $p = C$. Tím je dokázáno, že singulární řešení je obálkou rodiny přímek.
+\end{proof}
+
+\begin{theorem}[Existence a jednoznačnost řešení]
+Nechť $f \in C^2(I)$, $I \subseteq \mathbb{R}$ otevřený interval, a $(x_0, y_0) \in \mathbb{R}^2$. Pak:
+\begin{enumerate}
+\item Pokud existuje $C_0 \in I$ takové, že $y_0 = C_0x_0 + f(C_0)$, pak bodem $(x_0, y_0)$ prochází právě jedno řešení z obecné rodiny.
+\item Pokud $(x_0, y_0)$ leží na singulárním řešení, pak bodem procházejí dvě řešení -- jedno singulární a jedno z obecné rodiny.
+\item Pokud $(x_0, y_0)$ neleží ani na obecném ani na singulárním řešení, pak jím neprochází žádné řešení.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Důkaz plyne přímo z konstrukce řešení:
+\begin{enumerate}
+\item Pro daný bod $(x_0, y_0)$ řešíme rovnici $y_0 = Cx_0 + f(C)$ vzhledem k $C$. Pokud má právě jedno řešení $C_0$, pak existuje právě jedno obecné řešení.
+\item Pokud $(x_0, y_0)$ splňuje $x_0 = -f'(p)$ a $y_0 = -pf'(p) + f(p)$ pro nějaké $p$, pak bod leží na singulárním řešení. Zároveň, pokud existuje $C$ takové, že $y_0 = Cx_0 + f(C)$, pak bodem procházejí dvě řešení.
+\item Pokud bod nesplňuje ani jednu z těchto podmínek, pak jím neprochází žádné řešení Clairautovy rovnice.
+\end{enumerate}
+\end{proof}
+
+\begin{theorem}[Regularita a singularita řešení]
+Nechť $f \in C^2(I)$ a $f''(p) \neq 0$ pro všechna $p \in I$. Pak:
+\begin{enumerate}
+\item Obecné řešení $y = Cx + f(C)$ je třídy $C^\infty$ na $\mathbb{R}$ pro každé $C \in I$
+\item Singulární řešení je třídy $C^1$ a jeho derivace je spojitá, ale druhá derivace může mít body nespojitosti
+\item Singulární řešení je regulární právě když $f''(p) \neq 0$ a $f'''(p)$ existuje
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item Obecné řešení je lineární funkce plus konstantní člen, tedy analytická na celém $\mathbb{R}$.
+\item Pro singulární řešení máme parametrické vyjádření:
+\[
+x = -f'(p), \quad y = -pf'(p) + f(p)
+\]
+Derivace podle $p$:
+\[
+\frac{dx}{dp} = -f''(p), \quad \frac{dy}{dp} = -f'(p) - pf''(p) + f'(p) = -pf''(p)
+\]
+Tedy:
+\[
+\frac{dy}{dx} = \frac{dy/dp}{dx/dp} = \frac{-pf''(p)}{-f''(p)} = p
+\]
+což je spojité. Druhá derivace:
+\[
+\frac{d^2y}{dx^2} = \frac{dp}{dx} = \frac{1}{dx/dp} = -\frac{1}{f''(p)}
+\]
+která je spojitá právě když $f''(p)$ je spojitá a nenulová.
+\item Regularita vyšších řádů závisí na existenci a spojitosti vyšších derivací funkce $f$.
+\end{enumerate}
+\end{proof}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Transformace a redukce na jiné typy}
+
+Clairautovu rovnici lze transformovat na několik ekvivalentních forem:
+
+\begin{enumerate}
+\item \textbf{Derivační transformace}: Derivováním původní rovnice:
+\[
+\frac{d}{dx}[y - xp - f(p)] = 0 \Rightarrow (x + f'(p))\frac{dp}{dx} = 0
+\]
+což vede na dvě separabilní rovnice.
+
+\item \textbf{Parametrická transformace}: Zavedením parametru $p$ získáváme soustavu:
+\[
+x = -f'(p), \quad y = -pf'(p) + f(p)
+\]
+
+\item \textbf{Redukce na kvadratickou rovnici}: Pro speciální volby $f(p)$ lze rovnici redukovat na kvadratickou v $p$.
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Podmínky existence a jednoznačnosti řešení}
+
+Pro Clairautovu rovnici $y = xp + f(p)$ platí:
+\begin{itemize}
+\item \textbf{Lokální existence}: Řešení existuje lokálně v okolí každého bodu, který leží na některém řešení
+\item \textbf{Globální existence}: Obecné řešení existuje globálně na $\mathbb{R}$, singulární řešení na definičním oboru $f'$
+\item \textbf{Jednoznačnost}: Narušena v bodech singulárního řešení, kde existují dvě řešení
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Analýza singularit a definičních oborů}
+
+Singulární body Clairautovy rovnice nastávají když:
+\begin{itemize}
+\item $f'(p)$ není definována nebo není spojitá
+\item $f''(p) = 0$ (inflexní body obálky)
+\item Průsečíky obecného a singulárního řešení (body multiplicity)
+\item Body, kde ztrácí řešení jednoznačnost
+\end{itemize}
+
+Definiční obor závisí na vlastnostech funkce $f$ a může obsahovat oblasti, kde řešení přestává být regulární.
+
+\subsubsection{Systematická metodologie řešení}
+\label{subsubsec:metodologie-reseni}
+
+\noindent\textbf{Krok-po-kroku algoritmus řešení}
+
+Pro řešení Clairautovy rovnice $y = xp + f(p)$, kde $p = \frac{dy}{dx}$, aplikujeme následující systematický postup:
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 1: Identifikace typu a parametrizace}
+
+Potvrďte, že rovnice má Clairautův tvar $y = xp + f(p)$. Zaveďte parametr $p = y'$ a ověřte regularitu funkce $f(p)$.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Derivace a analýza větvení}
+
+Derivujte rovnici podle $x$:
+\[
+\frac{d}{dx}[y - xp - f(p)] = 0 \Rightarrow (x + f'(p))\frac{dp}{dx} = 0
+\]
+Tato rovnice má dvě disjunktní větve řešení.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Konstrukce obecného řešení (Větev 1)}
+
+Z podmínky $\frac{dp}{dx} = 0$ dostáváme $p = C$ (konstanta). Dosazením do původní rovnice:
+\[
+y = Cx + f(C), \quad C \in \mathbb{R}
+\]
+Toto je rodina přímek tvořící obecné řešení.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 4: Konstrukce singulárního řešení (Větev 2)}
+
+Z podmínky $x + f'(p) = 0$ dostáváme $x = -f'(p)$. Dosazením do původní rovnice:
+\[
+y = -pf'(p) + f(p)
+\]
+Toto je parametrické vyjádření singulárního řešení.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 5: Eliminace parametru a explicitní tvar}
+
+Pokud možno, eliminujte parametr $p$ ze singulárního řešení pro získání explicitního vztahu $y = \varphi(x)$.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 6: Analýza průsečíků a definičních oborů}
+
+Určete průsečíky obecného a singulárního řešení a analyzujte definiční obory obou typů řešení.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 7: Validace řešení}
+
+Ověřte správnost obou typů řešení dosazením do původní rovnice a potvrďte geometrický vztah obálky.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Metody hledání partikulárních/konkrétních řešení}
+
+Pro nalezení partikulárního řešení procházejícího bodem $(x_0, y_0)$:
+
+\begin{enumerate}
+\item \textbf{Metoda substituce konstanty}: Řešte rovnici $y_0 = Cx_0 + f(C)$ vzhledem k $C$. Pokud existuje řešení $C_0$, pak partikulární řešení je $y = C_0x + f(C_0)$.
+
+\item \textbf{Metoda parametrizace}: Pokud bod $(x_0, y_0)$ splňuje $x_0 = -f'(p)$ a $y_0 = -pf'(p) + f(p)$ pro nějaké $p$, pak leží na singulárním řešení.
+
+\item \textbf{Metoda geometrické interpretace}: Určete, zda bod leží na některé přímce z obecného řešení nebo na obálce.
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Transformační techniky}
+
+\begin{enumerate}
+\item \textbf{Parametrická transformace}: Zavedení parametru $p$ a řešení soustavy:
+\[
+x = -f'(p), \quad y = -pf'(p) + f(p)
+\]
+
+\item \textbf{Derivační transformace}: Postupná derivace a analýza větvení řešení.
+
+\item \textbf{Geometrická transformace}: Konstrukce obálky rodiny křivek pomocí podmínek:
+\[
+F(x, y, C) = 0, \quad \frac{\partial F}{\partial C}(x, y, C) = 0
+\]
+
+\item \textbf{Inverzní transformace}: V některých případech užitečné uvažovat $x$ jako funkci $y$.
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Validace a ověřování řešení}
+
+Komplexní postup ověření správnosti řešení:
+
+\begin{enumerate}
+\item \textbf{Dosazení do původní rovnice}: Přímé ověření, že řešení splňuje původní rovnici.
+
+\item \textbf{Geometrická verifikace}: Kontrola, že singulární řešení je skutečně obálkou rodiny přímek.
+
+\item \textbf{Analýza derivací}: Ověření, že derivace řešení souhlasí s očekávaným chováním.
+
+\item \textbf{Studium singularit}: Analýza chování řešení v singulárních bodech a na hranicích definičních oborů.
+
+\item \textbf{Numerická verifikace}: Pro složitější případy numerické ověření řešení v reprezentativních bodech.
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Analýza stability a asymptotického chování}
+
+Pro kvantitativní aplikace je klíčová analýza stability:
+
+\begin{itemize}
+\item \textbf{Stabilita přímkových řešení}: Obecná řešení $y = Cx + f(C)$ jsou typicky nestabilní vůči perturbacím parametru $C$ nebo počátečních podmínek.
+
+\item \textbf{Stabilita singulárního řešení}: Obálka často představuje atraktor pro perturbovaný systém - řešení s malými perturbacemi konvergují k singulárnímu řešení.
+
+\item \textbf{Asymptotické chování}: 
+\begin{itemize}
+\item Pro $x \to \pm\infty$: Obecná řešení rostou lineárně, singulární řešení může mít různá asymptotická chování v závislosti na $f(p)$
+\item V okolí singularit: Analýza blow-up řešení a bodů nespojitosti
+\end{itemize}
+
+\item \textbf{Kvalitativní analýza}: Studium fázového portrétu a bifurkací v závislosti na parametrech funkce $f$
+\end{itemize}
+
+\subsubsection{Aplikace v kvantitativních vědách}
+\label{subsubsec:aplikace-kvantitativni}
+
+\noindent\textbf{Ekonomické a finanční modely}
+
+\begin{example}[Optimální zdanění - Lafferova křivka - obtížnost C1]
+\label{ex:laffer-krivka}
+
+\noindent\textbf{Zadání:} V modelu optimálního zdanění uvažujme Clairautovu rovnici
+\[
+y = xy' + \frac{1}{2}(y')^2
+\]
+kde $x$ představuje daňovou sazbu a $y$ daňový výnos. Najděte obecné a singulární řešení a interpretujte jejich ekonomický význam v kontextu Lafferovy křivky.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má tvar $y = xp + \frac{1}{2}p^2$ kde $p = y'$ a $f(p) = \frac{1}{2}p^2$. Očekáváme rodinu přímek jako obecné řešení a parabolu jako singulární řešení. V ekonomické interpretaci představuje singulární řešení optimální daňovou křivku.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Obecné řešení}
+Z podmínky $\frac{dp}{dx} = 0$ dostáváme $p = C$, tedy:
+\[
+y = Cx + \frac{1}{2}C^2
+\]
+což představuje rodinu přímek s konstantní mezní daňovou sazbou.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Singulární řešení}
+Z podmínky $x + f'(p) = 0$ kde $f'(p) = p$:
+\[
+x + p = 0 \Rightarrow p = -x
+\]
+Dosazením do původní rovnice:
+\[
+y = x(-x) + \frac{1}{2}(-x)^2 = -x^2 + \frac{1}{2}x^2 = -\frac{1}{2}x^2
+\]
+Singulární řešení je tedy parabola $y = -\frac{1}{2}x^2$.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Eliminace parametru}
+Singulární řešení již má explicitní tvar $y = -\frac{1}{2}x^2$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Validace řešení}
+Dosazením singulárního řešení do původní rovnice:
+\[
+-\frac{1}{2}x^2 = x(-x) + \frac{1}{2}(-x)^2 = -x^2 + \frac{1}{2}x^2 = -\frac{1}{2}x^2
+\]
+Rovnost platí, řešení je správné.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+V ekonomickém kontextu:
+\begin{itemize}
+\item \textbf{Obecné řešení}: Rodina lineárních daňových systémů s konstantní mezní sazbou
+\item \textbf{Singulární řešení}: Lafferova křivka - vztah mezi daňovou sazbou a výnosem ukazující, že při příliš vysokých sazbách výnos klesá
+\item \textbf{Optimální bod}: Vrchol křivky představuje daňovou sazbu maximalizující výnos
+\end{itemize}
+Tento model ilustruje fundamentální trade-off mezi redistribucí a ekonomickou efektivitou.
+
+\end{example}
+
+\begin{example}[Teorie spotřebitele - obtížnost C1]
+\label{ex:spotrebitel}
+
+\noindent\textbf{Zadání:} V modelu teorie spotřebitele s nelineárními preferencemi vede optimalizace užitkové funkce na Clairautově rovnici:
+\[
+y = xy' + \sqrt{1 + (y')^2}
+\]
+Najděte obecné a singulární řešení a interpretujte v kontextu indiferenčních křivek.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má tvar $y = xp + \sqrt{1 + p^2}$ kde $f(p) = \sqrt{1 + p^2}$. Očekáváme obecné řešení jako rodinu přímek a singulární řešení jako kružnici, která představuje hranici dosažitelné utility.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Obecné řešení}
+\[
+y = Cx + \sqrt{1 + C^2}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Singulární řešení}
+Nejprve spočteme $f'(p) = \frac{p}{\sqrt{1 + p^2}}$. Z podmínky $x + f'(p) = 0$:
+\[
+x + \frac{p}{\sqrt{1 + p^2}} = 0 \Rightarrow x = -\frac{p}{\sqrt{1 + p^2}}
+\]
+Dosazením do původní rovnice:
+\[
+y = \left(-\frac{p}{\sqrt{1 + p^2}}\right)p + \sqrt{1 + p^2} = -\frac{p^2}{\sqrt{1 + p^2}} + \sqrt{1 + p^2} = \frac{1}{\sqrt{1 + p^2}}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Eliminace parametru}
+Z parametrických rovnic:
+\[
+x = -\frac{p}{\sqrt{1 + p^2}}, \quad y = \frac{1}{\sqrt{1 + p^2}}
+\]
+Umocněním a sečtením:
+\[
+x^2 + y^2 = \frac{p^2}{1 + p^2} + \frac{1}{1 + p^2} = 1
+\]
+Singulární řešení je tedy jednotková kružnice $x^2 + y^2 = 1$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Validace řešení}
+Dosazením $y = \sqrt{1 - x^2}$ do původní rovnice ověříme platnost řešení.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+V ekonomickém kontextu:
+\begin{itemize}
+\item \textbf{Obecné řešení}: Rodina lineárních rozpočtových omezení
+\item \textbf{Singulární řešení}: Hranice spotřebního koše - množina bodů dosažitelných při daném rozpočtu
+\item \textbf{Optimální volba}: Průsečík singulární křivky s nejvyšší indiferenční křivkou
+\end{itemize}
+Model demonstruje optimalizaci chování spotřebitele v případě nelineárních omezení.
+
+\end{example}
+
+\subsubsection{Početní sekce}
+\label{subsubsec:pocetni-sekce}
+
+\paragraph*{Kategorie A: Základní příklady}
+
+\begin{example}[Základní Clairautova rovnice - obtížnost A1]
+\label{ex:zakladni-clairaut}
+
+\noindent\textbf{Zadání:} Řešte Clairautovu rovnici
+\[
+y = xy' + (y')^2
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má standardní Clairautův tvar s $f(p) = p^2$. Očekáváme obecné řešení jako rodinu přímek a singulární řešení jako parabolu.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Obecné řešení}
+Z podmínky $\frac{dp}{dx} = 0$ dostáváme $p = C$, tedy:
+\[
+y = Cx + C^2
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Singulární řešení}
+Nejprve $f'(p) = 2p$. Z podmínky $x + f'(p) = 0$:
+\[
+x + 2p = 0 \Rightarrow p = -\frac{x}{2}
+\]
+Dosazením do původní rovnice:
+\[
+y = x\left(-\frac{x}{2}\right) + \left(-\frac{x}{2}\right)^2 = -\frac{x^2}{2} + \frac{x^2}{4} = -\frac{x^2}{4}
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Validace řešení}
+Dosazením singulárního řešení:
+\[
+-\frac{x^2}{4} = x\left(-\frac{x}{2}\right) + \left(-\frac{x}{2}\right)^2 = -\frac{x^2}{2} + \frac{x^2}{4} = -\frac{x^2}{4}
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+Singulární řešení $y = -\frac{x^2}{4}$ představuje obálku rodiny přímek $y = Cx + C^2$. Každá přímka se dotýká paraboly právě v jednom bodě.
+
+\end{example}
+
+\begin{example}[Polynomiální funkce - obtížnost A2]
+\label{ex:polynom-clairaut}
+
+\noindent\textbf{Zadání:} Řešte Clairautovu rovnici
+\[
+y = xy' + \frac{1}{3}(y')^3
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má $f(p) = \frac{1}{3}p^3$, což je kubická funkce. Očekáváme obecné řešení jako rodinu přímek a singulární řešení jako kubickou křivku.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Obecné řešení}
+\[
+y = Cx + \frac{1}{3}C^3
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Singulární řešení}
+$f'(p) = p^2$. Z podmínky $x + f'(p) = 0$:
+\[
+x + p^2 = 0 \Rightarrow p^2 = -x
+\]
+Protože $p^2 \geq 0$, musí být $x \leq 0$. Dosazením:
+\[
+y = xp + \frac{1}{3}p^3 = p(x + \frac{1}{3}p^2)
+\]
+Ale $x = -p^2$, tedy:
+\[
+y = p(-p^2 + \frac{1}{3}p^2) = p(-\frac{2}{3}p^2) = -\frac{2}{3}p^3
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Eliminace parametru}
+Máme $x = -p^2$ a $y = -\frac{2}{3}p^3$. Z první rovnice $p = \pm\sqrt{-x}$ pro $x \leq 0$. Dosazením:
+\[
+y = -\frac{2}{3}(\pm\sqrt{-x})^3 = -\frac{2}{3}(\pm(-x)^{3/2}) = \mp\frac{2}{3}(-x)^{3/2}
+\]
+Tedy $y^2 = \frac{4}{9}(-x)^3$ nebo $x^3 + \frac{9}{4}y^2 = 0$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Validace řešení}
+Ověříme dosazením parametrického tvaru do původní rovnice.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+Singulární řešení představuje semi-kubickou parabolu, která je obálkou rodiny přímek. Definiční obor je omezen na $x \leq 0$.
+
+\end{example}
+
+\paragraph*{Kategorie B: Speciální případy a techniky}
+
+\begin{example}[Racionální funkce - obtížnost B1]
+\label{ex:racionalni-clairaut}
+
+\noindent\textbf{Zadání:} Řešte Clairautovu rovnici
+\[
+y = xy' + \frac{1}{1 + (y')^2}
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má $f(p) = \frac{1}{1 + p^2}$, což je racionální funkce. Očekáváme složitější singulární řešení due nelinearity funkce $f$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Obecné řešení}
+\[
+y = Cx + \frac{1}{1 + C^2}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Singulární řešení}
+Nejprve $f'(p) = -\frac{2p}{(1 + p^2)^2}$. Z podmínky $x + f'(p) = 0$:
+\[
+x - \frac{2p}{(1 + p^2)^2} = 0 \Rightarrow x = \frac{2p}{(1 + p^2)^2}
+\]
+Dosazením do původní rovnice:
+\[
+y = \left(\frac{2p}{(1 + p^2)^2}\right)p + \frac{1}{1 + p^2} = \frac{2p^2}{(1 + p^2)^2} + \frac{1}{1 + p^2}
+= \frac{2p^2 + 1 + p^2}{(1 + p^2)^2} = \frac{1 + 3p^2}{(1 + p^2)^2}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Eliminace parametru}
+Máme parametrické rovnice:
+\[
+x = \frac{2p}{(1 + p^2)^2}, \quad y = \frac{1 + 3p^2}{(1 + p^2)^2}
+\]
+Eliminace $p$ vede na složitou algebraickou křivku.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Validace řešení}
+Ověříme dosazením parametrického tvaru do původní rovnice.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+Singulární řešení představuje komplexní algebraickou křivku, která je obálkou rodiny přímek. Každá přímka se dotýká této křivky v jednom bodě.
+
+\end{example}
+
+\begin{example}[Singulární body analýza - obtížnost B3]
+\label{ex:singularni-analyza}
+
+\noindent\textbf{Zadání:} Pro Clairautovu rovnici $y = xy' + (y')^3$ analyzujte singulární body a definiční obory řešení.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má $f(p) = p^3$, $f'(p) = 3p^2$, $f''(p) = 6p$. Singulární body nastanou když $f''(p) = 0$ nebo když řešení ztrácí regularitu.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Obecné řešení}
+\[
+y = Cx + C^3
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Singulární řešení}
+$f'(p) = 3p^2$, tedy $x + 3p^2 = 0 \Rightarrow x = -3p^2$. Dosazením:
+\[
+y = (-3p^2)p + p^3 = -3p^3 + p^3 = -2p^3
+\]
+Eliminace parametru: $p^2 = -\frac{x}{3}$, $p^3 = \pm\left(-\frac{x}{3}\right)^{3/2}$, tedy:
+\[
+y = -2\left(\pm\left(-\frac{x}{3}\right)^{3/2}\right) = \mp 2\left(-\frac{x}{3}\right)^{3/2}
+\]
+Nebo $y^2 = 4\left(-\frac{x}{3}\right)^3 = -\frac{4}{27}x^3$.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Analýza singularit}
+\begin{itemize}
+\item $f''(p) = 6p = 0$ když $p = 0$ - inflexní bod obálky
+\item Pro $p = 0$: $x = 0$, $y = 0$ - počátek je singulární bod
+\item Definiční obor: $x \leq 0$ pro reálná řešení
+\end{itemize}
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Validace řešení}
+V bodě $p = 0$ máme $x = 0$, $y = 0$. Dosazením do obecného řešení: $0 = C\cdot 0 + C^3 \Rightarrow C = 0$, tedy bodem prochází jak singulární tak obecné řešení.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+Počátek je bodem multiplicity, kde se protínají singulární řešení a jedna z přímek obecného řešení. Toto je typická singularita Clairautových rovnic.
+
+\end{example}
+
+\paragraph*{Kategorie C: Aplikované úlohy}
+
+\begin{example}[Geometrická optika - obtížnost C2]
+\label{ex:optika-clairaut}
+
+\noindent\textbf{Zadání:} V geometrické optice popisuje dráhu světelného paprsku v nehomogenním prostředí Clairautova rovnice:
+\[
+y = xy' + n\sqrt{1 + (y')^2}
+\]
+kde $n$ je index lomu. Najděte obecné a singulární řešení pro $n = 1$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Pro $n = 1$ máme $f(p) = \sqrt{1 + p^2}$. Jedná se o stejnou rovnici jako v příkladu teorie spotřebitele, ale s odlišnou fyzikální interpretací.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Obecné řešení}
+\[
+y = Cx + \sqrt{1 + C^2}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Singulární řešení}
+$f'(p) = \frac{p}{\sqrt{1 + p^2}}$. Z podmínky $x + f'(p) = 0$:
+\[
+x + \frac{p}{\sqrt{1 + p^2}} = 0 \Rightarrow x = -\frac{p}{\sqrt{1 + p^2}}
+\]
+Dosazením:
+\[
+y = \left(-\frac{p}{\sqrt{1 + p^2}}\right)p + \sqrt{1 + p^2} = -\frac{p^2}{\sqrt{1 + p^2}} + \sqrt{1 + p^2} = \frac{1}{\sqrt{1 + p^2}}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Eliminace parametru}
+Z $x = -\frac{p}{\sqrt{1 + p^2}}$ a $y = \frac{1}{\sqrt{1 + p^2}}$ dostaneme $x^2 + y^2 = 1$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Validace řešení}
+Dosazením $y = \sqrt{1 - x^2}$ do původní rovnice ověříme platnost.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+\begin{itemize}
+\item \textbf{Obecné řešení}: Rodina světelných paprsků v homogenním prostředí
+\item \textbf{Singulární řešení}: Kružnice představující kaustiku - obálku paprsků
+\item \textbf{Fyzikální význam}: Paprsky se dotýkají kaustiky, která představuje oblast maximální intenzity světla
+\end{itemize}
+Tento model má aplikace v optických systémech a teorii šíření vln.
+
+\end{example}
+
+\begin{example}[Teorie řízení - bang-bang řízení - obtížnost C2]
+\label{ex:bang-bang}
+
+\noindent\textbf{Zadání:} V problému časově optimálního řízení vede optimalizace na Clairautovu rovnici:
+\[
+y = xy' + k|y'|
+\]
+kde $k > 0$ je konstanta. Najděte řešení a interpretujte v kontextu bang-bang řízení.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice obsahuje absolutní hodnotu, což vede na dvě větve řešení v závislosti na znaménku $p = y'$. Jedná se o zobecněnou Clairautovu rovnici.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Analýza větví}
+\begin{enumerate}
+\item Pro $p \geq 0$: $f(p) = kp$, $f'(p) = k$
+\item Pro $p < 0$: $f(p) = -kp$, $f'(p) = -k$
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Obecné řešení}
+\begin{itemize}
+\item Pro $p \geq 0$: $y = Cx + kC$, $C \geq 0$
+\item Pro $p < 0$: $y = Cx - kC$, $C < 0$
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Singulární řešení}
+\begin{itemize}
+\item Pro $p \geq 0$: $x + k = 0 \Rightarrow x = -k$, dosazením $y = (-k)p + kp = 0$
+\item Pro $p < 0$: $x - k = 0 \Rightarrow x = k$, dosazením $y = kp - kp = 0$
+\end{itemize}
+Singulární řešení jsou tedy vertikální přímky $x = -k$ (pro $p \geq 0$) a $x = k$ (pro $p < 0$) na ose $y = 0$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Validace řešení}
+Dosazením ověříme, že vertikální přímky splňují rovnici pouze v určitých bodech.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+V teorii řízení:
+\begin{itemize}
+\item \textbf{Obecné řešení}: Trajektorie systému s konstantním řízením
+\item \textbf{Singulární řešení}: Přepínací křivky pro bang-bang řízení
+\item \textbf{Optimální strategie}: Přepínání mezi maximálním a minimálním řízením na přepínacích křivkách
+\end{itemize}
+Model ilustruje princip maxima v optimálním řízení pro lineární systémy.
+
+\end{example}
+
+\paragraph*{Kategorie D: Pokročilé a expertní příklady}
+
+\begin{example}[Numerická analýza singulárního řešení - obtížnost D1]
+\label{ex:numericka-analyza}
+
+\noindent\textbf{Zadání:} Pro Clairautovu rovnici $y = xy' + e^{y'}$ proveďte numerickou analýzu singulárního řešení a studujte jeho chování v okolí singularit.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má $f(p) = e^{p}$, což je transcendentní funkce. Singulární řešení nelze vyjádřit v uzavřeném tvaru, vyžaduje numerické metody a kvalitativní analýzu.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Obecné řešení}
+\[
+y = Cx + e^{C}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Singulární řešení - parametrický tvar}
+$f'(p) = e^{p}$, tedy $x + e^{p} = 0 \Rightarrow x = -e^{p}$. Dosazením:
+\[
+y = (-e^{p})p + e^{p} = e^{p}(1 - p)
+\]
+Parametrické rovnice: $x = -e^{p}$, $y = e^{p}(1 - p)$.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Numerická analýza}
+\begin{itemize}
+\item Pro $p \to -\infty$: $x \to 0^-$, $y \to +\infty$
+\item Pro $p = 0$: $x = -1$, $y = 1$
+\item Pro $p \to +\infty$: $x \to -\infty$, $y \to -\infty$
+\item Bod singularity: $p = 1$, $x = -e$, $y = 0$ - zde $f''(p) = e^{p} \neq 0$, ale řešení má inflexi
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 4: Kvalitativní vlastnosti}
+\begin{itemize}
+\item Definiční obor: $x < 0$ (z $x = -e^{p} < 0$)
+\item Monotonie: $\frac{dy}{dx} = p$, tedy rostoucí pro $p > 0$, klesající pro $p < 0$
+\item Konvexita: $\frac{d^2y}{dx^2} = \frac{1}{e^{p}} > 0$ - řešení je konvexní
+\end{itemize}
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Validace řešení}
+Numerické ověření v charakteristických bodech pomocí diferenčních metod.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+Singulární řešení představuje exponenciální křivku, která je obálkou rodiny přímek. Numerická analýza odhaluje globální vlastnosti řešení, které nejsou zřejmé z parametrického tvaru. Aplikace v modelech s exponenciálním růstem.
+
+\end{example}
+
+\begin{example}[Kvalitativní analýza stability - obtížnost D2]
+\label{ex:stabilita-analyza}
+
+\noindent\textbf{Zadání:} Pro Clairautovu rovnici $y = xy' + \frac{1}{2}(y')^2$ analyzujte stabilitu řešení vůči perturbacím počátečních podmínek.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má $f(p) = \frac{1}{2}p^2$. Zajímá nás chování řešení při malých změnách počátečních podmínek a konvergence k singulárnímu řešení.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Obecné a singulární řešení}
+\begin{itemize}
+\item Obecné: $y = Cx + \frac{1}{2}C^2$
+\item Singulární: $y = -\frac{1}{2}x^2$
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Perturbace počátečních podmínek}
+Uvažujme bod $(x_0, y_0)$ ležící na singulárním řešení. Pro perturbovaný bod $(x_0, y_0 + \varepsilon)$ najdeme odpovídající obecné řešení:
+\[
+y_0 + \varepsilon = Cx_0 + \frac{1}{2}C^2
+\]
+Tato rovnice má dvě řešení $C_1$ a $C_2$ pro malé $\varepsilon$.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Analýza stability}
+\begin{itemize}
+\item Pro $\varepsilon > 0$: Obě řešení $C_1, C_2$ jsou reálná, systém má dvě trajektorie
+\item Pro $\varepsilon < 0$: Žádné reálné řešení v některých oblastech
+\item Singulární řešení je "attraktorem" - perturbovaná řešení se k němu přibližují
+\item Stabilita závisí na znaménku druhé derivace $f''(p) = 1 > 0$
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 4: Fázová analýza}
+V rovině $(x, y)$ tvoří singulární řešení separatrix oddělující různé typy chování.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Validace řešení}
+Analytická studie variačních rovnic a numerická verifikace pro konkrétní perturbace.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+Singulární řešení představuje stabilní varietu v prostoru řešení. V aplikacích optimálního řízení odpovídá optimální trajektorii, ke které konvergují suboptimální strategie. Tento koncept má hluboké implikace v teorii stabilizace systémů.
+
+\end{example}
+
+\paragraph*{Kategorie E: Insane Challenges}
+
+\begin{example}[Zobecněné Clairautovy rovnice - obtížnost E1]
+\label{ex:zobecnene-clairaut}
+
+\noindent\textbf{Zadání:} Studujte zobecněnou Clairautovu rovnici
+\[
+y = x\phi(y') + \psi(y')
+\]
+a odvoďte podmínky existence singulárního řešení a jeho vlastnosti.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Jedná se o zobecnění standardní Clairautovy rovnice, kde lineární člen v $x$ je nahrazen obecnou funkcí $\phi(p)$. Tato rovnice zahrnuje jak Clairautovy tak Lagrangeovy rovnice jako speciální případy.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Derivace a analýza}
+Derivováním podle $x$:
+\[
+y' = \phi(p) + x\phi'(p)p' + \psi'(p)p'
+\]
+Protože $y' = p$, dostáváme:
+\[
+p = \phi(p) + [x\phi'(p) + \psi'(p)]p'
+\]
+\[
+[x\phi'(p) + \psi'(p)]p' = p - \phi(p)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Obecné řešení}
+Pokud $p' = 0$, pak $p = C$ a:
+\[
+y = x\phi(C) + \psi(C)
+\]
+což je rodina křivek (ne nutně přímek).
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Singulární řešení}
+Z podmínky $x\phi'(p) + \psi'(p) = 0$ dostáváme:
+\[
+x = -\frac{\psi'(p)}{\phi'(p)} \quad \text{pro } \phi'(p) \neq 0
+\]
+Dosazením do původní rovnice:
+\[
+y = \left(-\frac{\psi'(p)}{\phi'(p)}\right)\phi(p) + \psi(p) = \psi(p) - \frac{\psi'(p)\phi(p)}{\phi'(p)}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 4: Podmínky regularity}
+Singulární řešení je obálkou právě když:
+\begin{itemize}
+\item $\phi'(p) \neq 0$ v uvažovaném intervalu
+\item Jacobián transformace je regulární
+\item Řešení splňuje podmínky obálky
+\end{itemize}
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Validace řešení}
+Ověření pomocí teorie implicitních funkcí a podmínek pro obálky obecných rodin křivek.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+Zobecněné Clairautovy rovnice rozšiřují aplikovatelnost teorie na širší třídu problémů v variačním počtu a optimálním řízení. Představují most mezi jednoduchými Clairautovými rovnicemi a obecnými nelineárními rovnicemi prvního řádu.
+
+\end{example}
+
+\begin{example}[Propojení s variačním počtem - obtížnost E2]
+\label{ex:varacni-pocet}
+
+\noindent\textbf{Zadání:} Ukažte, že Clairautova rovnice přirozeně vzniká z úlohy variačního počtu
+\[
+J[y] = \int_{x_0}^{x_1} F(x, y, y') dx
+\]
+kde $F$ splňuje speciální podmínky. Odvoďte vztah mezi singulárním řešením a extremálami funkcionálu.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Clairautovy rovnice úzce souvisí s problémy variačního počtu, kde integrand $F$ má speciální strukturu umožňující separaci proměnných.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Euler-Lagrangeova rovnice}
+Pro funkcionál $J[y] = \int F(x, y, y') dx$ má Euler-Lagrangeova rovnice tvar:
+\[
+\frac{\partial F}{\partial y} - \frac{d}{dx}\left(\frac{\partial F}{\partial y'}\right) = 0
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Speciální případ}
+Uvažujme $F(x, y, y') = G(y - xy')$. Pak:
+\[
+\frac{\partial F}{\partial y} = G'(y - xy'), \quad \frac{\partial F}{\partial y'} = -xG'(y - xy')
+\]
+Euler-Lagrangeova rovnice:
+\[
+G'(y - xy') - \frac{d}{dx}[-xG'(y - xy')] = 0
+\]
+\[
+G'(y - xy') + G'(y - xy') + x\frac{d}{dx}[G'(y - xy')] = 0
+\]
+\[
+2G'(u) + xG''(u)\frac{du}{dx} = 0, \quad \text{kde } u = y - xy'
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Redukce na Clairautův tvar}
+Pro $G(u) = \frac{1}{2}u^2$ dostáváme přímo Clairautovu rovnici. Obecně, singulární řešení variační úlohy odpovídá obálce rodiny extremál.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 4: Weierstrassova podmínka}
+Singulární řešení často představuje hranici mezi konvexní a nekonvexní oblastí integrandu $F$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Validace řešení}
+Ověření pomocí přímé metody variačního počtu a teorie Hamilton-Jacobiho rovnic.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+Tento výsledek ukazuje hluboké propojení mezi Clairautovými rovnicemi a fundamentálními principy variačního počtu. Singulární řešení odpovídá tzv. "broken extremals" v problémech s nekonvexními integrandy, což má významné aplikace v mechanice a teorii optimálního řízení.
+
+\end{example}
+
+\subsubsection{Shrnutí a expertní metodologie}
+\label{subsec:shrnuti-clairaut}
+
+Clairautovy diferenciální rovnice představují fundamentální třídu nelineárních obyčejných diferenciálních rovnic prvního řádu s explicitní geometrickou interpretací a hlubokými aplikacemi v kvantitativních vědách. Tato kapitola poskytla kompletní teoretický fundament a praktický nástroj pro jejich řešení na úrovni odpovídající nejnáročnějším požadavkům expertní praxe.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Teoretický fundament}
+
+\begin{itemize}
+\item \textbf{Standardní tvar}: $y = xp + f(p)$, kde $p = \frac{dy}{dx}$ a $f \in C^2$
+\item \textbf{Dvojí struktura řešení}: Obecné řešení ($y = Cx + f(C)$) a singulární řešení ($x = -f'(p), y = -pf'(p) + f(p)$)
+\item \textbf{Geometrická interpretace}: Singulární řešení je obálkou rodiny přímek z obecného řešení
+\item \textbf{Podmínky existence}: Řešení existuje globálně pro obecné řešení, lokálně pro singulární řešení
+\item \textbf{Singularity}: Body multiplicity, inflexní body, hranice definičních oborů
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Systematická metodologie řešení}
+
+\begin{enumerate}
+\item \textbf{Identifikace typu}: Ověření Clairautova tvaru a regularity funkce $f$
+\item \textbf{Derivace a větvení}: Analýza rovnice $(x + f'(p))\frac{dp}{dx} = 0$
+\item \textbf{Konstrukce řešení}: Simultánní nalezení obecného a singulárního řešení
+\item \textbf{Validace}: Geometrická a analytická verifikace vztahu obálky
+\item \textbf{Analýza stability}: Studium chování vůči perturbacím
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Aplikace v kvantitativních vědách}
+
+\begin{itemize}
+\item \textbf{Ekonomie}: Modely optimálního zdanění (Lafferova křivka), teorie spotřebitele
+\item \textbf{Teorie řízení}: Bang-bang řízení, časově optimální problémy
+\item \textbf{Fyzika}: Geometrická optika (kaustiky), mechanika
+\item \textbf{Finanční modely}: Oceňování derivátů, optimální portfolio
+\item \textbf{Operační výzkum}: Optimální plánování a rozvrhování
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Expertní decision tree pro řešení úloh}
+
+\begin{enumerate}
+\item \textbf{Krok 1}: Identifikujte tvar rovnice - je ve tvaru $y = xp + f(p)$?
+\item \textbf{Krok 2}: Je $f(p)$ dostatečně hladká? ($C^2$ podmínka)
+\item \textbf{Krok 3}: Konstruujte obecné řešení $y = Cx + f(C)$
+\item \textbf{Krok 4}: Najděte singulární řešení z $x = -f'(p), y = -pf'(p) + f(p)$
+\item \textbf{Krok 5}: Eliminujte parametr $p$ pokud možno
+\item \textbf{Krok 6}: Analyzujte definiční obory a singularity
+\item \textbf{Krok 7}: Validujte geometrický vztah obálky
+\item \textbf{Krok 8}: Studujte stabilitu a asymptotické chování
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Příprava na pokročilá témata}
+
+Zvládnutí Clairautových rovnic vytváří pevný základ pro:
+\begin{itemize}
+\item \textbf{Lagrangeovy rovnice}: $y = xf(p) + g(p)$ - přirozené zobecnění
+\item \textbf{Variační počet}: Vztah k Euler-Lagrangeovým rovnicím a principu maxima
+\item \textbf{Teorie obálek}: Aplikace v parciálních diferenciálních rovnicích
+\item \textbf{Optimální řízení}: Pontrjaginův princip maxima a Hamilton-Jacobiho rovnice
+\item \textbf{Geometrická teorie}: Kontaktní geometrie a symplektická mechanika
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Kvantitativní interpretační framework}
+
+Pro aplikace v kvantitativních vědách:
+\begin{itemize}
+\item \textbf{Obecné řešení}: Reprezentuje rodinu možných strategií nebo stavů systému
+\item \textbf{Singulární řešení}: Představuje optimální nebo kritickou trajektorii
+\item \textbf{Body multiplicity}: Odpovídají bodům bifurkace nebo přepínání režimů
+\item \textbf{Stabilita}: Určuje robustnost řešení vůči perturbacím parametrů
+\item \textbf{Asymptotické chování}: Popisuje dlouhodobé trendy a limity systému
+\end{itemize}
+
+\subsection{Lagrangeovy rovnice}
+\label{subsec:lagrangeovy-rovnice}
+
+\subsubsection{Úvod do Lagrangeových rovnic}
+\label{subsubsec:úvod-lagrange}
+
+Lagrangeovy diferenciální rovnice představují fundamentální zobecnění Clairautových rovnic a tvoří důležitou třídu nelineárních obyčejných diferenciálních rovnic prvního řádu s hlubokými aplikacemi v variačním počtu a optimálním řízení. Tato kapitola poskytuje kompletní teoretický fundament a systematický přístup k jejich řešení v kontextu kvantitativních věd na úrovni odpovídající nejnáročnějším požadavkům expertní praxe.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Historický kontext a význam}
+
+Joseph-Louis Lagrange (1736-1813), italsko-francouzský matematik a astronom, zavedl tento typ rovnic v rámci své práce o variačním počtu a mechanice. Jeho práce \textit{"Mécanique Analytique"} (1788) položila základy moderní analytické mechaniky a teorie dynamických systémů. Lagrangeovy rovnice představují přirozené zobecnění Clairautových rovnic a tvoří most k moderní teorii optimálního řízení, s aplikacemi sahajícími od kvantové mechaniky po ekonomickou dynamiku.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Matematická definice a standardní tvar}
+
+Standardní tvar Lagrangeovy rovnice je:
+\[
+y = x\phi(y') + \psi(y')
+\]
+kde $\phi$ a $\psi$ jsou diferencovatelné funkce. Zavedením standardní substituce $p = \frac{dy}{dx}$ získáváme explicitní parametrický tvar:
+\[
+y = x\phi(p) + \psi(p)
+\]
+s diferenciální formou:
+\[
+dy = \phi(p)dx + x\phi'(p)dp + \psi'(p)dp
+\]
+Tento tvar umožňuje systematickou analýzu a konstrukci řešení pomocí parametrických metod.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Klíčové vlastnosti a charakteristiky}
+
+\begin{itemize}
+\item \textbf{Zobecnění Clairautových rovnic}: Speciální případ kdy $\phi(p) = p$ dává standardní Clairautovu rovnici
+\item \textbf{Parametrické řešení}: Přirozené parametrické vyjádření pomocí $p$ umožňuje explicitní konstrukci řešení
+\item \textbf{Singulární řešení}: Obecně složitější struktura než u Clairautových rovnic, s bohatou geometrickou interpretací
+\item \textbf{Variační interpretace}: Přirozeně vznikají z úloh variačního počtu s degenerovanými Lagrangeoviány
+\item \textbf{Aplikace v optimalizaci}: Úzce souvisí s Pontrjaginovým principem maxima v teorii optimálního řízení
+\item \textbf{Linearizovatelnost}: Lze převést na lineární rovnici v proměnné $x$ jako funkci $p$
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Vztah k předchozím typům rovnic}
+
+Lagrangeovy rovnice zobecňují několik důležitých tříd rovnic a tvoří hierarchickou strukturu:
+
+\begin{itemize}
+\item \textbf{Clairautovy rovnice}: $\phi(p) = p$ - fundamentální speciální případ
+\item \textbf{Lineární rovnice}: $\phi(p) = a$, $\psi(p) = bp + c$ - redukce na lineární ODE
+\item \textbf{Separabilní rovnice}: Speciální volby $\phi$ a $\psi$ vedoucí na separabilní tvar
+\item \textbf{Rovnice řešitelné substitucemi}: Redukce na lineární nebo separabilní tvar pomocí vhodných substitucí
+\item \textbf{D'Alembertovy rovnice}: $y = xf(y') + g(y')$ - alternativní parametrizace
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Přehled aplikací v kvantitativních vědách}
+
+\begin{itemize}
+\item \textbf{Ekonomie}: Dynamická optimalizace v růstových modelech (Ramseyův model), teorie investic a spotřeby, mezitemporální volba
+\item \textbf{Teorie řízení}: Optimální řízení s omezeními, časově optimální problémy, bang-bang řízení, Pontrjaginův princip maxima
+\item \textbf{Finanční modely}: Oceňování exotických derivátů (asijské, barrier opce), optimální portfolio management, modelování úrokových měr
+\item \textbf{Fyzikální aplikace}: Analytická mechanika (Lagrangeovy rovnice druhého druhu), teorie pole, termodynamika, relativistická dynamika
+\item \textbf{Operační výzkum}: Optimální plánování produkce, logistické modely, řízení zásob, rozvrhování
+\item \textbf{Biologické systémy}: Optimální strategie v evoluční biologii, epidemiologické modely, populační dynamika s optimalizací
+\item \textbf{Inženýrské aplikace}: Optimální design konstrukcí, řízení robotických systémů, optimalizace energetických systémů
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Fundamentální význam pro kvantitativní analýzu}
+
+Lagrangeovy rovnice představují jeden z mála typů nelineárních ODE, které umožňují:
+\begin{itemize}
+\item \textbf{Explicitní konstrukci řešení} pomocí parametrických metod
+\item \textbf{Geometrickou interpretaci} řešení v prostoru stavů a řízení
+\item \textbf{Přímé propojení} s problémy variačního počtu a optimálního řízení
+\item \textbf{Systematickou analýzu} stability a asymptotického chování
+\item \textbf{Efektivní numerickou implementaci} pro komplexní aplikace
+\end{itemize}
+
+Tato kombinace teoretické hloubky a praktické aplikovatelnosti činí z Lagrangeových rovnic nezbytný nástroj pro kvantitativní experty pracující s dynamickou optimalizací a modelováním komplexních systémů.
+
+\subsubsection{Teoretický fundament}
+\label{subsubsec:teorie-lagrange}
+
+\noindent\textbf{Formální definice s přesnými matematickými podmínkami}
+
+Nechť $\phi, \psi: I \to \mathbb{R}$ jsou funkce třídy $C^2$ na otevřeném intervalu $I \subseteq \mathbb{R}$ a nechť $\Omega \subseteq \mathbb{R}^2$ je oblast definice. Lagrangeova diferenciální rovnice je definována jako:
+\[
+F(x, y, y') = y - x\phi(y') - \psi(y') = 0
+\]
+nebo ekvivalentně v parametrickém tvaru:
+\[
+y = x\phi(p) + \psi(p), \quad p = \frac{dy}{dx}
+\]
+s diferenciální formou:
+\[
+dy = \phi(p)dx + [x\phi'(p) + \psi'(p)]dp
+\]
+Definiční obor řešení je množina všech bodů $(x, y) \in \Omega$, pro které existuje řešení splňující podmínky existence a jednoznačnosti. Regularita řešení je garantována při splnění podmínek $\phi, \psi \in C^2$ a $\phi(p) \neq p$ na uvažovaném intervalu.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Klíčové věty s kompletními důkazy}
+
+\begin{theorem}[Obecné řešení Lagrangeovy rovnice]
+Nechť $\phi, \psi \in C^2(I)$ a $\phi(p) \neq p$ na $I$. Pak obecné řešení Lagrangeovy rovnice je dáno v parametrickém tvaru:
+\[
+x = e^{\int \frac{\phi'(p)}{\phi(p)-p} dp} \left[ C + \int \frac{\psi'(p)}{\phi(p)-p} e^{-\int \frac{\phi'(p)}{\phi(p)-p} dp} dp \right], \quad y = x\phi(p) + \psi(p)
+\]
+kde $C$ je integrační konstanta. Alternativně lze řešení vyjádřit jako:
+\[
+x = \frac{\psi'(p) - C\phi'(p)}{[\phi(p) - p]^2}, \quad y = \phi(p)x + \psi(p)
+\]
+\end{theorem}
+
+\begin{proof}
+Začněme s Lagrangeovou rovnicí v parametrickém tvaru:
+\[
+y = x\phi(p) + \psi(p)
+\]
+Derivováním této identity podle $x$ dostaneme:
+\[
+\frac{dy}{dx} = \phi(p) + x\phi'(p)\frac{dp}{dx} + \psi'(p)\frac{dp}{dx}
+\]
+Protože $\frac{dy}{dx} = p$, po dosazení a úpravě obdržíme:
+\[
+p = \phi(p) + [x\phi'(p) + \psi'(p)]\frac{dp}{dx}
+\]
+\[
+[x\phi'(p) + \psi'(p)]\frac{dp}{dx} = p - \phi(p)
+\]
+Tuto rovnici lze přepsat jako lineární diferenciální rovnici pro $x$ jako funkci $p$:
+\[
+\frac{dx}{dp} = \frac{x\phi'(p) + \psi'(p)}{p - \phi(p)}
+\]
+\[
+\frac{dx}{dp} - \frac{\phi'(p)}{\phi(p) - p}x = \frac{\psi'(p)}{\phi(p) - p}
+\]
+Toto je lineární ODE prvního řádu pro $x(p)$. Integrační faktor je:
+\[
+\mu(p) = \exp\left(-\int \frac{\phi'(p)}{\phi(p) - p} dp\right)
+\]
+Všimněme si, že:
+\[
+\frac{d}{dp} \ln|\phi(p) - p| = \frac{\phi'(p) - 1}{\phi(p) - p}
+\]
+Tedy integrační faktor lze upravit na:
+\[
+\mu(p) = \exp\left(-\int \frac{\phi'(p)}{\phi(p) - p} dp\right) = \frac{1}{|\phi(p) - p|} \exp\left(\int \frac{1}{\phi(p) - p} dp\right)
+\]
+Řešení lineární rovnice je pak:
+\[
+x(p) = \frac{1}{\mu(p)} \left[ C + \int \mu(p) \frac{\psi'(p)}{\phi(p) - p} dp \right]
+\]
+Po úpravě dostaneme konečný tvar.
+\end{proof}
+
+\begin{theorem}[Singulární řešení Lagrangeovy rovnice]
+Singulární řešení Lagrangeovy rovnice existuje když $\phi(p) = p$ a je dáno parametrickými rovnicemi:
+\[
+x = -\frac{\psi'(p)}{\phi'(p)}, \quad y = -\frac{\psi'(p)\phi(p)}{\phi'(p)} + \psi(p)
+\]
+za předpokladu, že $\phi'(p) \neq 0$. Toto řešení představuje obálku rodiny křivek z obecného řešení.
+\end{theorem}
+
+\begin{proof}
+Singulární řešení nastává když jmenovatel v obecném řešení je nulový, tj. když $\phi(p) - p = 0$. Z této podmínky máme $\phi(p) = p$. 
+
+Uvažujme nyní derivovanou rovnici:
+\[
+p = \phi(p) + [x\phi'(p) + \psi'(p)]\frac{dp}{dx}
+\]
+S podmínkou $\phi(p) = p$ dostáváme:
+\[
+p = p + [x\phi'(p) + \psi'(p)]\frac{dp}{dx}
+\]
+\[
+[x\phi'(p) + \psi'(p)]\frac{dp}{dx} = 0
+\]
+Tato rovnice má dvě možnosti: 
+
+1. $\frac{dp}{dx} = 0$ - to vede k obecnému řešení
+2. $x\phi'(p) + \psi'(p) = 0$ - to vede k singulárnímu řešení
+
+Z druhé možnosti dostáváme:
+\[
+x = -\frac{\psi'(p)}{\phi'(p)}
+\]
+Dosazením do původní rovnice s $\phi(p) = p$:
+\[
+y = \left(-\frac{\psi'(p)}{\phi'(p)}\right)p + \psi(p) = -\frac{\psi'(p)p}{\phi'(p)} + \psi(p)
+\]
+Abychom ukázali, že toto řešení je obálkou, uvažujme rodinu křivek z obecného řešení:
+\[
+F(x, y, C) = y - x\phi(p_C) - \psi(p_C) = 0
+\]
+kde $p_C$ je parametr závislý na $C$. Podmínky obálky jsou:
+\[
+F(x, y, C) = 0, \quad \frac{\partial F}{\partial C}(x, y, C) = 0
+\]
+Druhá podmínka vede k $x\phi'(p_C) + \psi'(p_C) = 0$, což je přesně podmínka pro singulární řešení.
+\end{proof}
+
+\begin{theorem}[Existence a jednoznačnost řešení]
+Nechť $\phi, \psi \in C^2(I)$ a $(x_0, y_0) \in \mathbb{R}^2$. Pak:
+\begin{enumerate}
+\item Pokud existuje $p_0 \in I$ takové, že $y_0 = x_0\phi(p_0) + \psi(p_0)$ a $\phi(p_0) \neq p_0$, pak existuje lokálně právě jedno řešení procházející $(x_0, y_0)$.
+\item Pokud $(x_0, y_0)$ leží na singulárním řešení, pak bodem procházejí alespoň dvě řešení.
+\item Pokud $\phi(p) = p$ v nějakém bodě, pak v jeho okolí může existovat více řešení a jednoznačnost je narušena.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) Důkaz využívá teorém o existenci a jednoznačnosti pro obyčejné diferenciální rovnice aplikovaný na rovnici:
+\[
+\frac{dx}{dp} = \frac{x\phi'(p) + \psi'(p)}{p - \phi(p)}
+\]
+Pokud $\phi(p) \neq p$, pak pravá strana je hladká funkce $x$ a $p$ na okolí $(p_0, x_0)$, tedy lokálně lipschitzovská v $x$, což zaručuje existenci a jednoznačnost řešení.
+
+(2) Pokud $(x_0, y_0)$ leží na singulárním řešení, pak jím prochází jak singulární řešení, tak alespoň jedno řešení z obecné rodiny (pokud existuje $C$ takové, že $y_0 = x_0\phi(p_C) + \psi(p_C)$).
+
+(3) V bodech kde $\phi(p) = p$, jmenovatel v diferenciální rovnici je nulový, což vede k singularitě a možné ztrátě jednoznačnosti.
+\end{proof}
+
+\begin{theorem}[Vztah k variačnímu počtu]
+Lagrangeova rovnice přirozeně vzniká z úlohy variačního počtu s funkcionálem:
+\[
+J[y] = \int_{x_0}^{x_1} F(y - xy') dx
+\]
+kde $F$ je třídy $C^2$. Extremály tohoto funkcionálu splňují Lagrangeovu rovnici s $\phi(p) = p - \frac{F'(u)}{F''(u)}$ a $\psi(p) = \frac{F(u) - uF'(u)}{F''(u)}$, kde $u = y - xy'$.
+\end{theorem}
+
+\begin{proof}
+Uvažujme funkcionál $J[y] = \int_{x_0}^{x_1} F(y - xy') dx$. Euler-Lagrangeova rovnice je:
+\[
+\frac{\partial F}{\partial y} - \frac{d}{dx}\left(\frac{\partial F}{\partial y'}\right) = 0
+\]
+Vypočteme parciální derivace. Nechť $u = y - xy'$, pak:
+\[
+\frac{\partial F}{\partial y} = F'(u)\frac{\partial u}{\partial y} = F'(u)
+\]
+\[
+\frac{\partial F}{\partial y'} = F'(u)\frac{\partial u}{\partial y'} = F'(u)(-x) = -xF'(u)
+\]
+Euler-Lagrangeova rovnice pak je:
+\[
+F'(u) - \frac{d}{dx}[-xF'(u)] = 0
+\]
+\[
+F'(u) + F'(u) + x\frac{d}{dx}[F'(u)] = 0
+\]
+\[
+2F'(u) + xF''(u)\frac{du}{dx} = 0
+\]
+Tuto rovnici lze přepsat jako:
+\[
+\frac{du}{dx} = -\frac{2F'(u)}{xF''(u)}
+\]
+což je separabilní rovnice. Její řešení lze vyjádřit ve tvaru Lagrangeovy rovnice. Konkrétně, zvolíme-li parametrizaci, dostaneme:
+\[
+y = x\left(p - \frac{F'(u)}{F''(u)}\right) + \frac{F(u) - uF'(u)}{F''(u)}
+\]
+což je Lagrangeova rovnice s $\phi(p) = p - \frac{F'(u)}{F''(u)}$ a $\psi(p) = \frac{F(u) - uF'(u)}{F''(u)}$.
+\end{proof}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Transformace a redukce na jiné typy}
+
+Lagrangeovu rovnici lze transformovat na několik ekvivalentních forem:
+
+\begin{enumerate}
+\item \textbf{Linearizace v $x$}: Rovnici lze převést na lineární rovnici pro $x$ jako funkci $p$:
+\[
+\frac{dx}{dp} - \frac{\phi'(p)}{\phi(p) - p}x = \frac{\psi'(p)}{\phi(p) - p}
+\]
+
+\item \textbf{Substituce $u = y - x\phi(p)$}: Redukce na separabilní rovnici v proměnných $u$ a $p$
+
+\item \textbf{Derivační transformace}: Postupná derivace a analýza větvení řešení
+
+\item \textbf{Legendreova transformace}: Přechod k duální proměnné v problémech variačního počtu
+
+\item \textbf{Hodografická transformace}: Záměna rolí závislé a nezávislé proměnné
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Podmínky existence a jednoznačnosti řešení}
+
+Pro Lagrangeovu rovnici $y = x\phi(p) + \psi(p)$ platí:
+\begin{itemize}
+\item \textbf{Lokální existence}: Řešení existuje lokálně v okolí každého bodu kde $\phi(p) \neq p$ a funkce $\phi, \psi$ jsou hladké
+\item \textbf{Globální existence}: Závisí na chování $\phi(p) - p$ a singularitách funkcí $\phi, \psi$
+\item \textbf{Jednoznačnost}: Narušena v bodech kde $\phi(p) = p$ nebo na singulárním řešení
+\item \textbf{Regularita}: Řešení je $C^2$ pokud $\phi, \psi \in C^2$ a $\phi(p) \neq p$ na uvažovaném intervalu
+\item \textbf{Maximální interval existence}: Určen singularitami rovnice a chováním řešení v nekonečnu
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Analýza singularit a definičních oborů}
+
+Singulární body Lagrangeovy rovnice nastávají když:
+\begin{itemize}
+\item $\phi(p) = p$ (body větvení) - zde se řešení větví a ztrácí jednoznačnost
+\item $\phi'(p)$ není definována nebo není spojitá - body nespojitosti řešení
+\item $\psi'(p)$ má singularity - ovlivňuje regularitu řešení
+\item Průsečíky obecného a singulárního řešení - body multiplicity
+\item Body kde ztrácí řešení jednoznačnost - bifurkace řešení
+\item Body kde $\phi(p) - p = 0$ a současně $\phi'(p) = 0$ - vyšší singularity
+\end{itemize}
+
+Definiční obor závisí na vlastnostech funkcí $\phi$ a $\psi$ a může obsahovat oblasti, kde řešení přestává být regulární, má body nespojitosti, nebo ztrácí jednoznačnost. Komplexní analýza těchto singularit je klíčová pro aplikace v kvantitativních vědách, zejména v problémech optimálního řízení a variačního počtu.
