@@ -1,39 +1,50 @@
 % !TEX root = main.tex
 
-% --- jazyk a kódování ---
+% --- JAZYK A KÓDOVÁNÍ ---
 \usepackage[main=czech]{babel}
-\usepackage[utf8]{inputenc}   % pro pdfLaTeX
+\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 
-% --- matematika ---
-\usepackage{amsmath,amssymb,amsthm}
-\allowdisplaybreaks[3] % dovol rozdělování vícerovnic přes stránky
-
-% --- okraje ---
+% --- ZÁKLADNÍ BALÍČKY ---
 \usepackage{geometry}
-\geometry{margin=2.5cm}
-
-% --- čitelnost ---
+\geometry{margin=2.5cm, headheight=15pt}
+\usepackage{fancyhdr}
+\usepackage{parskip}
 \linespread{1.1}
 
-% --- jednoduché prostředí s římským číslováním (bez potřeby enumitem) ---
-\newenvironment{romanenum}%
-  {\begin{enumerate}\renewcommand\labelenumi{\roman{enumi})}}%
-  {\end{enumerate}}
+% --- POKROČILÉ BALÍČKY PRO MATEMATIKU ---
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\allowdisplaybreaks[3]
 
-% --- hyperref vždy; cleveref fallback (když není nainstalován) ---
+% --- BARVY A GRAFIKA ---
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subcaption}
+\graphicspath{{figures/}{images/}}
+
+% --- POKROČILÉ TABULKY A ALGORITMY ---
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% --- TCOROLORBOX PRO BLOKY ---
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable, theorems}
+
+% --- TIKZ PRO DIAGRAMY ---
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, calc, patterns}
+\usetikzlibrary{decorations.pathreplacing, calligraphy}
+
+% --- HYPERREF A CLEVEREF ---
 \usepackage{hyperref}
-\hypersetup{
-  colorlinks=true,
-  linkcolor=black,
-  citecolor=black,
-  urlcolor=black
-}
-
 \makeatletter
 \@ifundefined{ver@cleveref.sty}{%
-  % fallback: základní aliasy, pokud cleveref není k dispozici
   \newcommand{\cref}[1]{\ref{#1}}
   \newcommand{\Cref}[1]{\ref{#1}}
 }{%
@@ -41,56 +52,8 @@
 }
 \makeatother
 
-% --- mikrotypografie ---
-\usepackage{microtype}
-\emergencystretch=1.5em
-
-% --- listings (pro kód) ---
+% --- LISTINGS PRO KÓD ---
 \usepackage{listings}
-\lstset{
-  basicstyle=\ttfamily\small,
-  breaklines=true,
-  frame=single,
-  numbers=left,
-  numberstyle=\tiny,
-  showstringspaces=false
-}
 
-% --- booktabs (pro profesionální tabulky) ---
-\usepackage{booktabs}
-
-% --- theoremstyle: vlastní nastavení s mezerami a nadpisem na novém řádku ---
-\newtheoremstyle{mytheoremstyle}%
-  {12pt}{12pt}% space above/below
-  {\normalfont}{}%
-  {\bfseries}{}%
-  {\newline}{} % head–body separator = new line
-
-\theoremstyle{mytheoremstyle}
-
-% --- prostředí, každé má vlastní číslování ---
-\newtheorem{definition}{Definice}[section]
-\newtheorem{example}{Příklad}[section]
-\newtheorem{remark}{Poznámka}[section]
-\newtheorem{theorem}{Věta}[section]
-\newtheorem{lemma}{Lemma}[section]
-\newtheorem{proposition}{Tvrzení}[section]
-\newtheorem{corollary}{Důsledek}[section]
-
-% --- důkazy ---
-\renewcommand{\proofname}{Důkaz}
-
-% --- číslování rovnic, obrázků a tabulek podle sekcí ---
-\numberwithin{equation}{section}
-\numberwithin{figure}{section}
-\numberwithin{table}{section}
-
-% --- vlastní příkazy ---
-\providecommand{\diff}{\mathrm{d}}
-
-% --- pomocné blokové nadpisy a jemné svislé mezery ---
-\newcommand{\blocktitle}[1]{\vspace{0.6\baselineskip}\noindent\textbf{#1}\par\vspace{0.25\baselineskip}}
-\newcommand{\spc}{\vspace{0.6\baselineskip}}
-
-\usepackage{tikz}
-\usetikzlibrary{arrows.meta} % volitelné, jen pro hezčí šipky
+% --- BIBLIOGRAFIE ---
+\usepackage[style=iso-numeric, autolang=other]{biblatex}

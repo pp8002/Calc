@@ -80,12 +80,15 @@ Prostor $(C[a,b], \|\cdot\|_\infty)$ je Banachův prostor.
 \subsubsection{Příklady a aplikace}
 
 \begin{example}[Klasické prostory funkcí]
+\mbox{}
 \begin{itemize}
 \item $(C[a,b], \|\cdot\|_\infty)$: spojité funkce s normou maxima
 \item $(L^p(\Omega), \|\cdot\|_p)$: funkce s integrovatelnou $p$-tou mocninou
 \item $(\ell^p, \|\cdot\|_p)$: posloupnosti s konvergentní řadou $p$-tých mocnin
 \end{itemize}
 \end{example}
+    
+    
 
 \begin{application}
 \begin{verbatim}
@@ -162,16 +165,58 @@ kde $\{e_n\}$ je ortonormální báze.
 Fourierova řada rozkládá funkci na "harmonické složky". Pro ODR: Řešení lze hledat jako Fourierovu řadu, což redukuje diferenciální rovnici na algebraickou pro Fourierovy koeficienty. Tento přístup je zvláště účinný pro lineární rovnice s konstantními koeficienty.
 \end{intuition}
 
-\begin{center}
-\begin{tikzpicture}[scale=0.8]
-\draw[->] (0,0) -- (4,0) node[right] {$x$};
-\draw[->] (0,-1.5) -- (0,1.5) node[above] {$y$};
-\draw[blue, thick, domain=0:3.5, samples=100] plot (\x, {sin(2*\x r) + 0.5*sin(4*\x r) + 0.3*sin(6*\x r)});
-\node at (2,1.8) {Složená funkce};
-\draw[red, thick, domain=0:3.5, samples=100] plot (\x, {sin(2*\x r)});
-\node at (1.2,1.2) [red] {Základní harmonická};
-\end{tikzpicture}
-\end{center}
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[
+        scale=1,
+        axis/.style={->, thick, gray!80},
+        function/.style={thick, smooth, samples=200},
+        label/.style={font=\small}
+    ]
+    % Mřížka pro lepší orientaci
+    \draw[gray!30, very thin] (-0.5,-1.5) grid (4.5,2);
+    
+    % Osy
+    \draw[axis] (-0.5,0) -- (4.5,0) node[right, label] {$x$};
+    \draw[axis] (0,-1.8) -- (0,2.2) node[above, label] {$y$};
+    
+    % Značky na osách
+    \foreach \x in {1,2,3,4}
+        \draw (\x,0.05) -- (\x,-0.05) node[below, font=\tiny] {$\x$};
+    \foreach \y in {-1,1,2}
+        \draw (0.05,\y) -- (-0.05,\y) node[left, font=\tiny] {$\y$};
+    
+    % Základní harmonická (červená)
+    \draw[red, function, line width=1.5pt, domain=0:4] 
+        plot (\x, {sin(2*\x r)});
+    
+    % Složená funkce (modrá)  
+    \draw[blue!80!black, function, line width=1.8pt, domain=0:4] 
+        plot (\x, {sin(2*\x r) + 0.4*sin(4*\x r) + 0.25*sin(6*\x r)});
+    
+    % Popisky s pozadím pro lepší čitelnost
+    \node[red, font=\small\bfseries, 
+          fill=white, fill opacity=0.8, text opacity=1,
+          rounded corners=2pt, inner sep=2pt] 
+        at (1.2,1.3) {Základní harmonická};
+    
+    \node[blue!80!black, font=\small\bfseries,
+          fill=white, fill opacity=0.8, text opacity=1,
+          rounded corners=2pt, inner sep=2pt] 
+        at (2.8,1.8) {Složená funkce};
+    
+    % Šipky k funkcím
+    \draw[->, red, thin] (1.2,1.1) -- (1,0.8);
+    \draw[->, blue!80!black, thin] (2.8,1.6) -- (2.5,1.3);
+    
+    % Nulová linka
+    \draw[gray!50, dashed, thin] (0,0) -- (4,0);
+    
+    \end{tikzpicture}
+    \caption{Fourierova analýza: rozklad složené funkce na harmonické komponenty}
+    \label{fig:fourier_decomposition}
+    \end{figure}
+    
 
 \subsubsection{Projekční teorém a aplikace}
 
@@ -275,16 +320,39 @@ Každý spojitý lineární funkcionál na podprostoru lze rozšířit na celý 
 Hahn-Banachova věta umožňuje "oddělit" bod od uzavřené konvexní množiny pomocí nadroviny. V optimalizaci: zaručuje existenci Lagrangeových multiplikátorů pro problémy s omezeními.
 \end{intuition}
 
-\begin{center}
-\begin{tikzpicture}[scale=0.8]
-\draw[fill=blue!20] (0,0) ellipse (1.5 and 1);
-\node at (0,0) {Konvexní množina};
-\draw[red, thick] (2,2) -- (2,-1);
-\node[red] at (2.5,0.5) {Nadrovina};
-\fill (3,0.5) circle (2pt) node[right] {Bod};
-\draw[dashed] (3,0.5) -- (2,0.5);
-\end{tikzpicture}
-\end{center}
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[
+    scale=1,
+    axis/.style={->, thick, gray!80},
+    set/.style={fill=blue!30, draw=blue!50!black, opacity=0.6},
+    hyperplane/.style={red, line width=1.5pt},
+    point/.style={fill=black, radius=1.5pt}
+    ]
+    % Osy pro kontext
+    \draw[axis] (-1.5,0) -- (4,0) node[right] {$x$};
+    \draw[axis] (0,-1.5) -- (0,2) node[above] {$y$};
+    
+    % Konvexní množina
+    \draw[set] (0.5,0) ellipse (1.5 and 1);
+    \node[font=\small\bfseries] at (0.5,0) {Konvexní množina};
+    
+    % Nadrovina
+    \draw[hyperplane] (2,2) -- (2,-1);
+    \node[red, font=\small\bfseries, anchor=west] at (2.1,0.5) {Nadrovina};
+    
+    % Bod a projekce
+    \coordinate (P) at (3,0.5);
+    \fill[point] (P) circle;
+    \node[right, font=\small] at (P) {Bod};
+    
+    % Spojnice k nadrovině
+    \draw[dashed, gray!70] (P) -- (2,0.5);
+    
+    \end{tikzpicture}
+    \caption{Geometrická ilustrace konvexní množiny, nadroviny a bodu}
+    \label{fig:convex_plane_point}
+    \end{figure}
 
 \subsubsection{Spektrální teorie - úvod}
 
@@ -453,22 +521,31 @@ Sobolevovy vnořovací věty určují regularitu řešení diferenciálních rov
 \end{keyinsight}
 
 \begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=0.9]
-\draw[->] (0,0) -- (4,0) node[right] {Regularita};
-\draw[->] (0,0) -- (0,3) node[above] {Prostor};
-\node at (1,0.5) {$C[a,b]$};
-\node at (2,1.2) {$L^p(a,b)$};
-\node at (3,2.5) {$W^{1,p}(a,b)$};
-\draw[->, thick] (1,0.6) -- (2,1.1);
-\draw[->, thick] (2,1.3) -- (3,2.4);
-\node[rotate=45] at (1.5,0.8) {kontinuální};
-\node[rotate=63] at (2.5,1.8) {kompaktní};
-\draw[<->, blue, thick] (1,2.8) -- (3.5,2.8) node[above, midway] {Funkce v $W^{1,2}(a,b)$: přirozený prostor pro slabá řešení ODR 2. řádu};
-\end{tikzpicture}
-\caption{Hierarchie funkčních prostorů a jejich inkluze}
-\label{fig:prostorova-hierarchie}
+    \centering
+    \begin{tikzpicture}[
+        scale=1,
+        axis/.style={->, thick, black},
+        space/.style={font=\small\bfseries},
+        inc/.style={-Stealth, thick, blue}
+    ]
+    % Osy
+    \draw[axis] (0,0) -- (4.5,0) node[right] {Regularita};
+    \draw[axis] (0,0) -- (0,3.5) node[above] {Prostor};
+    
+    % Prostory
+    \node[space] (C) at (1,0.5) {$C[a,b]$};
+    \node[space] (Lp) at (2,1.2) {$L^p(a,b)$};
+    \node[space] (W) at (3,2.5) {$W^{1,p}(a,b)$};
+    
+    % Šipky inkluzí
+    \draw[inc] (C.north east) -- (Lp.south west) node[midway, above, sloped] {kontinuální};
+    \draw[inc] (Lp.north east) -- (W.south west) node[midway, above, sloped] {kompaktní};
+    
+    \end{tikzpicture}
+    \caption{Hierarchie funkcí v prostorech $C[a,b]\subset L^p(a,b)\subset W^{1,p}(a,b)$.}
+    \label{fig:prostorova-hierarchie}
 \end{figure}
+        
 
 \subsubsection{Trakce a aplikace}
 

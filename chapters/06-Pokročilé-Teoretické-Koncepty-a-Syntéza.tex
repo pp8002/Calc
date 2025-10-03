@@ -7,18 +7,6 @@ Tato kapitola představuje syntézu a vyvrcholení teoretického fundamentu, pro
 
 Provedeme čtenáře od lokálních bifurkací rovnováh přes globální bifurkační jevy až k ergodické teorii a teorii chaosu. Každý koncept je ilustrován na konkrétních aplikacích z kvantitativních věd s důrazem na finanční modelování a analýzu komplexních systémů.
 
-\begin{figure}[H]
-\begin{tcolorbox}[title=Roadmap Kapitoly 6]
-\item[] \textbf{6.1 Pokročilá Teorie Bifurkací} \\- Lokální a globální bifurkace, Hopfova bifurkace
-\item[] \textbf{6.2 Hamiltonovské Systémy} \\- Symplektická geometrie, integrabilita, KAM teorie  
-\item[] \textbf{6.3 Ergodická Teorie} \\- Ergodicita, mixing, entropie, statistický popis
-\item[] \textbf{6.4 Teorie Chaosu} \\- Ljapunovovy exponenty, podivné atraktory, symbolická dynamika
-\item[] \textbf{6.5 Syntéza Fundamentu} \\- Propojení konceptů, expertní doporučení
-\item[] \textbf{6.6 Literatura a Výzkum} \\- Pokročilé zdroje, současné směry výzkumu
-\end{tcolorbox}
-\caption{Roadmap kapitoly 6: Pokročilé Teoretické Koncepty a Syntéza}
-\label{fig:roadmap-chapter6}
-\end{figure}
 
 \spc
 
@@ -62,12 +50,6 @@ Nechť $\dot{x} = f(x, \mu)$ je systém s rovnovážným bodem $x_0(\mu)$ a nech
 Pak za obecných podmínek nastává Hopfova bifurkace vedoucí k vzniku limitního cyklu.
 \end{theorem}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth]{hopf_bifurcation.pdf}
-\caption{Superkritická a subkritická Hopfova bifurkace}
-\label{fig:hopf_bifurcation}
-\end{figure}
 
 \begin{application}[Vznik business cyklů]
 V Kaldorově modelu obchodního cyklu vede Hopfova bifurkace k vzniku endogenních oscilací v ekonomické aktivitě. Kritický parametr je určen mezní mírou investic a úspor, přičemž vznikající limitní cyklus popisuje pravidelnost ekonomických cyklů.
@@ -304,12 +286,6 @@ Symbolická dynamika poskytuje teoretický základ pro kompresi dat a analýzu i
 
 \subsubsection{Propojení Konceptů: Unifikující Teoretická Mapa}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.9\textwidth]{theoretical_map.pdf}
-\caption{Propojení teoretických konceptů v teorii dynamických systémů}
-\label{fig:theoretical_map}
-\end{figure}
 
 \begin{keyinsight}[Hierarchie složitosti dynamických systémů]
 \begin{itemize}
@@ -368,21 +344,11 @@ Symbolická dynamika poskytuje teoretický základ pro kompresi dat a analýzu i
 
 \subsubsection{Fundamentální Monografie a Přehledové Články}
 
-\begin{tcolorbox}[title=Doporučená literatura: Pokročilá teorie, floatplacement=H]
 \begin{itemize}
 \item \textbf{Arnold, V.I.} - \emph{Mathematical Methods of Classical Mechanics} - Základ symplektické geometrie
 \item \textbf{Katok, A., Hasselblatt, B.} - \emph{Introduction to the Modern Theory of Dynamical Systems} - Komplexní přehled teorie
 \item \textbf{Cornfeld, I.P., Fomin, S.V., Sinai, Ya.G.} - \emph{Ergodic Theory} - Hluboký vhled do ergodické teorie
 \end{itemize}
-\begin{center}
-\begin{tabular}{m{0.15\textwidth}m{0.15\textwidth}m{0.15\textwidth}}
-\includegraphics[width=0.25\textwidth]{qr_arnold.pdf} & 
-\includegraphics[width=0.25\textwidth]{qr_katok.pdf} &
-\includegraphics[width=0.25\textwidth]{qr_cornfeld.pdf} \\
-Arnold (1989) & Katok \& Hasselblatt (1995) & Cornfeld et al. (1982) \\
-\end{tabular}
-\end{center}
-\end{tcolorbox}
 
 \subsubsection{Aktuální Směry Výzkumu v Teorii Dynamických Systémů}
 
@@ -420,6 +386,19 @@ Arnold (1989) & Katok \& Hasselblatt (1995) & Cornfeld et al. (1982) \\
 \end{itemize}
 \end{application}
 
-\begin{transition}
-S tímto komplexním teoretickým fundamentem jsme připraveni přejít k aplikacím v konkrétních doménách. Následující kapitoly se zaměří na parciální diferenciální rovnice ve finanční matematice, stochastické modely v kvantitativním finance a pokročilé numerické metody, kde využijeme všechny prezentované teoretické koncepty.
-\end{transition}
+\subsection{Shrnutí kapitoly}
+
+\begin{itemize}
+    \item \textbf{Pokročilá teorie bifurkací} — Rozbor lokálních bifurkací, včetně saddle-node, transkritické a pitchfork bifurkace, dále Hopfovo bifurkace s rozborem vzniku oscilací a globálních bifurkací jako homoklinických či heteroklinických jevů. Aplikace v ekonomických modelech a klimatických přechodech.
+    
+    \item \textbf{Hamiltonovské systémy a symplektická geometrie} — Definice symplektické struktury a Hamiltonovy formulace, Liouvilleova integrabilita, Arnold–Liouvilleův teorém integrability s akčně-úhlovými proměnnými. KAM teorie jako hlavní metoda stability téměř integrabilních systémů. Finanční a fyzikální aplikace.
+    
+    \item \textbf{Ergodická teorie a statistický popis dynamiky} — Zavedení invariantních měr, ergodicity a mixing, Birkhoffův a Von Neumannův ergodický teorém jako základ pro statistickou mechaniku a analýzu časových řad. Metrická a topologická entropie jako měřítka chaosu a komplexity.
+    
+    \item \textbf{Teorie chaosu a nelineární dynamika} — Definice Ljapunovových exponentů a jejich význam pro citlivost na počáteční podmínky, charakterizace podivných atraktorů a fraktálních dimenzí, symbolická dynamika a vztah k teorii informace. Aplikace v prediktabilitě ekonomických dat a fyzikálních systémech.
+    
+    \item \textbf{Syntéza teoretického fundamentu} — Unifikující mapa vztahů mezi různými třídami dynamických systémů, rozhodovací schéma výběru správné analytické metody podle charakteru problému a praktické rady pro analýzu nelineárních systémů, včetně varování před běžnými chybami a doporučení numerické robustnosti.
+    
+    \item \textbf{Pokročilá literatura a výzkumné směry} — Přehled klíčových monografií a článků, moderních trendů jako parciální hyperboličnost a rigidita, interdisciplinárních aplikací v machine learningu, kvantové teorii pole a ekonomii.
+  \end{itemize}
+    

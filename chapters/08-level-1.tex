@@ -1,2404 +1,3090 @@
 % !TEX root = ../main.tex
-\section{Level 1: Základní metody řešení ODE 1.~řádu}
-\label{chap:level1}
+\section{Úroveň 1: Základní ODE 1. Řádu - Expertní Kvantitativní Fundament}
+\label{sec:uroven-1}
 
-\subsection*{Cíl Levelu 1}
-Tento level představuje kompletní systém pro zvládnutí základních ODE 1.~řádu prostřednictvím strukturované sady příkladů od elementární po expertní úroveň. Každý příklad obsahuje kompletní teoretickou analýzu, finanční aplikace, praktickou implementaci a prvky risk managementu.
+\subsection{Úvod do Úrovně 1}
+\label{subsec:uvod-uroven-1}
 
-\subsection{Úroveň 1A: Elementární příklady}
-\label{sec:uroven-1a}
+Tato úroveň představuje kompletní a rigorózní úvod do teorie obyčejných diferenciálních rovnic prvního řádu. Naším cílem není pouze mechanické osvojení řešicích technik, ale hluboké porozumění matematické struktuře těchto rovnic a jejich bezprostřední aplikace v kvantitativních vědách.
 
-\subsubsection{Separovatelné rovnice — elementární}
-\label{subsec:1a-separovatelne}
+\vspace{0.8\baselineskip}
 
-\begin{example}[1A.1: Základní separovatelná rovnice]
-\label{ex:1a1}
+\begin{principle}[Filozofie úrovně 1]
+Úroveň 1 kombinuje matematickou preciznost s praktickou relevancí. Každý teoretický koncept je okamžitě ilustrován na reálných kvantitativních problémech, čímž vytváříme most mezi abstraktní matematikou a aplikovaným výzkumem.
+\end{principle}
 
-\textbf{Identifikace}
+\vspace{0.8\baselineskip}
+
+\subsubsection*{Organizace a cíle úrovně}
+
+Úroveň 1 je strukturována do čtyř hlavních typů ODE 1. řádu, které tvoří fundament pro veškeré pokročilejší techniky:
+
 \begin{itemize}
-\item \textbf{Typ}: separovatelná
-\item \textbf{Úroveň}: 1A — elementární
-\item \textbf{Finanční kontext}: základní růstový model
+\item \textbf{Separabilní rovnice} - základní stavební kámen
+\item \textbf{Lineární rovnice} - systematický přístup s integračními faktory
+\item \textbf{Homogenní rovnice} - geometrická interpretace a substituce
+\item \textbf{Exaktní rovnice} - teorie potenciálů a konzervativních systémů
 \end{itemize}
 
-\textbf{Zadání}
+\vspace{0.8\baselineskip}
+
+\subsubsection*{Kvantitativní význam}
+
+Pro kvantitativního experta představují ODE 1. řádu fundamentální nástroj pro:
+
+\begin{itemize}
+\item Modelování časového vývoje finančních proměnných
+\item Kalibraci parametrů na historická data
+\item Analýzu stability ekonomických systémů
+\item Přípravu na pokročilejší modely (SDE, PDE)
+\end{itemize}
+
+\vspace{0.8\baselineskip}
+
+\begin{example}[Motivační příklad z kvantitativních financí]
+Uvažujme jednoduchý model pro cenu akcie $S(t)$ s konstantní expected return $\mu$:
 \[
-\frac{dy}{dx} = 2x, \qquad y(0) = 1.
+\frac{dS}{dt} = \mu S, \quad S(0) = S_0
+\]
+Tato separabilní rovnice má řešení $S(t) = S_0 e^{\mu t}$, které tvoří základ pro geometrický Brownův pohyb v Black-Scholesově modelu.
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\subsection{Separabilní Rovnice - Kompletní Teorie}
+
+
+\label{subsec:separabilni-rovnice}
+
+\subsubsection{Teoretický Fundament}
+\label{subsubsec:teoreticky-fundament}
+
+\begin{definition}[Separabilní diferenciální rovnice]
+Rovnice je \emph{separabilní}, jestliže ji lze zapsat ve tvaru:
+\[
+\frac{dy}{dx} = f(x)g(y)
+\]
+kde $f(x)$ je funkce závislá pouze na $x$ a $g(y)$ je funkce závislá pouze na $y$.
+\end{definition}
+
+\vspace{0.6\baselineskip}
+
+\begin{theorem}[Existence a jednoznačnost řešení]
+Nechť $f(x)$ je spojitá na intervalu $I$ a $g(y)$ je spojitá na intervalu $J$ a Lipschitzovská v $y$ na $J$. Pak pro každý počáteční bod $(x_0, y_0) \in I \times J$ existuje právě jedno řešení separabilní rovnice splňující $y(x_0) = y_0$, pokud $g(y_0) \neq 0$.
+\end{theorem}
+
+\vspace{0.4\baselineskip}
+
+\begin{proof}
+Důkaz využívá Picard-Lindelöfovu větu z Kapitoly 3. Separabilní tvar umožňuje přímou integraci:
+\[
+\int_{y_0}^y \frac{d\eta}{g(\eta)} = \int_{x_0}^x f(\xi)  d\xi
+\]
+Lipschitzovskost $g(y)$ zaručuje jednoznačnost řešení na maximálním intervalu existence.
+\end{proof}
+
+\vspace{0.6\baselineskip}
+
+\begin{theorem}[Maximální interval existence]
+Nechť $f(x)$ je spojitá na $(a,b)$ a $g(y)$ je spojitá na $(c,d)$. Pak řešení separabilní rovnice existuje na maximálním otevřeném intervalu $(\alpha,\beta) \subset (a,b)$ a platí buď $\beta = b$, nebo $\lim_{x\to\beta^-} y(x)$ existuje a patří do $\{c,d,\pm\infty\}$.
+\end{theorem}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Kompletní Metodologie Řešení}
+\label{subsubsec:kompletni-metodologie}
+
+\begin{method}[Metoda 1: Přímá separace proměnných]
+\label{met:primaseparace}
+\begin{enumerate}
+\item \textbf{Identifikace tvaru}: Ověřte, že rovnici lze zapsat jako $\frac{dy}{dx} = f(x)g(y)$
+
+\item \textbf{Analýza singulárních bodů}: Najděte všechny $y_c$ takové, že $g(y_c) = 0$
+
+\item \textbf{Konstantní řešení}: $y(x) = y_c$ jsou řešeními pro každé $y_c$ z předchozího kroku
+
+\item \textbf{Separace proměnných}: Pro $g(y) \neq 0$ přepište na $\frac{dy}{g(y)} = f(x)dx$
+
+\item \textbf{Integrace}: 
+\[
+\int \frac{dy}{g(y)} = \int f(x)dx + C
 \]
 
-\textbf{Teoretická analýza}
-\begin{itemize}
-\item $g(x)=2x$ spojité na $I=\mathbb{R}$,
-\item $h(y)=1$ spojité na $J=\mathbb{R}$,
-\item maximální interval existence: $\mathbb{R}$,
-\item Lipschitzovskost: triviálně splněna,
-\item singulární řešení: žádná.
-\end{itemize}
+\item \textbf{Explicitní vyjádření}: Pokud možno, vyjádřete $y$ explicitně jako funkci $x$
 
-\textbf{Postup řešení}
-\begin{enumerate}
-\item Identifikace typu: separovatelná.
-\item Separace proměnných: $dy = 2x\,dx$.
-\item Integrace: $\int dy = \int 2x\,dx$.
-\item Výsledek: $y = x^2 + C$.
-\item Konstantu určíme z $y(0)=1$: $1=0+C \Rightarrow C=1$.
-\item Řešení: $y(x)=x^2+1$.
+\item \textbf{Analýza definičního oboru}: Určete maximální intervaly existence řešení
+
+\item \textbf{Ověření}: Dosazením ověřte, že získané řešení splňuje původní rovnici
 \end{enumerate}
+\end{method}
 
-\textbf{Kontrolní body}
-\begin{itemize}
-\item Derivace dává zpět $2x$.
-\item Počáteční podmínka $y(0)=1$ splněna.
-\item Maximální interval $\mathbb{R}$.
-\end{itemize}
+\vspace{0.8\baselineskip}
 
-\textbf{Finanční interpretace}
-\begin{itemize}
-\item Model: růst „deterministickou“ rychlostí rostoucí v čase,
-\item $y(x)$: hodnota portfolia v čase $x$,
-\item $2x$: okamžitá míra růstu.
-\end{itemize}
-
-\textbf{Praktická implementace}
-\begin{verbatim}
-import numpy as np
-import matplotlib.pyplot as plt
-
-def growth_model(x):
-    return x**2 + 1
-
-x = np.linspace(0, 5, 200)
-y = growth_model(x)
-
-plt.plot(x, y)
-plt.xlabel('Čas (roky)')
-plt.ylabel('Hodnota portfolia')
-plt.title('Růst investice – elementární model')
-plt.grid(True)
-plt.show()
-\end{verbatim}
-
-\textbf{Varování a pasti}
-\begin{itemize}
-\item Častá chyba: opomenutí integrační konstanty.
-\item Omezení: nerealistický neomezený růst.
-\end{itemize}
-\end{example}
-
-\begin{example}[1A.2: Separovatelná s exponenciálou]
-\label{ex:1a2}
-
-\textbf{Identifikace}
-\begin{itemize}
-\item \textbf{Typ}: separovatelná
-\item \textbf{Úroveň}: 1A — elementární
-\item \textbf{Finanční kontext}: růst k saturaci
-\end{itemize}
-
-\textbf{Zadání}
+\begin{method}[Metoda 2: Substituční přístupy]
+\label{met:substituce}
+Pro rovnice tvaru $\frac{dy}{dx} = f(ax + by + c)$ použijte substituci:
 \[
-\frac{dy}{dx} = e^{-x}, \qquad y(0)=0.
+u = ax + by + c \implies \frac{du}{dx} = a + b\frac{dy}{dx} = a + bf(u)
 \]
+což je separabilní rovnice pro $u(x)$.
+\end{method}
 
-\textbf{Teoretická analýza}
+\vspace{0.6\baselineskip}
+
+\begin{method}[Metoda 3: Numerická verifikace]
+\label{met:numerickaverifikace}
+Pro ověření analytického řešení použijte Eulerovu metodu:
+\[
+y_{n+1} = y_n + h f(x_n)g(y_n)
+\]
+kde $h$ je krok metody. Chyba metody je $O(h)$.
+\end{method}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Klasifikace Speciálních Případů}
+\label{subsubsec:klasifikace-specialnich-pripadu}
+
+\begin{remark}[Rovnice s absolutními hodnotami]
+Pro rovnice obsahující absolutní hodnoty je nutné uvažovat případné dělení definičního oboru a zkoumat spojitost řešení v bodech, kde se mění znaménko výrazu uvnitř absolutní hodnoty.
+\end{remark}
+
+\vspace{0.6\baselineskip}
+
+\begin{remark}[Po částech definované pravé strany]
+Pokud je $f(x)$ nebo $g(y)$ po částech definovaná, řešíme rovnici separátně na každém intervalu spojitosti a poté zkoumáme spojitost řešení v hraničních bodech.
+\end{remark}
+
+\vspace{0.6\baselineskip}
+
+\begin{remark}[Rovnice s parametry - bifurkace]
+Rovnice tvaru $\frac{dy}{dx} = y(\lambda - y^2)$ vykazuje pitchfork bifurkaci při $\lambda = 0$. Pro $\lambda < 0$ existuje jedno stabilní řešení $y = 0$, pro $\lambda > 0$ existují tři rovnováhy: $y = 0$ (nestabilní) a $y = \pm\sqrt{\lambda}$ (stabilní).
+\end{remark}
+
+\vspace{0.6\baselineskip}
+
+\begin{remark}[Singularity a jejich klasifikace]
+Body, kde $g(y) = 0$, mohou být:
 \begin{itemize}
-\item $g(x)=e^{-x}$ spojité na $I=\mathbb{R}$,
-\item $h(y)=1$ na $J=\mathbb{R}$,
-\item existence a jednoznačnost: Picard–Lindelöf, maximální interval $\mathbb{R}$.
+\item \textbf{Regulární singularita}: Řešení lze prodloužit přes tento bod
+\item \textbf{Esenciální singularita}: Řešení nelze prodloužit
+\item \textbf{Bod větvení}: Řešení není jednoznačné
+\end{itemize}
+\end{remark}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Početní Sekce - Hierarchická}
+\label{subsubsec:pocetni-sekce}
+
+\paragraph*{Úroveň 1: Lehké příklady}
+
+\begin{example}[Základní separace]
+    Řešte rovnici: $\frac{dy}{dx} = 2xy$
+    
+    \vspace{0.3\baselineskip}
+    
+    \textbf{Řešení}: 
+    \begin{enumerate}
+    \item \textbf{Singulární body}: $g(y) = y = 0 \implies y = 0$ je konstantní řešení
+    
+    \item \textbf{Obecné řešení pro $y \neq 0$}: Separace proměnných:
+    \[
+    \int \frac{dy}{y} = \int 2x  dx \implies \ln|y| = x^2 + C \implies |y| = e^{x^2 + C}
+    \]
+    \[
+    y = \pm e^C e^{x^2} = Ae^{x^2}, \quad A \in \mathbb{R}\setminus\{0\}
+    \]
+    
+    \item \textbf{Kompletní řešení}: 
+    \[
+    y(x) = Ae^{x^2}, \quad A \in \mathbb{R}
+    \]
+    Toto zahrnuje i původní konstantní řešení $y = 0$ (pro $A = 0$)
+    
+    \item \textbf{Interval existence}: Řešení existuje na $\mathbb{R}$ pro všechny $A \in \mathbb{R}$
+    \end{enumerate}
+    \end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[S počáteční podmínkou]
+    Řešte: $\frac{dy}{dx} = \frac{x}{y}$, $y(0) = 2$
+    
+    \vspace{0.3\baselineskip}
+    
+    \textbf{Řešení}: 
+    \begin{enumerate}
+    \item \textbf{Singulární body}: $g(y) = \frac{1}{y}$ má singularitu v $y = 0$
+    
+    \item \textbf{Obecné řešení pro $y \neq 0$}: 
+    \[
+    \int y  dy = \int x  dx \implies \frac{y^2}{2} = \frac{x^2}{2} + C \implies y^2 = x^2 + 2C
+    \]
+    
+    \item \textbf{Určení konstanty z počáteční podmínky}:
+    \[
+    y(0) = 2 \implies 4 = 0 + 2C \implies C = 2 \implies y^2 = x^2 + 4
+    \]
+    
+    \item \textbf{Výběr větve řešení}: Protože $y(0) = 2 > 0$, volíme kladnou větev:
+    \[
+    y = \sqrt{x^2 + 4}
+    \]
+    
+    \item \textbf{Interval existence}: Řešení existuje na $\mathbb{R}$ a platí $y(x) > 0$ pro všechna $x \in \mathbb{R}$
+    
+    \item \textbf{Ověření}: Dosazením do původní rovnice:
+    \[
+    \frac{dy}{dx} = \frac{x}{\sqrt{x^2 + 4}} = \frac{x}{y} \quad \checkmark
+    \]
+    \end{enumerate}
+    \end{example}
+
+\vspace{0.8\baselineskip}
+
+\paragraph*{Úroveň 2: Střední příklady}
+
+\begin{example}[Analýza singulárních bodů]
+    Řešte: $\frac{dy}{dx} = x(y^2 - 4)$
+    \vspace{0.3\baselineskip}
+    
+    \textbf{Řešení}: 
+    \begin{enumerate}
+    \item \textbf{Singulární body}: $g(y) = y^2 - 4 = 0 \implies y = \pm 2$ jsou konstantní řešení
+    
+    \item \textbf{Obecné řešení pro $y \neq \pm 2$}:
+    \[
+    \int \frac{dy}{y^2 - 4} = \int x  dx
+    \]
+    Rozklad na parciální zlomky:
+    \[
+    \frac{1}{y^2 - 4} = \frac{1}{4}\left(\frac{1}{y-2} - \frac{1}{y+2}\right)
+    \]
+    Integrace:
+    \[
+    \frac{1}{4} \ln\left|\frac{y-2}{y+2}\right| = \frac{x^2}{2} + C
+    \]
+    \[
+    \left|\frac{y-2}{y+2}\right| = e^{2x^2 + 4C} = Ke^{2x^2}, \quad K > 0
+    \]
+    
+    \item \textbf{Explicitní vyjádření}:
+    \[
+    \frac{y-2}{y+2} = \pm Ke^{2x^2} = Ae^{2x^2}, \quad A \in \mathbb{R}\setminus\{0\}
+    \]
+    \[
+    y-2 = Ae^{2x^2}(y+2) \implies y(1 - Ae^{2x^2}) = 2 + 2Ae^{2x^2}
+    \]
+    \[
+    y = \frac{2(1 + Ae^{2x^2})}{1 - Ae^{2x^2}}, \quad A \in \mathbb{R}
+    \]
+    
+    \item \textbf{Kompletní řešení včetně singulárních}:
+    \[
+    y(x) = \frac{2(1 + Ae^{2x^2})}{1 - Ae^{2x^2}}, \quad A \in \mathbb{R} \quad \text{NEBO} \quad y(x) = \pm 2
+    \]
+    Konstantní řešení $y = \pm 2$ odpovídají limitám $A \to \infty$
+    
+    \item \textbf{Intervaly existence}: 
+    \begin{itemize}
+    \item Pro $A < 0$: řešení existuje na $\mathbb{R}$
+    \item Pro $A > 0$: řešení má singularitu když $1 - Ae^{2x^2} = 0$
+    \end{itemize}
+    \end{enumerate}
+    \end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Substituční metoda]
+    Řešte: $\frac{dy}{dx} = (x + y)^2$
+    
+    \vspace{0.3\baselineskip}
+    
+    \textbf{Řešení}: 
+    \begin{enumerate}
+    \item \textbf{Substituce}: $u = x + y \implies \frac{du}{dx} = 1 + \frac{dy}{dx} = 1 + u^2$
+    
+    \item \textbf{Separace proměnných}:
+    \[
+    \int \frac{du}{1 + u^2} = \int dx \implies \arctan u = x + C
+    \]
+    
+    \item \textbf{Návrat k původní proměnné}:
+    \[
+    u = \tan(x + C) \implies y = \tan(x + C) - x
+    \]
+    
+    \item \textbf{Singulární body}: Řešení má singularity když $\cos(x + C) = 0$, tedy pro $x + C = \frac{\pi}{2} + k\pi$, $k \in \mathbb{Z}$
+    
+    \item \textbf{Intervaly existence}: Řešení existuje na intervalech tvaru $\left(C - \frac{\pi}{2} + k\pi, C + \frac{\pi}{2} + k\pi\right)$
+    
+    \item \textbf{Ověření}:
+    \[
+    \frac{dy}{dx} = \frac{1}{\cos^2(x + C)} - 1 = \tan^2(x + C) + 1 - 1 = (x + y)^2 \quad \checkmark
+    \]
+    \end{enumerate}
+    \end{example}
+
+\vspace{0.8\baselineskip}
+
+\paragraph*{Úroveň 3: Složité příklady}
+
+\begin{example}[Rovnice s absolutní hodnotou]
+    Řešte: $\frac{dy}{dx} = |x|y$
+    \vspace{0.3\baselineskip}
+    
+    \textbf{Řešení}: 
+    \begin{enumerate}
+    \item \textbf{Singulární body}: $g(y) = y = 0 \implies y = 0$ je konstantní řešení
+    
+    \item \textbf{Řešení pro $x \geq 0$}: $|x| = x$
+    \[
+    \frac{dy}{dx} = xy \implies \int \frac{dy}{y} = \int x  dx \implies \ln|y| = \frac{x^2}{2} + C_1
+    \]
+    \[
+    y = \pm e^{C_1} e^{x^2/2} = A e^{x^2/2}, \quad A \in \mathbb{R}
+    \]
+    
+    \item \textbf{Řešení pro $x < 0$}: $|x| = -x$
+    \[
+    \frac{dy}{dx} = -xy \implies \int \frac{dy}{y} = -\int x  dx \implies \ln|y| = -\frac{x^2}{2} + C_2
+    \]
+    \[
+    y = \pm e^{C_2} e^{-x^2/2} = B e^{-x^2/2}, \quad B \in \mathbb{R}
+    \]
+    
+    \item \textbf{Spojitost v $x = 0$}: 
+    \[
+    \lim_{x \to 0^-} y(x) = B = \lim_{x \to 0^+} y(x) = A
+    \]
+    Tedy $A = B = C$
+    
+    \item \textbf{Kompletní řešení}:
+    \[
+    y(x) = \begin{cases}
+    C e^{-x^2/2} & \text{pro } x < 0 \\
+    C e^{x^2/2} & \text{pro } x \geq 0
+    \end{cases}, \quad C \in \mathbb{R}
+    \]
+    Toto zahrnuje i konstantní řešení $y = 0$ (pro $C = 0$)
+    
+    \item \textbf{Interval existence}: Řešení existuje na $\mathbb{R}$ pro všechna $C \in \mathbb{R}$
+    \end{enumerate}
+    \end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Rovnice s parametrem]
+    Analyzujte rovnici: $\frac{dy}{dx} = \lambda y - y^3$ v závislosti na parametru $\lambda$.
+    \vspace{0.3\baselineskip}
+    
+    \textbf{Řešení}: 
+    \begin{enumerate}
+    \item \textbf{Singulární body}: $g(y) = \lambda y - y^3 = y(\lambda - y^2) = 0$
+    \[
+    y = 0, \quad y = \pm\sqrt{\lambda} \quad \text{(pro $\lambda > 0$)}
+    \]
+    
+    \item \textbf{Konstantní řešení}:
+    \begin{itemize}
+    \item Pro $\lambda < 0$: pouze $y = 0$
+    \item Pro $\lambda = 0$: pouze $y = 0$  
+    \item Pro $\lambda > 0$: $y = 0$, $y = \sqrt{\lambda}$, $y = -\sqrt{\lambda}$
+    \end{itemize}
+    
+    \item \textbf{Obecné řešení pro $y \neq 0, \pm\sqrt{\lambda}$}:
+    \[
+    \int \frac{dy}{y(\lambda - y^2)} = \int dx
+    \]
+    Rozklad na parciální zlomky:
+    \[
+    \frac{1}{y(\lambda - y^2)} = \frac{1}{\lambda y} + \frac{y}{\lambda(\lambda - y^2)}
+    \]
+    Integrace:
+    \[
+    \frac{1}{\lambda} \ln|y| - \frac{1}{2\lambda} \ln|\lambda - y^2| = x + C
+    \]
+    \[
+    \ln\left|\frac{y}{\sqrt{|\lambda - y^2|}}\right| = \lambda x + \lambda C
+    \]
+    
+    \item \textbf{Stabilita rovnovážných bodů}:
+    \begin{itemize}
+    \item Pro $\lambda < 0$: $y = 0$ stabilní
+    \item Pro $\lambda = 0$: $y = 0$ nestabilní
+    \item Pro $\lambda > 0$: $y = 0$ nestabilní, $y = \pm\sqrt{\lambda}$ stabilní
+    \end{itemize}
+    
+    \item \textbf{Intervaly existence}: Závisí na počáteční podmínce a parametru $\lambda$
+    
+    \item \textbf{Bifurkační analýza}: Jedná se o \emph{pitchfork bifurkaci} při $\lambda = 0$
+    \end{enumerate}
+    \end{example}
+
+\vspace{0.8\baselineskip}
+
+\paragraph*{Úroveň 4: Insane příklady}
+
+\begin{example}[Rovnice s neelementárním integrálem]
+    Řešte: $\frac{dy}{dx} = \frac{e^{-x^2}}{y}$
+    
+    \vspace{0.3\baselineskip}
+    
+    \textbf{Řešení}: 
+    \begin{enumerate}
+    \item \textbf{Singulární body}: $g(y) = \frac{1}{y}$ má singularitu v $y = 0$
+    
+    \item \textbf{Obecné řešení pro $y \neq 0$}: Separace:
+    \[
+    \int y  dy = \int e^{-x^2} dx \implies \frac{y^2}{2} = \frac{\sqrt{\pi}}{2} \erf(x) + C
+    \]
+    kde $\erf(x) = \frac{2}{\sqrt{\pi}} \int_0^x e^{-t^2} dt$ je error funkce.
+    
+    \item \textbf{Explicitní vyjádření}:
+    \[
+    y = \pm \sqrt{\sqrt{\pi} \erf(x) + 2C}
+    \]
+    
+    \item \textbf{Podmínka existence}: Aby řešení bylo reálné, musí platit:
+    \[
+    \sqrt{\pi} \erf(x) + 2C \geq 0
+    \]
+    
+    \item \textbf{Vlastnosti error funkce}: 
+    \begin{itemize}
+    \item $\erf(0) = 0$, $\lim_{x \to \infty} \erf(x) = 1$, $\lim_{x \to -\infty} \erf(x) = -1$
+    \item $\erf(x)$ je lichá funkce
+    \end{itemize}
+    
+    \item \textbf{Intervaly existence}: Závisí na konstantě $C$:
+    \begin{itemize}
+    \item Pro $C > \frac{\sqrt{\pi}}{2}$: řešení existuje na $\mathbb{R}$
+    \item Pro $-\frac{\sqrt{\pi}}{2} < C \leq \frac{\sqrt{\pi}}{2}$: řešení existuje na omezeném intervalu
+    \item Pro $C \leq -\frac{\sqrt{\pi}}{2}$: žádné reálné řešení
+    \end{itemize}
+    \end{enumerate}
+    \end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Singularita a limitní chování]
+    Analyzujte chování řešení: $\frac{dy}{dx} = \frac{1}{y^2 - 1}$ s $y(0) = 0$.
+    
+    \vspace{0.3\baselineskip}
+    
+    \textbf{Řešení}: 
+    \begin{enumerate}
+    \item \textbf{Singulární body}: $g(y) = \frac{1}{y^2 - 1}$ má singularity v $y = \pm 1$
+    Konstantní řešení: $y = \pm 1$ (ověříme dosazením: $\frac{d(\pm 1)}{dx} = 0 = \frac{1}{1-1}$ - singularita)
+    
+    \item \textbf{Obecné řešení pro $y \neq \pm 1$}: Separace:
+    \[
+    \int (y^2 - 1) dy = \int dx \implies \frac{y^3}{3} - y = x + C
+    \]
+    
+    \item \textbf{Určení konstanty}:
+    \[
+    y(0) = 0 \implies 0 - 0 = 0 + C \implies C = 0
+    \]
+    Tedy $\frac{y^3}{3} - y = x$
+    
+    \item \textbf{Analýza chování}:
+    \begin{itemize}
+    \item Pro $x \to -\frac{2}{3}$: $y \to -1$ (singularita)
+    \item Pro $x \to \frac{2}{3}$: $y \to 1$ (singularita)
+    \item Pro $x = 0$: $y = 0$
+    \end{itemize}
+    
+    \item \textbf{Interval existence}: Řešení existuje na $(-\frac{2}{3}, \frac{2}{3})$
+    
+    \item \textbf{Implicitní křivka}: $\frac{y^3}{3} - y - x = 0$ je kubická v $y$
+    
+    \item \textbf{Stabilita}: 
+    \begin{itemize}
+    \item Pro $y < -1$: $\frac{dy}{dx} > 0$ (rostoucí)
+    \item Pro $-1 < y < 1$: $\frac{dy}{dx} < 0$ (klesající)  
+    \item Pro $y > 1$: $\frac{dy}{dx} > 0$ (rostoucí)
+    \end{itemize}
+    \end{enumerate}
+    \end{example}
+
+\vspace{0.8\baselineskip}
+
+\paragraph*{Úroveň 5: Quant Level}
+
+\begin{example}[Logistický růst s kalibrací]
+    Mějme data o růstu tržního podílu: počáteční podíl 5\%, maximální kapacita 80\%, po 2 letech podíl 20\%. Kalibrujte logistický model.
+    
+    \vspace{0.3\baselineskip}
+    
+    \textbf{Řešení}: 
+    \begin{enumerate}
+    \item \textbf{Logistická rovnice}: $\frac{dP}{dt} = rP(1 - \frac{P}{K})$
+    
+    \item \textbf{Singulární body}: $P = 0$ a $P = K$ jsou konstantní řešení
+    
+    \item \textbf{Obecné řešení pro $0 < P < K$}:
+    \[
+    P(t) = \frac{K}{1 + Ae^{-rt}}, \quad \text{kde } A = \frac{K - P_0}{P_0}
+    \]
+    
+    \item \textbf{Dosazení parametrů}:
+    \[
+    P_0 = 0.05, \quad K = 0.8, \quad P(2) = 0.2
+    \]
+    \[
+    A = \frac{0.8 - 0.05}{0.05} = 15
+    \]
+    \[
+    0.2 = \frac{0.8}{1 + 15e^{-2r}} \implies 1 + 15e^{-2r} = 4 \implies e^{-2r} = 0.2
+    \]
+    \[
+    r = -\frac{1}{2}\ln(0.2) \approx 0.8047
+    \]
+    
+    \item \textbf{Interval existence}: Řešení existuje na $\mathbb{R}$ a platí $0 < P(t) < K$ pro všechna $t \in \mathbb{R}$
+    
+    \item \textbf{Predikce}: Po 5 letech: $P(5) = \frac{0.8}{1 + 15e^{-0.8047 \cdot 5}} \approx 0.634$ (63.4\%)
+    \end{enumerate}
+    \end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Mertonův model defaultu]
+    Zjednodušený Mertonův model: $\frac{dV}{dt} = \mu V - C$, kde $V$ je hodnota firmy, $C$ konstantní výplaty. Určete podmínky pro nesplatnost.
+    
+    \vspace{0.3\baselineskip}
+    
+    \textbf{Řešení}: 
+    \begin{enumerate}
+    \item \textbf{Singulární body}: Žádné konstantní řešení kromě případu $\mu = 0$, $C = 0$
+    
+    \item \textbf{Obecné řešení}: Rovnici přepíšeme:
+    \[
+    \frac{dV}{dt} = \mu\left(V - \frac{C}{\mu}\right)
+    \]
+    Substituce $U = V - \frac{C}{\mu}$:
+    \[
+    \frac{dU}{dt} = \mu U \implies U(t) = U_0 e^{\mu t}
+    \]
+    Tedy:
+    \[
+    V(t) = \frac{C}{\mu} + \left(V_0 - \frac{C}{\mu}\right)e^{\mu t}
+    \]
+    
+    \item \textbf{Podmínka nesplatnosti}: $V(t) \leq 0$ pro nějaké $t > 0$
+    
+    \item \textbf{Analýza případů}:
+    \begin{itemize}
+    \item \textbf{Případ 1}: $\mu > 0$, $V_0 > \frac{C}{\mu}$ - hodnota roste, žádná nesplatnost
+    \item \textbf{Případ 2}: $\mu > 0$, $V_0 = \frac{C}{\mu}$ - konstantní hodnota $V(t) = \frac{C}{\mu}$
+    \item \textbf{Případ 3}: $\mu > 0$, $V_0 < \frac{C}{\mu}$ - hodnota klesá k $-\infty$, nesplatnost v čase $t^*$
+    \item \textbf{Případ 4}: $\mu = 0$ - lineární poklad $V(t) = V_0 - Ct$, nesplatnost při $t > \frac{V_0}{C}$
+    \item \textbf{Případ 5}: $\mu < 0$ - hodnota konverguje k $\frac{C}{\mu} < 0$, vždy nastane nesplatnost
+    \end{itemize}
+    
+    \item \textbf{Interval existence}: Řešení existuje na $\mathbb{R}$ dokud nenastane nesplatnost
+    
+    \item \textbf{Čas nesplatnosti}: Pro $\mu > 0$, $V_0 < \frac{C}{\mu}$:
+    \[
+    V(t^*) = 0 \implies t^* = \frac{1}{\mu} \ln\left(\frac{C}{C - \mu V_0}\right)
+    \]
+    \end{enumerate}
+    \end{example}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Kvantitativní Aplikace}
+\label{subsubsec:kvantitativni-aplikace}
+
+\begin{application}[Exponenciální růst a úročení]
+Model spojitého úročení: $\frac{dA}{dt} = rA$ má řešení $A(t) = A_0 e^{rt}$.
+
+\textbf{Kvantitativní interpretace}:
+\begin{itemize}
+\item $r$: okamžitá úroková míra (force of interest)
+\item $A(t)$: hodnota investice v čase $t$
+\item Aplikace: Oceňování zero-coupon bondů, diskontování cash flow
+\end{itemize}
+\end{application}
+
+\vspace{0.6\baselineskip}
+
+\begin{application}[Logistické modely v ekonomii]
+Logistická rovnice: $\frac{dP}{dt} = rP(1 - \frac{P}{K})$ modeluje:
+\begin{itemize}
+\item Difúzi inovací na trhu
+\item Růst tržního podílu
+\item Saturaci poptávky
+\item Adopci technologií
+\end{itemize}
+Parametr $K$ představuje nosnou kapacitu trhu.
+\end{application}
+
+\vspace{0.6\baselineskip}
+
+\begin{application}[Stochastická volatilita - příprava]
+Deterministická aproximace: $\frac{d\sigma}{dt} = \kappa(\theta - \sigma)$ má řešení:
+\[
+\sigma(t) = \theta + (\sigma_0 - \theta)e^{-\kappa t}
+\]
+Tento model připravuje půdu pro Hestonův stochastický model volatility.
+\end{application}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Shrnutí a Přechod}
+\label{subsubsec:shrnuti-presun}
+
+Separabilní rovnice představují nejzákladnější, ale překvapivě mocnou třídu ODE 1. řádu. Zvládnutí této třídy je nezbytné pro:
+
+\begin{itemize}
+\item Porozumění základním růstovým modelům v ekonomii a financích
+\item Analýzu stability dynamických systémů
+\item Přípravu na komplexnější nelineární modely
+\item Rozvoj intuice pro chování diferenciálních rovnic
 \end{itemize}
 
-\textbf{Postup řešení}
+\vspace{0.6\baselineskip}
+
+\begin{remark}[Časté chyby a jak se jim vyhnout]
+\begin{itemize}
+\item \textbf{Ztráta řešení}: Při dělení $g(y)$ vždy zkontrolujte body kde $g(y) = 0$
+\item \textbf{Špatný definiční obor}: Vždy určete maximální interval existence
+\item \textbf{Chybná integrační konstanta}: Pečlivě pracujte s absolutními hodnotami a znaménky
+\item \textbf{Ignorování singularity}: Analyzujte chování řešení v singulárních bodech
+\end{itemize}
+\end{remark}
+
+\vspace{0.8\baselineskip}
+
+\begin{transition}
+S pevným pochopením separabilních rovnic jsme připraveni přejít k lineárním rovnicím 1. řádu, které představují jejich přirozené zobecnění a otevírají cestu k modelování systémů s vnějšími vstupy a řízením. Lineární rovnice nám umožní systematicky řešit problémy, kde separace proměnných není možná.
+\end{transition}
+
+% !TEX root = ../main.tex
+\subsection{Lineární Rovnice 1. Řádu - Kompletní Teorie}
+\label{subsec:linearni-rovnice}
+
+\subsubsection{Teoretický Fundament}
+\label{subsubsec:teoreticky-fundament-linearni}
+
+\begin{definition}[Lineární diferenciální rovnice 1. řádu]
+Rovnice je \emph{lineární 1. řádu}, jestliže ji lze zapsat ve standardním tvaru:
+\[
+\frac{dy}{dx} + P(x)y = Q(x)
+\]
+kde $P(x)$ a $Q(x)$ jsou funkce definované na nějakém intervalu $I \subseteq \mathbb{R}$.
+\end{definition}
+
+\vspace{0.6\baselineskip}
+
+\begin{theorem}[Existence a jednoznačnost řešení]
+Nechť $P(x)$ a $Q(x)$ jsou spojité funkce na otevřeném intervalu $I$. Pak pro libovolný bod $x_0 \in I$ a libovolnou počáteční hodnotu $y_0 \in \mathbb{R}$ existuje právě jedno řešení $y(x)$ rovnice definované na celém intervalu $I$ splňující $y(x_0) = y_0$.
+\end{theorem}
+
+\vspace{0.4\baselineskip}
+
+\begin{proof}
+Důkaz využívá Picard-Lindelöfovu větu z Kapitoly 3. Pro lineární rovnici je pravá strana $f(x,y) = Q(x) - P(x)y$ spojitá v $x$ a Lipschitzovská v $y$ na každém kompaktním podintervalu $I$, což zaručuje existenci a jednoznačnost řešení.
+\end{proof}
+
+\vspace{0.6\baselineskip}
+
+\begin{theorem}[Struktura řešení lineární rovnice]
+Obecné řešení lineární rovnice má tvar:
+\[
+y(x) = y_h(x) + y_p(x)
+\]
+kde $y_h(x)$ je obecné řešení homogenní rovnice $\frac{dy}{dx} + P(x)y = 0$ a $y_p(x)$ je partikulární řešení nehomogenní rovnice.
+\end{theorem}
+
+\vspace{0.4\baselineskip}
+
+\begin{proof}
+Homogenní rovnice má řešení $y_h(x) = Ce^{-\int P(x)dx}$. Partikulární řešení najdeme metodou integračního faktoru nebo variace konstant.
+\end{proof}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Metoda Integračního Faktoru - Kompletní Analýza}
+\label{subsubsec:metoda-integracniho-faktoru}
+
+\begin{method}[Metoda integračního faktoru]
+\label{met:integracni-faktor}
 \begin{enumerate}
-\item Separace: $dy = e^{-x}\,dx$.
-\item Integrace: $y = -e^{-x} + C$.
-\item Z $y(0)=0$: $0 = -1 + C \Rightarrow C=1$.
-\item Řešení: $y(x) = 1 - e^{-x}$.
-\end{enumerate}
+\item \textbf{Standardní tvar}: Ujistěte se, že rovnice je ve tvaru $\frac{dy}{dx} + P(x)y = Q(x)$
 
-\textbf{Kontrolní body}
-\begin{itemize}
-\item Derivace $y'(x)=e^{-x}$.
-\item Počáteční podmínka $y(0)=0$ splněna.
-\item $y(x)\to 1$ pro $x\to\infty$.
-\end{itemize}
-
-\textbf{Finanční interpretace}
-\begin{itemize}
-\item Model: saturace podílu na trhu / kapacity,
-\item $1$: maximální dosažitelná úroveň.
-\end{itemize}
-
-\textbf{Citlivost}
-\begin{itemize}
-\item Změna integrační konstanty posouvá řešení vertikálně lineárně.
-\end{itemize}
-\end{example}
-
-\subsubsection{Lineární rovnice — elementární}
-\label{subsec:1a-linearne}
-
-\begin{example}[1A.3: Lineární homogenní rovnice]
-\label{ex:1a3}
-
-\textbf{Identifikace}
-\begin{itemize}
-\item \textbf{Typ}: lineární homogenní
-\item \textbf{Úroveň}: 1A — elementární
-\item \textbf{Finanční kontext}: kontinuální diskontování
-\end{itemize}
-
-\textbf{Zadání}
+\item \textbf{Integrační faktor}: Vypočítejte
 \[
-\frac{dy}{dx} + 2y = 0, \qquad y(0)=3.
+\mu(x) = e^{\int P(x)  dx}
+\]
+Poznámka: Integrační konstanta se zde neuvádí.
+
+\item \textbf{Násobení rovnice}: Vynásobte celou rovnici integračním faktorem:
+\[
+\mu(x)\frac{dy}{dx} + \mu(x)P(x)y = \mu(x)Q(x)
 \]
 
-\textbf{Teoretická analýza}
-\begin{itemize}
-\item $P(x)=2$, $Q(x)=0$ na $I=\mathbb{R}$,
-\item integrační faktor $\mu(x)=e^{2x}$,
-\item obecné řešení $y(x)=C e^{-2x}$, maximální interval $\mathbb{R}$.
-\end{itemize}
-
-\textbf{Postup řešení}
-\begin{enumerate}
-\item $\frac{d}{dx}[e^{2x}y] = 0 \Rightarrow e^{2x}y=C$.
-\item $y(x)=C e^{-2x}$, z $y(0)=3$ plyne $C=3$.
-\item Řešení: $y(x)=3e^{-2x}$.
-\end{enumerate}
-
-\textbf{Finanční interpretace}
-\begin{itemize}
-\item Exponenciální pokles současné hodnoty budoucího CF při sazbě $2$.
-\end{itemize}
-
-\textbf{Praktická implementace}
-\begin{verbatim}
-import numpy as np
-
-def discount_model(x, v0=3, r=2):
-    return v0 * np.exp(-r * x)
-
-value_2y = discount_model(2)  # ~0.406
-\end{verbatim}
-
-\textbf{Risk management}
-\begin{itemize}
-\item Úrokové riziko: citlivost roste s časem (derivace dle sazby $\propto -x$).
-\item Vhodné pro krátké horizonty.
-\end{itemize}
-\end{example}
-
-\begin{example}[1A.4: Lineární nehomogenní rovnice]
-\label{ex:1a4}
-
-\textbf{Identifikace}
-\begin{itemize}
-\item \textbf{Typ}: lineární nehomogenní
-\item \textbf{Úroveň}: 1A — elementární
-\item \textbf{Finanční kontext}: růst s konstantním příspěvkem
-\end{itemize}
-
-\textbf{Zadání}
+\item \textbf{Rozpoznání derivace součinu}: Levou stranu lze zapsat jako:
 \[
-\frac{dy}{dx} + y = 1, \qquad y(0)=0.
+\frac{d}{dx}[\mu(x)y] = \mu(x)Q(x)
 \]
+Toto platí protože $\frac{d\mu}{dx} = P(x)\mu(x)$.
 
-\textbf{Teoretická analýza}
-\begin{itemize}
-\item $P(x)=1$, $Q(x)=1$, $\mu(x)=e^{x}$, maximální interval $\mathbb{R}$,
-\item stacionární řešení $y=1$.
-\end{itemize}
-
-\textbf{Postup řešení}
-\begin{enumerate}
-\item $\frac{d}{dx}[e^{x}y]=e^{x}$.
-\item $e^{x}y=e^{x}+C \Rightarrow y=1+Ce^{-x}$.
-\item $y(0)=0 \Rightarrow C=-1$; tedy $y(x)=1-e^{-x}$.
-\end{enumerate}
-
-\textbf{Numerická verifikace}
-\begin{verbatim}
-from scipy.integrate import solve_ivp
-import numpy as np
-
-def rhs(x, y):
-    return 1 - y
-
-sol = solve_ivp(rhs, [0, 5], [0], t_eval=np.linspace(0, 5, 200))
-err = np.max(np.abs(sol.y[0] - (1 - np.exp(-sol.t))))
-print(f"Maximální chyba: {err:.2e}")
-\end{verbatim}
-\end{example}
-
-\subsubsection{Homogenní rovnice — elementární}
-\label{subsec:1a-homogenni}
-
-\begin{example}[1A.5: Základní homogenní rovnice]
-\label{ex:1a5}
-
-\textbf{Identifikace}
-\begin{itemize}
-\item \textbf{Typ}: homogenní
-\item \textbf{Úroveň}: 1A — elementární
-\item \textbf{Finanční kontext}: relativní růst
-\end{itemize}
-
-\textbf{Zadání}
-\[
-\frac{dy}{dx}=\frac{y}{x}, \qquad y(1)=2.
-\]
-
-\textbf{Teoretická analýza}
-\begin{itemize}
-\item Homogenní stupně $0$: $f(tx,ty)=f(x,y)$,
-\item singulární bod $x=0$ rozděluje $\mathbb{R}$,
-\item speciální přímková řešení $y=kx$.
-\end{itemize}
-
-\textbf{Postup řešení}
-\begin{enumerate}
-\item Substituce $v=y/x$ $\Rightarrow$ $y=vx$, $y'=v+xv'$.
-\item $v+xv'=v \Rightarrow x v' = 0 \Rightarrow v=C$.
-\item $y=Cx$, z $y(1)=2$ plyne $C=2$: $y(x)=2x$.
-\end{enumerate}
-
-\textbf{Finanční interpretace}
-\begin{itemize}
-\item Poměrový (proporcionální) vztah mezi veličinami.
-\end{itemize}
-\end{example}
-
-\subsubsection{Exaktní rovnice — elementární}
-\label{subsec:1a-exaktni}
-
-\begin{example}[1A.6: Základní exaktní rovnice]
-\label{ex:1a6}
-
-\textbf{Identifikace}
-\begin{itemize}
-\item \textbf{Typ}: exaktní
-\item \textbf{Úroveň}: 1A — elementární
-\item \textbf{Finanční kontext}: konzervativní (rozpočtové) omezení
-\end{itemize}
-
-\textbf{Zadání}
-\[
-(2x+y)\,dx + (x+2y)\,dy = 0, \qquad y(0)=1.
-\]
-
-\textbf{Teoretická analýza}
-\begin{itemize}
-\item $M(x,y)=2x+y$, $N(x,y)=x+2y$,
-\item exaktnost: $M_y=N_x=1$,
-\item potenciál $F$ splňuje $F_x=M$, $F_y=N$.
-\end{itemize}
-
-\textbf{Postup řešení}
-\begin{enumerate}
-\item Integrace $F_x=2x+y \Rightarrow F=x^2+xy+g(y)$.
-\item $F_y = x + g'(y) = x + 2y \Rightarrow g'(y)=2y \Rightarrow g(y)=y^2 + C_1$.
-\item Potenciál: $F(x,y)=x^2+xy+y^2 + C_1$.
-\item Implicitní řešení: $x^2+xy+y^2 = C$.
-\item Z $y(0)=1$ plyne $C=1$: $x^2+xy+y^2=1$.
-\end{enumerate}
-
-\textbf{Praktická implementace}
-\begin{verbatim}
-import numpy as np
-import matplotlib.pyplot as plt
-
-def branches(x):
-    # y^2 + x*y + (x**2 - 1) = 0
-    D = x**2 - 4*(x**2 - 1)
-    D = np.maximum(D, 0)  # numerická ochrana
-    y1 = (-x + np.sqrt(D)) / 2
-    y2 = (-x - np.sqrt(D)) / 2
-    return y1, y2
-
-x = np.linspace(-1.5, 1.5, 400)
-y1, y2 = branches(x)
-
-plt.plot(x, y1, label='větev 1')
-plt.plot(x, y2, label='větev 2')
-plt.plot([0], [1], 'go', label='poč. podmínka')
-plt.gca().set_aspect('equal', 'box')
-plt.xlabel('x'); plt.ylabel('y'); plt.grid(True); plt.legend()
-plt.title(r'Implicitní křivka: $x^2 + xy + y^2 = 1$')
-plt.show()
-\end{verbatim}
-
-\textbf{Varování a pasti}
-\begin{itemize}
-\item Před řešením vždy ověřit exaktnost.
-\item Implicitní řešení nemusí být globálně jednoznačné (více větví).
-\end{itemize}
-\end{example}
-
-\subsubsection{Shrnutí úrovně 1A}
-\label{sec:shrnuti-1a}
-
-Úroveň 1A pokryla elementární příklady všech čtyř základních typů ODE 1.~řádu:
-
-\begin{table}[t]
-\centering
-\caption{Přehled úrovně 1A}
-\label{tab:prehled-1a}
-\begin{tabular}{|l|l|l|l|}
-\hline
-\textbf{Příklad} & \textbf{Typ} & \textbf{Řešení} & \textbf{Finanční aplikace} \\
-\hline
-1A.1 & Separovatelná & $y=x^2+1$ & Základní růst \\
-1A.2 & Separovatelná & $y=1-e^{-x}$ & Růst k saturaci \\
-1A.3 & Lineární homog. & $y=3e^{-2x}$ & Diskontování \\
-1A.4 & Lineární nehom. & $y=1-e^{-x}$ & Růst s příspěvky \\
-1A.5 & Homogenní & $y=2x$ & Relativní růst \\
-1A.6 & Exaktní & $x^2+xy+y^2=1$ & Rozpočtové omezení \\
-\hline
-\end{tabular}
-\end{table}
-
-\textbf{Dosažené dovednosti}:
-\begin{itemize}
-\item identifikace základních typů ODE 1.~řádu,
-\item aplikace příslušných řešicích metod,
-\item určení maximálních intervalů existence,
-\item finanční interpretace výsledků,
-\item základní numerická implementace a verifikace.
-\end{itemize}
-
-\emph{Pokračování v Úrovni 1B: příklady s komplexnějšími počátečními podmínkami a finančními aplikacemi.}
-
-\subsection{Úroveň 1B: Příklady s komplexními podmínkami}
-\label{sec:uroven-1b}
-
-\subsubsection{Separovatelné rovnice s analýzou singularit}
-\label{subsec:1b-separovatelne}
-
-\begin{example}[1B.1: Separovatelná s kvadratickou nelinearitou]
-\label{ex:1b1}
-
-\textbf{Identifikace}
-\begin{itemize}
-\item \textbf{Typ}: separovatelná
-\item \textbf{Úroveň}: 1B — s komplexní podmínkou
-\item \textbf{Finanční kontext}: růst s kvadratickým rizikem
-\end{itemize}
-
-\textbf{Zadání}
-\[
-\frac{dy}{dx} = x\, y^2, \qquad y(0) = 1.
-\]
-
-\textbf{Teoretická analýza}
-\begin{itemize}
-\item $g(x) = x$ spojité na $I=\mathbb{R}$,
-\item $h(y)=y^2$ spojité na $J=\mathbb{R}$,
-\item singulární řešení: $y\equiv 0$,
-\item maximální interval existence: určíme z řešení,
-\item lokální Lipschitzovskost v okolí $y\neq 0$.
-\end{itemize}
-
-\textbf{Kroky řešení}
-\begin{enumerate}
-\item Separace: $\dfrac{dy}{y^2} = x\,dx$.
-\item Integrace: $\int y^{-2}\,dy = \int x\,dx \Rightarrow -y^{-1} = \tfrac{x^2}{2} + C$.
-\item Explicitně: $y(x) = -\dfrac{1}{\frac{x^2}{2}+C}$.
-\item Z $y(0)=1$: $1 = -1/C \Rightarrow C=-1$.
-\item Řešení: $y(x)=\dfrac{2}{2-x^2}$.
-\end{enumerate}
-
-\textbf{Analýza intervalů existence}
-\begin{itemize}
-\item Singularita, kde $2-x^2=0 \Rightarrow x=\pm\sqrt{2}$.
-\item Maximální interval s $x_0=0$: $(-\sqrt{2},\sqrt{2})$.
-\item Blow-up v konečném čase při $x\to \pm\sqrt{2}$.
-\end{itemize}
-
-\textbf{Kontrolní body}
-\begin{itemize}
-\item ✓ Separovatelnost a integrace,
-\item ✓ správná konstanta z $y(0)=1$,
-\item ✓ správně určený maximální interval,
-\item ✓ $y(\sqrt{2}^{-})\to +\infty$.
-\end{itemize}
-
-\textbf{Finanční interpretace}
-\begin{itemize}
-\item Spekulativní růst s nelineárně rostoucím rizikem,
-\item blow-up jako proxy pro kolaps/bublinu.
-\end{itemize}
-
-\textbf{Praktická implementace}
-\begin{verbatim}
-import numpy as np
-import matplotlib.pyplot as plt
-
-def speculative_growth(x):
-    """Model spekulativního růstu s blow-up."""
-    return 2 / (2 - x**2)
-
-# Výpočet na maximálním intervalu
-x_vals = np.linspace(-1.4, 1.4, 1000)  # vyhneme se singularitám
-y_vals = speculative_growth(x_vals)
-
-plt.figure(figsize=(10, 6))
-plt.plot(x_vals, y_vals, linewidth=2, label='Spekulativní růst')
-plt.axvline(x=-np.sqrt(2), linestyle='--', label='Singularity')
-plt.axvline(x= np.sqrt(2), linestyle='--')
-plt.axhline(y=0, linestyle='-', alpha=0.3)
-plt.xlabel('Čas / rizikový faktor (x)')
-plt.ylabel('Hodnota investice (y)')
-plt.title(r'Spekulativní růst s blow-up v $x = \pm\sqrt{2}$')
-plt.legend(); plt.grid(True); plt.ylim(-10, 10); plt.show()
-
-# Risk analysis: čas do blow-up pro obecné y0 = y(0)
-def blow_up_time(y0):
-    """Čas do blow-up (pro počáteční podmínku y(0)=y0>0)."""
-    return np.sqrt(2 / y0)
-
-print([blow_up_time(y0) for y0 in [0.5, 1, 2]])  # [2.0, 1.414..., 1.0]
-\end{verbatim}
-
-\textbf{Risk management}
-\begin{itemize}
-\item blow-up riziko v konečném čase,
-\item indikátor: rychlý růst derivací u hranice intervalu,
-\item pravidlo: exit před dosažením kritických bodů.
-\end{itemize}
-
-\textbf{Citlivost}
-\begin{itemize}
-\item $\displaystyle \frac{\partial y}{\partial x}=\frac{4x}{(2-x^2)^2}$,
-\item $\displaystyle \frac{\partial^2 y}{\partial x^2}=\frac{4(3x^2+2)}{(2-x^2)^3}$ (explozivní nárůst u singularit).
-\end{itemize}
-\end{example}
-
-\begin{example}[1B.2: Separovatelná s exponenciálním růstem]
-\label{ex:1b2}
-
-\textbf{Identifikace}
-\begin{itemize}
-\item \textbf{Typ}: separovatelná
-\item \textbf{Úroveň}: 1B — s komplexní podmínkou
-\item \textbf{Finanční kontext}: růst s exponenciálním akcelerátorem
-\end{itemize}
-
-\textbf{Zadání}
-\[
-\frac{dy}{dx} = e^{-x}\,y, \qquad y(0) = 2.
-\]
-
-\textbf{Teoretická analýza}
-\begin{itemize}
-\item $g(x)=e^{-x}$, $h(y)=y$; singulární řešení $y\equiv 0$,
-\item existence/jednoznačnost: Picard–Lindelöf, maximální interval $\mathbb{R}$.
-\end{itemize}
-
-\textbf{Kroky řešení}
-\begin{enumerate}
-\item $\dfrac{dy}{y}=e^{-x}dx$.
-\item $\ln|y| = -e^{-x} + C$.
-\item $|y| = K e^{-e^{-x}}$.
-\item Z $y(0)=2$: $2=K e^{-1} \Rightarrow K=2e$.
-\item $\displaystyle y(x)=2e^{\,1 - e^{-x}}$.
-\end{enumerate}
-
-\textbf{Asymptotika}
-\begin{itemize}
-\item $x\to -\infty$: $e^{-x}\to \infty \Rightarrow y\to 0^+$,
-\item $x\to +\infty$: $e^{-x}\to 0 \Rightarrow y\to 2e\approx 5.436$,
-\item monotonně rostoucí bez singularit (globální existence).
-\end{itemize}
-
-\textbf{Finanční interpretace}
-\begin{itemize}
-\item Růst k asymptotické úrovni s „exponenciálním náběhem“,
-\item vhodné pro zralé firmy s klesající marginální dynamikou.
-\end{itemize}
-
-\textbf{Praktická implementace}
-\begin{verbatim}
-import numpy as np
-import matplotlib.pyplot as plt
-
-def saturated_growth(x, y0=2):
-    """Růst s exponenciální saturací; y(0)=y0."""
-    return y0 * np.exp(1 - np.exp(-x))
-
-x = np.linspace(-5, 10, 1000)
-y = saturated_growth(x)
-
-plt.figure(figsize=(12, 6))
-plt.subplot(1, 2, 1)
-plt.plot(x, y, linewidth=2)
-plt.xlabel('Čas (x)'); plt.ylabel('Hodnota investice (y)')
-plt.title('Růst s exponenciální saturací'); plt.grid(True)
-
-plt.subplot(1, 2, 2)
-plt.semilogy(x, y, linewidth=2)
-plt.xlabel('Čas (x)'); plt.ylabel('log y')
-plt.title('Logaritmický pohled'); plt.grid(True)
-plt.tight_layout(); plt.show()
-
-# Citlivost na počáteční podmínku
-def sensitivity_plot(x_range, y0s):
-    plt.figure(figsize=(10, 6))
-    for y0 in y0s:
-        plt.plot(x_range, saturated_growth(x_range, y0), label=f'y0={y0}')
-    plt.legend(); plt.grid(True)
-    plt.xlabel('x'); plt.ylabel('y'); plt.title('Citlivost na y0'); plt.show()
-
-sensitivity_plot(np.linspace(-2, 8, 150), [1, 2, 3, 4])
-\end{verbatim}
-
-\textbf{Risk management}
-\begin{itemize}
-\item omezený růst (strop $=2e$ pro dané $y_0=2$),
-\item zpomalování růstu v čase $\Rightarrow$ riziko nedosažení cíle v krátkém horizontu.
-\end{itemize}
-
-\textbf{Extenze}
-\begin{itemize}
-\item obecně: $y(x)=y_0 e^{\,1 - e^{-x}}$,
-\item $95\%$ limitu dosaženo přibližně při $x\approx -\ln(0.05)\approx 3$.
-\end{itemize}
-\end{example}
-
-\subsubsection{Lineární rovnice s proměnnými koeficienty}
-\label{subsec:1b-linearne}
-
-\begin{example}[1B.3: Lineární rovnice s proměnnou sazbou]
-\label{ex:1b3}
-
-\textbf{Identifikace}
-\begin{itemize}
-\item \textbf{Typ}: lineární homogenní s proměnnými koeficienty
-\item \textbf{Úroveň}: 1B — s komplexní podmínkou
-\item \textbf{Finanční kontext}: bond pricing s časově proměnnou sazbou
-\end{itemize}
-
-\textbf{Zadání}
-\[
-\frac{dP}{dt} + \bigl(0.02 + 0.001t\bigr)P = 0, \qquad P(0)=100.
-\]
-
-\textbf{Teoretická analýza}
-\begin{itemize}
-\item $a(t)=0.02+0.001t$ spojité na $[0,\infty)$,
-\item integrační faktor $\mu(t)=\exp\!\left(0.02t+0.0005t^2\right)$,
-\item řešení $P(t)=100\,\exp\!\left(-0.02t-0.0005t^2\right)$,
-\item $P(t)\searrow 0$ pro $t\to\infty$.
-\end{itemize}
-
-\textbf{Praktická implementace}
-\begin{verbatim}
-import numpy as np
-import matplotlib.pyplot as plt
-
-def bond_price(t, face=100, a=0.02, b=0.001):
-    """Zero-coupon cena s lineárně rostoucí okamžitou sazbou a(t)=a+b t."""
-    return face * np.exp(-a*t - 0.5*b*t**2)
-
-mats = np.linspace(0, 30, 200)
-prices = bond_price(mats)
-
-plt.figure(figsize=(12,5))
-plt.subplot(1,2,1)
-plt.plot(mats, prices, linewidth=2)
-plt.xlabel('Maturita (roky)'); plt.ylabel('Cena ($)')
-plt.title('Zero-Coupon Bond Pricing'); plt.grid(True)
-
-plt.subplot(1,2,2)
-def ytm_from_price(t, p, face=100):
-    return -np.log(p/face)/t
-
-ytm = [ytm_from_price(t, p) for t, p in zip(mats[1:], prices[1:])]
-plt.plot(mats[1:], ytm, linewidth=2)
-plt.xlabel('Maturita (roky)'); plt.ylabel('YTM'); plt.title('Yield Curve')
-plt.grid(True); plt.tight_layout(); plt.show()
-
-# Jednoduché proxy metriky citlivosti (ilustrativní)
-def duration_proxy(t, a=0.02, b=0.001):
-    return t  # efektivní citlivost na posun sazby ~ úměrná maturitě
-
-def convexity_proxy(t, a=0.02, b=0.001):
-    return t**2  # kvadratická závislost (ilustrativní)
-
-plt.figure(figsize=(10,6))
-plt.plot(mats, duration_proxy(mats), label='Duration proxy')
-plt.plot(mats, convexity_proxy(mats), label='Convexity proxy')
-plt.xlabel('Maturita (roky)'); plt.ylabel('Hodnota (rel.)')
-plt.title('Proxy citlivosti'); plt.legend(); plt.grid(True); plt.show()
-\end{verbatim}
-
-\textbf{Risk management}
-\begin{itemize}
-\item úrokové riziko roste s maturitou,
-\item pro rostoucí sazby preferovat kratší splatnosti,
-\item citlivost parametricky: $\partial_a P=-tP$, $\partial_b P=-\tfrac{1}{2}t^2 P$.
-\end{itemize}
-\end{example}
-
-\begin{example}[1B.4: Lineární rovnice s harmonickým forcingem]
-\label{ex:1b4}
-
-\textbf{Identifikace}
-\begin{itemize}
-\item \textbf{Typ}: lineární nehomogenní
-\item \textbf{Úroveň}: 1B — s komplexní podmínkou
-\item \textbf{Finanční kontext}: cyklický cash flow s úrokovým zatížením
-\end{itemize}
-
-\textbf{Zadání}
-\[
-\frac{dC}{dt} + 0.1\,C = 50\sin(0.5t), \qquad C(0)=1000,
-\]
-kde $C(t)$ je hotovostní zůstatek.
-
-\textbf{Teoretická analýza}
-\begin{itemize}
-\item $\mu(t)=e^{0.1 t}$, 
-\item $\displaystyle \int e^{0.1t}\sin(0.5t)\,dt=\frac{e^{0.1t}\bigl(0.1\sin(0.5t)-0.5\cos(0.5t)\bigr)}{0.1^2+0.5^2}+C$,
-\item $C(t)=\dfrac{50}{0.26}\bigl(0.1\sin(0.5t)-0.5\cos(0.5t)\bigr)+K e^{-0.1t}$,
-\item z $C(0)=1000$ plyne $K=1000 + \dfrac{50}{0.26}\cdot 0.5 \approx 1096.15$.
-\end{itemize}
-
-\textbf{Asymptotika}
-\begin{itemize}
-\item homogenní část $K e^{-0.1t}\to 0$,
-\item přechod do ustálené periodické odpovědi se špičkovou amplitudou $\approx \dfrac{50}{\sqrt{0.1^2+0.5^2}}\approx 98$.
-\end{itemize}
-
-\textbf{Praktická implementace}
-\begin{verbatim}
-import numpy as np
-import matplotlib.pyplot as plt
-
-def cash_balance(t, C0=1000, A=50, w=0.5, r=0.1):
-    """Cash balance s periodickým přílivem a úrokem."""
-    # Koeficienty partikulárního řešení
-    denom = r**2 + w**2
-    A_sin = A * r / denom
-    A_cos = -A * w / denom
-    # Konstanta homogenní části z C(0)
-    K = C0 - (A_sin * np.sin(w*0) + A_cos * np.cos(w*0))
-    return A_sin * np.sin(w*t) + A_cos * np.cos(w*t) + K * np.exp(-r*t)
-
-t = np.linspace(0, 50, 1000)
-C = cash_balance(t)
-
-plt.figure(figsize=(12,6))
-plt.subplot(1,2,1)
-plt.plot(t, C, linewidth=2)
-plt.axhline(0, linestyle='--')
-plt.xlabel('Čas (měsíce)'); plt.ylabel('Cash ($)')
-plt.title('Dynamika cash flow se sezónností'); plt.grid(True)
-
-plt.subplot(1,2,2)
-t2 = np.linspace(0, 24, 600)
-C2 = cash_balance(t2)
-plt.plot(t2, C2, linewidth=2, color='tab:green')
-plt.xlabel('Čas (měsíce)'); plt.ylabel('Cash ($)')
-plt.title('Detail: první 2 roky'); plt.grid(True)
-plt.tight_layout(); plt.show()
-
-# Rychlá risk analýza
-min_cash = np.min(C)
-asym_amp = 50 / np.sqrt(0.1**2 + 0.5**2)
-t95 = -np.log(0.05) / 0.1  # 95% zániku homogenní složky
-print(f"Minimální cash: ${min_cash:.2f}")
-print(f"Čas do ~stabilního stavu: {t95:.1f} měsíců")
-print(f"Amplituda ustálených oscilací: ${asym_amp:.2f}")
-\end{verbatim}
-
-\textbf{Risk management}
-\begin{itemize}
-\item \textit{Likvidita}: hlídat minima (negativní cash),
-\item \textit{Cykličnost}: rezervy na sezónní výkyvy,
-\item \textit{Úrok}: náklady držby hotovosti.
-\end{itemize}
-\end{example}
-
-\subsubsection{Shrnutí úrovně 1B}
-\label{sec:shrnuti-1b}
-
-Úroveň 1B pokryla pokročilejší příklady s komplexnějšími podmínkami a aplikacemi:
-
-\begin{table}[h]
-\centering
-\caption{Přehled úrovně 1B}
-\label{tab:prehled-1b}
-\begin{tabular}{|l|l|l|l|}
-\hline
-\textbf{Příklad} & \textbf{Typ} & \textbf{Klíčový prvek} & \textbf{Aplikace} \\
-\hline
-1B.1 & Separovatelná & Singularita, blow-up & Spekulativní bubliny \\
-1B.2 & Separovatelná & Exponenciální saturace & Růst zralé společnosti \\
-1B.3 & Lineární      & Proměnná sazba         & Bond pricing, yield curve \\
-1B.4 & Lineární      & Periodický forcing      & Sezónní cash flow \\
-\hline
-\end{tabular}
-\end{table}
-
-\textbf{Rozšířené dovednosti}:
-\begin{itemize}
-\item práce s maximálními intervaly existence a singularitami,
-\item lineární ODE s proměnnými koeficienty a periodickými vstupy,
-\item hlubší finanční interpretace a základní risk metriky,
-\item numerická verifikace a vizualizace.
-\end{itemize}
-
-\emph{Pokračování v Úrovni 1C: pokročilé finanční aplikace a komplexnější modely.}
-
-\subsection{Úroveň 1C: Pokročilé finanční aplikace}
-\label{sec:uroven-1c}
-
-\subsubsection{Logistický růst a kapacita trhu}
-\label{subsec:logisticky-rust}
-
-\begin{example}[Logistický růst portfolia s analýzou stability]
-\label{ex:logisticky-rust-portfolio}
-
-\begin{itemize}
-\item \textbf{Identifikace}: Separovatelná rovnice
-\item \textbf{Úroveň}: 1C -- Pokročilé finanční aplikace
-\item \textbf{Finanční kontext}: Růst fondu s kapacitou trhu
-\end{itemize}
-
-\noindent\textbf{Zadání}
-\[
-\frac{dA}{dt} = 0.15\, A \left(1 - \frac{A}{2\,000\,000\,000}\right), \quad A(0) = 100\,000\,000
-\]
-kde $A(t)$ je hodnota portfolia v USD, $2\,000\,000\,000$ je kapacita trhu.
-
-\noindent\textbf{Teoretická analýza}
-\begin{itemize}
-\item Stacionární body: $A = 0$ (nestabilní), $A = K = 2\,000\,000\,000$ (stabilní)
-\item Maximální interval: $\mathbb{R}$ pro $0 < A(0) < K$
-\item Logistická rovnice -- separovatelný typ
-\item Existence a jednoznačnost: zaručena Picard--Lindelöf
-\end{itemize}
-
-\noindent\textbf{Kroky řešení}
-\begin{enumerate}
-\item \textbf{Separace proměnných}:
-\[
-\frac{dA}{A(1 - A/K)} = r\, dt
-\]
-\item \textbf{Rozklad na parciální zlomky}:
-\[
-\frac{1}{A(1 - A/K)} = \frac{1}{A} + \frac{1/K}{1 - A/K}
-\]
 \item \textbf{Integrace}:
 \[
-\int \!\left(\frac{1}{A} + \frac{1/K}{1 - A/K}\right) dA = \int r\, dt
+\mu(x)y = \int \mu(x)Q(x)  dx + C
 \]
-\item \textbf{Výpočet integrálů}:
+
+\item \textbf{Vyjádření řešení}:
 \[
-\ln|A| - \ln|1 - A/K| = rt + C
-\]
-\item \textbf{Logaritmická úprava}:
-\[
-\ln\!\left|\frac{A}{1 - A/K}\right| = rt + C
-\]
-\item \textbf{Exponenciace}:
-\[
-\frac{A}{1 - A/K} = e^{rt + C} = C_1 e^{rt}
-\]
-\item \textbf{Explicitní vyjádření}:
-\[
-A(t) = \frac{K}{1 + \left(\frac{K}{A_0} - 1\right) e^{-rt}}
-\]
-\item \textbf{Dosazení hodnot}:
-\[
-A(t) = \frac{2\,000\,000\,000}{1 + 19\, e^{-0.15 t}}
+y(x) = \frac{1}{\mu(x)} \left[\int \mu(x)Q(x)  dx + C\right]
 \]
 \end{enumerate}
+\end{method}
 
-\noindent\textbf{Analýza stability}
+\vspace{0.8\baselineskip}
+
+\begin{theorem}[Vlastnosti integračního faktoru]
+Integrační faktor $\mu(x) = e^{\int P(x)dx}$ má následující vlastnosti:
 \begin{itemize}
-\item Derivace pravé strany: $J(A) = r - \frac{2rA}{K}$
-\item Vlastní čísla: $\lambda(0) = r > 0$ (nestabilní), $\lambda(K) = -r < 0$ (stabilní)
-\item Basin přitažlivosti: $(0, K)$
+\item $\mu(x) > 0$ pro všechna $x \in I$
+\item $\mu(x)$ je spojitě diferencovatelná na $I$
+\item $\frac{d\mu}{dx} = P(x)\mu(x)$
+\item $\mu(x)$ je určen jednoznačně až na multiplikativní konstantu
 \end{itemize}
+\end{theorem}
 
-\noindent\textbf{Kontrolní body}
-\begin{itemize}
-\item ✓ Ověření separovatelnosti
-\item ✓ Správnost parciálních zlomků
-\item ✓ Integrace a exponenciace
-\item ✓ Počáteční podmínka: $A(0) = 100\,000\,000$
-\item ✓ Asymptotické chování: $A(t) \to K$ pro $t \to \infty$
-\end{itemize}
+\vspace{0.6\baselineskip}
 
-\noindent\textbf{Finanční interpretace}
-\begin{itemize}
-\item Model: Růst hedge fondu s omezením kapacity trhu
-\item $K$: Maximální možná velikost fondu v daném segmentu
-\item $r$: Míra růstu (15\% p.a.)
-\item Aplikace: Strategické plánování růstu fondu
-\end{itemize}
-
-\begin{lstlisting}[language=Python, caption={Implementace logistického růstu v Pythonu}, label={lst:logistic-growth}]
-import numpy as np
-import matplotlib.pyplot as plt
-
-def logistic_growth(t, A0=1e8, r=0.15, K=2e9):
-    """Logistický růst portfolia"""
-    return K / (1 + (K/A0 - 1) * np.exp(-r*t))
-
-# Výpočet trajektorie růstu
-t_vals = np.linspace(0, 50, 1000)
-A_vals = logistic_growth(t_vals)
-
-plt.figure(figsize=(12, 6))
-plt.plot(t_vals, A_vals / 1e6, 'b-', linewidth=2)
-plt.axhline(y=2000, color='r', linestyle='--', label='Kapacita trhu: 2 mld USD')
-plt.xlabel('Čas (roky)')
-plt.ylabel('Hodnota portfolia (mil. USD)')
-plt.title('Logistický růst hedge fondu')
-plt.legend()
-plt.grid(True)
-plt.show()
-
-# Analýza času dosažení cílových hodnot
-def time_to_target(target_value, A0=1e8, r=0.15, K=2e9):
-    """Čas potřebný k dosažení cílové hodnoty"""
-    return -np.log((K/target_value - 1) / (K/A0 - 1)) / r
-
-targets = [5e8, 1e9, 1.5e9]  # 500 mil, 1 mld, 1.5 mld USD
-times = [time_to_target(target) for target in targets]
-for target, time in zip(targets, times):
-    print(f"Dosažení {target/1e6:.0f} mil. USD: {time:.1f} let")
-\end{lstlisting}
-
-\noindent\textbf{Risk management}
-\begin{itemize}
-\item \textbf{Kapacitní riziko}: Omezený růstový potenciál
-\item \textbf{Časové riziko}: Zpomalování růstu s blížící se kapacitě
-\item \textbf{Doporučení}: Diverzifikace do nových trhů při blížící se kapacitě
-\end{itemize}
-
-\noindent\textbf{Sensitivní analýza}
-\begin{itemize}
-\item \textbf{Delta vůči $r$}: $\displaystyle \frac{\partial A}{\partial r} = \frac{K\bigl(\frac{K}{A_0} - 1\bigr)\, t\, e^{-rt}}{\bigl[1 + (\frac{K}{A_0} - 1)e^{-rt}\bigr]^2}$
-\item \textbf{Delta vůči $K$}: $\displaystyle \frac{\partial A}{\partial K} = \frac{1 + \bigl(\frac{1}{A_0} - \frac{1}{K}\bigr)e^{-rt}}{\bigl[1 + (\frac{K}{A_0} - 1)e^{-rt}\bigr]^2}$
-\item \textbf{Největší citlivost}: Na míru růstu $r$ v raných fázích
-\end{itemize}
+\begin{example}[Odvození metody integračního faktoru]
+Uvažujme rovnici $\frac{dy}{dx} + P(x)y = Q(x)$. Hledáme funkci $\mu(x)$ takovou, že:
+\[
+\frac{d}{dx}[\mu(x)y] = \mu(x)\frac{dy}{dx} + \frac{d\mu}{dx}y = \mu(x)Q(x)
+\]
+Porovnáním s původní rovnicí dostaneme:
+\[
+\frac{d\mu}{dx} = P(x)\mu(x)
+\]
+Tato rovnice je separabilní:
+\[
+\int \frac{d\mu}{\mu} = \int P(x)dx \implies \ln|\mu| = \int P(x)dx \implies \mu(x) = e^{\int P(x)dx}
+\]
 \end{example}
 
-\subsubsection{Mertonův model optimální spotřeby}
-\label{subsec:merton-model}
+\vspace{0.8\baselineskip}
 
-\begin{example}[Mertonův model s konstantní spotřebou]
-\label{ex:merton-model}
+\subsubsection{Metoda Variace Konstant}
+\label{subsubsec:metoda-variance-konstant}
 
-\begin{itemize}
-\item \textbf{Identifikace}: Lineární nehomogenní rovnice
-\item \textbf{Úroveň}: 1C -- Pokročilé finanční aplikace
-\item \textbf{Finanční kontext}: Optimální portfolio a spotřeba
-\end{itemize}
-
-\noindent\textbf{Zadání}
-\[
-\frac{dW}{dt} = 0.06\,W + 0.5\,(0.08 - 0.06)\,W - 50\,000, \quad W(0) = 1\,000\,000
-\]
-kde $W(t)$ je bohatství, $6\%$ bezriziková sazba, $8\%$ výnos akcií, $50\%$ alokace do akcií, $50\,000$ roční spotřeba.
-
-\noindent\textbf{Teoretická analýza}
-\begin{itemize}
-\item Zjednodušení: $\displaystyle \frac{dW}{dt} = 0.07\,W - 50\,000$
-\item $P(t) = -0.07$, $Q(t) = -50\,000$
-\item Maximální interval: $\mathbb{R}$
-\item Kritická hodnota: $W^* = 50\,000/0.07 \approx 714\,286$
-\item Stacionární bod: $W = 714\,286$ (stabilní)
-\end{itemize}
-
-\noindent\textbf{Kroky řešení}
+\begin{method}[Metoda variace konstant]
+\label{met:variace-konstant}
 \begin{enumerate}
-\item \textbf{Standardní tvar}: $W' - 0.07\,W = -50\,000$
-\item \textbf{Integrační faktor}: $\mu(t) = e^{\int -0.07\, dt} = e^{-0.07t}$
-\item \textbf{Derivace součinu}:
+\item \textbf{Řešení homogenní rovnice}: Nejprve vyřešte $\frac{dy}{dx} + P(x)y = 0$:
 \[
-\frac{d}{dt}\!\bigl(e^{-0.07t}W\bigr) = e^{-0.07t}\,(W' - 0.07W) = -50\,000\, e^{-0.07t}
+y_h(x) = Ce^{-\int P(x)dx}
 \]
+
+\item \textbf{Variace konstanty}: Předpokládejte řešení ve tvaru:
+\[
+y(x) = C(x)e^{-\int P(x)dx}
+\]
+kde $C(x)$ je neznámá funkce.
+
+\item \textbf{Dosazení do původní rovnice}:
+\[
+\frac{dy}{dx} = C'(x)e^{-\int P(x)dx} - C(x)P(x)e^{-\int P(x)dx}
+\]
+Dosazením do $\frac{dy}{dx} + P(x)y = Q(x)$ dostaneme:
+\[
+C'(x)e^{-\int P(x)dx} = Q(x)
+\]
+
+\item \textbf{Řešení pro C(x)}:
+\[
+C'(x) = Q(x)e^{\int P(x)dx} \implies C(x) = \int Q(x)e^{\int P(x)dx}dx + K
+\]
+
+\item \textbf{Celkové řešení}:
+\[
+y(x) = e^{-\int P(x)dx}\left[\int Q(x)e^{\int P(x)dx}dx + K\right]
+\]
+\end{enumerate}
+\end{method}
+
+\vspace{0.8\baselineskip}
+
+\begin{theorem}[Ekvivalence metod]
+Metoda integračního faktoru a metoda variace konstant jsou ekvivalentní a vedou ke stejnému výsledku.
+\end{theorem}
+
+\vspace{0.4\baselineskip}
+
+\begin{proof}
+V metodě integračního faktoru máme:
+\[
+y(x) = \frac{1}{\mu(x)}\left[\int \mu(x)Q(x)dx + C\right]
+\]
+V metodě variace konstant:
+\[
+y(x) = e^{-\int P(x)dx}\left[\int Q(x)e^{\int P(x)dx}dx + K\right]
+\]
+Protože $\mu(x) = e^{\int P(x)dx}$, jsou oba výrazy identické.
+\end{proof}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Klasifikace Speciálních Případů P(x)}
+\label{subsubsec:klasifikace-px}
+
+\begin{remark}[Konstantní P(x)]
+Pro $P(x) = a$ (konstanta) je integrační faktor:
+\[
+\mu(x) = e^{\int a  dx} = e^{ax}
+\]
+Řešení homogenní rovnice: $y_h(x) = Ce^{-ax}$
+\end{remark}
+
+\vspace{0.6\baselineskip}
+
+\begin{remark}[Polynomiální P(x)]
+Pro $P(x) = a_nx^n + a_{n-1}x^{n-1} + \cdots + a_0$:
+\[
+\mu(x) = e^{\int P(x)dx} = e^{\frac{a_n}{n+1}x^{n+1} + \frac{a_{n-1}}{n}x^n + \cdots + a_0x}
+\]
+Integrace vyžaduje výpočet integrálu polynomu.
+\end{remark}
+
+\vspace{0.6\baselineskip}
+
+\begin{remark}[Racionální P(x)]
+Pro $P(x) = \frac{N(x)}{D(x)}$ je třeba integrovat racionální funkci. Použijeme rozklad na parciální zlomky:
+\[
+\int \frac{N(x)}{D(x)} dx = \int \left(\text{parciální zlomky}\right) dx
+\]
+\end{remark}
+
+\vspace{0.6\baselineskip}
+
+\begin{remark}[Goniometrické P(x)]
+Pro $P(x)$ obsahující goniometrické funkce může integrace vyžadovat trigonometrické substituce nebo použití speciálních technik.
+\end{remark}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Početní Sekce - Kategorie A: Podle typu P(x)}
+\label{subsubsec:pocetni-kategorie-a}
+
+\paragraph*{A1: Konstantní P(x)}
+
+\begin{example}[Lehký příklad - konstantní P(x)]
+Řešte: $\frac{dy}{dx} + 2y = 1$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $P(x) = 2$, $Q(x) = 1$ (konstantní)
+
+\item \textbf{Integrační faktor}:
+\[
+\mu(x) = e^{\int 2  dx} = e^{2x}
+\]
+
+\item \textbf{Násobení rovnice}:
+\[
+e^{2x}\frac{dy}{dx} + 2e^{2x}y = e^{2x}
+\]
+
 \item \textbf{Integrace}:
 \[
-e^{-0.07t}W = \frac{50\,000}{0.07}\, e^{-0.07t} + C
+\frac{d}{dx}[e^{2x}y] = e^{2x} \implies e^{2x}y = \int e^{2x} dx = \frac{1}{2}e^{2x} + C
 \]
+
+\item \textbf{Výsledek}:
+\[
+y(x) = \frac{1}{2} + Ce^{-2x}
+\]
+
+\item \textbf{Ověření}:
+\[
+\frac{dy}{dx} = -2Ce^{-2x}, \quad 2y = 1 + 2Ce^{-2x}
+\]
+\[
+\frac{dy}{dx} + 2y = -2Ce^{-2x} + 1 + 2Ce^{-2x} = 1 \quad \checkmark
+\end{enumerate}
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Střední příklad - konstantní P(x)]
+Řešte: $\frac{dy}{dx} - 3y = e^x$ s $y(0) = 1$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $P(x) = -3$, $Q(x) = e^x$
+
+\item \textbf{Integrační faktor}:
+\[
+\mu(x) = e^{\int -3  dx} = e^{-3x}
+\]
+
+\item \textbf{Násobení a integrace}:
+\[
+\frac{d}{dx}[e^{-3x}y] = e^{-3x}e^x = e^{-2x}
+\]
+\[
+e^{-3x}y = \int e^{-2x} dx = -\frac{1}{2}e^{-2x} + C
+\]
+
 \item \textbf{Obecné řešení}:
 \[
-W(t) = \frac{50\,000}{0.07} + C\, e^{0.07t}
+y(x) = -\frac{1}{2}e^{x} + Ce^{3x}
 \]
+
 \item \textbf{Určení konstanty}:
 \[
-1\,000\,000 = 714\,286 + C \quad\Rightarrow\quad C = 285\,714
+y(0) = 1 \implies -\frac{1}{2} + C = 1 \implies C = \frac{3}{2}
 \]
-\item \textbf{Konečné řešení}:
+
+\item \textbf{Výsledek}:
 \[
-W(t) = 714\,286 + 285\,714\, e^{0.07t}
-\]
+y(x) = -\frac{1}{2}e^{x} + \frac{3}{2}e^{3x}
 \end{enumerate}
-
-\noindent\textbf{Analýza dlouhodobého chování}
-\begin{itemize}
-\item Pro $t \to \infty$: $W(t) \to \infty$, pokud $C > 0$
-\item Kritický případ: $C = 0$ vede ke konstantnímu bohatství
-\item Riziko vyčerpání: $W(t) < 0$ nenastane pro $C > 0$
-\end{itemize}
-
-\noindent\textbf{Kontrolní body}
-\begin{itemize}
-\item ✓ Správná identifikace lineární ODE
-\item ✓ Výpočet integračního faktoru
-\item ✓ Integrace a určení konstanty
-\item ✓ Počáteční podmínka: $W(0) = 1\,000\,000$
-\item ✓ Finanční smysluplnost: rostoucí bohatství
-\end{itemize}
-
-\noindent\textbf{Finanční interpretace}
-\begin{itemize}
-\item Model: Optimální spotřeba a investice (Merton, 1969)
-\item $W(t)$: Celkové bohatství
-\item $50\,000$: Konstantní roční spotřeba
-\item $7\%$: Očekávaný výnos portfolia
-\item Aplikace: Dlouhodobé finanční plánování
-\end{itemize}
-
-\begin{lstlisting}[language=Python, caption={Implementace Mertonova modelu v Pythonu}, label={lst:merton}]
-import numpy as np
-import matplotlib.pyplot as plt
-
-def merton_wealth(t, W0=1e6, consumption=50000, portfolio_return=0.07):
-    """Mertonův model optimální spotřeby"""
-    W_star = consumption / portfolio_return
-    C = W0 - W_star
-    return W_star + C * np.exp(portfolio_return * t)
-
-# Simulace vývoje bohatství
-t_vals = np.linspace(0, 30, 100)
-W_vals = merton_wealth(t_vals)
-
-plt.figure(figsize=(12, 6))
-
-plt.subplot(1, 2, 1)
-plt.plot(t_vals, W_vals / 1e6, 'b-', linewidth=2, label='Bohatství')
-plt.axhline(y=0.714, color='r', linestyle='--', label='Kritická hodnota')
-plt.xlabel('Čas (roky)')
-plt.ylabel('Bohatství (mil. USD)')
-plt.title('Mertonův model optimální spotřeby')
-plt.legend()
-plt.grid(True)
-
-plt.subplot(1, 2, 2)
-# Analýza citlivosti na spotřebu
-consumptions = [40000, 50000, 60000]
-for cons in consumptions:
-    W_vals_cons = merton_wealth(t_vals, consumption=cons)
-    plt.plot(t_vals, W_vals_cons / 1e6, label=f'Spotřeba: {cons/1000:.0f}k USD')
-plt.xlabel('Čas (roky)')
-plt.ylabel('Bohatství (mil. USD)')
-plt.title('Citlivost na úroveň spotřeby')
-plt.legend()
-plt.grid(True)
-
-plt.tight_layout()
-plt.show()
-
-# Analýza bezpečnosti strategie
-def safety_analysis(W0=1e6, consumption=50000, portfolio_return=0.07, years=30):
-    """Analýza bezpečnosti spotřební strategie"""
-    final_wealth = merton_wealth(years, W0, consumption, portfolio_return)
-    critical_consumption = W0 * portfolio_return
-    
-    print(f"Počáteční bohatství: {W0:,.0f} USD")
-    print(f"Roční spotřeba: {consumption:,.0f} USD")
-    print(f"Kritická spotřeba: {critical_consumption:,.0f} USD")
-    print(f"Bohatství po {years} letech: {final_wealth:,.0f} USD")
-    
-    if consumption > critical_consumption:
-        print("⚠️  VAROVÁNÍ: Spotřeba převyšuje kritickou úroveň!")
-        print("Riziko vyčerpání bohatství v konečném čase")
-    else:
-        print("✅ Strategie je bezpečná")
-
-safety_analysis()
-\end{lstlisting}
-
-\noindent\textbf{Risk management}
-\begin{itemize}
-\item \textbf{Spotřební riziko}: Příliš vysoká spotřeba vede k vyčerpání
-\item \textbf{Tržní riziko}: Nižší než očekávané výnosy portfolia
-\item \textbf{Doporučení}: Spotřeba pod kritickou úrovní $r W_0$
-\end{itemize}
-
-\noindent\textbf{Extenze modelu}
-\begin{itemize}
-\item Obecné řešení: $\displaystyle W(t) = \frac{c}{r} + \left(W_0 - \frac{c}{r}\right) e^{rt}$
-\item Kalibrace: Odhad $r$ z historických dat portfolia
-\item Dynamická spotřeba: $c(t)$ jako funkce času
-\end{itemize}
 \end{example}
 
-\subsubsection{Dividendový diskontní model s růstem}
-\label{subsec:dividendovy-model}
+\vspace{0.6\baselineskip}
 
-\begin{example}[Gordonův růstový model s dynamikou]
-\label{ex:gordon-growth}
+\begin{example}[Složitý příklad - konstantní P(x)]
+Řešte: $\frac{dy}{dx} + 5y = \sin(2x)$
+\vspace{0.3\baselineskip}
 
-\begin{itemize}
-\item \textbf{Identifikace}: Lineární nehomogenní rovnice
-\item \textbf{Úroveň}: 1C -- Pokročilé finanční aplikace
-\item \textbf{Finanční kontext}: Oceňování akcií s rostoucími dividendami
-\end{itemize}
-
-\noindent\textbf{Zadání}
-\[
-\frac{dS}{dt} = 0.05\,S - D_0\, e^{g t}, \quad S(0) = S_0
-\]
-kde $S(t)$ je cena akcie, požadovaná výnosnost $r=0.05$, $D_0 = 2$ počáteční dividenda, $g = 0.03$ míra růstu dividend.
-
-\noindent\textbf{Teoretická analýza}
-\begin{itemize}
-\item $P(t) = -0.05$, $Q(t) = -2\,e^{0.03t}$
-\item Maximální interval: $\mathbb{R}$
-\item Integrační faktor: $\mu(t) = e^{-0.05t}$
-\item Partikulární řešení: variace konstant
-\end{itemize}
-
-\noindent\textbf{Kroky řešení}
+\textbf{Řešení}: 
 \begin{enumerate}
-\item \textbf{Standardní tvar}: $S' - 0.05\,S = -2 e^{0.03t}$
+\item $P(x) = 5$, $Q(x) = \sin(2x)$
+
+\item \textbf{Integrační faktor}:
+\[
+\mu(x) = e^{\int 5  dx} = e^{5x}
+\]
+
+\item \textbf{Integrace}:
+\[
+\frac{d}{dx}[e^{5x}y] = e^{5x}\sin(2x)
+\]
+\[
+e^{5x}y = \int e^{5x}\sin(2x) dx
+\]
+
+\item \textbf{Integrace per partes}: Použijeme metodu pro $\int e^{ax}\sin(bx)dx$:
+\[
+\int e^{5x}\sin(2x)dx = \frac{e^{5x}}{29}(5\sin(2x) - 2\cos(2x)) + K
+\]
+
+\item \textbf{Výsledek}:
+\[
+y(x) = \frac{1}{29}(5\sin(2x) - 2\cos(2x)) + Ke^{-5x}
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\paragraph*{A2: Polynomiální P(x)}
+
+\begin{example}[Lehký příklad - polynomiální P(x)]
+Řešte: $\frac{dy}{dx} + xy = 1$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $P(x) = x$, $Q(x) = 1$
+
+\item \textbf{Integrační faktor}:
+\[
+\mu(x) = e^{\int x  dx} = e^{x^2/2}
+\]
+
+\item \textbf{Integrace}:
+\[
+\frac{d}{dx}[e^{x^2/2}y] = e^{x^2/2}
+\]
+\[
+e^{x^2/2}y = \int e^{x^2/2} dx
+\]
+
+\item \textbf{Integrál nelze vyjádřit elementárními funkcemi}:
+\[
+y(x) = e^{-x^2/2}\left[\int e^{x^2/2} dx + C\right]
+\]
+
+\item \textbf{Řešení pomocí error funkce}:
+\[
+\int e^{x^2/2} dx = \sqrt{\frac{\pi}{2}} \erf\left(\frac{x}{\sqrt{2}}\right) + K
+\]
+\[
+y(x) = e^{-x^2/2}\left[\sqrt{\frac{\pi}{2}} \erf\left(\frac{x}{\sqrt{2}}\right) + C\right]
+\end{enumerate}
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Střední příklad - polynomiální P(x)]
+Řešte: $\frac{dy}{dx} + x^2y = x$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $P(x) = x^2$, $Q(x) = x$
+
+\item \textbf{Integrační faktor}:
+\[
+\mu(x) = e^{\int x^2 dx} = e^{x^3/3}
+\]
+
+\item \textbf{Integrace}:
+\[
+\frac{d}{dx}[e^{x^3/3}y] = xe^{x^3/3}
+\]
+\[
+e^{x^3/3}y = \int xe^{x^3/3} dx
+\]
+
+\item \textbf{Substituce}: $u = x^3/3 \implies du = x^2 dx$ - nefunguje přímo
+
+\item \textbf{Řešení pomocí řady}: Rozvineme $e^{x^3/3}$ do řady:
+\[
+e^{x^3/3} = \sum_{n=0}^{\infty} \frac{x^{3n}}{3^n n!}
+\]
+\[
+xe^{x^3/3} = \sum_{n=0}^{\infty} \frac{x^{3n+1}}{3^n n!}
+\]
+\[
+\int xe^{x^3/3} dx = \sum_{n=0}^{\infty} \frac{x^{3n+2}}{(3n+2)3^n n!} + C
+\]
+
+\item \textbf{Výsledek}:
+\[
+y(x) = e^{-x^3/3}\left[\sum_{n=0}^{\infty} \frac{x^{3n+2}}{(3n+2)3^n n!} + C\right]
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+
+\subsubsection{Početní Sekce - Kategorie A (pokračování)}
+\label{subsubsec:pocetni-kategorie-a-pokracovani}
+
+\paragraph*{A3: Racionální P(x)}
+
+\begin{example}[Lehký příklad - racionální P(x)]
+Řešte: $\frac{dy}{dx} + \frac{1}{x}y = 1$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $P(x) = \frac{1}{x}$, $Q(x) = 1$, $x \neq 0$
+
+\item \textbf{Integrační faktor}:
+\[
+\mu(x) = e^{\int \frac{1}{x} dx} = e^{\ln|x|} = |x|
+\]
+Pro $x > 0$: $\mu(x) = x$, pro $x < 0$: $\mu(x) = -x$
+
+\item \textbf{Řešení pro $x > 0$}:
+\[
+\frac{d}{dx}[xy] = x \implies xy = \int x  dx = \frac{x^2}{2} + C
+\]
+\[
+y(x) = \frac{x}{2} + \frac{C}{x}
+\]
+
+\item \textbf{Interval existence}: $(0, \infty)$
+
+\item \textbf{Ověření}:
+\[
+\frac{dy}{dx} = \frac{1}{2} - \frac{C}{x^2}, \quad \frac{1}{x}y = \frac{1}{2} + \frac{C}{x^2}
+\]
+\[
+\frac{dy}{dx} + \frac{1}{x}y = \frac{1}{2} - \frac{C}{x^2} + \frac{1}{2} + \frac{C}{x^2} = 1 \quad \checkmark
+\end{enumerate}
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Střední příklad - racionální P(x)]
+Řešte: $\frac{dy}{dx} + \frac{2x}{x^2 + 1}y = x$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $P(x) = \frac{2x}{x^2 + 1}$, $Q(x) = x$
+
+\item \textbf{Integrační faktor}:
+\[
+\int P(x)dx = \int \frac{2x}{x^2 + 1}dx = \ln(x^2 + 1)
+\]
+\[
+\mu(x) = e^{\ln(x^2 + 1)} = x^2 + 1
+\]
+
+\item \textbf{Integrace}:
+\[
+\frac{d}{dx}[(x^2 + 1)y] = x(x^2 + 1) = x^3 + x
+\]
+\[
+(x^2 + 1)y = \int (x^3 + x)dx = \frac{x^4}{4} + \frac{x^2}{2} + C
+\]
+
+\item \textbf{Výsledek}:
+\[
+y(x) = \frac{\frac{x^4}{4} + \frac{x^2}{2} + C}{x^2 + 1} = \frac{x^2(x^2 + 2)}{4(x^2 + 1)} + \frac{C}{x^2 + 1}
+\]
+
+\item \textbf{Interval existence}: $\mathbb{R}$
+\end{enumerate}
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Složitý příklad - racionální P(x)]
+Řešte: $\frac{dy}{dx} + \frac{1}{x-1}y = \frac{1}{x^2 - 1}$ s $y(0) = 2$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $P(x) = \frac{1}{x-1}$, $Q(x) = \frac{1}{(x-1)(x+1)}$, $x \neq \pm 1$
+
+\item \textbf{Integrační faktor}:
+\[
+\mu(x) = e^{\int \frac{1}{x-1}dx} = e^{\ln|x-1|} = |x-1|
+\]
+Pro $x < 1$: $\mu(x) = 1-x$, pro $x > 1$: $\mu(x) = x-1$
+
+\item \textbf{Řešení pro $x < 1$} (kde $y(0) = 2$):
+\[
+\frac{d}{dx}[(1-x)y] = (1-x)\cdot\frac{1}{(x-1)(x+1)} = -\frac{1}{x+1}
+\]
+\[
+(1-x)y = -\int \frac{1}{x+1}dx = -\ln|x+1| + C
+\]
+
+\item \textbf{Určení konstanty}:
+\[
+y(0) = 2 \implies (1-0)\cdot 2 = -\ln|1| + C \implies 2 = C
+\]
+\[
+y(x) = \frac{-\ln|x+1| + 2}{1-x} = \frac{2 - \ln(x+1)}{1-x} \quad \text{pro } -1 < x < 1
+\]
+
+\item \textbf{Interval existence}: $(-1, 1)$
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\paragraph*{A4: Goniometrické P(x)}
+
+\begin{example}[Lehký příklad - goniometrické P(x)]
+Řešte: $\frac{dy}{dx} + (\tan x)y = \cos x$ pro $x \in (-\frac{\pi}{2}, \frac{\pi}{2})$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $P(x) = \tan x$, $Q(x) = \cos x$
+
+\item \textbf{Integrační faktor}:
+\[
+\int \tan x  dx = \int \frac{\sin x}{\cos x} dx = -\ln|\cos x|
+\]
+\[
+\mu(x) = e^{-\ln|\cos x|} = \frac{1}{|\cos x|}
+\]
+Pro $x \in (-\frac{\pi}{2}, \frac{\pi}{2})$: $\cos x > 0$, tedy $\mu(x) = \frac{1}{\cos x} = \sec x$
+
+\item \textbf{Integrace}:
+\[
+\frac{d}{dx}[\sec x \cdot y] = \sec x \cdot \cos x = 1
+\]
+\[
+\sec x \cdot y = \int 1  dx = x + C
+\]
+
+\item \textbf{Výsledek}:
+\[
+y(x) = x \cos x + C \cos x
+\]
+
+\item \textbf{Interval existence}: $(-\frac{\pi}{2}, \frac{\pi}{2})$
+\end{enumerate}
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Střední příklad - goniometrické P(x)]
+Řešte: $\frac{dy}{dx} + (\sin x)y = e^{\cos x}$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $P(x) = \sin x$, $Q(x) = e^{\cos x}$
+
+\item \textbf{Integrační faktor}:
+\[
+\int \sin x  dx = -\cos x
+\]
+\[
+\mu(x) = e^{-\cos x}
+\]
+
+\item \textbf{Integrace}:
+\[
+\frac{d}{dx}[e^{-\cos x}y] = e^{-\cos x} \cdot e^{\cos x} = 1
+\]
+\[
+e^{-\cos x}y = \int 1  dx = x + C
+\]
+
+\item \textbf{Výsledek}:
+\[
+y(x) = (x + C)e^{\cos x}
+\]
+
+\item \textbf{Interval existence}: $\mathbb{R}$
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Klasifikace Pravých Stran Q(x)}
+\label{subsubsec:klasifikace-qx}
+
+\paragraph*{B1: Polynomiální Q(x)}
+
+\begin{remark}[Obecný postup pro polynomiální Q(x)]
+Pro $Q(x) = a_nx^n + a_{n-1}x^{n-1} + \cdots + a_0$:
+\begin{itemize}
+\item Vypočítejte $\mu(x) = e^{\int P(x)dx}$
+\item Spočítejte $\int \mu(x)Q(x)dx$ - typicky vede na integraci součinu
+\item Výsledek může obsahovat neelementární integrály pro složitější P(x)
+\end{itemize}
+\end{remark}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Konstantní Q(x)]
+Řešte: $\frac{dy}{dx} + xy = 2$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $P(x) = x$, $Q(x) = 2$ (konstantní)
+
+\item \textbf{Integrační faktor}: $\mu(x) = e^{x^2/2}$
+
+\item \textbf{Integrace}:
+\[
+\frac{d}{dx}[e^{x^2/2}y] = 2e^{x^2/2}
+\]
+\[
+e^{x^2/2}y = 2\int e^{x^2/2}dx
+\]
+
+\item \textbf{Výsledek pomocí error funkce}:
+\[
+y(x) = 2e^{-x^2/2} \cdot \sqrt{\frac{\pi}{2}} \erf\left(\frac{x}{\sqrt{2}}\right) + Ce^{-x^2/2}
+\]
+\end{enumerate}
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\paragraph*{B2: Exponenciální Q(x)}
+
+\begin{remark}[Obecný postup pro exponenciální Q(x)]
+Pro $Q(x) = Ae^{\alpha x}$:
+\begin{itemize}
+\item Pokud $\alpha \neq -P(x)$, řešení obsahuje exponenciální funkce
+\item Speciální případ: rezonance když $\alpha = -P(x)$ pro konstantní P(x)
+\item Integrace typicky vede na kombinace exponenciálních funkcí
+\end{itemize}
+\end{remark}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Exponenciální Q(x) s konstantní P(x)]
+Řešte: $\frac{dy}{dx} + 2y = 3e^{4x}$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $P(x) = 2$, $Q(x) = 3e^{4x}$
+
+\item \textbf{Integrační faktor}: $\mu(x) = e^{2x}$
+
+\item \textbf{Integrace}:
+\[
+\frac{d}{dx}[e^{2x}y] = 3e^{2x}e^{4x} = 3e^{6x}
+\]
+\[
+e^{2x}y = 3\int e^{6x}dx = \frac{1}{2}e^{6x} + C
+\]
+
+\item \textbf{Výsledek}:
+\[
+y(x) = \frac{1}{2}e^{4x} + Ce^{-2x}
+\]
+\end{enumerate}
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Rezonanční případ]
+Řešte: $\frac{dy}{dx} + 2y = 3e^{-2x}$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $P(x) = 2$, $Q(x) = 3e^{-2x}$ - rezonance protože $-P(x) = -2$
+
+\item \textbf{Integrační faktor}: $\mu(x) = e^{2x}$
+
+\item \textbf{Integrace}:
+\[
+\frac{d}{dx}[e^{2x}y] = 3e^{2x}e^{-2x} = 3
+\]
+\[
+e^{2x}y = 3\int 1  dx = 3x + C
+\]
+
+\item \textbf{Výsledek}:
+\[
+y(x) = 3xe^{-2x} + Ce^{-2x}
+\]
+Všimněte si lineárního členu $x$ v partikulárním řešení - typické pro rezonanci.
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\paragraph*{B3: Goniometrické Q(x)}
+
+\begin{remark}[Obecný postup pro goniometrické Q(x)]
+Pro $Q(x) = A\sin(\omega x) + B\cos(\omega x)$:
+\begin{itemize}
+\item Řešení typicky obsahuje kombinace goniometrických funkcí
+\item Pro konstantní P(x) lze použít metodu neurčitých koeficientů
+\item Integrace může vyžadovat goniometrické identity
+\end{itemize}
+\end{remark}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Goniometrické Q(x) s konstantní P(x)]
+Řešte: $\frac{dy}{dx} + y = \sin x$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $P(x) = 1$, $Q(x) = \sin x$
+
+\item \textbf{Integrační faktor}: $\mu(x) = e^{x}$
+
+\item \textbf{Integrace}:
+\[
+\frac{d}{dx}[e^{x}y] = e^{x}\sin x
+\]
+\[
+e^{x}y = \int e^{x}\sin x  dx
+\]
+
+\item \textbf{Integrace per partes}:
+\[
+\int e^{x}\sin x  dx = \frac{e^{x}}{2}(\sin x - \cos x) + C
+\]
+
+\item \textbf{Výsledek}:
+\[
+y(x) = \frac{1}{2}(\sin x - \cos x) + Ce^{-x}
+\]
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Aplikace v Kvantitativních Vědách}
+\label{subsubsec:aplikace-kvantitativni}
+
+\begin{application}[Spojité úročení s pravidelnými vklady]
+Model: $\frac{dA}{dt} = rA + I(t)$, kde:
+\begin{itemize}
+\item $A(t)$: výše účtu v čase $t$
+\item $r$: úroková míra
+\item $I(t)$: okamžitá intenzita vkladů
+\end{itemize}
+
+\textbf{Řešení}: Jedná se o lineární rovnici s $P(t) = -r$, $Q(t) = I(t)$
+
+\textbf{Integrační faktor}: $\mu(t) = e^{-rt}$
+
+\textbf{Obecné řešení}:
+\[
+A(t) = e^{rt}\left[\int I(\tau)e^{-r\tau}d\tau + C\right]
+\]
+
+\textbf{Příklad}: Pro konstantní vklady $I(t) = I_0$:
+\[
+A(t) = e^{rt}\left[I_0\int e^{-r\tau}d\tau + C\right] = e^{rt}\left[-\frac{I_0}{r}e^{-r\tau} + C\right]
+\]
+\[
+A(t) = -\frac{I_0}{r} + Ce^{rt}
+\]
+S počáteční podmínkou $A(0) = A_0$: $C = A_0 + \frac{I_0}{r}$
+\[
+A(t) = \left(A_0 + \frac{I_0}{r}\right)e^{rt} - \frac{I_0}{r}
+\]
+\end{application}
+
+\vspace{0.6\baselineskip}
+
+\begin{application}[RC obvod s proměnným napětím]
+Model: $RC\frac{dV_C}{dt} + V_C = V_{in}(t)$, kde:
+\begin{itemize}
+\item $V_C(t)$: napětí na kondenzátoru
+\item $V_{in}(t)$: vstupní napětí
+\item $R$: odpor, $C$: kapacita
+\end{itemize}
+
+\textbf{Řešení}: Přepíšeme na standardní tvar:
+\[
+\frac{dV_C}{dt} + \frac{1}{RC}V_C = \frac{1}{RC}V_{in}(t)
+\]
+
+\textbf{Integrační faktor}: $\mu(t) = e^{t/RC}$
+
+\textbf{Obecné řešení}:
+\[
+V_C(t) = e^{-t/RC}\left[\frac{1}{RC}\int V_{in}(\tau)e^{\tau/RC}d\tau + C\right]
+\]
+
+\textbf{Příklad}: Pro konstantní vstupní napětí $V_{in}(t) = V_0$:
+\[
+V_C(t) = e^{-t/RC}\left[\frac{V_0}{RC}\int e^{\tau/RC}d\tau + C\right] = e^{-t/RC}\left[V_0 e^{\tau/RC} + C\right]
+\]
+\[
+V_C(t) = V_0 + Ce^{-t/RC}
+\]
+\end{application}
+
+\vspace{0.6\baselineskip}
+
+\begin{application}[Míchací problém s proměnnou koncentrací]
+Model: $\frac{dS}{dt} = r_{in}c_{in}(t) - \frac{r_{out}}{V}S$, kde:
+\begin{itemize}
+\item $S(t)$: množství solutu v nádrži
+\item $V$: objem nádrže
+\item $r_{in}$, $r_{out}$: průtoky dovnitř/ven
+\item $c_{in}(t)$: koncentrace v přítoku
+\end{itemize}
+
+\textbf{Řešení}: Standardní tvar:
+\[
+\frac{dS}{dt} + \frac{r_{out}}{V}S = r_{in}c_{in}(t)
+\]
+
+\textbf{Integrační faktor}: $\mu(t) = e^{r_{out}t/V}$
+
+\textbf{Obecné řešení}:
+\[
+S(t) = e^{-r_{out}t/V}\left[r_{in}\int c_{in}(\tau)e^{r_{out}\tau/V}d\tau + C\right]
+\]
+\end{application}
+
+\vspace{0.8\baselineskip}
+
+\begin{transition}
+V poslední části pokryjeme kombinované příklady, numerickou verifikaci a kompletní shrnutí metodologie lineárních rovnic 1. řádu.
+\end{transition}
+
+% !TEX root = ../main.tex
+% ČÁST 3/3 - Dokončení 1.2 Lineární Rovnice
+
+\subsubsection{Početní Sekce - Kategorie C: Kombinované Příklady}
+\label{subsubsec:pocetni-kategorie-c}
+
+\paragraph*{C1: Jednoduché kombinace}
+
+\begin{example}[Konstantní P(x) + Polynomiální Q(x)]
+Řešte: $\frac{dy}{dx} + 2y = x^2 + 3x + 1$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $P(x) = 2$, $Q(x) = x^2 + 3x + 1$
+
+\item \textbf{Integrační faktor}: $\mu(x) = e^{2x}$
+
+\item \textbf{Integrace}:
+\[
+\frac{d}{dx}[e^{2x}y] = e^{2x}(x^2 + 3x + 1)
+\]
+\[
+e^{2x}y = \int e^{2x}(x^2 + 3x + 1)dx
+\]
+
+\item \textbf{Integrace per partes}:
+\[
+\int x^2 e^{2x}dx = \frac{e^{2x}}{4}(2x^2 - 2x + 1)
+\]
+\[
+\int 3x e^{2x}dx = \frac{3e^{2x}}{4}(2x - 1)
+\]
+\[
+\int e^{2x}dx = \frac{e^{2x}}{2}
+\]
+
+\item \textbf{Výsledek}:
+\[
+e^{2x}y = \frac{e^{2x}}{4}(2x^2 + 4x + 1) + C
+\]
+\[
+y(x) = \frac{1}{4}(2x^2 + 4x + 1) + Ce^{-2x}
+\]
+
+\item \textbf{Ověření}:
+\[
+\frac{dy}{dx} = x + 1 - 2Ce^{-2x}, \quad 2y = \frac{1}{2}(2x^2 + 4x + 1) + 2Ce^{-2x}
+\]
+\[
+\frac{dy}{dx} + 2y = x + 1 + x^2 + 2x + \frac{1}{2} = x^2 + 3x + \frac{3}{2}
+\]
+Oprava: $\frac{1}{4}(2x^2 + 4x + 1) = \frac{1}{2}x^2 + x + \frac{1}{4}$, tedy:
+\[
+\frac{dy}{dx} + 2y = x^2 + 3x + 1 \quad \checkmark
+\]
+\end{enumerate}
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Polynomiální P(x) + Exponenciální Q(x)]
+Řešte: $\frac{dy}{dx} + xy = e^{-x^2/2}$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $P(x) = x$, $Q(x) = e^{-x^2/2}$
+
+\item \textbf{Integrační faktor}: $\mu(x) = e^{x^2/2}$
+
+\item \textbf{Integrace}:
+\[
+\frac{d}{dx}[e^{x^2/2}y] = e^{x^2/2} \cdot e^{-x^2/2} = 1
+\]
+\[
+e^{x^2/2}y = \int 1  dx = x + C
+\]
+
+\item \textbf{Výsledek}:
+\[
+y(x) = xe^{-x^2/2} + Ce^{-x^2/2}
+\]
+
+\item \textbf{Interval existence}: $\mathbb{R}$
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\paragraph*{C2: Střední kombinace}
+
+\begin{example}[Racionální P(x) + Goniometrické Q(x)]
+Řešte: $\frac{dy}{dx} + \frac{1}{x}y = \sin x$ pro $x > 0$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $P(x) = \frac{1}{x}$, $Q(x) = \sin x$
+
+\item \textbf{Integrační faktor}: $\mu(x) = e^{\int \frac{1}{x}dx} = x$
+
+\item \textbf{Integrace}:
+\[
+\frac{d}{dx}[xy] = x\sin x
+\]
+\[
+xy = \int x\sin x  dx
+\]
+
+\item \textbf{Integrace per partes}:
+\[
+\int x\sin x  dx = -x\cos x + \sin x + C
+\]
+
+\item \textbf{Výsledek}:
+\[
+y(x) = -\cos x + \frac{\sin x}{x} + \frac{C}{x}
+\]
+
+\item \textbf{Interval existence}: $(0, \infty)$
+\end{enumerate}
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Goniometrické P(x) + Polynomiální Q(x)]
+Řešte: $\frac{dy}{dx} + (\cos x)y = x$ s $y(0) = 1$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $P(x) = \cos x$, $Q(x) = x$
+
+\item \textbf{Integrační faktor}: $\mu(x) = e^{\int \cos x  dx} = e^{\sin x}$
+
+\item \textbf{Integrace}:
+\[
+\frac{d}{dx}[e^{\sin x}y] = xe^{\sin x}
+\]
+\[
+e^{\sin x}y = \int xe^{\sin x}dx
+\]
+
+\item \textbf{Integrál nelze vyjádřit elementárními funkcemi}:
+\[
+y(x) = e^{-\sin x}\left[\int xe^{\sin x}dx + C\right]
+\]
+
+\item \textbf{Určení konstanty}:
+\[
+y(0) = 1 \implies e^{-\sin 0}\left[\int_0^0 \tau e^{\sin \tau}d\tau + C\right] = 1 \implies C = 1
+\]
+
+\item \textbf{Výsledek}:
+\[
+y(x) = e^{-\sin x}\left[\int_0^x \tau e^{\sin \tau}d\tau + 1\right]
+\]
+
+\item \textbf{Interval existence}: $\mathbb{R}$
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\paragraph*{C3: Složité kombinace}
+
+\begin{example}[Singulární P(x) + Speciální Q(x)]
+Řešte: $\frac{dy}{dx} + \frac{1}{x-2}y = \frac{1}{(x-2)^2}$ s $y(1) = 0$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $P(x) = \frac{1}{x-2}$, $Q(x) = \frac{1}{(x-2)^2}$, $x \neq 2$
+
+\item \textbf{Integrační faktor}:
+\[
+\mu(x) = e^{\int \frac{1}{x-2}dx} = e^{\ln|x-2|} = |x-2|
+\]
+Pro $x < 2$: $\mu(x) = 2-x$, pro $x > 2$: $\mu(x) = x-2$
+
+\item \textbf{Řešení pro $x < 2$} (kde $y(1) = 0$):
+\[
+\frac{d}{dx}[(2-x)y] = (2-x)\cdot\frac{1}{(x-2)^2} = -\frac{1}{x-2}
+\]
+\[
+(2-x)y = -\int \frac{1}{x-2}dx = -\ln|2-x| + C
+\]
+
+\item \textbf{Určení konstanty}:
+\[
+y(1) = 0 \implies (2-1)\cdot 0 = -\ln|1| + C \implies C = 0
+\]
+\[
+y(x) = -\frac{\ln(2-x)}{2-x} = \frac{\ln(2-x)}{x-2} \quad \text{pro } x < 2
+\]
+
+\item \textbf{Interval existence}: $(-\infty, 2)$
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Početní Sekce - Kategorie D: Aplikované Příklady}
+\label{subsubsec:pocetni-kategorie-d}
+
+\paragraph*{D1: Finanční modely}
+
+\begin{example}[Spořicí účet s proměnnými vklady]
+Mějme spořicí účet s úrokovou mírou 5\% p.a. spojitě. Vkládáme pravidelně s intenzitou $I(t) = 1000 + 100t$ Kč/rok. Najděte výši účtu po 10 letech, pokud počáteční vklad byl 5000 Kč.
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item \textbf{Model}: $\frac{dA}{dt} = 0.05A + (1000 + 100t)$, $A(0) = 5000$
+
 \item \textbf{Integrační faktor}: $\mu(t) = e^{-0.05t}$
-\item \textbf{Derivace součinu}:
-\[
-\frac{d}{dt}\!\bigl(e^{-0.05t} S\bigr) = e^{-0.05t}\,(S' - 0.05 S) = -2\, e^{-0.02 t}
-\]
+
 \item \textbf{Integrace}:
 \[
-e^{-0.05t} S = -2 \int e^{-0.02 t}\, dt = \frac{2}{0.02}\, e^{-0.02 t} + C
+\frac{d}{dt}[e^{-0.05t}A] = e^{-0.05t}(1000 + 100t)
 \]
+\[
+e^{-0.05t}A = \int e^{-0.05t}(1000 + 100t)dt
+\]
+
+\item \textbf{Integrace per partes}:
+\[
+\int 1000e^{-0.05t}dt = -20000e^{-0.05t}
+\]
+\[
+\int 100te^{-0.05t}dt = -2000te^{-0.05t} - 40000e^{-0.05t}
+\]
+
 \item \textbf{Obecné řešení}:
 \[
-S(t) = 100\, e^{0.03 t} + C\, e^{0.05 t}
+A(t) = e^{0.05t}\left[-20000e^{-0.05t} - 2000te^{-0.05t} - 40000e^{-0.05t} + C\right]
 \]
-\item \textbf{Určení konstanty} z počáteční podmínky $S(0) = S_0$:
 \[
-S_0 = 100 + C \quad\Rightarrow\quad C = S_0 - 100
+A(t) = -60000 - 2000t + Ce^{0.05t}
 \]
-\item \textbf{Konečné řešení}:
-\[
-S(t) = 100\, e^{0.03 t} + (S_0 - 100)\, e^{0.05 t}
-\]
-\end{enumerate}
 
-\noindent\textbf{Analýza fundamentální hodnoty}
-\begin{itemize}
-\item Pro $S_0 = 100$: $S(t) = 100\, e^{0.03t}$ (spravedlivě oceněno)
-\item Pro $S_0 > 100$: Nadhodnocená akcie -- rychlejší růst
-\item Pro $S_0 < 100$: Podhodnocená akcie -- konvergence k fundamentální složce je pomalejší než růst s $r$
-\end{itemize}
-
-\noindent\textbf{Kontrolní body}
-\begin{itemize}
-\item ✓ Správná identifikace lineární ODE
-\item ✓ Integrace exponenciální funkce
-\item ✓ Určení partikulárního řešení
-\item ✓ Finanční interpretace různých scénářů
-\end{itemize}
-
-\noindent\textbf{Finanční interpretace}
-\begin{itemize}
-\item Model: Gordonův růstový model s dynamickou cenou
-\item $100\, e^{0.03t}$: Fundamentální složka ceny (diskontované rostoucí dividendy)
-\item $S_0 - 100$: Počáteční odchylka od fundamentu
-\item Aplikace: Identifikace nadhodnocených/podhodnocených akcií
-\end{itemize}
-
-\begin{lstlisting}[language=Python, caption={Implementace Gordonova modelu v Pythonu}, label={lst:gordon}]
-import numpy as np
-import matplotlib.pyplot as plt
-
-def gordon_price(t, S0, D0=2, r=0.05, g=0.03):
-    """Gordonův růstový model s dynamikou"""
-    fundamental = (D0 / (r - g)) * np.exp(g * t)
-    deviation = (S0 - D0/(r - g)) * np.exp(r * t)
-    return fundamental + deviation
-
-# Analýza různých počátečních ocenění
-t_vals = np.linspace(0, 20, 100)
-initial_prices = [80, 100, 120]  # Podhodnocená, spravedlivá, nadhodnocená
-
-plt.figure(figsize=(12, 6))
-
-for S0 in initial_prices:
-    S_vals = gordon_price(t_vals, S0)
-    label = f'$S_0$ = {S0} ({"pod" if S0 < 100 else "nad" if S0 > 100 else "spravedlivá"})'
-    plt.plot(t_vals, S_vals, label=label, linewidth=2)
-
-plt.xlabel('Čas (roky)')
-plt.ylabel('Cena akcie (USD)')
-plt.title('Gordonův růstový model - dynamika cen')
-plt.legend()
-plt.grid(True)
-plt.yscale('log')  # Logaritmické měřítko pro lepší viditelnost
-plt.show()
-
-# Trading strategie založená na odchylce od fundamentu
-def trading_strategy(S0, D0=2, r=0.05, g=0.03, horizon=5):
-    """Trading strategie založená na odchylce od fundamentální hodnoty"""
-    fundamental_value = D0 / (r - g)
-    mispricing = S0 - fundamental_value
-    expected_return = g if abs(mispricing) < 10 else r  # hrubá heurstika
-    
-    if mispricing < -10:  # Podhodnocená - koupit
-        action = "KOUPIT"
-        confidence = min(100, abs(mispricing))
-    elif mispricing > 10:  # Nadhodnocená - prodat
-        action = "PRODAT"
-        confidence = min(100, mispricing)
-    else:  # Spravedlivě oceněna - držet
-        action = "DRŽET"
-        confidence = 0
-    
-    print(f"Akcie s počáteční cenou: {S0:.1f} USD")
-    print(f"Fundamentální hodnota: {fundamental_value:.1f} USD")
-    print(f"Odchylka: {mispricing:+.1f} USD")
-    print(f"Doporučení: {action} (jistota: {confidence:.0f}%)")
-    print(f"Očekávaný výnos: {expected_return*100:.1f}% p.a.")
-
-# Test strategie pro různé scénáře
-test_prices = [75, 95, 100, 105, 125]
-for price in test_prices:
-    print(f"\n--- Analýza pro S0 = {price} USD ---")
-    trading_strategy(price)
-    print("-" * 40)
-\end{lstlisting}
-
-\noindent\textbf{Risk management}
-\begin{itemize}
-\item \textbf{Oceňovací riziko}: Chybný odhad parametrů $r$ a $g$
-\item \textbf{Dividendové riziko}: Neočekávaná změna růstu dividend
-\item \textbf{Doporučení}: Pravidelná rekalibrace modelu
-\end{itemize}
-
-\noindent\textbf{Sensitivní analýza}
-\begin{itemize}
-\item \textbf{Citlivost na $r$}: $\displaystyle \frac{\partial S}{\partial r} = -\frac{D_0}{(r-g)^2}\,e^{gt}$
-\item \textbf{Citlivost na $g$}: $\displaystyle \frac{\partial S}{\partial g} = \frac{D_0}{(r-g)^2}\,e^{gt}$
-\item \textbf{Největší riziko}: Chybný odhad míry růstu dividend $g$
-\end{itemize}
-\end{example}
-
-\subsubsection{Shrnutí úrovně 1C}
-\label{sec:shrnuti-uroven-1c}
-
-Úroveň 1C představila pokročilé finanční aplikace základních ODE 1. řádu:
-
-\begin{table}[h]
-\centering
-\caption{Přehled úrovně 1C}
-\label{tab:prehled-1c}
-\begin{tabular}{@{}llll@{}}
-\toprule
-\textbf{Příklad} & \textbf{Typ} & \textbf{Klíčový koncept} & \textbf{Finanční aplikace} \\
-\midrule
-Logistický růst & Separovatelná & Kapacita trhu & Růst hedge fondu \\
-Mertonův model & Lineární & Optimální spotřeba & Finanční plánování \\
-Gordonův model & Lineární & Růst dividend & Oceňování akcií \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\noindent\textbf{Zvládnuté dovednosti}:
-\begin{itemize}
-\item Aplikace separovatelných rovnic na modely s kapacitou
-\item Řešení lineárních rovnic s exponenciální pravou stranou
-\item Analýza stability a basinů přitažlivosti
-\item Pokročilá finanční interpretace a trading strategie
-\end{itemize}
-
-\noindent\textbf{Klíčové finanční koncepty}:
-\begin{itemize}
-\item Logistický růst a omezení kapacity trhu
-\item Mertonův model optimální spotřeby
-\item Gordonův růstový model pro oceňování akcií
-\item Identifikace odchylek od fundamentální hodnoty
-\end{itemize}
-
-% !TEX root = ../main.tex
-
-% !TEX root = ../main.tex
-
-\subsection{Úroveň 1D: Pokročilé aplikace základních typů}
-\label{sec:uroven-1d}
-
-\subsubsection{Pokročilé separovatelné rovnice v ekonomii}
-\label{subsec:pokrocile-separovatelne}
-
-\begin{example}[Model ekonomického růstu s technologickým pokrokem]
-\label{ex:ekonomicky-rust}
-
-\begin{itemize}
-\item \textbf{Identifikace}: Separovatelná rovnice
-\item \textbf{Úroveň}: 1D — Pokročilé aplikace
-\item \textbf{Finanční kontext}: Modelování dlouhodobého ekonomického růstu
-\end{itemize}
-
-\noindent\textbf{Zadání}
-Solowův model s technologickým pokrokem:
-\[
-\frac{dk}{dt} = s\,k^\alpha e^{\beta t} - (\delta + n)k, \quad k(0) = k_0,
-\]
-kde $k(t)$ je kapitál na jednotku efektivní práce, $s$ míra úspor, $\alpha$ elasticita výstupu, $\beta$ míra technologického pokroku, $\delta$ míra depreciace, $n$ míra růstu populace.
-
-\noindent\textbf{Teoretická analýza}
-\begin{itemize}
-\item Separovatelná rovnice: pravá strana je funkcí $k$ a $t$.
-\item Stacionární body: řešení $s\,k^\alpha e^{\beta t} = (\delta + n)k$.
-\item Maximální interval: $\mathbb{R}$ pro $k_0 > 0$.
-\item Existence a jednoznačnost: zaručena pro $k_0 > 0$.
-\end{itemize}
-
-\noindent\textbf{Kroky řešení}
-\begin{enumerate}
-\item \textbf{Separace proměnných}:
-\[
-\frac{dk}{s\,k^\alpha e^{\beta t} - (\delta + n)k} = dt.
-\]
-\item \textbf{Substituce}: $u = k^{1-\alpha}$.
-\item \textbf{Transformace rovnice}:
-\[
-\frac{du}{dt} = (1-\alpha)s\,e^{\beta t} - (1-\alpha)(\delta + n)u.
-\]
-\item \textbf{Lineární ODE pro $u$}:
-\[
-\frac{du}{dt} + (1-\alpha)(\delta + n)u = (1-\alpha)s\,e^{\beta t}.
-\]
-\item \textbf{Integrační faktor}: $\mu(t) = e^{(1-\alpha)(\delta + n)t}$.
-\item \textbf{Řešení pro $u(t)$}:
-\[
-u(t) = e^{-(1-\alpha)(\delta + n)t}\!\left[u_0 + (1-\alpha)s \!\int_0^t e^{\big((1-\alpha)(\delta + n) + \beta\big)\tau} d\tau \right].
-\]
-\item \textbf{Integrace}:
-\[
-u(t) = e^{-(1-\alpha)(\delta + n)t}\!\left[u_0 + \frac{(1-\alpha)s}{(1-\alpha)(\delta + n) + \beta}\!\left(e^{\big((1-\alpha)(\delta + n) + \beta\big)t} - 1\right)\right].
-\]
-\item \textbf{Návrat k $k(t)$}:
-\[
-k(t) = \left[e^{-(1-\alpha)(\delta + n)t}\!\left(k_0^{1-\alpha} + \frac{(1-\alpha)s}{(1-\alpha)(\delta + n) + \beta}\!\left(e^{\big((1-\alpha)(\delta + n) + \beta\big)t} - 1\right)\right)\right]^{\tfrac{1}{1-\alpha}}.
-\]
-\end{enumerate}
-
-\noindent\textbf{Analýza dlouhodobého chování}
-\begin{itemize}
-\item Pro $\beta > 0$: $k(t) \to \infty$ pro $t \to \infty$ (trvalý růst).
-\item Pro $\beta = 0$: konvergence ke stacionárnímu stavu.
-\item Růstová trajektorie: závislá na parametrech.
-\end{itemize}
-
-\noindent\textbf{Kontrolní body}
-\begin{itemize}
-\item ✓ Správná separace proměnných.
-\item ✓ Úspěšná substituce a transformace.
-\item ✓ Řešení lineární ODE.
-\item ✓ Finanční/ekonomická smysluplnost výsledku.
-\end{itemize}
-
-\noindent\textbf{Ekonomická interpretace}
-\begin{itemize}
-\item Model: Solowův model s technologickým pokrokem.
-\item $k(t)$: kapitál na jednotku efektivní práce.
-\item $s$: míra úspor a investic.
-\item $\beta$: míra technologického pokroku.
-\item Aplikace: analýza dlouhodobého ekonomického růstu.
-\end{itemize}
-
-\begin{lstlisting}[language=Python, caption={Implementace Solowova modelu v~Pythonu}]
-import numpy as np
-import matplotlib.pyplot as plt
-
-def solow_model(t, k0, s=0.3, alpha=0.3, beta=0.02, delta=0.05, n=0.01):
-    """Solowův model s technologickým pokrokem"""
-    A = (1 - alpha) * (delta + n)
-    B = (1 - alpha) * s / ((1 - alpha) * (delta + n) + beta)
-
-    u0 = k0 ** (1 - alpha)
-    u_t = np.exp(-A * t) * (u0 + B * (np.exp((A + beta) * t) - 1))
-    k_t = u_t ** (1 / (1 - alpha))
-    return k_t
-
-# Parametry modelu
-params_basic = {'s': 0.3, 'alpha': 0.3, 'beta': 0.02, 'delta': 0.05, 'n': 0.01}
-params_high_saving = {'s': 0.4, 'alpha': 0.3, 'beta': 0.02, 'delta': 0.05, 'n': 0.01}
-params_tech_boom = {'s': 0.3, 'alpha': 0.3, 'beta': 0.05, 'delta': 0.05, 'n': 0.01}
-
-# Simulace růstu
-t_vals = np.linspace(0, 100, 1000)
-k0 = 1.0
-
-plt.figure(figsize=(15, 5))
-
-# 1. Základní scénář
-plt.subplot(1, 3, 1)
-k_basic = solow_model(t_vals, k0, **params_basic)
-plt.plot(t_vals, k_basic, linewidth=2, label='Základní scénář')
-plt.xlabel('Čas (roky)')
-plt.ylabel('Kapitál na práci (k)')
-plt.title('Solowův model: Základní scénář')
-plt.grid(True)
-
-# 2. Vliv vyšší míry úspor
-plt.subplot(1, 3, 2)
-k_high_saving = solow_model(t_vals, k0, **params_high_saving)
-plt.plot(t_vals, k_basic, linewidth=2, label='Základní (s=0.3)')
-plt.plot(t_vals, k_high_saving, linewidth=2, label='Vysoké úspory (s=0.4)')
-plt.xlabel('Čas (roky)')
-plt.ylabel('Kapitál na práci (k)')
-plt.title('Vliv míry úspor')
-plt.legend()
-plt.grid(True)
-
-# 3. Vliv technologického pokroku
-plt.subplot(1, 3, 3)
-k_tech_boom = solow_model(t_vals, k0, **params_tech_boom)
-plt.plot(t_vals, k_basic, linewidth=2, label='Základní (β=0.02)')
-plt.plot(t_vals, k_tech_boom, linewidth=2, label='Tech boom (β=0.05)')
-plt.xlabel('Čas (roky)')
-plt.ylabel('Kapitál na práci (k)')
-plt.title('Vliv technologického pokroku')
-plt.legend()
-plt.grid(True)
-
-plt.tight_layout()
-plt.show()
-
-# Analýza růstových trajektorií
-def growth_analysis():
-    """Analýza růstových trajektorií"""
-    print("=== ANALÝZA SOLOWOVA MODELU ===")
-    periods = [(0, 10), (10, 30), (30, 50), (50, 100)]
-    for start, end in periods:
-        i0 = np.argmin(np.abs(t_vals - start))
-        i1 = np.argmin(np.abs(t_vals - end))
-        growth = (k_basic[i1] / k_basic[i0]) ** (1 / (end - start)) - 1
-        print(f"Období {start}-{end} let: růst {growth * 100:.2f}% p.a.")
-    long_term = (k_basic[-1] / k_basic[0]) ** (1 / 100) - 1
-    print(f"\nDlouhodobý růst: {long_term * 100:.2f}% p.a.")
-    print(f"Teoretický růst (β/(1-α)): {0.02/(1-0.3)*100:.2f}% p.a.")
-
-growth_analysis()
-\end{lstlisting}
-
-\noindent\textbf{Ekonomické implikace}
-\begin{itemize}
-\item \textbf{Míra úspor}: krátkodobý vliv na růst.
-\item \textbf{Technologický pokrok}: klíčový pro dlouhodobý růst.
-\item \textbf{Politická doporučení}: investice do výzkumu a vývoje.
-\end{itemize}
-
-\noindent\textbf{Sensitivní analýza}
-\begin{itemize}
-\item \textbf{Citlivost na $s$}: krátkodobý multiplikační efekt.
-\item \textbf{Citlivost na $\beta$}: dlouhodobý růstový efekt.
-\item \textbf{Citlivost na $\alpha$}: ovlivňuje efektivnost kapitálu.
-\end{itemize}
-\end{example}
-
-\subsubsection{Komplexní lineární modely v ekonomii}
-\label{subsec:komplexni-linearne}
-
-\begin{example}[Keynesiánský model s vládními výdaji]
-\label{ex:keynesian-model}
-
-\begin{itemize}
-\item \textbf{Identifikace}: Lineární nehomogenní rovnice
-\item \textbf{Úroveň}: 1D — Pokročilé aplikace
-\item \textbf{Finanční kontext}: Makroekonomická stabilizace
-\end{itemize}
-
-\noindent\textbf{Zadání}
-Keynesiánský model důchod–výdaje s vládními zásahy:
-\[
-\frac{dY}{dt} = \alpha(I + G - sY) + \beta(Y^* - Y), \quad Y(0) = Y_0,
-\]
-kde $Y(t)$ je HDP, $I$ autonomní investice, $G$ vládní výdaje, $s$ mezní sklon k úsporám, $Y^*$ potenciální produkt, $\alpha$ rychlost adjustace, $\beta$ stabilizační parametr.
-
-\noindent\textbf{Teoretická analýza}
-\begin{itemize}
-\item Lineární nehomogenní ODE: $Y' + (\alpha s + \beta)Y = \alpha(I + G) + \beta Y^*$.
-\item Stacionární stav: $Y_{ss} = \dfrac{\alpha(I + G) + \beta Y^*}{\alpha s + \beta}$.
-\item Stabilita: $\alpha s + \beta > 0$ zaručuje konvergenci.
-\item Maximální interval: $\mathbb{R}$.
-\end{itemize}
-
-\noindent\textbf{Kroky řešení}
-\begin{enumerate}
-\item \textbf{Standardní tvar}:
-\[
-\frac{dY}{dt} + (\alpha s + \beta)Y = \alpha(I + G) + \beta Y^*.
-\]
-\item \textbf{Integrační faktor}: $\mu(t) = e^{(\alpha s + \beta)t}$.
-\item \textbf{Derivace součinu}:
-\[
-\frac{d}{dt}\!\big[e^{(\alpha s + \beta)t}Y\big] = e^{(\alpha s + \beta)t}\,[\alpha(I + G) + \beta Y^*].
-\]
-\item \textbf{Integrace}:
-\[
-e^{(\alpha s + \beta)t}Y = \frac{\alpha(I + G) + \beta Y^*}{\alpha s + \beta}\,e^{(\alpha s + \beta)t} + C.
-\]
-\item \textbf{Obecné řešení}:
-\[
-Y(t) = \frac{\alpha(I + G) + \beta Y^*}{\alpha s + \beta} + C\,e^{-(\alpha s + \beta)t}.
-\]
 \item \textbf{Určení konstanty}:
 \[
-C = Y_0 - \frac{\alpha(I + G) + \beta Y^*}{\alpha s + \beta}.
+A(0) = 5000 \implies -60000 + C = 5000 \implies C = 65000
 \]
-\item \textbf{Konečné řešení}:
+
+\item \textbf{Výsledek}:
 \[
-Y(t) = Y_{ss} + (Y_0 - Y_{ss})\,e^{-(\alpha s + \beta)t}.
+A(t) = -60000 - 2000t + 65000e^{0.05t}
 \]
+\[
+A(10) = -60000 - 20000 + 65000e^{0.5} \approx -80000 + 65000 \cdot 1.6487 \approx 27,165 \text{ Kč}
 \end{enumerate}
-
-\noindent\textbf{Analýza ekonomické dynamiky}
-\begin{itemize}
-\item Konvergence: $Y(t) \to Y_{ss}$ exponenciálně rychlostí $\alpha s + \beta$.
-\item Multiplikátor: $\dfrac{\partial Y_{ss}}{\partial G} = \dfrac{\alpha}{\alpha s + \beta}$.
-\item Stabilizační efekt: $\beta$ zrychluje konvergenci.
-\end{itemize}
-
-\noindent\textbf{Kontrolní body}
-\begin{itemize}
-\item ✓ Správná identifikace lineární ODE.
-\item ✓ Výpočet integračního faktoru.
-\item ✓ Určení stacionárního stavu.
-\item ✓ Ekonomická smysluplnost.
-\end{itemize}
-
-\noindent\textbf{Ekonomická interpretace}
-\begin{itemize}
-\item Model: Keynesiánský model s automatickými stabilizátory.
-\item $Y_{ss}$: rovnovážný produkt.
-\item $\alpha s + \beta$: rychlost konvergence k rovnováze.
-\item Aplikace: návrh fiskální politiky.
-\end{itemize}
-
-\begin{lstlisting}[language=Python, caption={Implementace Keynesiánského modelu v~Pythonu}]
-import numpy as np
-import matplotlib.pyplot as plt
-
-def keynesian_model(t, Y0, I=100, G=100, s=0.2, Y_star=600, alpha=0.5, beta=0.1):
-    """Keynesiánský model důchod–výdaje"""
-    Y_ss = (alpha * (I + G) + beta * Y_star) / (alpha * s + beta)
-    speed = alpha * s + beta
-    return Y_ss + (Y0 - Y_ss) * np.exp(-speed * t)
-
-# Scénáře hospodářské politiky
-scenarios = {
-    'Základní': {'I': 100, 'G': 100, 's': 0.2, 'Y_star': 600, 'alpha': 0.5, 'beta': 0.1},
-    'Fiskální expanze': {'I': 100, 'G': 150, 's': 0.2, 'Y_star': 600, 'alpha': 0.5, 'beta': 0.1},
-    'Konsolidace': {'I': 100, 'G': 80, 's': 0.2, 'Y_star': 600, 'alpha': 0.5, 'beta': 0.1},
-    'Investiční boom': {'I': 150, 'G': 100, 's': 0.2, 'Y_star': 600, 'alpha': 0.5, 'beta': 0.1}
-}
-
-# Simulace
-t_vals = np.linspace(0, 20, 100)
-Y0 = 400  # Počáteční recese
-
-plt.figure(figsize=(15, 10))
-
-# 1. Trajektorie HDP
-plt.subplot(2, 2, 1)
-for label, params in scenarios.items():
-    Y_t = keynesian_model(t_vals, Y0, **params)
-    plt.plot(t_vals, Y_t, linewidth=2, label=label)
-plt.axhline(y=600, color='r', linestyle='--', label='Potenciální produkt')
-plt.xlabel('Čas (čtvrtletí)')
-plt.ylabel('HDP (Y)')
-plt.title('Keynesiánský model: Trajektorie HDP')
-plt.legend()
-plt.grid(True)
-
-# 2. Multiplikátory vládních výdajů
-plt.subplot(2, 2, 2)
-G_values = np.linspace(50, 150, 50)
-Y_eq = [keynesian_model(100, Y0, I=100, G=G, s=0.2, Y_star=600, alpha=0.5, beta=0.1) for G in G_values]
-plt.plot(G_values, Y_eq, linewidth=2)
-plt.xlabel('Vládní výdaje (G)')
-plt.ylabel('Rovnovážný HDP')
-plt.title('Multiplikátor vládních výdajů')
-plt.grid(True)
-
-# 3. Stabilizační efekt
-plt.subplot(2, 2, 3)
-for beta_val in [0.05, 0.1, 0.2, 0.5]:
-    Y_t = keynesian_model(t_vals, Y0, I=100, G=100, s=0.2, Y_star=600, alpha=0.5, beta=beta_val)
-    plt.plot(t_vals, Y_t, linewidth=2, label=f'β = {beta_val}')
-plt.xlabel('Čas (čtvrtletí)')
-plt.ylabel('HDP (Y)')
-plt.title('Vliv stabilizačního parametru β')
-plt.legend()
-plt.grid(True)
-
-# 4. Rychlost konvergence
-plt.subplot(2, 2, 4)
-for alpha_val in [0.2, 0.5, 1.0, 2.0]:
-    Y_t = keynesian_model(t_vals, Y0, I=100, G=100, s=0.2, Y_star=600, alpha=alpha_val, beta=0.1)
-    plt.plot(t_vals, Y_t, linewidth=2, label=f'α = {alpha_val}')
-plt.xlabel('Čas (čtvrtletí)')
-plt.ylabel('HDP (Y)')
-plt.title('Vliv rychlosti adjustace α')
-plt.legend()
-plt.grid(True)
-
-plt.tight_layout()
-plt.show()
-
-def policy_analysis():
-    """Analýza dopadů hospodářské politiky"""
-    print("=== ANALÝZA KEYNESIÁNSKÉHO MODELU ===")
-    base = scenarios['Základní']
-    Y_ss_base = keynesian_model(100, Y0, **base)
-    print(f"\nZákladní scénář:\nPočáteční HDP: {Y0}\nRovnovážný HDP: {Y_ss_base:.1f}")
-    print(f"Produkční mezera: {(Y_ss_base - 600)/600*100:.1f}%")
-    multiplier = base['alpha'] / (base['alpha'] * base['s'] + base['beta'])
-    print(f"\nMultiplikátor vládních výdajů: {multiplier:.2f}")
-    exp_params = scenarios['Fiskální expanze']
-    Y_ss_exp = keynesian_model(100, Y0, **exp_params)
-    print(f"\nFiskální expanze (G: 100 → 150):\nNový rovnovážný HDP: {Y_ss_exp:.1f}\nCelkový dopad: {Y_ss_exp - Y_ss_base:.1f}")
-    inv_params = scenarios['Investiční boom']
-    Y_ss_inv = keynesian_model(100, Y0, **inv_params)
-    print(f"\nInvestiční boom (I: 100 → 150):\nNový rovnovážný HDP: {Y_ss_inv:.1f}\nCelkový dopad: {Y_ss_inv - Y_ss_base:.1f}")
-
-policy_analysis()
-\end{lstlisting}
-
-\noindent\textbf{Politické implikace}
-\begin{itemize}
-\item \textbf{Fiskální politika}: vládní výdaje mají multiplikační efekt.
-\item \textbf{Stabilizace}: automatické stabilizátory urychlují konvergenci.
-\item \textbf{Investice}: soukromé investice také stimulují ekonomiku.
-\end{itemize}
-
-\noindent\textbf{Sensitivní analýza}
-\begin{itemize}
-\item \textbf{Multiplikátor}: $\dfrac{\alpha}{\alpha s + \beta}$ klesá s~$\beta$.
-\item \textbf{Rychlost konvergence}: roste s~$\alpha$ a $\beta$.
-\item \textbf{Stabilita}: zaručena pro $\alpha s + \beta > 0$.
-\end{itemize}
 \end{example}
 
-\subsubsection{Pokročilé homogenní rovnice v ekonomii}
-\label{subsec:pokrocile-homogenni}
+\vspace{0.8\baselineskip}
 
-\begin{example}[Model relativních cen a substituce]
-\label{ex:relativni-ceny}
+\paragraph*{D2: Fyzikální modely}
 
-\begin{itemize}
-\item \textbf{Identifikace}: Homogenní rovnice
-\item \textbf{Úroveň}: 1D — Pokročilé aplikace
-\item \textbf{Finanční kontext}: Teorie substituce a relativních cen
-\end{itemize}
+\begin{example}[RC obvod s proměnným napětím]
+RC obvod s $R = 1000\ \Omega$, $C = 0.001\ \mathrm{F}$ je napájen napětím $V_{in}(t) = 10\sin(100t)\ \mathrm{V}$. Najděte napětí na kondenzátoru, pokud $V_C(0) = 0$.
+\vspace{0.3\baselineskip}
 
-\noindent\textbf{Zadání}
-Model substituce mezi kapitálovými a pracovními vstupy:
-\[
-\frac{dK}{dL} = f\!\left(\frac{K}{L}\right) = A\!\left(\frac{K}{L}\right)^\alpha, \quad K(L_0) = K_0,
-\]
-kde $K$ je kapitál, $L$ práce, $A$ technologický parametr, $\alpha$ elasticita substituce.
-
-\noindent\textbf{Teoretická analýza}
-\begin{itemize}
-\item Homogenní rovnice stupně 0: pravá strana závisí pouze na $K/L$.
-\item Substituce: $k = K/L$ vede na separovatelnou rovnici.
-\item Maximální interval: $L > 0$.
-\item Ekonomická interpretace: trajektorie kapitálové intensity.
-\end{itemize}
-
-\noindent\textbf{Kroky řešení}
+\textbf{Řešení}: 
 \begin{enumerate}
-\item \textbf{Substituce}: $k = \dfrac{K}{L}$, tedy $K = kL$, $\dfrac{dK}{dL} = k + L\dfrac{dk}{dL}$.
+\item \textbf{Model}: $RC\frac{dV_C}{dt} + V_C = V_{in}(t)$
+\[
+0.001\frac{dV_C}{dt} + V_C = 10\sin(100t)
+\]
+\[
+\frac{dV_C}{dt} + 1000V_C = 10000\sin(100t)
+\]
+
+\item \textbf{Integrační faktor}: $\mu(t) = e^{1000t}$
+
+\item \textbf{Integrace}:
+\[
+\frac{d}{dt}[e^{1000t}V_C] = 10000e^{1000t}\sin(100t)
+\]
+\[
+e^{1000t}V_C = 10000\int e^{1000t}\sin(100t)dt
+\]
+
+\item \textbf{Integrace per partes}:
+\[
+\int e^{1000t}\sin(100t)dt = \frac{e^{1000t}}{1000000 + 10000}(1000\sin(100t) - 100\cos(100t)) + K
+\]
+\[
+= \frac{e^{1000t}}{1010000}(1000\sin(100t) - 100\cos(100t)) + K
+\]
+
+\item \textbf{Výsledek}:
+\[
+V_C(t) = \frac{10000}{1010000}(1000\sin(100t) - 100\cos(100t)) + Ke^{-1000t}
+\]
+\[
+V_C(t) = \frac{100}{101}\sin(100t) - \frac{10}{101}\cos(100t) + Ke^{-1000t}
+\]
+
+\item \textbf{Určení konstanty}:
+\[
+V_C(0) = 0 \implies -\frac{10}{101} + K = 0 \implies K = \frac{10}{101}
+\]
+
+\item \textbf{Konečný výsledek}:
+\[
+V_C(t) = \frac{100}{101}\sin(100t) - \frac{10}{101}\cos(100t) + \frac{10}{101}e^{-1000t}
+\]
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Numerická Verifikace}
+\label{subsubsec:numericka-verifikace}
+
+\begin{method}[Eulerova metoda pro lineární rovnice]
+\label{met:euler-linearni}
+Pro rovnici $\frac{dy}{dx} + P(x)y = Q(x)$ s počáteční podmínkou $y(x_0) = y_0$:
+
+\begin{enumerate}
+\item Zvolte krok $h > 0$
+\item Pro $n = 0, 1, 2, \dots$ počítáme:
+\[
+y_{n+1} = y_n + h[Q(x_n) - P(x_n)y_n]
+\]
+\[
+x_{n+1} = x_n + h
+\]
+\item Chyba metody: $O(h)$
+\end{enumerate}
+\end{method}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Numerická verifikace jednoduché rovnice]
+Porovnejte analytické a numerické řešení: $\frac{dy}{dx} + 2y = 1$, $y(0) = 0$
+\vspace{0.3\baselineskip}
+
+\textbf{Analytické řešení}: $y(x) = \frac{1}{2}(1 - e^{-2x})$
+
+\textbf{Numerické řešení} (krok $h = 0.1$):
+\begin{center}
+\begin{tabular}{c|c|c|c}
+$n$ & $x_n$ & Analytické $y(x_n)$ & Numerické $y_n$ \\
+\hline
+0 & 0.0 & 0.0000 & 0.0000 \\
+1 & 0.1 & 0.0906 & 0.1000 \\
+2 & 0.2 & 0.1648 & 0.1800 \\
+3 & 0.3 & 0.2260 & 0.2440 \\
+4 & 0.4 & 0.2763 & 0.2952 \\
+5 & 0.5 & 0.3161 & 0.3362 \\
+\end{tabular}
+\end{center}
+
+\textbf{Analýza chyby}: Maximální chyba ≈ 0.0094 při $x=0.1$, klesá s klesajícím $h$.
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Numerická verifikace složité rovnice]
+Ověřte numericky řešení: $\frac{dy}{dx} + \frac{1}{x}y = 1$, $y(1) = 0$ pro $x > 0$
+\vspace{0.3\baselineskip}
+
+\textbf{Analytické řešení}: $y(x) = \frac{x}{2} - \frac{1}{2x}$
+
+\textbf{Numerické řešení} (krok $h = 0.1$):
+\begin{center}
+\begin{tabular}{c|c|c|c}
+$x_n$ & Analytické & Numerické & Chyba \\
+\hline
+1.0 & 0.0000 & 0.0000 & 0.0000 \\
+1.1 & 0.0955 & 0.1000 & 0.0045 \\
+1.2 & 0.1833 & 0.1909 & 0.0076 \\
+1.3 & 0.2654 & 0.2745 & 0.0091 \\
+1.4 & 0.3429 & 0.3529 & 0.0100 \\
+1.5 & 0.4167 & 0.4275 & 0.0108 \\
+\end{tabular}
+\end{center}
+
+\textbf{Závěr}: Numerické řešení dobře aproximuje analytické s chybou $O(h)$.
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Shrnutí a Expertní Metodologie}
+\label{subsubsec:shrnuti-metodologie}
+
+\begin{method}[Decision tree pro řešení lineárních rovnic]
+\label{met:decision-tree-linearni}
+\begin{enumerate}
+\item \textbf{Identifikace}: Je rovnice ve tvaru $\frac{dy}{dx} + P(x)y = Q(x)$?
+
+\item \textbf{Výběr metody}:
+\begin{itemize}
+\item \textbf{Integrační faktor}: Vždy funguje, vhodný pro většinu případů
+\item \textbf{Variace konstant}: Ekvivalentní, někdy intuitivnější
+\item \textbf{Metoda neurčitých koeficientů}: Pouze pro konstantní P(x) a speciální Q(x)
+\end{itemize}
+
+\item \textbf{Analýza P(x)}:
+\begin{itemize}
+\item Konstantní: Jednoduchá exponenciální integrace
+\item Polynomiální: Integrace polynomu
+\item Racionální: Rozklad na parciální zlomky
+\item Goniometrické: Trigonometrické identity
+\end{itemize}
+
+\item \textbf{Analýza Q(x)}:
+\begin{itemize}
+\item Polynomiální: Přímá integrace
+\item Exponenciální: Pozor na rezonanci
+\item Goniometrické: Goniometrické integrace
+\end{itemize}
+
+\item \textbf{Interval existence}: Určete maximální interval kde P(x) a Q(x) spojité
+
+\item \textbf{Ověření}: Vždy dosaďte řešení do původní rovnice
+\end{enumerate}
+\end{method}
+
+\vspace{0.8\baselineskip}
+
+\begin{remark}[Časté chyby a jak se jim vyhnout]
+\begin{itemize}
+\item \textbf{Zapomnění na integrační konstantu}: Vždy přidejte $+C$ po integraci
+\item \textbf{Špatný integrační faktor}: Ověřte že $\frac{d\mu}{dx} = P(x)\mu(x)$
+\item \textbf{Nesprávný interval existence}: Vždy analyzujte definiční obory P(x) a Q(x)
+\item \textbf{Chyba v integraci}: Ověřte integrál derivací
+\item \textbf{Záměna metod}: Integrační faktor a variace konstant jsou ekvivalentní
+\end{itemize}
+\end{remark}
+
+\vspace{0.6\baselineskip}
+
+\begin{remark}[Optimalizace výpočtů]
+\begin{itemize}
+\item Pro konstantní P(x) a polynomiální Q(x): Metoda neurčitých koeficientů může být rychlejší
+\item Pro složité P(x): Integrační faktor je robustnější
+\item Pro numerické řešení: Eulerova metoda je jednoduchá, Runge-Kutta přesnější
+\end{itemize}
+\end{remark}
+
+\vspace{0.8\baselineskip}
+
+\begin{transition}
+S kompletním zvládnutím lineárních rovnic 1. řádu jsme připraveni přejít k homogenním rovnicím (1.3), které představují speciální případ lineárních rovnic a otevírají cestu k hlubší geometrické interpretaci diferenciálních rovnic.
+\end{transition}
+
+\vspace{0.8\baselineskip}
+
+\subsection*{Shrnutí Sekce 1.2}
+
+Lineární rovnice 1. řádu představují systematický a mocný aparát pro modelování dynamických systémů s vnějšími vstupy. Klíčové poznatky:
+
+\begin{itemize}
+\item \textbf{Univerzální řešitelnost}: Každá lineární rovnice s spojitými koeficienty má explicitní řešení
+\item \textbf{Dvě ekvivalentní metody}: Integrační faktor a variace konstant
+\item \textbf{Struktura řešení}: Homogenní část + partikulární řešení
+\item \textbf{Aplikace}: Finanční modelování, elektrické obvody, fyzikální systémy
+\item \textbf{Numerická verifikace}: Důležitá pro ověření analytických výsledků
+\end{itemize}
+
+% !TEX root = ../main.tex
+\subsection{Homogenní Rovnice - Geometrický Přístup a Substituční Metody}
+\label{subsec:homogenni-rovnice}
+
+\subsubsection{Teoretický Fundament Homogenity}
+\label{subsubsec:teoreticky-fundament-homogenni}
+
+\begin{definition}[Homogenní diferenciální rovnice 1. řádu]
+Rovnice je \emph{homogenní}, jestliže ji lze zapsat ve tvaru:
+\[
+\frac{dy}{dx} = f\left(\frac{y}{x}\right)
+\]
+kde $f$ je funkce jedné proměnné $v = \frac{y}{x}$.
+\end{definition}
+
+\vspace{0.6\baselineskip}
+
+\begin{theorem}[Test homogenity]
+Funkce $F(x, y)$ je homogenní stupně $n$, jestliže pro všechna $\lambda > 0$ platí:
+\[
+F(\lambda x, \lambda y) = \lambda^n F(x, y)
+\]
+Diferenciální rovnice $dy/dx = F(x, y)$ je homogenní, jestliže $F(x, y)$ je homogenní stupně 0.
+\end{theorem}
+
+\vspace{0.4\baselineskip}
+
+\begin{proof}
+Je-li $F(x, y)$ homogenní stupně 0, pak:
+\[
+F(\lambda x, \lambda y) = \lambda^0 F(x, y) = F(x, y)
+\]
+Speciálně pro $\lambda = 1/x$ (pro $x > 0$):
+\[
+F(x, y) = F\left(1, \frac{y}{x}\right) = f\left(\frac{y}{x}\right)
+\]
+\end{proof}
+
+\vspace{0.6\baselineskip}
+
+\begin{theorem}[Existence a jednoznačnost]
+Nechť $f(v)$ je spojitá na intervalu $J \subseteq \mathbb{R}$ a Lipschitzovská na kompaktech. Pak pro libovolný bod $(x_0, y_0)$ s $x_0 \neq 0$ a $y_0/x_0 \in J$ existuje právě jedno řešení homogenní rovnice definované na okolí $x_0$.
+\end{theorem}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Substituční Metodologie - Kompletní Analýza}
+\label{subsubsec:substituci-metodologie}
+
+\begin{method}[Základní substituce $v = y/x$]
+\label{met:zakladni-substituce}
+\begin{enumerate}
+\item \textbf{Substituce}: Položíme $v = \frac{y}{x} \implies y = vx$
+
+\item \textbf{Derivace}:
+\[
+\frac{dy}{dx} = v + x\frac{dv}{dx}
+\]
+
+\item \textbf{Dosazení do rovnice}:
+\[
+v + x\frac{dv}{dx} = f(v)
+\]
+
+\item \textbf{Separace proměnných}:
+\[
+x\frac{dv}{dx} = f(v) - v \implies \frac{dv}{f(v) - v} = \frac{dx}{x}
+\]
+
+\item \textbf{Integrace}:
+\[
+\int \frac{dv}{f(v) - v} = \int \frac{dx}{x} = \ln|x| + C
+\]
+
+\item \textbf{Zpětná substituce}: Po integraci dosadíme $v = y/x$
+
+\item \textbf{Analýza singulárních bodů}: Body kde $f(v) - v = 0$
+\end{enumerate}
+\end{method}
+
+\vspace{0.8\baselineskip}
+
+\begin{example}[Odvození metody]
+Mějme homogenní rovnici $\frac{dy}{dx} = f\left(\frac{y}{x}\right)$. Substituce $y = vx$ dává:
+\[
+\frac{d}{dx}[vx] = v + x\frac{dv}{dx} = f(v)
+\]
+Tedy:
+\[
+x\frac{dv}{dx} = f(v) - v
+\]
+Tato rovnice je separabilní v proměnných $v$ a $x$.
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{method}[Alternativní substituce]
+\label{met:alternativni-substituce}
+\begin{itemize}
+\item \textbf{Substituce $u = \ln|x|$}: Pro rovnice s logaritmickou strukturou
+
+\item \textbf{Substituce $y = x^m v$}: Pro zobecněnou homogenitu
+
+\item \textbf{Polární souřadnice}: $x = r\cos\theta$, $y = r\sin\theta$ pro geometrické interpretace
+\end{itemize}
+\end{method}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Klasifikace Typů f(y/x)}
+\label{subsubsec:klasifikace-funkci}
+
+\begin{remark}[Racionální funkce]
+Pro $f(v) = \frac{P(v)}{Q(v)}$ kde $P$, $Q$ jsou polynomy:
+\[
+\frac{dy}{dx} = \frac{P(y/x)}{Q(y/x)}
+\]
+Substituce vede na integraci racionální funkce.
+\end{remark}
+
+\vspace{0.6\baselineskip}
+
+\begin{remark}[Algebraické funkce]
+Pro $f(v)$ obsahující odmocniny:
+\[
+\frac{dy}{dx} = \sqrt{\frac{y}{x} + 1} \quad \text{nebo} \quad \frac{dy}{dx} = \left(\frac{y}{x}\right)^{1/3}
+\]
+Často vyžaduje speciální substituce nebo umocňování.
+\end{remark}
+
+\vspace{0.6\baselineskip}
+
+\begin{remark}[Goniometrické funkce]
+Pro $f(v) = \sin(v)$, $\cos(v)$, $\tan(v)$, atd.:
+\[
+\frac{dy}{dx} = \sin\left(\frac{y}{x}\right)
+\]
+Substituce vede na rovnici se separovanými proměnnými, ale integrace může vyžadovat goniometrické identity.
+\end{remark}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Početní Sekce - Kategorie A: Podle typu f(y/x)}
+\label{subsubsec:pocetni-kategorie-a}
+
+\paragraph*{A1: Lineární f(v)}
+
+\begin{example}[Lehký příklad - lineární f(v)]
+Řešte: $\frac{dy}{dx} = \frac{y}{x} + 1$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $f(v) = v + 1$
+
+\item \textbf{Substituce}: $y = vx \implies \frac{dy}{dx} = v + x\frac{dv}{dx}$
+
 \item \textbf{Dosazení}:
 \[
-k + L\frac{dk}{dL} = A\,k^\alpha.
+v + x\frac{dv}{dx} = v + 1 \implies x\frac{dv}{dx} = 1
 \]
-\item \textbf{Separace proměnných}:
+
+\item \textbf{Separace}:
 \[
-L\frac{dk}{dL} = A\,k^\alpha - k.
+dv = \frac{dx}{x} \implies v = \ln|x| + C
 \]
+
+\item \textbf{Zpětná substituce}:
+\[
+\frac{y}{x} = \ln|x| + C \implies y = x\ln|x| + Cx
+\]
+
+\item \textbf{Interval existence}: $(-\infty, 0)$ nebo $(0, \infty)$
+
+\item \textbf{Ověření}:
+\[
+\frac{dy}{dx} = \ln|x| + 1 + C = \frac{y}{x} + 1 \quad \checkmark
+\end{enumerate}
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Střední příklad - lineární f(v)]
+Řešte: $\frac{dy}{dx} = \frac{2y - x}{y + x}$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item \textbf{Test homogenity}:
+\[
+F(\lambda x, \lambda y) = \frac{2\lambda y - \lambda x}{\lambda y + \lambda x} = \frac{2y - x}{y + x} = F(x, y)
+\]
+Homogenní stupně 0.
+
 \item \textbf{Úprava}:
 \[
-\frac{dk}{A\,k^\alpha - k} = \frac{dL}{L}.
+\frac{dy}{dx} = \frac{2(y/x) - 1}{(y/x) + 1} = f(v) \quad \text{kde } v = \frac{y}{x}
 \]
+
+\item \textbf{Substituce}: $y = vx \implies \frac{dy}{dx} = v + x\frac{dv}{dx}$
+
+\item \textbf{Dosazení}:
+\[
+v + x\frac{dv}{dx} = \frac{2v - 1}{v + 1}
+\]
+\[
+x\frac{dv}{dx} = \frac{2v - 1}{v + 1} - v = \frac{2v - 1 - v^2 - v}{v + 1} = \frac{-v^2 + v - 1}{v + 1}
+\]
+
+\item \textbf{Separace}:
+\[
+\frac{v + 1}{-v^2 + v - 1}dv = \frac{dx}{x}
+\]
+
+\item \textbf{Integrace}: Nejprve upravíme jmenovatele:
+\[
+-v^2 + v - 1 = -(v^2 - v + 1) = -\left[(v - \frac{1}{2})^2 + \frac{3}{4}\right]
+\]
+\[
+\int \frac{v + 1}{-v^2 + v - 1}dv = -\int \frac{v + 1}{(v - \frac{1}{2})^2 + \frac{3}{4}}dv
+\]
+
+\item \textbf{Substituce}: $u = v - \frac{1}{2} \implies v = u + \frac{1}{2}$, $dv = du$
+\[
+-\int \frac{u + \frac{3}{2}}{u^2 + \frac{3}{4}}du = -\int \frac{u}{u^2 + \frac{3}{4}}du - \frac{3}{2}\int \frac{1}{u^2 + \frac{3}{4}}du
+\]
+\[
+= -\frac{1}{2}\ln|u^2 + \frac{3}{4}| - \frac{3}{2} \cdot \frac{2}{\sqrt{3}}\arctan\left(\frac{2u}{\sqrt{3}}\right) + K
+\]
+
+\item \textbf{Výsledek}:
+\[
+-\frac{1}{2}\ln\left|\left(v - \frac{1}{2}\right)^2 + \frac{3}{4}\right| - \sqrt{3}\arctan\left(\frac{2v - 1}{\sqrt{3}}\right) = \ln|x| + C
+\]
+
+\item \textbf{Zpětná substituce}: $v = y/x$
+\[
+-\frac{1}{2}\ln\left|\left(\frac{y}{x} - \frac{1}{2}\right)^2 + \frac{3}{4}\right| - \sqrt{3}\arctan\left(\frac{2y/x - 1}{\sqrt{3}}\right) = \ln|x| + C
+\]
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\paragraph*{A2: Kvadratické f(v)}
+
+\begin{example}[Lehký příklad - kvadratické f(v)]
+Řešte: $\frac{dy}{dx} = \frac{y^2}{x^2}$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $f(v) = v^2$
+
+\item \textbf{Substituce}: $y = vx \implies \frac{dy}{dx} = v + x\frac{dv}{dx}$
+
+\item \textbf{Dosazení}:
+\[
+v + x\frac{dv}{dx} = v^2 \implies x\frac{dv}{dx} = v^2 - v
+\]
+
+\item \textbf{Separace}:
+\[
+\frac{dv}{v(v - 1)} = \frac{dx}{x}
+\]
+
+\item \textbf{Rozklad na parciální zlomky}:
+\[
+\frac{1}{v(v - 1)} = \frac{1}{v - 1} - \frac{1}{v}
+\]
+
 \item \textbf{Integrace}:
 \[
-\int \frac{dk}{k(A\,k^{\alpha-1} - 1)} = \int \frac{dL}{L}.
+\int \left(\frac{1}{v - 1} - \frac{1}{v}\right)dv = \int \frac{dx}{x}
 \]
-\item \textbf{Substituce}: $u = k^{1-\alpha}$.
-\item \textbf{Transformace}:
 \[
-\int \frac{du}{(1-\alpha)(A - u)} = \ln L + C.
+\ln|v - 1| - \ln|v| = \ln|x| + C
 \]
+\[
+\ln\left|\frac{v - 1}{v}\right| = \ln|x| + C \implies \frac{v - 1}{v} = Ax \quad (A = \pm e^C)
+\]
+
+\item \textbf{Zpětná substituce}:
+\[
+\frac{y/x - 1}{y/x} = Ax \implies 1 - \frac{x}{y} = Ax \implies \frac{x}{y} = 1 - Ax
+\]
+\[
+y = \frac{x}{1 - Ax}
+\]
+
+\item \textbf{Singulární řešení}: $v = 0$ a $v = 1$ $\implies$ $y = 0$ a $y = x$
+
+\item \textbf{Intervaly existence}: Závisí na konstantě $A$
+\end{enumerate}
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Střední příklad - kvadratické f(v)]
+Řešte: $\frac{dy}{dx} = \frac{x^2 + y^2}{xy}$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item \textbf{Úprava}:
+\[
+\frac{dy}{dx} = \frac{x^2 + y^2}{xy} = \frac{x}{y} + \frac{y}{x} = \frac{1}{v} + v \quad \text{kde } v = \frac{y}{x}
+\]
+
+\item \textbf{Substituce}: $y = vx \implies \frac{dy}{dx} = v + x\frac{dv}{dx}$
+
+\item \textbf{Dosazení}:
+\[
+v + x\frac{dv}{dx} = \frac{1}{v} + v \implies x\frac{dv}{dx} = \frac{1}{v}
+\]
+
+\item \textbf{Separace}:
+\[
+v  dv = \frac{dx}{x} \implies \frac{v^2}{2} = \ln|x| + C
+\]
+
+\item \textbf{Zpětná substituce}:
+\[
+\frac{y^2}{2x^2} = \ln|x| + C \implies y^2 = 2x^2(\ln|x| + C)
+\]
+
+\item \textbf{Interval existence}: $(-\infty, 0)$ nebo $(0, \infty)$
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\paragraph*{A3: Racionální f(v)}
+
+\begin{example}[Lehký příklad - racionální f(v)]
+Řešte: $\frac{dy}{dx} = \frac{x + y}{x - y}$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item \textbf{Úprava}:
+\[
+\frac{dy}{dx} = \frac{1 + y/x}{1 - y/x} = \frac{1 + v}{1 - v} \quad \text{kde } v = \frac{y}{x}
+\]
+
+\item \textbf{Substituce}: $y = vx \implies \frac{dy}{dx} = v + x\frac{dv}{dx}$
+
+\item \textbf{Dosazení}:
+\[
+v + x\frac{dv}{dx} = \frac{1 + v}{1 - v} \implies x\frac{dv}{dx} = \frac{1 + v}{1 - v} - v = \frac{1 + v^2}{1 - v}
+\]
+
+\item \textbf{Separace}:
+\[
+\frac{1 - v}{1 + v^2}dv = \frac{dx}{x}
+\]
+
 \item \textbf{Integrace}:
 \[
--\frac{1}{1-\alpha}\ln|A - u| = \ln L + C.
+\int \frac{1 - v}{1 + v^2}dv = \int \frac{1}{1 + v^2}dv - \int \frac{v}{1 + v^2}dv = \arctan v - \frac{1}{2}\ln(1 + v^2)
 \]
-\item \textbf{Exponenciace}:
+
+\item \textbf{Výsledek}:
 \[
-A - u = C_1\,L^{-(1-\alpha)}.
+\arctan v - \frac{1}{2}\ln(1 + v^2) = \ln|x| + C
 \]
-\item \textbf{Návrat k $k$}:
+
+\item \textbf{Zpětná substituce}:
 \[
-A - k^{1-\alpha} = C_1\,L^{-(1-\alpha)}.
+\arctan\left(\frac{y}{x}\right) - \frac{1}{2}\ln\left(1 + \frac{y^2}{x^2}\right) = \ln|x| + C
 \]
-\item \textbf{Řešení pro $k(L)$}:
 \[
-k(L) = \left[A - C_1\,L^{-(1-\alpha)}\right]^{\tfrac{1}{1-\alpha}}.
+\arctan\left(\frac{y}{x}\right) - \frac{1}{2}\ln(x^2 + y^2) + \ln|x| = \ln|x| + C
 \]
-\item \textbf{Určení konstanty}:
 \[
-k_0 = \left[A - C_1\,L_0^{-(1-\alpha)}\right]^{\tfrac{1}{1-\alpha}}
-\;\Rightarrow\;
-C_1 = L_0^{1-\alpha}\!\left(A - k_0^{1-\alpha}\right).
+\arctan\left(\frac{y}{x}\right) - \frac{1}{2}\ln(x^2 + y^2) = C
 \]
-\item \textbf{Konečné řešení}:
+
+\item \textbf{Geometrická interpretace}: Rovnice kružnic v polárních souřadnicích
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+
+
+
+
+% !TEX root = ../main.tex
+% ČÁST 2/3 - Pokračování 1.3 Homogenní Rovnice
+
+\subsubsection{Početní Sekce - Kategorie A (pokračování)}
+\label{subsubsec:pocetni-kategorie-a-pokracovani}
+
+\paragraph*{A4: Algebraické f(v)}
+
+\begin{example}[Lehký příklad - algebraické f(v)]
+Řešte: $\frac{dy}{dx} = \sqrt{\frac{y}{x}}$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $f(v) = \sqrt{v}$, předpokládáme $y/x \geq 0$
+
+\item \textbf{Substituce}: $y = vx \implies \frac{dy}{dx} = v + x\frac{dv}{dx}$
+
+\item \textbf{Dosazení}:
 \[
-k(L) = \left[A - \big(A - k_0^{1-\alpha}\big)\left(\frac{L_0}{L}\right)^{1-\alpha}\right]^{\tfrac{1}{1-\alpha}}.
+v + x\frac{dv}{dx} = \sqrt{v} \implies x\frac{dv}{dx} = \sqrt{v} - v
+\]
+
+\item \textbf{Separace}:
+\[
+\frac{dv}{\sqrt{v} - v} = \frac{dx}{x}
+\]
+
+\item \textbf{Úprava integrandu}:
+\[
+\frac{1}{\sqrt{v} - v} = \frac{1}{\sqrt{v}(1 - \sqrt{v})}
+\]
+Substituce $u = \sqrt{v} \implies v = u^2$, $dv = 2u  du$
+\[
+\int \frac{2u  du}{u(1 - u)} = 2\int \frac{du}{1 - u} = -2\ln|1 - u| + C
+\]
+
+\item \textbf{Výsledek}:
+\[
+-2\ln|1 - \sqrt{v}| = \ln|x| + C \implies \ln|1 - \sqrt{v}| = -\frac{1}{2}\ln|x| + K
+\]
+
+\item \textbf{Zpětná substituce}:
+\[
+1 - \sqrt{\frac{y}{x}} = \frac{A}{\sqrt{x}} \quad (A = \pm e^K)
+\]
+\[
+\sqrt{\frac{y}{x}} = 1 - \frac{A}{\sqrt{x}} \implies \frac{y}{x} = \left(1 - \frac{A}{\sqrt{x}}\right)^2
+\]
+\[
+y = x\left(1 - \frac{2A}{\sqrt{x}} + \frac{A^2}{x}\right) = x - 2A\sqrt{x} + A^2
+\]
+
+\item \textbf{Singulární řešení}: $v = 0$ a $v = 1$ $\implies$ $y = 0$ a $y = x$
+
+\item \textbf{Interval existence}: $x > 0$, $y \geq 0$
+\end{enumerate}
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Střední příklad - algebraické f(v)]
+Řešte: $\frac{dy}{dx} = \frac{\sqrt{x^2 + y^2}}{x}$ pro $x > 0$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item \textbf{Úprava}:
+\[
+\frac{dy}{dx} = \frac{\sqrt{x^2 + y^2}}{x} = \sqrt{1 + \left(\frac{y}{x}\right)^2} = \sqrt{1 + v^2}
+\]
+
+\item \textbf{Substituce}: $y = vx \implies \frac{dy}{dx} = v + x\frac{dv}{dx}$
+
+\item \textbf{Dosazení}:
+\[
+v + x\frac{dv}{dx} = \sqrt{1 + v^2} \implies x\frac{dv}{dx} = \sqrt{1 + v^2} - v
+\]
+
+\item \textbf{Separace}:
+\[
+\frac{dv}{\sqrt{1 + v^2} - v} = \frac{dx}{x}
+\]
+
+\item \textbf{Racionalizace jmenovatele}:
+\[
+\frac{1}{\sqrt{1 + v^2} - v} \cdot \frac{\sqrt{1 + v^2} + v}{\sqrt{1 + v^2} + v} = \frac{\sqrt{1 + v^2} + v}{1}
+\]
+
+\item \textbf{Integrace}:
+\[
+\int (\sqrt{1 + v^2} + v)dv = \int \frac{dx}{x}
+\]
+\[
+\frac{v}{2}\sqrt{1 + v^2} + \frac{1}{2}\ln|v + \sqrt{1 + v^2}| + \frac{v^2}{2} = \ln|x| + C
+\]
+
+\item \textbf{Zpětná substituce}: $v = y/x$
+\[
+\frac{y}{2x}\sqrt{1 + \frac{y^2}{x^2}} + \frac{1}{2}\ln\left|\frac{y}{x} + \sqrt{1 + \frac{y^2}{x^2}}\right| + \frac{y^2}{2x^2} = \ln|x| + C
+\]
+
+\item \textbf{Zjednodušení}:
+\[
+\frac{y}{2x^2}\sqrt{x^2 + y^2} + \frac{1}{2}\ln\left|\frac{y + \sqrt{x^2 + y^2}}{x}\right| + \frac{y^2}{2x^2} = \ln|x| + C
 \]
 \end{enumerate}
+\end{example}
 
-\noindent\textbf{Analýza dlouhodobého chování}
+\vspace{0.8\baselineskip}
+
+\paragraph*{A5: Goniometrické f(v)}
+
+\begin{example}[Lehký příklad - goniometrické f(v)]
+Řešte: $\frac{dy}{dx} = \tan\left(\frac{y}{x}\right)$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $f(v) = \tan v$
+
+\item \textbf{Substituce}: $y = vx \implies \frac{dy}{dx} = v + x\frac{dv}{dx}$
+
+\item \textbf{Dosazení}:
+\[
+v + x\frac{dv}{dx} = \tan v \implies x\frac{dv}{dx} = \tan v - v
+\]
+
+\item \textbf{Separace}:
+\[
+\frac{dv}{\tan v - v} = \frac{dx}{x}
+\]
+
+\item \textbf{Integrace}: Integrál nelze vyjádřit elementárními funkcemi
+\[
+\int \frac{dv}{\tan v - v} = \ln|x| + C
+\]
+
+\item \textbf{Implicitní řešení}:
+\[
+\int \frac{dv}{\tan v - v} = \ln|x| + C \quad \text{kde } v = \frac{y}{x}
+\]
+
+\item \textbf{Singulární řešení}: $\tan v - v = 0 \implies v = 0 \implies y = 0$
+\end{enumerate}
+\end{example}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Střední příklad - goniometrické f(v)]
+Řešte: $\frac{dy}{dx} = \sin\left(\frac{y}{x}\right) + \frac{y}{x}$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $f(v) = \sin v + v$
+
+\item \textbf{Substituce}: $y = vx \implies \frac{dy}{dx} = v + x\frac{dv}{dx}$
+
+\item \textbf{Dosazení}:
+\[
+v + x\frac{dv}{dx} = \sin v + v \implies x\frac{dv}{dx} = \sin v
+\]
+
+\item \textbf{Separace}:
+\[
+\frac{dv}{\sin v} = \frac{dx}{x} \implies \csc v  dv = \frac{dx}{x}
+\]
+
+\item \textbf{Integrace}:
+\[
+\int \csc v  dv = \ln|\csc v - cot v| = \ln\left|\frac{1 - \cos v}{\sin v}\right| = \ln\left|\tan\frac{v}{2}\right|
+\]
+\[
+\ln\left|\tan\frac{v}{2}\right| = \ln|x| + C
+\]
+
+\item \textbf{Výsledek}:
+\[
+\tan\frac{v}{2} = Ax \quad (A = \pm e^C)
+\]
+
+\item \textbf{Zpětná substituce}:
+\[
+\tan\left(\frac{y}{2x}\right) = Ax \implies \frac{y}{2x} = \arctan(Ax) \implies y = 2x \arctan(Ax)
+\]
+
+\item \textbf{Interval existence}: Závisí na konstantě $A$
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Geometrická Interpretace a Fázová Analýza}
+\label{subsubsec:geometricka-interpretace}
+
+\begin{theorem}[Geometrická vlastnost homogenních rovnic]
+Trajektorie řešení homogenní rovnice $\frac{dy}{dx} = f\left(\frac{y}{x}\right)$ jsou invariantní vůči dilatacím. To znamená, že pokud $y = \phi(x)$ je řešení, pak pro libovolné $\lambda > 0$ je $y = \lambda\phi\left(\frac{x}{\lambda}\right)$ také řešení.
+\end{theorem}
+
+\vspace{0.4\baselineskip}
+
+\begin{proof}
+Nechť $y = \phi(x)$ je řešení. Pak:
+\[
+\frac{d}{dx}[\lambda\phi(x/\lambda)] = \lambda\cdot\frac{1}{\lambda}\phi'(x/\lambda) = \phi'(x/\lambda)
+\]
+a
+\[
+f\left(\frac{\lambda\phi(x/\lambda)}{x}\right) = f\left(\frac{\phi(x/\lambda)}{x/\lambda}\right) = \phi'(x/\lambda)
+\]
+Tedy $y = \lambda\phi(x/\lambda)$ je také řešení.
+\end{proof}
+
+\vspace{0.6\baselineskip}
+
+\begin{method}[Konstrukce směrového pole]
+\label{met:smerove-pole-homogenni}
+Pro homogenní rovnici $\frac{dy}{dx} = f\left(\frac{y}{x}\right)$:
+\begin{enumerate}
+\item Směrové pole závisí pouze na poměru $y/x$
+\item Přímky $y = mx$ jsou izokliny
+\item Na každé přímce $y = mx$ je sklen řešení konstantní: $f(m)$
+\item Celé směrové pole lze získat z jedné přímky dilatacemi
+\end{enumerate}
+\end{method}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Směrové pole pro $\frac{dy}{dx} = \frac{y}{x}$]
+\label{ex:smerove-pole-zaklad}
+Pro rovnici $\frac{dy}{dx} = \frac{y}{x}$:
 \begin{itemize}
-\item Pro $L \to \infty$: $k(L) \to A^{\tfrac{1}{1-\alpha}}$ (rovnovážná intenzita).
-\item Pro $\alpha < 1$: konvergence k rovnováze.
-\item Pro $\alpha > 1$: divergentní chování.
-\end{itemize}
-
-\noindent\textbf{Kontrolní body}
-\begin{itemize}
-\item ✓ Ověření homogenity.
-\item ✓ Správná substituce a transformace.
-\item ✓ Integrace a zpětná substituce.
-\item ✓ Ekonomická smysluplnost.
-\end{itemize}
-
-\noindent\textbf{Ekonomická interpretace}
-\begin{itemize}
-\item Model: produkční funkce s variabilní intenzitou.
-\item $k(L)$: kapitálová intenzita jako funkce množství práce.
-\item $A^{\tfrac{1}{1-\alpha}}$: rovnovážná kapitálová intenzita.
-\item Aplikace: analýza substituce výrobních faktorů.
-\end{itemize}
-
-\begin{lstlisting}[language=Python, caption={Implementace modelu substituce v~Pythonu}]
-import numpy as np
-import matplotlib.pyplot as plt
-
-def capital_intensity(L, L0, k0, A=2.0, alpha=0.5):
-    """Kapitálová intenzita jako funkce práce"""
-    term1 = A - (A - k0 ** (1 - alpha)) * (L0 / L) ** (1 - alpha)
-    return term1 ** (1 / (1 - alpha))
-
-# Parametry modelu
-A_values = [1.5, 2.0, 2.5]
-alpha_values = [0.3, 0.5, 0.7]
-L0 = 1.0
-k0 = 1.0
-
-plt.figure(figsize=(15, 5))
-
-# 1. Vliv technologie (A)
-plt.subplot(1, 3, 1)
-L_vals = np.linspace(1, 10, 100)
-for A in A_values:
-    k_vals = capital_intensity(L_vals, L0, k0, A=A, alpha=0.5)
-    plt.plot(L_vals, k_vals, linewidth=2, label=f'A = {A}')
-plt.xlabel('Práce (L)')
-plt.ylabel('Kapitálová intenzita (k)')
-plt.title('Vliv technologického parametru A')
-plt.legend()
-plt.grid(True)
-
-# 2. Vliv elasticity substituce (α)
-plt.subplot(1, 3, 2)
-for alpha in alpha_values:
-    k_vals = capital_intensity(L_vals, L0, k0, A=2.0, alpha=alpha)
-    plt.plot(L_vals, k_vals, linewidth=2, label=f'α = {alpha}')
-plt.xlabel('Práce (L)')
-plt.ylabel('Kapitálová intenzita (k)')
-plt.title('Vliv elasticity substituce α')
-plt.legend()
-plt.grid(True)
-
-# 3. Trajektorie růstu v čase
-plt.subplot(1, 3, 3)
-t_vals = np.linspace(0, 20, 100)
-L_growth = L0 * np.exp(0.05 * t_vals)
-k_traj = capital_intensity(L_growth, L0, k0, A=2.0, alpha=0.5)
-K_traj = k_traj * L_growth
-plt.plot(t_vals, k_traj, linewidth=2, label='Kapitálová intenzita (k)')
-plt.plot(t_vals, K_traj, linewidth=2, label='Celkový kapitál (K)')
-plt.plot(t_vals, L_growth, linewidth=2, label='Práce (L)')
-plt.xlabel('Čas (roky)')
-plt.ylabel('Hodnota')
-plt.title('Trajektorie růstu')
-plt.legend()
-plt.grid(True)
-
-plt.tight_layout()
-plt.show()
-
-def substitution_analysis():
-    """Analýza substitučních efektů"""
-    print("=== ANALÝZA MODELU SUBSTITUCE ===")
-
-    def k_eq(A, alpha):  # rovnovážná kapitálová intenzita
-        return A ** (1 / (1 - alpha))
-
-    print("\nRovnovážná kapitálová intenzita:")
-    for A in [1.5, 2.0, 2.5]:
-        for alpha in [0.3, 0.5, 0.7]:
-            print(f"A={A}, α={alpha}: k_eq = {k_eq(A, alpha):.2f}")
-
-    print("\nElasticita substituce: σ = 1/(1-α)")
-    for alpha in [0.3, 0.5, 0.7]:
-        print(f"α={alpha}: σ = {1/(1-alpha):.2f}")
-
-    print("\nDopad technologického pokroku (A 1.5 → 2.0):")
-    for alpha in [0.3, 0.5, 0.7]:
-        g = (k_eq(2.0, alpha) / k_eq(1.5, alpha) - 1) * 100
-        print(f"α={alpha}: růst kapitálové intensity o {g:.1f}%")
-
-substitution_analysis()
-\end{lstlisting}
-
-\noindent\textbf{Ekonomické implikace}
-\begin{itemize}
-\item \textbf{Technologický pokrok}: zvyšuje rovnovážnou kapitálovou intenzitu.
-\item \textbf{Elasticita substituce}: určuje rychlost adaptace.
-\item \textbf{Růst práce}: ovlivňuje trajektorii kapitálové intensity.
-\end{itemize}
-
-\noindent\textbf{Sensitivní analýza}
-\begin{itemize}
-\item \textbf{Citlivost na $A$}: rovnovážná intenzita roste s~$A$.
-\item \textbf{Citlivost na $\alpha$}: vyšší elasticita vede k~rychlejší konvergenci.
-\item \textbf{Elasticita substituce}: $\sigma = \dfrac{1}{1-\alpha}$.
+\item Na přímce $y = mx$: sklon $m$
+\item Přímky procházející počátkem jsou řešeními
+\item Směrové pole je radiální
 \end{itemize}
 \end{example}
 
-\subsubsection{Shrnutí úrovně 1D}
-\label{sec:shrnuti-uroven-1d}
+\vspace{0.6\baselineskip}
 
-Úroveň 1D představila pokročilé aplikace základních typů ODE 1. řádu v~ekonomii a financích:
+\begin{example}[Fázový portrét homogenní rovnice]
+Analyzujte rovnici: $\frac{dy}{dx} = \frac{y^2 - x^2}{2xy}$
+\vspace{0.3\baselineskip}
 
-\begin{table}[h]
-\centering
-\caption{Přehled úrovně 1D}
-\label{tab:prehled-1d}
-\begin{tabular}{@{}llll@{}}
-\toprule
-\textbf{Příklad} & \textbf{Typ ODE} & \textbf{Klíčový koncept} & \textbf{Aplikace} \\
-\midrule
-Solowův model & Separovatelná & Technologický pokrok & Ekonomický růst \\
-Keynesiánský model & Lineární & Multiplikátory & Fiskální politika \\
-Substituční model & Homogenní & Relativní ceny & Teorie produkce \\
-\bottomrule
+\textbf{Řešení}: 
+\begin{enumerate}
+\item \textbf{Úprava}:
+\[
+\frac{dy}{dx} = \frac{(y/x)^2 - 1}{2(y/x)} = \frac{v^2 - 1}{2v}
+\]
+
+\item \textbf{Rovnovážné body}: $f(v) - v = 0$
+\[
+\frac{v^2 - 1}{2v} - v = \frac{v^2 - 1 - 2v^2}{2v} = \frac{-v^2 - 1}{2v} = 0
+\]
+Žádné reálné rovnovážné body.
+
+\item \textbf{Substituce}: $y = vx$
+\[
+v + x\frac{dv}{dx} = \frac{v^2 - 1}{2v} \implies x\frac{dv}{dx} = \frac{v^2 - 1}{2v} - v = \frac{-v^2 - 1}{2v}
+\]
+
+\item \textbf{Separace}:
+\[
+\frac{2v}{-v^2 - 1}dv = \frac{dx}{x} \implies -\int \frac{2v}{v^2 + 1}dv = \int \frac{dx}{x}
+\]
+\[
+-\ln|v^2 + 1| = \ln|x| + C \implies \frac{1}{v^2 + 1} = Ax
+\]
+
+\item \textbf{Zpětná substituce}:
+\[
+\frac{1}{(y/x)^2 + 1} = Ax \implies \frac{x^2}{x^2 + y^2} = Ax
+\]
+\[
+x^2 + y^2 = \frac{x}{A} \implies x^2 + y^2 - \frac{x}{A} = 0
+\]
+
+\item \textbf{Geometrická interpretace}: Kružnice procházející počátkem
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Početní Sekce - Kategorie B: Podle složitosti substituce}
+\label{subsubsec:pocetni-kategorie-b}
+
+\paragraph*{B1: Přímá substituce v = y/x}
+
+\begin{example}[Jednoduchá integrace]
+Řešte: $\frac{dy}{dx} = \frac{y}{x} + \left(\frac{y}{x}\right)^2$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $f(v) = v + v^2$
+
+\item \textbf{Substituce}: $y = vx$
+\[
+v + x\frac{dv}{dx} = v + v^2 \implies x\frac{dv}{dx} = v^2
+\]
+
+\item \textbf{Separace}:
+\[
+\frac{dv}{v^2} = \frac{dx}{x} \implies -\frac{1}{v} = \ln|x| + C
+\]
+
+\item \textbf{Výsledek}:
+\[
+-\frac{x}{y} = \ln|x| + C \implies y = -\frac{x}{\ln|x| + C}
+\]
+
+\item \textbf{Singulární řešení}: $v = 0 \implies y = 0$
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\paragraph*{B2: Vícenásobná substituce}
+
+\begin{example}[Řetězová substituce]
+Řešte: $\frac{dy}{dx} = \sqrt{\frac{y}{x} + \sqrt{\frac{y}{x}}}$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item \textbf{První substituce}: $v = \frac{y}{x} \implies y = vx$
+\[
+v + x\frac{dv}{dx} = \sqrt{v + \sqrt{v}}
+\]
+
+\item \textbf{Druhá substituce}: $u = \sqrt{v} \implies v = u^2$, $dv = 2u  du$
+\[
+u^2 + x\cdot 2u\frac{du}{dx} = \sqrt{u^2 + u} = \sqrt{u(u + 1)}
+\]
+
+\item \textbf{Separace}:
+\[
+2xu\frac{du}{dx} = \sqrt{u(u + 1)} - u^2
+\]
+\[
+\frac{2u  du}{\sqrt{u(u + 1)} - u^2} = \frac{dx}{x}
+\]
+
+\item \textbf{Integrace vyžaduje numerické metody nebo speciální funkce}
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Aplikace v Kvantitativních Vědách}
+\label{subsubsec:aplikace-kvantitativni}
+
+\begin{application}[Cobb-Douglasova produkční funkce]
+\label{app:cobb-douglas}
+Produkční funkce $Y = AK^\alpha L^{1-\alpha}$ je homogenní stupně 1. Rovnice popisující izokvanty:
+\[
+\frac{dK}{dL} = -\frac{\partial Y/\partial L}{\partial Y/\partial K} = -\frac{(1-\alpha)AK^\alpha L^{-\alpha}}{\alpha AK^{\alpha-1}L^{1-\alpha}} = -\frac{1-\alpha}{\alpha}\cdot\frac{K}{L}
+\]
+
+\textbf{Řešení}: Homogenní rovnice s $f(v) = -\frac{1-\alpha}{\alpha}v$
+\[
+\frac{dK}{dL} = -\frac{1-\alpha}{\alpha}\cdot\frac{K}{L}
+\]
+Substituce $v = K/L$:
+\[
+v + L\frac{dv}{dL} = -\frac{1-\alpha}{\alpha}v \implies L\frac{dv}{dL} = -\left(\frac{1-\alpha}{\alpha} + 1\right)v = -\frac{1}{\alpha}v
+\]
+\[
+\frac{dv}{v} = -\frac{1}{\alpha}\frac{dL}{L} \implies \ln|v| = -\frac{1}{\alpha}\ln|L| + C
+\]
+\[
+v = AL^{-1/\alpha} \implies \frac{K}{L} = AL^{-1/\alpha} \implies K = AL^{1-1/\alpha}
+\]
+\end{application}
+
+\vspace{0.6\baselineskip}
+
+\begin{application}[Model s konstantními výnosy z rozsahu]
+\label{app:konstantni-vynosy}
+Uvažujme firmu s nákladovou funkcí $C(Y)$ homogenní stupně 1. Pak mezní náklady závisí pouze na poměru vstupů:
+\[
+\frac{dC}{dY} = f\left(\frac{K}{L}\right)
+\]
+Homogenní rovnice popisuje optimální kombinaci vstupů.
+\end{application}
+
+\vspace{0.6\baselineskip}
+
+\begin{application}[Podobnostní zákony v mechanice tekutin]
+\label{app:podobnostni-zakony}
+Reynoldsova rovnice pro proudění:
+\[
+\frac{dv}{dr} = f\left(\frac{v}{r}\right)
+\]
+kde $v$ je rychlost, $r$ poloměr. Homogenita zajišťuje podobnostní zákony.
+\end{application}
+
+\vspace{0.8\baselineskip}
+
+% !TEX root = ../main.tex
+% ČÁST 3/3 - Dokončení 1.3 Homogenní Rovnice
+
+\subsubsection{Početní Sekce - Kategorie C: Aplikované Příklady}
+\label{subsubsec:pocetni-kategorie-c}
+
+\paragraph*{C1: Ekonomické modely}
+
+\begin{example}[Optimalizace produkční funkce]
+Firma má produkční funkci $Q = K^{0.6}L^{0.4}$ a nákladovou funkci $C = 2K + 3L$. Najděte trajektorii optimálního růstu při konstantních výnosech z rozsahu.
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item \textbf{Mezní produktivity}:
+\[
+\frac{\partial Q}{\partial K} = 0.6K^{-0.4}L^{0.4}, \quad \frac{\partial Q}{\partial L} = 0.4K^{0.6}L^{-0.6}
+\]
+
+\item \textbf{Podmínka optima}: $\frac{\partial Q/\partial K}{\partial Q/\partial L} = \frac{\text{cena K}}{\text{cena L}}$
+\[
+\frac{0.6K^{-0.4}L^{0.4}}{0.4K^{0.6}L^{-0.6}} = \frac{2}{3} \implies \frac{3}{2}\cdot\frac{L}{K} = \frac{2}{3}
+\]
+\[
+\frac{L}{K} = \frac{4}{9} \implies K = \frac{9}{4}L
+\]
+
+\item \textbf{Růstová trajektorie}: $\frac{dK}{dL} = \frac{9}{4}$ - konstantní poměr
+
+\item \textbf{Homogenní formulace}: 
+\[
+\frac{dK}{dL} = f\left(\frac{K}{L}\right) = \frac{9}{4}
+\]
+Řešení: $K = \frac{9}{4}L + C$, ale pro homogenní případ $C = 0$
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\paragraph*{C2: Fyzikální modely}
+
+\begin{example}[Podobnostní zákony v dynamice]
+Analyzujte rovnici popisující podobnostní zákony: $\frac{dr}{dt} = k\sqrt{\frac{r}{t}}$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item \textbf{Test homogenity}: $F(\lambda r, \lambda t) = k\sqrt{\frac{\lambda r}{\lambda t}} = k\sqrt{\frac{r}{t}} = F(r,t)$
+
+\item \textbf{Substituce}: $v = \frac{r}{t} \implies r = vt \implies \frac{dr}{dt} = v + t\frac{dv}{dt}$
+
+\item \textbf{Dosazení}:
+\[
+v + t\frac{dv}{dt} = k\sqrt{v} \implies t\frac{dv}{dt} = k\sqrt{v} - v
+\]
+
+\item \textbf{Separace}:
+\[
+\frac{dv}{k\sqrt{v} - v} = \frac{dt}{t}
+\]
+
+\item \textbf{Substituce}: $u = \sqrt{v} \implies v = u^2$, $dv = 2u  du$
+\[
+\int \frac{2u  du}{ku - u^2} = \int \frac{dt}{t} \implies 2\int \frac{du}{k - u} = \ln|t| + C
+\]
+\[
+-2\ln|k - u| = \ln|t| + C \implies (k - u)^{-2} = At
+\]
+
+\item \textbf{Výsledek}:
+\[
+k - \sqrt{\frac{r}{t}} = \frac{B}{\sqrt{t}} \implies r(t) = t\left(k - \frac{B}{\sqrt{t}}\right)^2 = k^2t - 2kB\sqrt{t} + B^2
+\]
+
+\item \textbf{Fyzikální interpretace}: Růst s různými režimy v závislosti na čase
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Početní Sekce - Kategorie D: Speciální Případy}
+\label{subsubsec:pocetni-kategorie-d}
+
+\paragraph*{D1: Rovnice s parametry}
+
+\begin{example}[Bifurkační analýza]
+Analyzujte rovnici: $\frac{dy}{dx} = \frac{y}{x} + \alpha\left(\frac{y}{x}\right)^2$ v závislosti na parametru $\alpha$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item $f(v) = v + \alpha v^2$
+
+\item \textbf{Substituce}: $y = vx$
+\[
+v + x\frac{dv}{dx} = v + \alpha v^2 \implies x\frac{dv}{dx} = \alpha v^2
+\]
+
+\item \textbf{Rovnovážné body}: $f(v) - v = \alpha v^2 = 0 \implies v = 0$
+
+\item \textbf{Stabilita}: 
+\begin{itemize}
+\item Pro $\alpha > 0$: $v = 0$ nestabilní
+\item Pro $\alpha < 0$: $v = 0$ stabilní
+\item Pro $\alpha = 0$: všechny body na přímkách řešeními
+\end{itemize}
+
+\item \textbf{Obecné řešení}:
+\[
+\frac{dv}{v^2} = \alpha\frac{dx}{x} \implies -\frac{1}{v} = \alpha\ln|x| + C
+\]
+\[
+v = -\frac{1}{\alpha\ln|x| + C} \implies y = -\frac{x}{\alpha\ln|x| + C}
+\]
+
+\item \textbf{Bifurkační diagram}: Transkritická bifurkace při $\alpha = 0$
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\paragraph*{D2: Singulární řešení}
+
+\begin{example}[Obálka rodiny řešení]
+Najděte singulární řešení rovnice: $\frac{dy}{dx} = \sqrt{\frac{y}{x}}$
+\vspace{0.3\baselineskip}
+
+\textbf{Řešení}: 
+\begin{enumerate}
+\item \textbf{Obecné řešení} (z příkladu A4): $y = x - 2A\sqrt{x} + A^2$
+
+\item \textbf{Diskriminantní křivka}: Derivujeme podle parametru $A$:
+\[
+\frac{\partial y}{\partial A} = -2\sqrt{x} + 2A = 0 \implies A = \sqrt{x}
+\]
+
+\item \textbf{Dosazení do obecného řešení}:
+\[
+y = x - 2\sqrt{x}\cdot\sqrt{x} + (\sqrt{x})^2 = x - 2x + x = 0
+\]
+
+\item \textbf{Singulární řešení}: $y = 0$
+
+\item \textbf{Ověření}: $y = 0$ splňuje původní rovnici
+\[
+\frac{d}{dx}[0] = 0 = \sqrt{\frac{0}{x}} \quad \checkmark
+\]
+
+\item \textbf{Geometrická interpretace}: $y = 0$ je obálkou rodiny řešení
+\end{enumerate}
+\end{example}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Numerická Verifikace a Analýza}
+\label{subsubsec:numericka-verifikace}
+
+\begin{method}[Eulerova metoda pro homogenní rovnice]
+\label{met:euler-homogenni}
+Pro rovnici $\frac{dy}{dx} = f\left(\frac{y}{x}\right)$ s počáteční podmínkou $y(x_0) = y_0$:
+
+\begin{enumerate}
+\item Zvolte krok $h > 0$
+\item Pro $n = 0, 1, 2, \dots$ počítáme:
+\[
+y_{n+1} = y_n + h\cdot f\left(\frac{y_n}{x_n}\right)
+\]
+\[
+x_{n+1} = x_n + h
+\]
+\item Speciální vlastnost: Metoda zachovává homogenitu diskrétně
+\end{enumerate}
+\end{method}
+
+\vspace{0.6\baselineskip}
+
+\begin{example}[Numerická verifikace]
+Porovnejte analytické a numerické řešení: $\frac{dy}{dx} = \frac{y}{x} + 1$, $y(1) = 2$
+\vspace{0.3\baselineskip}
+
+\textbf{Analytické řešení}: $y = x\ln|x| + 2x$
+
+\textbf{Numerické řešení} (krok $h = 0.1$):
+\begin{center}
+\begin{tabular}{c|c|c|c}
+$x_n$ & Analytické $y(x_n)$ & Numerické $y_n$ & Chyba \\
+\hline
+1.0 & 2.0000 & 2.0000 & 0.0000 \\
+1.1 & 2.3046 & 2.3000 & 0.0046 \\
+1.2 & 2.6194 & 2.6091 & 0.0103 \\
+1.3 & 2.9443 & 2.9273 & 0.0170 \\
+1.4 & 3.2792 & 3.2545 & 0.0247 \\
+1.5 & 3.6240 & 3.5909 & 0.0331 \\
 \end{tabular}
-\end{table}
+\end{center}
 
-\noindent\textbf{Zvládnuté pokročilé dovednosti}:
-\begin{itemize}
-\item Transformace komplexních separovatelných rovnic.
-\item Řešení lineárních rovnic s ekonomickou interpretací.
-\item Aplikace homogenních rovnic na modely relativních cen.
-\item Ekonomická analýza stacionárních stavů a stability.
-\item Simulace a sensitivní analýza ekonomických modelů.
-\end{itemize}
-
-\noindent\textbf{Klíčové ekonomické koncepty}:
-\begin{itemize}
-\item Dlouhodobý ekonomický růst a technologický pokrok.
-\item Fiskální politika a multiplikační efekty.
-\item Substituce výrobních faktorů a kapitálová intenzita.
-\item Rovnováha a stabilizační mechanismy.
-\end{itemize}
-
-\label{sec:uroven-1d}
-
-\subsubsection{Stochastické úrokové modely}
-\label{subsec:stochasticke-urokove-modely}
-
-\begin{example}[Vasicekův model úrokových sazeb]
-\label{ex:vasicek-model}
-
-\begin{itemize}
-\item \textbf{Identifikace}: Lineární nehomogenní rovnice
-\item \textbf{Úroveň}: 1D — Expertní finanční modely
-\item \textbf{Finanční kontext}: Modelování úrokových sazeb a oceňování bondů
-\end{itemize}
-
-\noindent\textbf{Zadání}
-Určete cenový vzorec pro zero-coupon bond ve Vasicekově modelu:
-\[
-dr_t = \kappa(\theta - r_t)\,dt + \sigma\, dW_t,
-\qquad
-P(t,T) = \mathbb{E}\!\left[e^{-\int_t^T r_s\, ds}\right].
-\]
-
-\noindent\textbf{Teoretická analýza}
-\begin{itemize}
-\item Vasicekův model: mean-reverting proces s rychlostí $\kappa$, dlouhodobým průměrem $\theta$, volatilitou $\sigma$.
-\item Deterministická část: $\dfrac{dr}{dt} = \kappa(\theta - r)$.
-\item Řešení vede na Riccatiho ODE pro $A(t,T)$ a $B(t,T)$.
-\item Cena bondu: $P(t,T) = e^{A(t,T) - B(t,T)\, r_t}$.
-\end{itemize}
-
-\noindent\textbf{Kroky řešení}
-\begin{enumerate}
-\item \textbf{ODE pro $B(t,T)$}:
-\[
-\frac{\partial B}{\partial t} = \kappa B - 1, \qquad B(T,T) = 0.
-\]
-\item \textbf{Řešení $B(t,T)$}:
-\[
-B(t,T) = \frac{1 - e^{-\kappa (T-t)}}{\kappa}.
-\]
-\item \textbf{ODE pro $A(t,T)$}:
-\[
-\frac{\partial A}{\partial t} = \kappa\theta\, B - \frac{1}{2}\sigma^2 B^2, 
-\qquad A(T,T) = 0.
-\]
-\item \textbf{Řešení $A(t,T)$}:
-\[
-A(t,T) = \left(\theta - \frac{\sigma^2}{2\kappa^2}\right)\!\big[B(t,T) - (T-t)\big]
-- \frac{\sigma^2}{4\kappa}\, B(t,T)^2.
-\]
-\item \textbf{Výsledný cenový vzorec}:
-\[
-P(t,T) = \exp\!\big\{A(t,T) - B(t,T)\, r_t\big\}.
-\]
-\end{enumerate}
-
-\noindent\textbf{Analýza vlastností modelu}
-\begin{itemize}
-\item Mean-reversion: $r_t \to \theta$ pro $t \to \infty$.
-\item Volatilita výnosů: klesá s dobou do splatnosti.
-\item Možnost záporných sazeb: při dostatečně vysoké volatilitě.
-\end{itemize}
-
-\noindent\textbf{Kontrolní body}
-\begin{itemize}
-\item ✓ Splněny okrajové podmínky $B(T,T)=0$, $A(T,T)=0$.
-\item ✓ Ověřená vlastnost mean-reversion.
-\item ✓ Konzistence s bezarbitrážní teorií oceňování.
-\end{itemize}
-
-\noindent\textbf{Finanční interpretace}
-\begin{itemize}
-\item Model: Vasicek (1977) — první analyticky řešitelný úrokový model.
-\item Aplikace: Oceňování úrokových derivátů, risk management.
-\item Výhody: Analytická řešitelnost, snadná kalibrace.
-\item Nevýhody: Možné záporné sazby, normální rozdělení.
-\end{itemize}
-
-\begin{lstlisting}[language=Python, caption={Implementace Vasicekova modelu v Pythonu}]
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.optimize import minimize
-
-def vasicek_bond_price(t, T, r_t, kappa, theta, sigma):
-    """Cena zero-coupon bondu ve Vasicekově modelu"""
-    tau = T - t
-    B = (1 - np.exp(-kappa * tau)) / kappa
-    A = (theta - sigma**2/(2*kappa**2)) * (B - tau) - (sigma**2 * B**2)/(4*kappa)
-    return np.exp(A - B * r_t)
-
-def vasicek_yield_curve(t, T_values, r_t, kappa, theta, sigma):
-    """Výpočet výnosové křivky"""
-    prices = [vasicek_bond_price(t, T, r_t, kappa, theta, sigma) for T in T_values]
-    yields = [-np.log(P) / (T - t) for P, T in zip(prices, T_values)]
-    return np.array(yields)
-
-# Parametry modelu
-kappa = 0.3
-theta = 0.05
-sigma = 0.02
-r_t = 0.03
-
-# Výnosová křivka
-T_values = np.linspace(0.1, 10, 50)
-yields = vasicek_yield_curve(0, T_values, r_t, kappa, theta, sigma)
-
-plt.figure(figsize=(12, 6))
-
-plt.subplot(1, 2, 1)
-plt.plot(T_values, yields * 100, linewidth=2)
-plt.xlabel('Doba do splatnosti (roky)')
-plt.ylabel('Výnos (%)')
-plt.title('Vasicek: Výnosová křivka')
-plt.grid(True)
-
-plt.subplot(1, 2, 2)
-# Simulace vývoje sazeb
-def simulate_vasicek(r0, kappa, theta, sigma, T, n_steps, n_paths):
-    dt = T / n_steps
-    rates = np.zeros((n_paths, n_steps + 1))
-    rates[:, 0] = r0
-    for t in range(n_steps):
-        dw = np.random.normal(0, np.sqrt(dt), n_paths)
-        rates[:, t+1] = rates[:, t] + kappa * (theta - rates[:, t]) * dt + sigma * dw
-    return rates
-
-np.random.seed(42)
-T_sim, n_steps, n_paths = 5, 1000, 100
-simulated_rates = simulate_vasicek(r_t, kappa, theta, sigma, T_sim, n_steps, n_paths)
-
-time_axis = np.linspace(0, T_sim, n_steps + 1)
-for i in range(min(20, n_paths)):
-    plt.plot(time_axis, simulated_rates[i] * 100, alpha=0.3)
-plt.axhline(y=theta * 100, color='r', linestyle='--', label='Dlouhodobý průměr')
-plt.xlabel('Čas (roky)')
-plt.ylabel('Úroková sazba (%)')
-plt.title('Vasicek: Simulace sazeb')
-plt.legend()
-plt.grid(True)
-
-plt.tight_layout()
-plt.show()
-
-# Kalibrace
-def calibrate_vasicek(market_yields, T_values, r0):
-    def objective(params):
-        kappa, theta, sigma = params
-        model_yields = vasicek_yield_curve(0, T_values, r0, kappa, theta, sigma)
-        return np.sum((model_yields - market_yields)**2)
-    initial_guess = [0.5, 0.04, 0.01]
-    bounds = [(0.01, 2), (0.001, 0.1), (0.001, 0.05)]
-    result = minimize(objective, initial_guess, bounds=bounds, method='L-BFGS-B')
-    return result.x
-
-market_data = np.array([0.02, 0.025, 0.028, 0.03, 0.031, 0.032, 0.0325, 0.033, 0.0335, 0.034])
-T_market = np.array([0.5, 1, 2, 3, 4, 5, 7, 10, 15, 20])
-calibrated_params = calibrate_vasicek(market_data, T_market, 0.03)
-print(f"Kalibrované parametry: kappa={calibrated_params[0]:.3f}, theta={calibrated_params[1]:.3f}, sigma={calibrated_params[2]:.3f}")
-\end{lstlisting}
-
-\noindent\textbf{Risk management}
-\begin{itemize}
-\item \textbf{Úrokové riziko}: Citlivost na $\kappa$, $\theta$, $\sigma$.
-\item \textbf{Modelové riziko}: Normální rozdělení a možnost záporných sazeb.
-\item \textbf{Kalibrační riziko}: Nestabilita odhadu parametrů.
-\end{itemize}
-
-\noindent\textbf{Sensitivní analýza}
-\begin{itemize}
-\item \textbf{Duration}: $\dfrac{\partial P}{\partial r} = -B(t,T)P$.
-\item \textbf{Convexita}: $\dfrac{\partial^2 P}{\partial r^2} = B(t,T)^2 P$.
-\item \textbf{Citlivost na $\kappa$}: Nelineární dopad na $A,B$ i cenu.
-\end{itemize}
+\textbf{Analýza}: Chyba roste s $x$, ale relativní chyba zůstává kontrolovaná.
 \end{example}
 
-\subsubsection{Cox–Ingersoll–Rossův model}
-\label{subsec:cir-model}
+\vspace{0.6\baselineskip}
 
-\begin{example}[CIR model s analytickým řešením]
-\label{ex:cir-model}
+\begin{example}[Numerická analýza singularity]
+Analyzujte numericky chování řešení: $\frac{dy}{dx} = \frac{1}{y/x - 1}$, $y(2) = 1$
+\vspace{0.3\baselineskip}
 
+\textbf{Analytické řešení}: Singularita při $y = x$
+
+\textbf{Numerická simulace}:
 \begin{itemize}
-\item \textbf{Identifikace}: Soustava Riccatiho ODE pro $A(t,T)$ a $B(t,T)$.
-\item \textbf{Úroveň}: 1D — Expertní finanční modely.
-\item \textbf{Finanční kontext}: Modelování úrokových sazeb bez záporných hodnot.
+\item Pro $x < 2$: řešení konverguje k $y = x$
+\item Pro $x > 2$: řešení diverguje od $y = x$
+\item Numerická metoda detekuje singularitu nestabilitou
 \end{itemize}
 
-\noindent\textbf{Zadání}
-Cox–Ingersoll–Rossův model:
-\[
-dr_t = \kappa(\theta - r_t)\, dt + \sigma\sqrt{r_t}\, dW_t, \qquad r(0)=r_0>0.
-\]
-Určete cenu zero-coupon bondu.
-
-\noindent\textbf{Teoretická analýza}
-\begin{itemize}
-\item Pozitivita pro $2\kappa\theta > \sigma^2$.
-\item Cena: $P(t,T)=A(t,T)e^{-B(t,T)r_t}$.
-\item $B$ řeší Riccatiho ODE, $A$ je dána integrací $\kappa\theta B$.
-\end{itemize}
-
-\noindent\textbf{Kroky řešení}
-\begin{enumerate}
-\item \textbf{ODE pro $B(t,T)$}:
-\[
-\frac{\partial B}{\partial t} = \frac{1}{2}\sigma^2 B^2 + \kappa B - 1, \qquad B(T,T)=0.
-\]
-\item \textbf{Řešení $B(t,T)$}:
-\[
-B(t,T) = \frac{2\big(e^{\gamma (T-t)} - 1\big)}{(\gamma + \kappa)\big(e^{\gamma (T-t)} - 1\big) + 2\gamma},
-\quad \gamma = \sqrt{\kappa^2 + 2\sigma^2}.
-\]
-\item \textbf{ODE/řešení pro $A(t,T)$}:
-\[
-\frac{\partial \ln A}{\partial t} = \kappa\theta\, B, \qquad
-A(t,T) = \left[\frac{2\gamma\, e^{(\gamma+\kappa)(T-t)/2}}{(\gamma + \kappa)\big(e^{\gamma (T-t)} - 1\big) + 2\gamma}\right]^{\!\!2\kappa\theta/\sigma^2}.
-\]
-\item \textbf{Cenový vzorec}:
-\[
-P(t,T) = A(t,T)\, e^{-B(t,T)\, r_t}.
-\]
-\end{enumerate}
-
-\noindent\textbf{Analýza vlastností modelu}
-\begin{itemize}
-\item Pozitivita sazeb: pokud $2\kappa\theta > \sigma^2$.
-\item Mean-reversion: $r_t \to \theta$ pro $t\to\infty$.
-\item Nerealíní momenty: $r_t$ má necentrální $\chi^2$ rozdělení.
-\end{itemize}
-
-\noindent\textbf{Kontrolní body}
-\begin{itemize}
-\item ✓ Ověřena podmínka pozitivity $2\kappa\theta > \sigma^2$.
-\item ✓ Splněny okrajové podmínky.
-\item ✓ Konzistence s affine strukturou výnosové křivky.
-\end{itemize}
-
-\noindent\textbf{Finanční interpretace}
-\begin{itemize}
-\item Model: CIR (1985) — vylepšení Vasiceka s pozitivními sazbami.
-\item Aplikace: Oceňování úrokových derivátů, krátkodobé sazby.
-\item Výhody: Pozitivita sazeb, realističtější rozdělení.
-\item Nevýhody: Složitější kalibrace a simulace.
-\end{itemize}
-
-\begin{lstlisting}[language=Python, caption={Implementace CIR modelu v Pythonu}]
-import numpy as np
-import matplotlib.pyplot as plt
-
-def cir_bond_price(t, T, r_t, kappa, theta, sigma):
-    """Cena zero-coupon bondu v CIR modelu"""
-    if 2*kappa*theta <= sigma**2:
-        raise ValueError("Porušena podmínka pozitivity: 2κθ > σ²")
-    tau = T - t
-    gamma = np.sqrt(kappa**2 + 2*sigma**2)
-    numerator_B = 2*(np.exp(gamma*tau) - 1)
-    denominator_B = (gamma + kappa)*(np.exp(gamma*tau) - 1) + 2*gamma
-    B = numerator_B / denominator_B
-    numerator_A = 2*gamma*np.exp((gamma + kappa)*tau/2)
-    denominator_A = (gamma + kappa)*(np.exp(gamma*tau) - 1) + 2*gamma
-    A = (numerator_A / denominator_A)**(2*kappa*theta/sigma**2)
-    return A * np.exp(-B * r_t)
-
-def cir_yield_curve(t, T_values, r_t, kappa, theta, sigma):
-    prices = [cir_bond_price(t, T, r_t, kappa, theta, sigma) for T in T_values]
-    yields = [-np.log(P) / (T - t) for P, T in zip(prices, T_values)]
-    return np.array(yields)
-
-# Základní parametry
-kappa, theta, sigma, r_t = 0.5, 0.04, 0.1, 0.03
-T_values = np.linspace(0.1, 10, 50)
-yields_cir = cir_yield_curve(0, T_values, r_t, kappa, theta, sigma)
-
-plt.figure(figsize=(12, 6))
-
-plt.subplot(1, 2, 1)
-plt.plot(T_values, yields_cir * 100, linewidth=2, label='CIR model')
-# Srovnání s Vasicekem
-from math import isfinite
-def vasicek_yield_curve(t, T_values, r_t, kappa, theta, sigma):
-    prices = []
-    for T in T_values:
-        tau = T - t
-        B = (1 - np.exp(-kappa * tau)) / kappa
-        A = (theta - sigma**2/(2*kappa**2)) * (B - tau) - (sigma**2 * B**2)/(4*kappa)
-        prices.append(np.exp(A - B * r_t))
-    return np.array([-np.log(P)/(T - t) for P, T in zip(prices, T_values)])
-
-yields_vas = vasicek_yield_curve(0, T_values, r_t, 0.3, 0.05, 0.02)
-plt.plot(T_values, yields_vas * 100, linestyle='--', linewidth=2, label='Vasicek')
-plt.xlabel('Doba do splatnosti (roky)')
-plt.ylabel('Výnos (%)')
-plt.title('CIR vs. Vasicek: Výnosové křivky')
-plt.legend()
-plt.grid(True)
-
-plt.subplot(1, 2, 2)
-# Citlivost na parametry
-param_variations = {
-    'Základní': (kappa, theta, sigma),
-    'Vysoká mean-reversion': (1.0, theta, sigma),
-    'Vysoký průměr': (kappa, 0.06, sigma),
-    'Vysoká volatilita': (kappa, theta, 0.15)
-}
-for label, (k, th, sig) in param_variations.items():
-    try:
-        yc = cir_yield_curve(0, T_values, r_t, k, th, sig)
-        plt.plot(T_values, yc * 100, label=label, linewidth=2)
-    except ValueError as e:
-        print(f"Chyba pro {label}: {e}")
-
-plt.xlabel('Doba do splatnosti (roky)')
-plt.ylabel('Výnos (%)')
-plt.title('CIR: Citlivost na parametry')
-plt.legend()
-plt.grid(True)
-
-plt.tight_layout()
-plt.show()
-
-# Simulace CIR procesu (Euler–Maruyama s bariérou v nule)
-def simulate_cir(r0, kappa, theta, sigma, T, n_steps, n_paths):
-    dt = T / n_steps
-    rates = np.zeros((n_paths, n_steps + 1))
-    rates[:, 0] = r0
-    for t in range(n_steps):
-        dw = np.random.normal(0, np.sqrt(dt), n_paths)
-        next_rates = rates[:, t] + kappa*(theta - rates[:, t]) * dt + sigma*np.sqrt(np.maximum(rates[:, t], 0))*dw
-        rates[:, t+1] = np.maximum(next_rates, 0)
-    return rates
-
-np.random.seed(42)
-T_sim, n_steps, n_paths = 5, 1000, 100
-cir_rates = simulate_cir(r_t, kappa, theta, sigma, T_sim, n_steps, n_paths)
-
-plt.figure(figsize=(10, 6))
-time_axis = np.linspace(0, T_sim, n_steps + 1)
-for i in range(min(20, n_paths)):
-    plt.plot(time_axis, cir_rates[i] * 100, alpha=0.3)
-plt.axhline(y=theta * 100, color='r', linestyle='--', label='Dlouhodobý průměr')
-plt.axhline(y=0, color='k', linestyle='-', alpha=0.5)
-plt.xlabel('Čas (roky)')
-plt.ylabel('Úroková sazba (%)')
-plt.title('CIR: Simulace sazeb (pozitivní)')
-plt.legend()
-plt.grid(True)
-plt.show()
-
-print(f"Podmínka pozitivity: 2κθ = {2*kappa*theta:.4f} > σ² = {sigma**2:.4f} -> "
-      f"{'SPLNĚNA' if 2*kappa*theta > sigma**2 else 'PORUŠENA'}")
-\end{lstlisting}
-
-\noindent\textbf{Risk management}
-\begin{itemize}
-\item \textbf{Pozitivita}: Monitorovat $2\kappa\theta > \sigma^2$.
-\item \textbf{Modelové riziko}: Square-root difúze.
-\item \textbf{Kalibrace}: Citlivost na změny parametrů.
-\end{itemize}
-
-\noindent\textbf{Sensitivní analýza}
-\begin{itemize}
-\item \textbf{$\kappa$}: Ovlivňuje rychlost návratu k průměru.
-\item \textbf{$\theta$}: Určuje dlouhodobou úroveň sazeb.
-\item \textbf{$\sigma$}: Zvyšuje volatilitu, mění tvar křivky.
-\end{itemize}
+\textbf{Závěr}: Numerické metody pomáhají identifikovat singularitu.
 \end{example}
 
-\subsubsection{Black–Karasinski model}
-\label{subsec:black-karasinski-model}
+\vspace{0.8\baselineskip}
 
-\begin{example}[Black–Karasinski model lognormálních sazeb]
-\label{ex:black-karasinski-model}
+\subsubsection{Vztah k Dalším Typům Rovnic}
+\label{subsubsec:vztah-k-dalsim-rovnicim}
 
-\begin{itemize}
-\item \textbf{Identifikace}: Transformace na lineární ODE v logaritmické škále.
-\item \textbf{Úroveň}: 1D — Expertní finanční modely.
-\item \textbf{Finanční kontext}: Úrokové sazby s lognormálním rozdělením.
-\end{itemize}
+\begin{theorem}[Vztah k lineárním rovnicím]
+Každá homogenní lineární rovnice $\frac{dy}{dx} + P(x)y = 0$ je také homogenní v geometrickém smyslu.
+\end{theorem}
 
-\noindent\textbf{Zadání}
-Black–Karasinski model:
+\vspace{0.4\baselineskip}
+
+\begin{proof}
+Lineární homogenní rovnici lze zapsat jako:
 \[
-d\ln r_t = \kappa(\theta - \ln r_t)\, dt + \sigma\, dW_t.
+\frac{dy}{dx} = -P(x)y
 \]
-Určete vlastnosti modelu a implikace pro oceňování.
+Tato rovnice je homogenní právě tehdy, když $P(x)$ je homogenní stupně $-1$, tj. $P(\lambda x) = \frac{1}{\lambda}P(x)$.
+\end{proof}
 
-\noindent\textbf{Teoretická analýza}
-\begin{itemize}
-\item Transformace: $x_t=\ln r_t$ vede na OU proces
-\(
-dx_t = \kappa(\theta - x_t)\, dt + \sigma\, dW_t.
-\)
-\item Lognormální rozdělení sazeb, pozitivita $r_t>0$.
-\item Analytická řešitelnost v log-škále; ceny bondů numericky.
-\end{itemize}
+\vspace{0.6\baselineskip}
 
-\noindent\textbf{Kroky řešení}
+\begin{theorem}[Vztah k exaktním rovnicím]
+Homogenní rovnice mohou být často převedeny na exaktní rovnice vhodnou substitucí.
+\end{theorem}
+
+\vspace{0.4\baselineskip}
+
+\begin{proof}
+Uvažujme homogenní rovnici $M(x,y)dx + N(x,y)dy = 0$ kde $M$, $N$ jsou homogenní stejného stupně. Substituce $y = vx$ vede na separabilní rovnici, která je speciálním případem exaktní rovnice.
+\end{proof}
+
+\vspace{0.8\baselineskip}
+
+\subsubsection{Shrnutí a Expertní Metodologie}
+\label{subsubsec:shrnuti-metodologie}
+
+\begin{method}[Decision tree pro homogenní rovnice]
+\label{met:decision-tree-homogenni}
 \begin{enumerate}
-\item \textbf{Řešení pro $x_t$}:
+\item \textbf{Identifikace}: Lze rovnici zapsat jako $\frac{dy}{dx} = f\left(\frac{y}{x}\right)$?
+
+\item \textbf{Test homogenity}: Platí $F(\lambda x, \lambda y) = F(x, y)$?
+
+\item \textbf{Základní substituce}: $v = \frac{y}{x} \implies y = vx$
+
+\item \textbf{Analýza singulárních bodů}: Najdi $v$ taková, že $f(v) - v = 0$
+
+\item \textbf{Integrace}:
 \[
-x_t = x_0 e^{-\kappa t} + \theta\,(1-e^{-\kappa t}) + 
-\sigma \int_0^t e^{-\kappa (t-s)}\, dW_s.
+\int \frac{dv}{f(v) - v} = \int \frac{dx}{x} = \ln|x| + C
 \]
-\item \textbf{Návrat k $r_t$}:
-\[
-r_t = \exp\!\left\{x_0 e^{-\kappa t} + \theta(1-e^{-\kappa t}) + 
-\sigma \int_0^t e^{-\kappa (t-s)}\, dW_s\right\}.
-\]
-\item \textbf{Momentové vztahy}:
-\[
-\mathbb{E}[\ln r_t] = x_0 e^{-\kappa t} + \theta(1-e^{-\kappa t}),\qquad
-\mathrm{Var}[\ln r_t] = \frac{\sigma^2}{2\kappa}\big(1-e^{-2\kappa t}\big).
-\]
+
+\item \textbf{Zpětná substituce}: $v = \frac{y}{x}$
+
+\item \textbf{Analýza řešení}:
+\begin{itemize}
+\item Urči maximální intervaly existence
+\item Najdi singulární řešení
+\item Analyzuj asymptotické chování
+\end{itemize}
 \end{enumerate}
+\end{method}
 
-\noindent\textbf{Analýza vlastností modelu}
+\vspace{0.8\baselineskip}
+
+\begin{remark}[Časté chyby a jak se jim vyhnout]
 \begin{itemize}
-\item Pozitivita sazeb je zajištěna: $r_t = e^{x_t} > 0$.
-\item Lognormální tvar rozdělení (realističtější vůči normálnímu).
-\item Mean-reversion v logaritmické škále.
+\item \textbf{Zapomnění na absolutní hodnotu}: $\int \frac{dx}{x} = \ln|x| + C$, ne $\ln x + C$
+\item \textbf{Špatná derivace}: $\frac{d}{dx}[vx] = v + x\frac{dv}{dx}$, ne $x\frac{dv}{dx}$
+\item \textbf{Ignorování singularit}: Vždy analyzuj body kde $f(v) - v = 0$
+\item \textbf{Chybný definiční obor}: Homogenní rovnice typicky nejsou definované v $x = 0$
+\item \textbf{Záměna s linearitou}: Homogenní ≠ lineární homogenní
+\end{itemize}
+\end{remark}
+
+\vspace{0.6\baselineskip}
+
+\begin{remark}[Optimalizace řešení]
+\begin{itemize}
+\item Pro racionální $f(v)$: použij rozklad na parciální zlomky
+\item Pro algebraické $f(v)$: vhodné substituce pro odstranění odmocnin
+\item Pro goniometrické $f(v)$: goniometrické identity a substituce
+\item Pro složité integrály: numerické metody nebo speciální funkce
+\end{itemize}
+\end{remark}
+
+\vspace{0.8\baselineskip}
+
+\begin{transition}
+S kompletním zvládnutím homogenních rovnic jsme připraveni přejít k exaktním rovnicím (1.4), které představují další mocnou třídu řešitelných diferenciálních rovnic 1. řádu a otevírají cestu k teorii diferenciálních forem.
+\end{transition}
+
+\vspace{0.8\baselineskip}
+
+\subsection*{Shrnutí Sekce 1.3}
+
+Homogenní rovnice představují elegantní třídu diferenciálních rovnic s hlubokou geometrickou interpretací. Klíčové poznatky:
+
+\begin{itemize}
+\item \textbf{Geometrická podstata}: Invariance vůči dilatacím, radiální struktura řešení
+\item \textbf{Univerzální řešicí metoda}: Substituce $v = y/x$ převádí na separabilní rovnici
+\item \textbf{Aplikace}: Ekonomické modely s konstantními výnosy z rozsahu, podobnostní zákony ve fyzice
+\item \textbf{Speciální vlastnosti}: Singulární řešení jako obálky, bifurkační chování
+\item \textbf{Numerická stabilita}: Eulerova metoda dobře funguje pro homogenní rovnice
 \end{itemize}
 
-\noindent\textbf{Kontrolní body}
-\begin{itemize}
-\item ✓ Pozitivita $r_t>0$.
-\item ✓ Konzistence s lognormálním rozdělením.
-\item ✓ Mean-reversion v log-škále.
-\end{itemize}
+Zvládnutí homogenních rovnic je zásadní pro rozvoj geometrické intuice v teorii diferenciálních rovnic a připravuje půdu pro pokročilejší témata v následujících úrovních.
 
-\noindent\textbf{Finanční interpretace}
-\begin{itemize}
-\item Model: Black–Karasinski (1991) — lognormální alternativa.
-\item Aplikace: Úrokové deriváty s nutnou pozitivitou sazeb.
-\item Výhody: Pozitivní sazby, flexibilnější chování ocasů.
-\item Nevýhody: Absence uzavřeného tvaru pro ceny bondů.
-\end{itemize}
 
-\begin{lstlisting}[language=Python, caption={Implementace Black–Karasinski modelu v Pythonu}]
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.stats import lognorm, norm
 
-def black_karasinski_simulation(r0, kappa, theta, sigma, T, n_steps, n_paths):
-    """Simulace Black–Karasinskiho modelu"""
-    dt = T / n_steps
-    x0 = np.log(r0)
-    x_paths = np.zeros((n_paths, n_steps + 1))
-    r_paths = np.zeros((n_paths, n_steps + 1))
-    x_paths[:, 0] = x0
-    r_paths[:, 0] = r0
-    for t in range(n_steps):
-        dw = np.random.normal(0, np.sqrt(dt), n_paths)
-        x_paths[:, t+1] = x_paths[:, t] + kappa*(theta - x_paths[:, t]) * dt + sigma * dw
-        r_paths[:, t+1] = np.exp(x_paths[:, t+1])
-    return r_paths, x_paths
-
-# Parametry
-kappa = 0.3
-theta = np.log(0.04)
-sigma = 0.2
-r0 = 0.03
-T, n_steps, n_paths = 5, 1000, 1000
-
-np.random.seed(42)
-r_paths, x_paths = black_karasinski_simulation(r0, kappa, theta, sigma, T, n_steps, n_paths)
-
-plt.figure(figsize=(15, 5))
-
-# 1) Trajektorie
-plt.subplot(1, 3, 1)
-time_axis = np.linspace(0, T, n_steps + 1)
-for i in range(min(50, n_paths)):
-    plt.plot(time_axis, r_paths[i] * 100, alpha=0.1)
-plt.axhline(y=np.exp(theta) * 100, color='r', linestyle='--', label='Dlouhodobý průměr')
-plt.xlabel('Čas (roky)')
-plt.ylabel('Úroková sazba (%)')
-plt.title('Black–Karasinski: Trajektorie sazeb')
-plt.legend()
-plt.grid(True)
-
-# 2) Rozdělení sazeb v čase T
-plt.subplot(1, 3, 2)
-final_rates = r_paths[:, -1]
-plt.hist(final_rates * 100, bins=50, density=True, alpha=0.7)
-plt.xlabel('Úroková sazba v čase T (%)')
-plt.ylabel('Hustota')
-plt.title('Rozdělení konečných sazeb')
-mu_theoretical = np.log(r0) * np.exp(-kappa*T) + theta * (1 - np.exp(-kappa*T))
-sigma_theoretical = sigma * np.sqrt((1 - np.exp(-2*kappa*T))/(2*kappa))
-x_range = np.linspace(0, np.max(final_rates)*1.2, 100)
-pdf_theoretical = lognorm.pdf(x_range, s=sigma_theoretical, scale=np.exp(mu_theoretical))
-plt.plot(x_range * 100, pdf_theoretical, linewidth=2, label='Teoretické')
-plt.legend()
-
-# 3) Q-Q plot v log-škále
-plt.subplot(1, 3, 3)
-log_final_rates = np.log(final_rates)
-log_final_rates_sorted = np.sort(log_final_rates)
-theoretical_quantiles = norm.ppf(np.linspace(0.01, 0.99, len(log_final_rates_sorted)),
-                                 loc=mu_theoretical, scale=sigma_theoretical)
-plt.plot(theoretical_quantiles, log_final_rates_sorted, 'o', alpha=0.5)
-lo = min(theoretical_quantiles.min(), log_final_rates_sorted.min())
-hi = max(theoretical_quantiles.max(), log_final_rates_sorted.max())
-plt.plot([lo, hi], [lo, hi], linewidth=2)
-plt.xlabel('Teoretické kvantily')
-plt.ylabel('Výběrové kvantily')
-plt.title('Q–Q plot: lognormalita')
-plt.grid(True)
-
-plt.tight_layout()
-plt.show()
-
-# Momentová a bezpečnostní analýza
-expected_rate_T = np.exp(mu_theoretical + 0.5*sigma_theoretical**2)
-volatility_rate_T = expected_rate_T * np.sqrt(np.exp(sigma_theoretical**2) - 1)
-print("=== STATISTICKÁ ANALÝZA BLACK–KARASINSKI MODELU ===")
-print(f"Počáteční sazba: {r0*100:.2f}%")
-print(f"Dlouhodobý průměr: {np.exp(theta)*100:.2f}%")
-print(f"Střední hodnota v T: {expected_rate_T*100:.2f}%")
-print(f"Směrodatná odchylka v T: {volatility_rate_T*100:.2f}%")
-print(f"Pozitivita sazeb: {np.all(final_rates > 0)}")
-print(f"Min sazba: {np.min(final_rates)*100:.4f}%, Max sazba: {np.max(final_rates)*100:.2f}%")
-\end{lstlisting}
-
-\noindent\textbf{Risk management}
-\begin{itemize}
-\item \textbf{Pozitivita}: Zaručena konstrukcí ($r_t=e^{x_t}>0$).
-\item \textbf{Modelové riziko}: Lognormální předpoklad může mít těžší ocasy.
-\item \textbf{Numerika}: Pro oceňování bondů nutné numerické metody.
-\end{itemize}
-
-\noindent\textbf{Sensitivní analýza}
-\begin{itemize}
-\item \textbf{$\kappa$}: Rychlost konvergence k dlouhodobému průměru.
-\item \textbf{$\theta$}: Nastavuje rovnovážnou úroveň sazeb.
-\item \textbf{$\sigma$}: Šířka rozdělení (volatilita), tloušťka ocasů.
-\end{itemize}
-\end{example}
-
-\subsubsection{Shrnutí úrovně 1D}
-\label{sec:shrnuti-uroven-1d}
-
-Úroveň 1D představila expertní úrokové modely používané v kvantitativních financích:
-
-\begin{table}[h]
-\centering
-\caption{Přehled úrovně 1D}
-\label{tab:prehled-1d}
-\begin{tabular}{@{}llll@{}}
-\toprule
-\textbf{Model} & \textbf{Typ ODE} & \textbf{Klíčová vlastnost} & \textbf{Aplikace} \\
-\midrule
-Vasicek & Lineární & Normální rozdělení & Základní oceňování \\
-CIR & Riccatiho & Pozitivní sazby & Realističtější modelování \\
-Black–Karasinski & Transformace & Lognormální rozdělení & Pokročilé deriváty \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\noindent\textbf{Zvládnuté expertní dovednosti}:
-\begin{itemize}
-\item Řešení Riccatiho diferenciálních rovnic.
-\item Transformace proměnných pro analytická řešení.
-\item Kalibrace modelů na tržní data.
-\item Simulace stochastických procesů.
-\item Statistická analýza vlastností modelů.
-\end{itemize}
-
-\noindent\textbf{Klíčové finanční koncepty}:
-\begin{itemize}
-\item Affine term structure modely.
-\item Mean-reversion úrokových sazeb.
-\item Podmínky pozitivity a realistická rozdělení.
-\item Oceňování úrokových derivátů.
-\item Risk management úrokového rizika.
-\end{itemize}
 

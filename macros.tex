@@ -1,142 +1,205 @@
-% ===========================
-% macros.tex — vlastní příkazy
-% (bez \usepackage — vše řeší preamble)
-% ===========================
+% !TEX root = main.tex
 
-% ---------- Základní množiny ----------
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
+% --- NASTAVENÍ ZÁ HLAVÍ A ZÁPATÍ ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\leftmark}
+\fancyhead[LO]{\rightmark}
+\renewcommand{\headrulewidth}{0.4pt}
 
-% ---------- Základní konstanty a symboly ----------
-\newcommand{\e}{\mathrm{e}}           % Eulerovo číslo
-\newcommand{\ii}{\mathrm{i}}          % imaginární jednotka
-\newcommand{\dd}{\mathrm{d}}          % diferenciál (pro integrály)
-\newcommand{\Dif}[1][]{\,\mathrm{d}#1} % alternativní diferenciál s mezerou: \Dif{x}
+% --- DEFINICE BAREV PRO KVANTITATIVNÍ APLIKACE ---
+\definecolor{quantblue}{RGB}{0, 82, 147}
+\definecolor{quantgreen}{RGB}{0, 128, 0}
+\definecolor{quantred}{RGB}{192, 0, 0}
+\definecolor{quantgray}{RGB}{240, 240, 240}
 
-% ---------- Derivace ----------
-% Skalární
-\newcommand{\deriv}[3][]{\frac{\mathrm{d}^{#1} #2}{\mathrm{d} #3^{#1}}}     % \deriv[k]{y}{x}
-\newcommand{\pderiv}[3][]{\frac{\partial^{#1} #2}{\partial #3^{#1}}}        % \pderiv[2]{u}{x}
-\newcommand{\mderiv}[3][]{\frac{\mathrm{D}^{#1} #2}{\mathrm{D} #3^{#1}}}    % materiální/úplná derivace
-% Evaluace na bodě
-\newcommand{\at}[2]{\left.#1\right|_{#2}}                                   % \at{f'(x)}{x=x_0}
-
-% ---------- Vektory, matice, normy ----------
-\newcommand{\vect}[1]{\boldsymbol{#1}}                   % tučný symbol (vektor)
-\newcommand{\mat}[1]{\mathbf{#1}}                        % tučné písmo pro matice
-\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
-\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
-\newcommand{\ip}[2]{\left\langle #1,\, #2 \right\rangle} % skalární součin
-
-% ---------- Závorky a pomocné ----------
-\newcommand{\paren}[1]{\left( #1 \right)}
-\newcommand{\bracket}[1]{\left[ #1 \right]}
-\newcommand{\bracec}[1]{\left\{ #1 \right\}}
-\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
-\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
-
-% ---------- Operátory (deklarované správně) ----------
-\DeclareMathOperator{\sgn}{sgn}
-\DeclareMathOperator{\Span}{span}
-\DeclareMathOperator{\rank}{rank}
-\DeclareMathOperator{\tr}{tr}
-\DeclareMathOperator{\diag}{diag}
-\DeclareMathOperator{\diver}{div}
-\DeclareMathOperator{\grad}{grad}
-\DeclareMathOperator{\rot}{rot}        % alias curl
-\DeclareMathOperator{\curl}{curl}
-\DeclareMathOperator{\supp}{supp}
-\DeclareMathOperator{\Res}{Res}
-\DeclareMathOperator{\Real}{Re}
-\DeclareMathOperator{\Imag}{Im}
-
-% Vytažené operátory s „*“ (správné umístění limitů pod/nahoru)
-\DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator*{\argmax}{arg\,max}
-
-% ---------- Pravděpodobnost a statistika (pokud se ti hodí) ----------
-\newcommand{\Prob}{\mathbb{P}}
-\newcommand{\E}{\mathbb{E}}
-\newcommand{\Var}{\mathrm{Var}}
-\newcommand{\Cov}{\mathrm{Cov}}
-\newcommand{\1}{\mathbf{1}}            % indikační funkce
-
-% ---------- Diferenciální rovnice – specifické ----------
-\newcommand{\Lcal}{\mathcal{L}}         % lineární operátor
-\newcommand{\Fcal}{\mathcal{F}}         % Fourierova transformace (pokud použiješ)
-\newcommand{\Gcal}{\mathcal{G}}         % Greenova funkce / operátor
-\newcommand{\Wr}{\mathrm{W}}            % Wronskián (příp. doplníš definici)
-\newcommand{\Heaviside}{\mathrm{H}}     % Heaviside
-\newcommand{\dirac}{\delta}             % Dirac delta
-
-% Notace pro ODE/PDE
-\newcommand{\ode}[2]{#1'\!(#2)}         % např. \ode{y}{x} = y'(x)
-\newcommand{\odeN}[3]{#1^{(#2)}\!(#3)}  % \odeN{y}{n}{x} = y^{(n)}(x)
-\newcommand{\pde}[3]{\frac{\partial #1}{\partial #2}\!(#3)}
-\newcommand{\pdeN}[4]{\frac{\partial^{#2} #1}{\partial #3^{#2}}\!(#4)}
-
-% Standardní tvary
-\newcommand{\odeStd}{y' = f(x,y)}                                   % rychlé vložení obecné 1. ř.
-\newcommand{\odeLin}{y' + p(x)\,y = q(x)}                           % lineární 1. řádu
-\newcommand{\odeSep}{y' = f(x)\,g(y)}                               % separabilní
-\newcommand{\pdeHeat}{u_t = \kappa\,u_{xx}}                         % rovnice vedení tepla
-\newcommand{\pdeWave}{u_{tt} = c^2 u_{xx}}                          % vlnová rovnice
-\newcommand{\pdeLaplace}{\Delta u = 0}                              % Laplaceova rovnice
-
-% Integrující faktor
-\newcommand{\IF}{\mu(x)}                                            % \IF = e^{\int p(x)\,\dd x} typicky
-% Wronskián dvou funkcí
-\newcommand{\Wronskian}[2]{%
-  \begin{vmatrix}
-    #1 & #2 \\
-    #1' & #2' \\
-  \end{vmatrix}
+% --- TCOROLORBOX PROSTŘEDÍ PRO SPECIÁLNÍ BLOKY ---
+\newtcolorbox{keyinsight}[1][]{
+  breakable,
+  enhanced,
+  colback=quantgray,
+  colframe=quantblue,
+  title=#1,
+  fonttitle=\bfseries,
+  attach boxed title to top left={yshift=-2mm, xshift=5mm},
+  boxed title style={colback=quantblue, colframe=quantblue}
 }
 
-% Laplaceův/Poissonův operátor
-\newcommand{\Lapl}{\Delta}                                          % \Lapl u = u_{xx}+u_{yy}(+...)
+\newtcolorbox{application}[1][]{
+  breakable,
+  enhanced,
+  colback=white,
+  colframe=quantgreen,
+  title=#1,
+  fonttitle=\bfseries,
+  attach boxed title to top left={yshift=-2mm, xshift=5mm},
+  boxed title style={colback=quantgreen, colframe=quantgreen}
+}
 
-% Okrajové a počáteční podmínky (rychlá notace)
-\newcommand{\IC}[1]{\text{IC: } #1}                                 % \IC{y(0)=y_0}
-\newcommand{\BC}[1]{\text{BC: } #1}                                 % \BC{u(0,t)=0,\;u(L,t)=0}
+\newtcolorbox{expertnote}[1][]{
+  breakable,
+  enhanced,
+  colback=white,
+  colframe=quantred,
+  title=#1,
+  fonttitle=\bfseries,
+  attach boxed title to top left={yshift=-2mm, xshift=5mm},
+  boxed title style={colback=quantred, colframe=quantred}
+}
 
-% Greenova funkce – symbolická notace
-\newcommand{\Green}[2]{G\!\paren{#1\,;\,#2}}                        % G(x;\xi)
+\newtcolorbox{transition}{
+  breakable,
+  enhanced,
+  colback=white,
+  colframe=black,
+  arc=0pt,
+  boxrule=1pt,
+  left=5mm,
+  right=5mm
+}
 
-% ---------- Fourier / konvoluce ----------
-\newcommand{\FT}[1]{\widehat{#1}}                                   % Fourierův obraz
-\newcommand{\IFT}[1]{\check{#1}}                                    % inverzní FT (notace dle zvyku)
-\newcommand{\conv}{\ast}                                            % konvoluce
+\newtcolorbox{researcharea}[1][]{
+  breakable,
+  enhanced,
+  colback=quantgray!20,
+  colframe=quantblue!80,
+  title=#1,
+  fonttitle=\bfseries,
+  attach boxed title to top left={yshift=-2mm, xshift=5mm}
+}
 
-% ---------- Intervals a set-builder ----------
-\newcommand{\set}[1]{\left\{\, #1 \,\right\}}
-\newcommand{\openInterval}[2]{\left(#1,\,#2\right)}
-\newcommand{\closedInterval}[2]{\left[#1,\,#2\right]}
-\newcommand{\halfOpenInterval}[2]{\left[#1,\,#2\right)}
-\newcommand{\halfClosedInterval}[2]{\left(#1,\,#2\right]}
+% --- ROADMAP BOX ---
+\newcommand{\roadmap}[1]{
+  \begin{tcolorbox}[
+    title=Roadmap, 
+    breakable, 
+    enhanced, 
+    colback=quantgray!30, 
+    colframe=quantblue
+  ] 
+  #1 
+  \end{tcolorbox}
+}
 
-% ---------- Zkrácené odkazy a eqref ----------
-\newcommand{\eqn}[1]{\eqref{#1}}                                    % zkrácený odkaz na rovnici
-\newcommand{\crefp}[1]{(\cref{#1})}                                 % "viz (1.2)" s cleveref
+% --- THEOREM STYLES A PROSTŘEDÍ ---
+\newtheoremstyle{mytheoremstyle}%
+  {12pt}{12pt}%
+  {\normalfont}{}%
+  {\bfseries}{}%
+  {\newline}{}
 
-% ---------- Malé užitečnosti ----------
-\newcommand{\ddx}{\frac{\mathrm{d}}{\mathrm{d}x}}
-\newcommand{\ddy}{\frac{\mathrm{d}}{\mathrm{d}y}}
-\newcommand{\ppt}{\frac{\partial}{\partial t}}
-\newcommand{\ppx}{\frac{\partial}{\partial x}}
-\newcommand{\ppy}{\frac{\partial}{\partial y}}
-\newcommand{\ppxx}{\frac{\partial^2}{\partial x^2}}
-\newcommand{\ppyy}{\frac{\partial^2}{\partial y^2}}
-\newcommand{\ppxy}{\frac{\partial^2}{\partial x\,\partial y}}
+\theoremstyle{mytheormstyle}
 
-% ---------- Textové zvýraznění v matematice ----------
-\newcommand{\textemph}[1]{\textbf{\textit{#1}}}                     % rychlé zdůraznění v odstavcích
+\newtheorem{definition}{Definice}[section]
+\newtheorem{example}{Příklad}[section]
+\newtheorem{remark}{Poznámka}[section]
+\newtheorem{theorem}{Věta}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Tvrzení}[section]
+\newtheorem{corollary}{Důsledek}[section]
+\newtheorem{principle}{Princip}[section]
+\newtheorem{innovation}{Inovace}[section]
+\newtheorem{researchareaenv}{Výzkumná Oblast}[section]
+\newtheorem{assessment}{Hodnocení}[section]
 
-% ---------- Krátké značky pro kolonky/souhrny ----------
-\newcommand{\Def}[1]{\textbf{Def.:} #1}
-\newcommand{\Thm}[1]{\textbf{Věta:} #1}
-\newcommand{\Rem}[1]{\textbf{Pozn.:} #1}
-\newcommand{\Exa}[1]{\textbf{Př.:} #1}
+% --- DŮKAZY ---
+\renewcommand{\proofname}{Důkaz}
+
+% --- ČÍSLOVÁNÍ PODLE SEKCI ---
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+\numberwithin{algorithm}{section}
+
+% --- ALGORITMY ---
+\floatname{algorithm}{Algoritmus}
+\renewcommand{\algorithmicrequire}{\textbf{Vstup:}}
+\renewcommand{\algorithmicensure}{\textbf{Výstup:}}
+\crefname{algorithm}{algoritmus}{algoritmy}
+\Crefname{algorithm}{Algoritmus}{Algoritmy}
+
+% --- NOVÉ SLOUPCE PRO TABULKY ---
+\newcolumntype{L}{>{\raggedright\arraybackslash}p{0.2\textwidth}}
+\newcolumntype{M}{>{\centering\arraybackslash}p{0.3\textwidth}}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}p{0.4\textwidth}}
+
+% --- LISTINGS STYLES ---
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  showstringspaces=false,
+  commentstyle=\color{quantgreen},
+  keywordstyle=\color{quantblue},
+  stringstyle=\color{quantred},
+  backgroundcolor=\color{quantgray!20}
+}
+
+\lstdefinestyle{python}{
+  language=Python,
+  morekeywords={import, def, class, return, yield, lambda, with, async, await}
+}
+
+\lstdefinestyle{matlab}{
+  language=Matlab,
+  morekeywords={function, end, if, else, for, while}
+}
+
+% --- MATEMATICKÉ PŘÍKAZY ---
+\providecommand{\diff}{\mathrm{d}}
+\newcommand{\bmm}[1]{\bm{#1}}
+
+% --- ČÍSELNÉ MNOŽINY ---
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+
+% --- PRAVDĚPODOBNOSTNÍ SYMBOLY ---
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Corr}{\mathrm{Corr}}
+
+% --- DALŠÍ MATEMATICKÉ SYMBOLY ---
+\newcommand{\supp}{\mathrm{supp}}
+\newcommand{\sgn}{\mathrm{sgn}}
+\newcommand{\id}{\mathrm{id}}
+
+% --- OPERÁTORY PRO FUNKCIONÁLNÍ ANALÝZU ---
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\divg}{div}
+\DeclareMathOperator{\Hess}{Hess}
+\DeclareMathOperator{\Jac}{Jac}
+
+% --- POMOCNÉ BLOKOVÉ NADPISY ---
+\newcommand{\blocktitle}[1]{\vspace{0.6\baselineskip}\noindent\textbf{#1}\par\vspace{0.25\baselineskip}}
+\newcommand{\spc}{\vspace{0.6\baselineskip}}
+
+% --- HYPERREF NASTAVENÍ ---
+\hypersetup{
+  colorlinks=true,
+  linkcolor=quantblue,
+  citecolor=quantgreen,
+  urlcolor=quantred,
+  pdftitle={Pokročilé Diferenciální Rovnice pro Kvantitativní Odborníky},
+  pdfauthor={Quant Expert Team},
+  pdfsubject={Matematika, Finanční Modelování},
+  pdfkeywords={diferenciální rovnice, kvantitativní finance, matematické modelování}
+}
+
+% --- MIKROTYPOGRAFIE ---
+\microtypesetup{expansion=true}
+\emergencystretch=1.5em
+
+% --- ČESKÉ DĚLENÍ SLOV ---
+\babelprovide[hyphenrules=cs]{czech}

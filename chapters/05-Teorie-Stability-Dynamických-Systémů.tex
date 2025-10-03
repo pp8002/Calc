@@ -7,19 +7,6 @@ Tato kapitola systematicky buduje aparát pro analýzu stability dynamických sy
 
 Provedeme čtenáře od základních pojmů stability přes pokročilé koncepty jako strukturální stabilita a input-to-state stabilita až po aplikace v analýze finančních modelů a numerických metod. Každý koncept je ilustrován na konkrétních příkladech z kvantitativních věd.
 
-\begin{figure}[H]
-\begin{tcolorbox}[title=Roadmap Kapitoly 5]
-\item[] \textbf{5.1 Základy Stability} \\- Definice stability, atraktivity, klasifikace bodů
-\item[] \textbf{5.2 Lineární Systémy} \\- Spektrální kritéria, Jordanova forma, explicitní řešení  
-\item[] \textbf{5.3 Linearizace} \\- Hartman-Grobman věta, středová varieta, redukce dimenze
-\item[] \textbf{5.4 Ljapunovova Metoda} \\- Konstrukce Ljapunovských funkcí, věty o stabilitě
-\item[] \textbf{5.5 Pokročilé Koncepty} \\- LaSalleův princip, strukturální stabilita, ISS
-\item[] \textbf{5.6 Fázová Analýza} \\- Klasifikace v rovině, limitní cykly, bifurkace
-\item[] \textbf{5.7 Aplikace} \\- Finanční modely, numerické schémata, stochastické systémy
-\end{tcolorbox}
-\caption{Roadmap kapitoly 5: Teorie Stability Dynamických Systémů}
-\label{fig:roadmap-chapter5}
-\end{figure}
 
 \spc
 
@@ -42,13 +29,6 @@ Rovnovážný bod $x^*$ se nazývá \emph{hyperbolický}, jestliže všechny vla
 \begin{intuition}
 Hyperbolicita zaručuje, že lokální chování je určeno linearizací. Nehyperbolické body jsou "hranicí stability" a vyžadují speciální analýzu pomocí středové variety. Viz Obrázek \ref{fig:hyperbolic_classification}.
 \end{intuition}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth]{hyperbolic_classification.pdf}
-\caption{Klasifikace rovnovážných bodů podle spektra Jacobiho matice}
-\label{fig:hyperbolic_classification}
-\end{figure}
 
 \subsubsection{Stabilita dle Ljapunova - přesné definice}
 
@@ -99,12 +79,6 @@ Rovnovážný bod $x^*$ je \emph{asymptoticky stabilní}, jestliže je stabilní
 \]
 \end{definition}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth]{convergence_types.pdf}
-\caption{Srovnání asymptotické a exponenciální konvergence}
-\label{fig:convergence_types}
-\end{figure}
 
 \begin{application}[Rychlost konvergence v Ramseyově modelu]
 V Ramsey-Cass-Koopmansově modelu konverguje spotřeba k steady-state exponenciálně:
@@ -202,12 +176,6 @@ Nechť $x^*$ je hyperbolický rovnovážný bod systému $\dot{x} = f(x)$, kde $
 \end{itemize}
 \end{proofsketch}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.7\textwidth]{hartman_grobman.pdf}
-\caption{Lokální homeomorfismus mezi nelineárním a linearizovaným systémem}
-\label{fig:hartman_grobman}
-\end{figure}
 
 \subsubsection{Středová varieta a redukce dimenze}
 
@@ -323,12 +291,6 @@ Ljapunovova funkce $V(q,p) = \frac{1}{2}(q^2 + p^2)$ splňuje $\dot{V} = -\delta
 Nechť $V$ je Ljapunovská funkce na kompaktní invariantní množině $\Omega$ a nechť $E = \{x \in \Omega : \dot{V}(x) = 0\}$. Pak každé řešení začínající v $\Omega$ konverguje k největší invariantní množině obsažené v $E$.
 \end{theorem}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.7\textwidth]{lasalle_invariance.pdf}
-\caption{Ilustrace invariantní množiny kde $\dot{V} = 0$}
-\label{fig:lasalle_invariance}
-\end{figure}
 
 \begin{proofsketch}
 \begin{itemize}
@@ -402,12 +364,6 @@ Nechť $\dot{x} = Ax$ s $A \in \mathbb{R}^{2\times 2}$. Podle vlastních čísel
 Nechť $\dot{x} = f(x)$ je spojitý dynamický systém v $\mathbb{R}^2$ a nechť $\omega$-limita množina trajektorie je neprázdná, kompaktní a neobsahuje rovnovážné body. Pak je tato množina periodickou orbitou.
 \end{theorem}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth]{poincare_map.pdf}
-\caption{Poincarého mapa a průřez pro analýzu limitního cyklu}
-\label{fig:poincare_map}
-\end{figure}
 
 \begin{application}[Numerická detekce limitního cyklu]
 \label{app:limit_cycle_detection}
@@ -562,66 +518,39 @@ Pro OU proces $dX_t = -\theta X_t dt + \sigma dW_t$:
 Systém je středně kvadraticky stabilní pro $\theta > 0$.
 \end{example}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth]{ou_process_empirical.pdf}
-\caption{Empirický časový průběh OU procesu s fit exponenciálního rozkladu}
-\label{fig:ou_empirical}
-\end{figure}
+
 
 \spc
 
 \subsection*{Shrnutí kapitoly}
 
-\begin{table}[H]
-\centering
-\begin{tabular}{|p{0.22\textwidth}|p{0.28\textwidth}|p{0.4\textwidth}|}
-\hline
-\textbf{Metoda} & \textbf{Typ systému} & \textbf{Kvantitativní aplikace} \\
-\hline
-\hyperref[sec:teorie-stability]{Linearizace a spektrální analýza} & Lineární a lokálně nelineární systémy & Rychlá analýza stability ekonomických modelů \\
-\hline
-\hyperref[sec:teorie-stability]{Ljapunovova přímá metoda} & Globálně nelineární systémy & Důkazy stability tradingových strategií \\
-\hline
-\hyperref[sec:teorie-stability]{Input-to-State Stabilita (ISS)} & Systémy s vnějšími poruchami & Robustnost vůči tržnímu šumu a nejistotě \\
-\hline
-\hyperref[sec:teorie-stability]{Bifurkační analýza} & Nelineární systémy s parametry & Detekce regime changes v finančních datech \\
-\hline
-\hyperref[sec:teorie-stability]{Numerická stabilita analýza} & Diskrétní schémata & Optimalizace časových kroků v Monte Carlo simulacích \\
-\hline
-\hyperref[sec:teorie-stability]{Stochastická stabilita} & SDE a jump procesy & Analýza riika v kvantových a finančních modelech \\
-\hline
-\end{tabular}
-\caption{Přehled metod stability a jejich aplikací v kvantitativních vědách}
-\label{tab:stability_methods}
-\end{table}
-
-\begin{tcolorbox}[title=Doporučená literatura: Teoretické základy, floatplacement=H]
+\begin{paragraph}{Přehled metod stability}
+    Metoda \emph{linearizace a spektrální analýza} umožňuje rychlou analýzu stability lineárních i lokálně nelineárních systémů studiem vlastních čísel Jacobianu či systémové matice. V kvantitativních ekonomických modelech poskytuje okamžitý odhad návratu k rovnováze například při analýze stability investičních portfolií.
+    
+    \medskip
+    
+    \emph{Přímá metoda Lyapunovovy funkce} se uplatní u globálně nelineárních systémů. Konstruktivně dokazuje stabilitu tradingových strategií a zajišťuje, že malé tržní fluktuace nevykolejí systém z trajektorie.
+    
+    \medskip
+    
+    \emph{Input-to-State stabilita (ISS)} rozšiřuje teorii stability na systémy s vnějšími poruchami, čímž poskytuje kvantitativní odhad vlivu tržního šumu. Tento rámec je nezbytný pro modelování rizika v kvantitativním financování.
+    
+    \medskip
+    
+    \emph{Bifurkační analýza} studuje, jak změna parametrů vede ke kvalitativním přechodům režimů chování. Detekce „regime changes“ ve finančních datech pomáhá předpovídat cyklické výkyvy a krize.
+    
+    \medskip
+    
+    \emph{Numerická stabilita analýza} řeší diskretní schémata ODE a Monte Carlo simulací optimalizací časových kroků. Umožňuje dlouhodobé simulace komplexních modelů bez numerického rozkolísání.
+    
+    \medskip
+    
+    \emph{Stochastická stabilita} poskytuje nástroje pro analýzu SDE a jump procesů, včetně metody Lyapunovovy funkce pro SDE. Tyto metody jsou klíčové pro hodnocení stability a rizika v kvantových a finančních systémech.
+    \end{paragraph}
 \begin{itemize}
 \item Khalil, H.K. - \emph{Nonlinear Systems} (3rd ed.) - Komplexní pokrytí Ljapunovovy teorie
 \item Evans, L.C. - \emph{Partial Differential Equations} - Propojení s PDE a regularitou
-\end{itemize}
-\begin{center}
-\begin{tabular}{m{0.2\textwidth}m{0.2\textwidth}}
-\includegraphics[width=0.35\textwidth]{qr_khalil.pdf} & \includegraphics[width=0.35\textwidth]{qr_evans.pdf} \\
-Khalil (2015) & Evans (2010) \\
-\end{tabular}
-\end{center}
-\end{tcolorbox}
-
-\begin{tcolorbox}[title=Doporučená literatura: Numerické metody, floatplacement=H]
-\begin{itemize}
 \item Oksendal, B. - \emph{Stochastic Differential Equations} - Stochastická stabilita
 \item Hairer, E., Wanner, G. - \emph{Solving Ordinary Differential Equations II} - Numerická stabilita
 \end{itemize}
-\begin{center}
-\begin{tabular}{m{0.2\textwidth}m{0.2\textwidth}}
-\includegraphics[width=0.35\textwidth]{qr_oksendal.pdf} & \includegraphics[width=0.35\textwidth]{qr_hairer.pdf} \\
-Oksendal (2013) & Hairer \& Wanner (2010) \\
-\end{tabular}
-\end{center}
-\end{tcolorbox}
 
-\begin{transition}
-Pro Kapitolu 6 (Parciální Diferenciální Rovnice v Kvantitativních Vědách) bude klíčové navázat na teorii Sobolevových prostorů z Kapitoly 2. Tyto prostory poskytují přirozený rámec pro formulaci a analýzu slabých řešení PDE, která jsou základem moderních numerických metod jako konečné prvky a spektrální metody. Stabilita řešení PDE bude vyžadovat rozšíření Ljapunovovy teorie do nekonečně-dimenzionálních prostorů.
-\end{transition}
