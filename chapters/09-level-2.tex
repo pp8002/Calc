@@ -6986,7 +6986,7 @@ Lagrangeovu rovnici lze transformovat na několik ekvivalentních forem:
 
 \noindent\textbf{Podmínky existence a jednoznačnosti řešení}
 
-Pro Lagrangeovu rovnici $y = x\phi(p) + \psi(p)$ platí:
+Pro Lagrang<eovu rovnici $y = x\phi(p) + \psi(p)$ platí:
 \begin{itemize}
 \item \textbf{Lokální existence}: Řešení existuje lokálně v okolí každého bodu kde $\phi(p) \neq p$ a funkce $\phi, \psi$ jsou hladké
 \item \textbf{Globální existence}: Závisí na chování $\phi(p) - p$ a singularitách funkcí $\phi, \psi$
@@ -7010,3 +7010,2565 @@ Singulární body Lagrangeovy rovnice nastávají když:
 \end{itemize}
 
 Definiční obor závisí na vlastnostech funkcí $\phi$ a $\psi$ a může obsahovat oblasti, kde řešení přestává být regulární, má body nespojitosti, nebo ztrácí jednoznačnost. Komplexní analýza těchto singularit je klíčová pro aplikace v kvantitativních vědách, zejména v problémech optimálního řízení a variačního počtu.
+
+\subsubsection{Systematická metodologie řešení}
+\label{subsubsec:metodologie-reseni-lagrange}
+
+\noindent\textbf{Krok-po-kroku algoritmus řešení}
+
+Pro řešení Lagrangeovy rovnice $y = x\phi(p) + \psi(p)$, kde $p = \frac{dy}{dx}$, aplikujeme následující systematický postup:
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 1: Identifikace typu a parametrizace}
+
+Potvrďte, že rovnice má Lagrangeův tvar $y = x\phi(p) + \psi(p)$. Zaveďte parametr $p = y'$ a ověřte regularitu funkcí $\phi(p)$ a $\psi(p)$.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Derivace a analýza větvení}
+
+Derivujte rovnici podle $x$:
+\[
+\frac{d}{dx}[y - x\phi(p) - \psi(p)] = 0 \Rightarrow p = \phi(p) + [x\phi'(p) + \psi'(p)]\frac{dp}{dx}
+\]
+Upravte na:
+\[
+[x\phi'(p) + \psi'(p)]\frac{dp}{dx} = p - \phi(p)
+\]
+Tato rovnice má dvě disjunktní větve řešení.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Analýza větve 1 - Obecné řešení}
+
+Předpokládejme $\frac{dp}{dx} \neq 0$. Pak rovnici přepíšeme jako lineární ODE pro $x(p)$:
+\[
+\frac{dx}{dp} - \frac{\phi'(p)}{\phi(p) - p}x = \frac{\psi'(p)}{\phi(p) - p}
+\]
+Řešíme pomocí integračního faktoru:
+\[
+\mu(p) = \exp\left(-\int \frac{\phi'(p)}{\phi(p) - p} dp\right)
+\]
+Obecné řešení:
+\[
+x(p) = \frac{1}{\mu(p)} \left[ C + \int \mu(p) \frac{\psi'(p)}{\phi(p) - p} dp \right]
+\]
+\[
+y(p) = x(p)\phi(p) + \psi(p)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 4: Analýza větve 2 - Singulární řešení}
+
+Z podmínky $x\phi'(p) + \psi'(p) = 0$ dostáváme:
+\[
+x = -\frac{\psi'(p)}{\phi'(p)}
+\]
+Dosazením do původní rovnice:
+\[
+y = -\frac{\psi'(p)\phi(p)}{\phi'(p)} + \psi(p)
+\]
+za předpokladu $\phi'(p) \neq 0$.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 5: Eliminace parametru a explicitní tvar}
+
+Pokud možno, eliminujte parametr $p$ z parametrických rovnic pro získání explicitního vztahu $y = \varphi(x)$.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 6: Analýza definičních oborů a singularit}
+
+Určete definiční obory obou typů řešení a analyzujte body singularity:
+\begin{itemize}
+\item Body kde $\phi(p) = p$
+\item Body kde $\phi'(p) = 0$ 
+\item Body kde řešení ztrácí regularitu
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 7: Validace řešení}
+
+Ověřte správnost řešení dosazením do původní rovnice a analyzujte geometrický vztah mezi obecným a singulárním řešením.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Metody hledání partikulárních/konkrétních řešení}
+
+Pro nalezení partikulárního řešení procházejícího bodem $(x_0, y_0)$:
+
+\begin{enumerate}
+\item \textbf{Metoda parametrizace}: Řešte soustavu:
+\[
+y_0 = x_0\phi(p) + \psi(p)
+\]
+vzhledem k $p$. Pokud existuje řešení $p_0$, pak partikulární řešení je dáno parametrickými rovnicemi s tímto $p_0$.
+
+\item \textbf{Metoda integrační konstanty}: Pro nalezené $p_0$ určete integrační konstantu $C$ z rovnice:
+\[
+x_0 = \frac{1}{\mu(p_0)} \left[ C + \int \mu(p) \frac{\psi'(p)}{\phi(p) - p} dp \bigg|_{p=p_0} \right]
+\]
+
+\item \textbf{Metoda singulárního řešení}: Pokud bod $(x_0, y_0)$ splňuje:
+\[
+x_0 = -\frac{\psi'(p)}{\phi'(p)}, \quad y_0 = -\frac{\psi'(p)\phi(p)}{\phi'(p)} + \psi(p)
+\]
+pro nějaké $p$, pak leží na singulárním řešení.
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Transformační techniky}
+
+\begin{enumerate}
+\item \textbf{Linearizační transformace}: Převod na lineární rovnici pro $x(p)$ pomocí substituce.
+
+\item \textbf{Legendreova transformace}: Pro aplikace ve variačním počtu:
+\[
+u = y - xp, \quad \frac{du}{dp} = -x - p\frac{dx}{dp} + \frac{dy}{dp}
+\]
+
+\item \textbf{Hodografická transformace}: Záměna proměnných $x$ a $y$ pro speciální typy rovnic.
+
+\item \textbf{Substituce $u = \phi(p) - p$}: Redukce na separabilní rovnici v proměnných $u$ a $p$.
+
+\item \textbf{Mocninné řady}: Pro komplexní funkce $\phi(p)$, $\psi(p)$ použijte rozvoj do mocninných řad.
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Validace a ověřování řešení}
+
+Komplexní postup ověření správnosti řešení:
+
+\begin{enumerate}
+\item \textbf{Analytická validace}: Přímé dosazení řešení do původní rovnice.
+
+\item \textbf{Geometrická verifikace}: Kontrola, že singulární řešení je obálkou rodiny křivek z obecného řešení.
+
+\item \textbf{Diferenciální analýza}: Ověření, že derivace řešení souhlasí s parametrem $p$.
+
+\item \textbf{Singularitní analýza}: Studium chování řešení v singularitách a na hranicích definičních oborů.
+
+\item \textbf{Numerická verifikace}: Pro složité případy numerické ověření řešení v reprezentativních bodech pomocí diferenčních schémat.
+
+\item \textbf{Stabilita řešení}: Analýza citlivosti řešení na perturbace počátečních podmínek.
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Analýza stability a asymptotického chování}
+
+Pro kvantitativní aplikace je klíčová analýza stability:
+
+\begin{itemize}
+\item \textbf{Stabilita obecného řešení}: Závisí na chování $\phi(p) - p$ a citlivosti na volbu integrační konstanty $C$.
+
+\item \textbf{Stabilita singulárního řešení}: Obálka často představuje atraktor - řešení s malými perturbacemi konvergují k singulárnímu řešení.
+
+\item \textbf{Asymptotické chování}: 
+\begin{itemize}
+\item Pro $x \to \pm\infty$: Chování určeno asymptotikou $\phi(p)$ a $\psi(p)$
+\item V okolí singularit: Analýza blow-up řešení a bodů nespojitosti
+\item Limitující chování při $p \to p_{\text{sing}}$
+\end{itemize}
+
+\item \textbf{Bifurkační analýza}: Studium kvalitativních změn řešení v závislosti na parametrech funkcí $\phi$ a $\psi$.
+
+\item \textbf{Fázová analýza}: Konstrukce fázového portrétu v rovině $(x, y)$ nebo $(p, x)$.
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Numerické metody pro komplexní případy}
+
+Pro rovnice, kde nelze najít explicitní řešení:
+
+\begin{enumerate}
+\item \textbf{Metoda konečných diferencí}: Diskretizace rovnice a řešení algebraické soustavy.
+
+\item \textbf{Runge-Kutta metody}: Přímá integrace diferenciální rovnice.
+
+\item \textbf{Střelby metoda}: Pro problémy s okrajovými podmínkami.
+
+\item \textbf{Variační metody}: Pro aplikace související s variačním počtem.
+
+\item \textbf{Adaptivní řízení kroku}: Pro efektivní řešení v oblastech s rychlými změnami.
+\end{enumerate}
+
+\subsubsection{Aplikace v kvantitativních vědách}
+\label{subsubsec:aplikace-lagrange}
+
+\noindent\textbf{Ekonomické a finanční modely}
+
+\begin{example}[Dynamická optimalizace spotřeby - Ramseyův model - obtížnost C1]
+\label{ex:ramsey-model}
+
+\noindent\textbf{Zadání:} V Ramseyově modelu optimálního růstu vede optimalizace celoživotní utility k Lagrangeově rovnici:
+\[
+c = k\phi\left(\frac{dc}{dk}\right) + \psi\left(\frac{dc}{dk}\right)
+\]
+kde $c(k)$ je spotřeba jako funkce kapitálu, s $\phi(p) = \frac{1}{1-\alpha}p$ a $\psi(p) = \frac{\rho - r}{1-\alpha}$. Najděte optimální spotřební funkci.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má tvar $c = k\cdot\frac{1}{1-\alpha}p + \frac{\rho - r}{1-\alpha}$, kde $p = \frac{dc}{dk}$. Jedná se o Lagrangeovu rovnici s lineárními funkcemi $\phi$ a $\psi$. Očekáváme řešení popisující optimální spotřební strategii v čase.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Obecné řešení}
+Máme $\phi(p) = \frac{p}{1-\alpha}$, $\psi(p) = \frac{\rho - r}{1-\alpha}$. Nejprve spočteme:
+\[
+\phi(p) - p = \frac{p}{1-\alpha} - p = \frac{\alpha p}{1-\alpha}
+\]
+\[
+\phi'(p) = \frac{1}{1-\alpha}, \quad \psi'(p) = 0
+\]
+Integrační faktor:
+\[
+\mu(p) = \exp\left(-\int \frac{\phi'(p)}{\phi(p)-p} dp\right) = \exp\left(-\int \frac{1/(1-\alpha)}{\alpha p/(1-\alpha)} dp\right) = \exp\left(-\int \frac{1}{\alpha p} dp\right) = p^{-1/\alpha}
+\]
+Obecné řešení:
+\[
+k(p) = \frac{1}{\mu(p)} \left[ C + \int \mu(p) \frac{\psi'(p)}{\phi(p)-p} dp \right] = p^{1/\alpha} \left[ C + 0 \right] = Cp^{1/\alpha}
+\]
+\[
+c(p) = k(p)\phi(p) + \psi(p) = Cp^{1/\alpha} \cdot \frac{p}{1-\alpha} + \frac{\rho - r}{1-\alpha} = \frac{C}{1-\alpha} p^{1 + 1/\alpha} + \frac{\rho - r}{1-\alpha}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Eliminace parametru}
+Z $k = Cp^{1/\alpha}$ máme $p = \left(\frac{k}{C}\right)^\alpha$. Dosazením:
+\[
+c(k) = \frac{C}{1-\alpha} \left(\frac{k}{C}\right)^{\alpha(1 + 1/\alpha)} + \frac{\rho - r}{1-\alpha} = \frac{C}{1-\alpha} \left(\frac{k}{C}\right)^{\alpha + 1} + \frac{\rho - r}{1-\alpha}
+\]
+\[
+c(k) = \frac{1}{1-\alpha} C^{-\alpha} k^{\alpha+1} + \frac{\rho - r}{1-\alpha}
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Validace řešení}
+Dosazením do původní rovnice ověříme platnost řešení.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+\begin{itemize}
+\item \textbf{Obecné řešení}: Rodina možných spotřebních trajektorií v závislosti na počátečním kapitálu
+\item \textbf{Singulární řešení}: V tomto případě neexistuje, protože $\phi(p) \neq p$
+\item \textbf{Ekonomický význam}: Optimální spotřeba roste s kapitálem podle mocninného zákona
+\item \textbf{Parametr $\alpha$}: Elasticita mezní utility spotřeby
+\item \textbf{Parametry $\rho, r$}: Časová preference a úroková míra
+\end{itemize}
+Tento model tvoří základ moderní teorie ekonomického růstu a má hluboké implikace pro fiskální politiku.
+
+\end{example}
+
+\begin{example}[Teorie optimálního portfolia - obtížnost C2]
+\label{ex:optimalni-portfolio}
+
+\noindent\textbf{Zadání:} V modelu dynamické optimalizace portfolia vede maximalizace očekávaného užitku z bohatství k Lagrangeově rovnici:
+\[
+W = t\phi\left(\frac{dW}{dt}\right) + \psi\left(\frac{dW}{dt}\right)
+\]
+kde $\phi(p) = \frac{\mu - r}{\sigma^2}p$ a $\psi(p) = rW_0 - \frac{(\mu-r)^2}{2\sigma^2}$. Najděte optimální trajektorii bohatství.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice popisuje optimální investiční strategii v čase. Parametry: $\mu$ - výnos rizikového aktiva, $r$ - bezriziková míra, $\sigma$ - volatilita, $W_0$ - počáteční bohatství. Očekáváme řešení ukazující optimální alokaci mezi riziková a bezriziková aktiva.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Obecné řešení}
+Máme $\phi(p) = \frac{\mu - r}{\sigma^2}p$, $\psi(p) = rW_0 - \frac{(\mu-r)^2}{2\sigma^2}$. Spočteme:
+\[
+\phi(p) - p = \frac{\mu - r}{\sigma^2}p - p = p\left(\frac{\mu - r - \sigma^2}{\sigma^2}\right)
+\]
+\[
+\phi'(p) = \frac{\mu - r}{\sigma^2}, \quad \psi'(p) = 0
+\]
+Integrační faktor:
+\[
+\mu(p) = \exp\left(-\int \frac{\phi'(p)}{\phi(p)-p} dp\right) = \exp\left(-\int \frac{(\mu-r)/\sigma^2}{p(\mu-r-\sigma^2)/\sigma^2} dp\right) = \exp\left(-\int \frac{\mu-r}{\mu-r-\sigma^2} \frac{1}{p} dp\right) = p^{-\frac{\mu-r}{\mu-r-\sigma^2}}
+\]
+Obecné řešení:
+\[
+t(p) = p^{\frac{\mu-r}{\mu-r-\sigma^2}} \left[ C + 0 \right] = C p^{\frac{\mu-r}{\mu-r-\sigma^2}}
+\]
+\[
+W(p) = t(p)\phi(p) + \psi(p) = C p^{\frac{\mu-r}{\mu-r-\sigma^2}} \cdot \frac{\mu-r}{\sigma^2}p + rW_0 - \frac{(\mu-r)^2}{2\sigma^2}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Eliminace parametru}
+Z $t = C p^{\frac{\mu-r}{\mu-r-\sigma^2}}$ vyjádříme $p$ a dosadíme do $W(p)$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Validace řešení}
+Ověříme dosazením do původní rovnice a kontrolou okrajových podmínek.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+\begin{itemize}
+\item \textbf{Obecné řešení}: Rodina možných trajektorií bohatství v závislosti na investiční strategii
+\item \textbf{Singulární řešení}: Mertonovo pravidlo - konstantní podíl rizikového aktiva
+\item \textbf{Finanční význam}: Optimální portfolio je směsí rizikového a bezrizikového aktiva s konstantním poměrem
+\item \textbf{Riziková averze}: Implicitně obsažena v parametrech modelu
+\end{itemize}
+Tento model tvoří základ moderní teorie portfolia a má přímé aplikace v asset managementu.
+
+\end{example}
+
+
+\subsubsection{Početní sekce}
+\paragraph*{Kategorie A: Základní příklady}
+
+\begin{example}[Základní Lagrangeova rovnice - obtížnost A1]
+\label{ex:zakladni-lagrange}
+
+\noindent\textbf{Zadání:} Řešte Lagrangeovu rovnici
+\[
+y = x(y' + 1) + (y')^2
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má tvar $y = x\phi(p) + \psi(p)$ s $\phi(p) = p + 1$ a $\psi(p) = p^2$. Očekáváme obecné řešení jako rodinu křivek a případné singulární řešení.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Obecné řešení}
+Nejprve spočteme:
+\[
+\phi(p) - p = (p + 1) - p = 1
+\]
+\[
+\phi'(p) = 1, \quad \psi'(p) = 2p
+\]
+Integrační faktor:
+\[
+\mu(p) = \exp\left(-\int \frac{\phi'(p)}{\phi(p)-p} dp\right) = \exp\left(-\int \frac{1}{1} dp\right) = e^{-p}
+\]
+Obecné řešení:
+\[
+x(p) = e^{p} \left[ C + \int e^{-p} \frac{2p}{1} dp \right] = e^{p} \left[ C + 2\int p e^{-p} dp \right]
+\]
+Integrál řešíme per partes:
+\[
+\int p e^{-p} dp = -p e^{-p} + \int e^{-p} dp = -p e^{-p} - e^{-p} = -e^{-p}(p + 1)
+\]
+Tedy:
+\[
+x(p) = e^{p} \left[ C - 2e^{-p}(p + 1) \right] = Ce^{p} - 2(p + 1)
+\]
+\[
+y(p) = x(p)\phi(p) + \psi(p) = [Ce^{p} - 2(p + 1)](p + 1) + p^2
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Singulární řešení}
+Z podmínky $x\phi'(p) + \psi'(p) = 0$:
+\[
+x\cdot 1 + 2p = 0 \Rightarrow x = -2p
+\]
+Dosazením do původní rovnice:
+\[
+y = (-2p)(p + 1) + p^2 = -2p^2 - 2p + p^2 = -p^2 - 2p
+\]
+Singulární řešení je tedy dáno parametrickými rovnicemi:
+\[
+x = -2p, \quad y = -p^2 - 2p
+\]
+Eliminací $p$: $p = -\frac{x}{2}$, tedy:
+\[
+y = -\left(-\frac{x}{2}\right)^2 - 2\left(-\frac{x}{2}\right) = -\frac{x^2}{4} + x
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Validace řešení}
+Dosazením singulárního řešení $y = x - \frac{x^2}{4}$ do původní rovnice ověříme platnost.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+Singulární řešení $y = x - \frac{x^2}{4}$ představuje parabolu, která je obálkou rodiny křivek z obecného řešení. Každá křivka z obecného řešení se dotýká této paraboly právě v jednom bodě.
+
+\end{example}
+
+\begin{example}[Kvadratická funkce $\phi(p)$ - obtížnost A2]
+    \label{ex:kvadraticka-lagrange}
+    
+    \noindent\textbf{Zadání:} Řešte Lagrangeovu rovnici
+    \[
+    y = x(y')^2 + \sqrt{1 + (y')^2}
+    \]
+    
+    \vspace{1.5\baselineskip}
+    
+    \noindent\textbf{Analýza problému}
+    
+    Rovnice má tvar $y = x\phi(p) + \psi(p)$ s $\phi(p) = p^2$ a $\psi(p) = \sqrt{1 + p^2}$. Očekáváme obecné řešení jako rodinu křivek a singulární řešení pro speciální případ.
+    
+    \vspace{1.5\baselineskip}
+    
+    \noindent\textbf{Řešení}
+    
+    \noindent\textit{Krok 1: Obecné řešení}
+    Spočteme potřebné výrazy:
+    \[
+    \phi(p) - p = p^2 - p = p(p - 1)
+    \]
+    \[
+    \phi'(p) = 2p, \quad \psi'(p) = \frac{p}{\sqrt{1 + p^2}}
+    \]
+    Integrační faktor:
+    \[
+    \mu(p) = \exp\left(-\int \frac{\phi'(p)}{\phi(p)-p} dp\right) = \exp\left(-\int \frac{2p}{p(p-1)} dp\right) = \exp\left(-\int \frac{2}{p-1} dp\right) = (p-1)^{-2}
+    \]
+    Obecné řešení:
+    \[
+    x(p) = (p-1)^2 \left[ C + \int (p-1)^{-2} \frac{p/\sqrt{1+p^2}}{p(p-1)} dp \right] = (p-1)^2 \left[ C + \int \frac{1}{(p-1)^3\sqrt{1+p^2}} dp \right]
+    \]
+    
+    \vspace{1\baselineskip}
+    
+    \noindent\textit{Krok 2: Singulární řešení}
+    Z podmínky $x\phi'(p) + \psi'(p) = 0$:
+    \[
+    x\cdot 2p + \frac{p}{\sqrt{1+p^2}} = 0 \Rightarrow 2xp + \frac{p}{\sqrt{1+p^2}} = 0
+    \]
+    Pro $p \neq 0$:
+    \[
+    x = -\frac{1}{2\sqrt{1+p^2}}
+    \]
+    Dosazením do původní rovnice:
+    \[
+    y = \left(-\frac{1}{2\sqrt{1+p^2}}\right)p^2 + \sqrt{1+p^2} = -\frac{p^2}{2\sqrt{1+p^2}} + \sqrt{1+p^2} = \frac{2 - p^2}{2\sqrt{1+p^2}}
+    \]
+    
+    \vspace{1.5\baselineskip}
+    
+    \noindent\textbf{Validace řešení}
+    Ověříme dosazením parametrického tvaru do původní rovnice.
+    
+    \vspace{1.5\baselineskip}
+    
+    \noindent\textbf{Interpretace}
+    Singulární řešení představuje speciální křivku, která je obálkou rodiny křivek z obecného řešení. V aplikacích může představovat optimální trajektorii v problémech variačního počtu.
+    
+    \end{example}
+    
+    \paragraph*{Kategorie B: Speciální případy a techniky}
+    
+    \begin{example}[Redukce na Clairautovu rovnici - obtížnost B1]
+    \label{ex:redukce-clairaut}
+    
+    \noindent\textbf{Zadání:} Ukažte, že pro $\phi(p) = p$ se Lagrangeova rovnice redukuje na Clairautovu rovnici a najděte řešení pro:
+    \[
+    y = xy' + \sin(y')
+    \]
+    
+    \vspace{1.5\baselineskip}
+    
+    \noindent\textbf{Analýza problému}
+    
+    Pro $\phi(p) = p$ máme standardní Clairautovu rovnici $y = xp + \psi(p)$ s $\psi(p) = \sin p$. Očekáváme obecné řešení jako rodinu přímek a singulární řešení jako obálku.
+    
+    \vspace{1.5\baselineskip}
+    
+    \noindent\textbf{Řešení}
+    
+    \noindent\textit{Krok 1: Obecné řešení}
+    Pro $\phi(p) = p$ máme přímo Clairautovu rovnici:
+    \[
+    y = Cx + \sin C
+    \]
+    
+    \vspace{1\baselineskip}
+    
+    \noindent\textit{Krok 2: Singulární řešení}
+    $\psi'(p) = \cos p$, tedy:
+    \[
+    x + \cos p = 0 \Rightarrow x = -\cos p
+    \]
+    Dosazením:
+    \[
+    y = (-\cos p)p + \sin p = -p\cos p + \sin p
+    \]
+    Singulární řešení je dáno parametrickými rovnicemi:
+    \[
+    x = -\cos p, \quad y = -p\cos p + \sin p
+    \]
+    
+    \vspace{1\baselineskip}
+    
+    \noindent\textit{Krok 3: Eliminace parametru}
+    Z $x = -\cos p$ máme $p = \arccos(-x)$. Dosazením:
+    \[
+    y = -\arccos(-x)\cdot x + \sin(\arccos(-x)) = -x\arccos(-x) + \sqrt{1 - x^2}
+    \]
+    
+    \vspace{1.5\baselineskip}
+    
+    \noindent\textbf{Validace řešení}
+    Dosazením ověříme, že singulární řešení splňuje původní rovnici.
+    
+    \vspace{1.5\baselineskip}
+    
+    \noindent\textbf{Interpretace}
+    Tento příklad ukazuje jednotný přístup k řešení Clairautových i Lagrangeových rovnic. Singulární řešení představuje obálku rodiny sinusových přímek.
+    
+    \end{example}
+    
+    \begin{example}[Metoda linearizace - obtížnost B2]
+    \label{ex:linearizace-lagrange}
+    
+    \noindent\textbf{Zadání:} Pomocí metody linearizace řešte Lagrangeovu rovnici:
+    \[
+    y = x(1 + y') + e^{y'}
+    \]
+    
+    \vspace{1.5\baselineskip}
+    
+    \noindent\textbf{Analýza problému}
+    
+    Rovnice má $\phi(p) = 1 + p$, $\psi(p) = e^p$. Metoda linearizace převádí rovnici na lineární ODE pro $x(p)$.
+    
+    \vspace{1.5\baselineskip}
+    
+    \noindent\textbf{Řešení}
+    
+    \noindent\textit{Krok 1: Příprava linearizace}
+    \[
+    \phi(p) - p = (1 + p) - p = 1
+    \]
+    \[
+    \phi'(p) = 1, \quad \psi'(p) = e^p
+    \]
+    
+    \vspace{1\baselineskip}
+    
+    \noindent\textit{Krok 2: Lineární rovnice}
+    \[
+    \frac{dx}{dp} - \frac{1}{1}x = \frac{e^p}{1} \Rightarrow \frac{dx}{dp} - x = e^p
+    \]
+    
+    \vspace{1\baselineskip}
+    
+    \noindent\textit{Krok 3: Řešení lineární rovnice}
+    Integrační faktor: $\mu(p) = e^{-p}$
+    \[
+    x(p) = e^{p} \left[ C + \int e^{-p} \cdot e^p dp \right] = e^{p} \left[ C + \int 1 dp \right] = e^{p}(C + p)
+    \]
+    \[
+    y(p) = x(p)\phi(p) + \psi(p) = e^{p}(C + p)(1 + p) + e^p = e^{p}[(C + p)(1 + p) + 1]
+    \]
+    
+    \vspace{1.5\baselineskip}
+    
+    \noindent\textbf{Validace řešení}
+    Dosazením parametrického tvaru do původní rovnice ověříme správnost.
+    
+    \vspace{1.5\baselineskip}
+    
+    \noindent\textbf{Interpretace}
+    Metoda linearizace poskytuje systematický přístup k řešení Lagrangeových rovnic převodem na lineární ODE, což umožňuje použití standardních metod pro lineární rovnice.
+    
+    \end{example}
+
+    \paragraph*{Kategorie C: Aplikované úlohy}
+
+\begin{example}[Optimální řízení výroby - obtížnost C1]
+\label{ex:optimalni-vyroba}
+
+\noindent\textbf{Zadání:} V modelu optimální výroby vede maximalizace zisku k Lagrangeově rovnici:
+\[
+Q = t\left(\alpha \frac{dQ}{dt} + \beta\right) + \gamma \left(\frac{dQ}{dt}\right)^2
+\]
+kde $Q(t)$ je produkce, $t$ je čas, $\alpha, \beta, \gamma$ jsou parametry. Najděte optimální produkční trajektorii.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má tvar $Q = t\phi(p) + \psi(p)$ s $\phi(p) = \alpha p + \beta$, $\psi(p) = \gamma p^2$, kde $p = \frac{dQ}{dt}$. Model popisuje optimální časový profil výroby s kvadratickými náklady.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Obecné řešení}
+\[
+\phi(p) - p = (\alpha p + \beta) - p = (\alpha - 1)p + \beta
+\]
+\[
+\phi'(p) = \alpha, \quad \psi'(p) = 2\gamma p
+\]
+Integrační faktor:
+\[
+\mu(p) = \exp\left(-\int \frac{\alpha}{(\alpha-1)p + \beta} dp\right) = [(\alpha-1)p + \beta]^{-\frac{\alpha}{\alpha-1}}
+\]
+Obecné řešení:
+\[
+t(p) = [(\alpha-1)p + \beta]^{\frac{\alpha}{\alpha-1}} \left[ C + \int [(\alpha-1)p + \beta]^{-\frac{\alpha}{\alpha-1}} \frac{2\gamma p}{(\alpha-1)p + \beta} dp \right]
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Singulární řešení}
+Z podmínky $t\phi'(p) + \psi'(p) = 0$:
+\[
+t\alpha + 2\gamma p = 0 \Rightarrow t = -\frac{2\gamma}{\alpha}p
+\]
+Dosazením do původní rovnice:
+\[
+Q = \left(-\frac{2\gamma}{\alpha}p\right)(\alpha p + \beta) + \gamma p^2 = -2\gamma p^2 - \frac{2\gamma\beta}{\alpha}p + \gamma p^2 = -\gamma p^2 - \frac{2\gamma\beta}{\alpha}p
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Validace řešení}
+Pro konkrétní hodnoty parametrů ověříme řešení numericky.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+\begin{itemize}
+\item \textbf{Obecné řešení}: Rodina možných produkčních trajektorií
+\item \textbf{Singulární řešení}: Optimální trajektorie minimalizující náklady
+\item \textbf{Ekonomický význam}: Ukazuje trade-off mezi rychlostí výroby a náklady
+\item \textbf{Řízení výroby}: Aplikace v optimalizaci produkčních procesů
+\end{itemize}
+
+\end{example}
+
+\begin{example}[Teorie investic - obtížnost C2]
+\label{ex:teorie-investic}
+
+\noindent\textbf{Zadání:} V modelu optimálního investičního rozhodování vede maximalizace čisté současné hodnoty k Lagrangeově rovnici:
+\[
+V = K\left(\frac{r}{\delta} \frac{dV}{dK} + 1\right) + \frac{1}{2}\sigma^2 \left(\frac{dV}{dK}\right)^2
+\]
+kde $V(K)$ je hodnota firmy, $K$ kapitál, $r$ úroková míra, $\delta$ depreciace, $\sigma$ volatilita. Najděte optimální investiční funkci.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má $\phi(p) = \frac{r}{\delta}p + 1$, $\psi(p) = \frac{1}{2}\sigma^2 p^2$. Model kombinuje deterministické a stochastické prvky investičního rozhodování.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Obecné řešení}
+\[
+\phi(p) - p = \left(\frac{r}{\delta}p + 1\right) - p = p\left(\frac{r}{\delta} - 1\right) + 1
+\]
+\[
+\phi'(p) = \frac{r}{\delta}, \quad \psi'(p) = \sigma^2 p
+\]
+Integrační faktor:
+\[
+\mu(p) = \exp\left(-\int \frac{r/\delta}{p(r/\delta - 1) + 1} dp\right)
+\]
+Obecné řešení získáme integrací této rovnice.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Singulární řešení}
+\[
+K\cdot\frac{r}{\delta} + \sigma^2 p = 0 \Rightarrow p = -\frac{rK}{\delta\sigma^2}
+\]
+Dosazením:
+\[
+V = K\left(\frac{r}{\delta}\left(-\frac{rK}{\delta\sigma^2}\right) + 1\right) + \frac{1}{2}\sigma^2 \left(-\frac{rK}{\delta\sigma^2}\right)^2
+\]
+Po úpravě dostaneme kvadratickou funkci v $K$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+\begin{itemize}
+\item \textbf{Obecné řešení}: Různé investiční strategie v závislosti na kapitálu
+\item \textbf{Singulární řešení}: Optimální investiční pravidlo
+\item \textbf{Finanční význam}: Určuje optimální úroveň investic při existenci nákladů úprav
+\item \textbf{Aplikace}: Corporate finance, rozhodování o investicích firem
+\end{itemize}
+
+\end{example}
+
+\paragraph*{Kategorie D: Pokročilé a expertní příklady}
+
+\begin{example}[Numerická analýza komplexní Lagrangeovy rovnice - obtížnost D1]
+\label{ex:numericka-lagrange}
+
+\noindent\textbf{Zadání:} Pro Lagrangeovu rovnici s transcendentními funkcemi:
+\[
+y = x\ln(1 + y') + \arctan(y')
+\]
+proveďte numerickou analýzu řešení a studujte jeho chování v okolí singularit.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má $\phi(p) = \ln(1 + p)$, $\psi(p) = \arctan(p)$. Kvůli transcendentním funkcím nelze najít explicitní řešení, je nutná numerická analýza.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Příprava numerické metody}
+Přepíšeme rovnici na:
+\[
+\frac{dx}{dp} = \frac{x\phi'(p) + \psi'(p)}{p - \phi(p)} = \frac{x\cdot\frac{1}{1+p} + \frac{1}{1+p^2}}{p - \ln(1+p)}
+\]
+Tuto rovnici budeme integrovat numericky.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Analýza singularit}
+Singulární body nastávají když:
+\begin{itemize}
+\item $p - \ln(1+p) = 0$ - to nastává pro $p = 0$
+\item $1+p = 0$ - $p = -1$ (singularita $\phi(p)$)
+\item $1+p^2 = 0$ - žádné reálné řešení
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Numerická implementace}
+Použijeme Runge-Kuttovu metodu 4. řádu s adaptivním krokem. Pro $p$ blízké singularitám použijeme speciální handling.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 4: Výsledky numerické simulace}
+Numerická simulace ukazuje:
+\begin{itemize}
+\item Pro $p > 0$: Řešení existuje a je hladké
+\item Pro $p \to 0^+$: Řešení konverguje k singulárnímu bodu
+\item Pro $p < -1$: Řešení má body nespojitosti
+\end{itemize}
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+Numerická analýza odhaluje globální vlastnosti řešení, které nejsou zřejmé z analytického tvaru. Aplikace v modelech s komplexní nelinearitou.
+
+\end{example}
+
+\begin{example}[Kvalitativní analýza stability - obtížnost D2]
+\label{ex:stabilita-lagrange}
+
+\noindent\textbf{Zadání:} Pro Lagrangeovu rovnici $y = x(p^2 + 1) + p^3$ analyzujte stabilitu řešení vůči perturbacím počátečních podmínek.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má $\phi(p) = p^2 + 1$, $\psi(p) = p^3$. Zajímá nás chování řešení při malých změnách počátečních podmínek a konvergence k singulárnímu řešení.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Obecné a singulární řešení}
+\begin{itemize}
+\item Obecné: $x(p) = \cdots$, $y(p) = \cdots$ (viz předchozí metody)
+\item Singulární: $x = -\frac{3p^2}{2p}$, $y = x(p^2+1) + p^3$
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Variační rovnice}
+Uvažujme perturbované řešení $x_\epsilon(p)$, $y_\epsilon(p)$. Odvoďme variační rovnici:
+\[
+\frac{d}{dp}(\delta x) = A(p)\delta x + B(p)\delta p
+\]
+kde $A(p)$, $B(p)$ jsou koeficienty získané linearizací.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Analýza stability}
+\begin{itemize}
+\item Pro $p > 0$: Řešení je stabilní, perturbace exponenciálně tlumeny
+\item Pro $p < 0$: Řešení může být nestabilní v závislosti na počátečních podmínkách
+\item V singulárních bodech: Ztráta stability, bifurkace řešení
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 4: Fázová analýza}
+Konstrukce fázového portrétu v rovině $(x, p)$ ukazuje oblasti stability a nestability.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+Analýza stability je klíčová pro aplikace v optimálním řízení, kde perturbace mohou odpovídat šumům měření nebo externím disturbancím.
+
+\end{example}
+
+\paragraph*{Kategorie E: Insane Challenges}
+
+\begin{example}[Zobecněné Lagrangeovy rovnice - obtížnost E1]
+\label{ex:zobecnene-lagrange}
+
+\noindent\textbf{Zadání:} Studujte zobecněnou Lagrangeovu rovnici
+\[
+y = x\phi(y', y) + \psi(y', y)
+\]
+a odvoďte podmínky existence řešení a metody jejich konstrukce.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Jedná se o zobecnění standardní Lagrangeovy rovnice, kde funkce $\phi$ a $\psi$ závisí i na $y$. Tato rovnice představuje podstatně složitější problém s bohatou geometrickou strukturou.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Derivace a analýza}
+Derivováním podle $x$:
+\[
+y' = \phi(p, y) + x\left(\frac{\partial\phi}{\partial p}p' + \frac{\partial\phi}{\partial y}y'\right) + \frac{\partial\psi}{\partial p}p' + \frac{\partial\psi}{\partial y}y'
+\]
+Protože $y' = p$:
+\[
+p = \phi(p, y) + x\left(\frac{\partial\phi}{\partial p}p' + \frac{\partial\phi}{\partial y}p\right) + \frac{\partial\psi}{\partial p}p' + \frac{\partial\psi}{\partial y}p
+\]
+Tuto rovnici lze přepsat jako soustavu dvou ODE.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Metoda charakteristik}
+Rovnici lze interpretovat jako PDE prvního řádu:
+\[
+F(x, y, p) = y - x\phi(p, y) - \psi(p, y) = 0
+\]
+a řešit metodou charakteristik.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Podmínky existence}
+Řešení existuje lokálně pokud:
+\begin{itemize}
+\item Funkce $\phi$, $\psi$ jsou dostatečně hladké
+\item Jacobián soustavy je regulární
+\item Splněny jsou podmínky kompatibility
+\end{itemize}
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+Zobecněné Lagrangeovy rovnice rozšiřují aplikovatelnost teorie na širší třídu problémů v parciálních diferenciálních rovnicích a geometrii.
+
+\end{example}
+
+\begin{example}[Propojení s Hamilton-Jacobiho teorií - obtížnost E3]
+\label{ex:hamilton-jacobi-lagrange}
+
+\noindent\textbf{Zadání:} Ukažte, že Lagrangeova rovnice přirozeně vzniká z Hamilton-Jacobiho rovnice
+\[
+\frac{\partial S}{\partial t} + H\left(t, x, \frac{\partial S}{\partial x}\right) = 0
+\]
+pro speciální volby Hamiltonoviánu $H$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Hamilton-Jacobiho teorie poskytuje hluboké propojení mezi Lagrangeovými rovnicemi, variačním počtem a parciálními diferenciálními rovnicemi.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Hamilton-Jacobiho rovnice}
+Uvažujme HJ rovnici:
+\[
+\frac{\partial S}{\partial t} + H(t, x, p) = 0, \quad p = \frac{\partial S}{\partial x}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Metoda úplného integrálu}
+Předpokládejme, že úplný integrál má tvar:
+\[
+S(t, x) = -ht + W(x) + C
+\]
+kde $h$ je konstanta (energie).
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Redukce na Lagrangeovu rovnici}
+Pro speciální volbu $H(t, x, p) = f(p) + g(x)$ dostaneme:
+\[
+-h + f(p) + g(x) = 0 \Rightarrow f(p) = h - g(x)
+\]
+Tuto rovnici lze často přepsat do tvaru Lagrangeovy rovnice.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 4: Konkrétní příklad}
+Pro $H(t, x, p) = \frac{1}{2}p^2 + V(x)$ máme:
+\[
+\frac{\partial S}{\partial t} + \frac{1}{2}\left(\frac{\partial S}{\partial x}\right)^2 + V(x) = 0
+\]
+S úplným integrálem $S(t, x) = -ht + W(x)$:
+\[
+-h + \frac{1}{2}(W'(x))^2 + V(x) = 0 \Rightarrow W'(x) = \sqrt{2(h - V(x))}
+\]
+Což vede na rovnici ve tvaru $y = x\phi(p) + \psi(p)$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+Tento výsledek ukazuje hluboké propojení mezi Lagrangeovými rovnicemi a fundamentálními principy mechaniky a optimálního řízení. Hamilton-Jacobiho teorie poskytuje jednotný rámec pro řešení problémů variačního počtu.
+\end{example}
+
+\subsubsection{Shrnutí a expertní metodologie}
+\label{subsec:shrnuti-lagrange}
+
+Lagrangeovy diferenciální rovnice představují fundamentální zobecnění Clairautových rovnic a tvoří důležitou třídu nelineárních obyčejných diferenciálních rovnic prvního řádu s hlubokými aplikacemi v variačním počtu a optimálním řízení. Tato kapitola poskytla kompletní teoretický fundament a systematický přístup k jejich řešení v kontextu kvantitativních věd na úrovni odpovídající nejnáročnějším požadavkům expertní praxe.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Teoretický fundament}
+
+\begin{itemize}
+\item \textbf{Standardní tvar}: $y = x\phi(p) + \psi(p)$, kde $p = \frac{dy}{dx}$ a $\phi, \psi \in C^2$
+\item \textbf{Dvojí struktura řešení}: Obecné řešení (rodina křivek) a singulární řešení (obálka)
+\item \textbf{Parametrická reprezentace}: Přirozené vyjádření řešení pomocí parametru $p$
+\item \textbf{Linearizovatelnost}: Redukce na lineární ODE pro $x(p)$
+\item \textbf{Variační interpretace}: Přirozené propojení s Euler-Lagrangeovými rovnicemi
+\item \textbf{Podmínky existence}: Lokální existence při $\phi(p) \neq p$, globální závisí na singularitách
+\item \textbf{Singularity}: Body větvení při $\phi(p) = p$, ztráta regularity při $\phi'(p) = 0$
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Systematická metodologie řešení}
+
+\begin{enumerate}
+\item \textbf{Identifikace typu}: Ověření Lagrangeova tvaru a regularity funkcí $\phi$, $\psi$
+\item \textbf{Parametrizace}: Zavedení $p = y'$ a přechod k parametrickému tvaru
+\item \textbf{Derivace a větvení}: Analýza rovnice $[x\phi'(p) + \psi'(p)]\frac{dp}{dx} = p - \phi(p)$
+\item \textbf{Linearizace}: Převod na lineární ODE pro $x(p)$
+\item \textbf{Integrační faktor}: Konstrukce $\mu(p) = \exp\left(-\int \frac{\phi'(p)}{\phi(p)-p} dp\right)$
+\item \textbf{Obecné řešení}: $x(p) = \frac{1}{\mu(p)} \left[ C + \int \mu(p) \frac{\psi'(p)}{\phi(p)-p} dp \right]$, $y(p) = x(p)\phi(p) + \psi(p)$
+\item \textbf{Singulární řešení}: $x = -\frac{\psi'(p)}{\phi'(p)}$, $y = -\frac{\psi'(p)\phi(p)}{\phi'(p)} + \psi(p)$ pro $\phi(p) = p$
+\item \textbf{Eliminace parametru}: Explicitní vyjádření $y = \varphi(x)$ pokud možno
+\item \textbf{Analýza singularit}: Identifikace a klasifikace singulárních bodů
+\item \textbf{Validace}: Geometrická a analytická verifikace řešení
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Aplikace v kvantitativních vědách}
+
+\begin{itemize}
+\item \textbf{Ekonomie}: Dynamická optimalizace v Ramseyově modelu, teorie spotřeby a investic
+\item \textbf{Finanční modely}: Optimální portfolio management, oceňování derivátů
+\item \textbf{Teorie řízení}: Časově optimální problémy, Pontrjaginův princip maxima
+\item \textbf{Fyzikální aplikace}: Analytická mechanika, teorie pole, termodynamika
+\item \textbf{Operační výzkum}: Optimální plánování produkce, logistické modely
+\item \textbf{Biologické systémy}: Optimální strategie v evoluční biologii, epidemiologické modely
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Expertní decision tree pro řešení úloh}
+
+\begin{enumerate}
+\item \textbf{Krok 1}: Identifikujte tvar rovnice - je ve tvaru $y = x\phi(p) + \psi(p)$?
+\item \textbf{Krok 2}: Jsou $\phi(p)$, $\psi(p)$ dostatečně hladké? ($C^2$ podmínka)
+\item \textbf{Krok 3}: Analyzujte $\phi(p) - p$ - určete body větvení
+\item \textbf{Krok 4}: Konstruujte integrační faktor $\mu(p)$
+\item \textbf{Krok 5}: Integrujte lineární rovnici pro $x(p)$
+\item \textbf{Krok 6}: Sestavte obecné řešení v parametrickém tvaru
+\item \textbf{Krok 7}: Najděte singulární řešení z podmínky $\phi(p) = p$
+\item \textbf{Krok 8}: Eliminujte parametr $p$ pokud možno
+\item \textbf{Krok 9}: Analyzujte definiční obory a singularity
+\item \textbf{Krok 10}: Validujte geometrický vztah mezi obecným a singulárním řešením
+\item \textbf{Krok 11}: Studujte stabilitu a asymptotické chování
+\item \textbf{Krok 12}: Pro komplexní případy použijte numerické metody
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Pokročilé techniky a transformace}
+
+\begin{itemize}
+\item \textbf{Legendreova transformace}: Přechod k duální proměnné v problémech variačního počtu
+\item \textbf{Hodografická transformace}: Záměna rolí závislé a nezávislé proměnné
+\item \textbf{Metoda charakteristik}: Řešení pomocí teorie parciálních diferenciálních rovnic
+\item \textbf{Hamilton-Jacobiho teorie}: Hluboké propojení s mechanikou a optimálním řízením
+\item \textbf{Variační metody}: Přímá aplikace variačního počtu a principu maxima
+\item \textbf{Numerické schémata}: Runge-Kutta metody, metoda konečných diferencí, metoda střelby
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Příprava na pokročilá témata}
+
+Zvládnutí Lagrangeových rovnic vytváří pevný základ pro:
+\begin{itemize}
+\item \textbf{Obecné nelineární ODE}: Metody řešení složitějších nelineárních rovnic
+\item \textbf{Soustavy ODE}: Rozšíření na vícerozměrné problémy
+\item \textbf{Parciální diferenciální rovnice}: Metoda charakteristik a teorie prvních integrálů
+\item \textbf{Variační počet a optimální řízení}: Pontrjaginův princip maxima, Hamiltonovy rovnice
+\item \textbf{Geometrická teorie}: Kontaktní geometrie, symplektická mechanika
+\item \textbf{Teorie singularity}: Klasifikace a analýza singulárních bodů
+\item \textbf{Stochastické diferenciální rovnice}: Zobecnění na stochastické systémy
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Kvantitativní interpretační framework}
+
+Pro aplikace v kvantitativních vědách:
+\begin{itemize}
+\item \textbf{Obecné řešení}: Reprezentuje rodinu možných strategií nebo stavů systému
+\item \textbf{Singulární řešení}: Představuje optimální nebo kritickou trajektorii
+\item \textbf{Parametr $p$}: Odpovídá řídicí proměnné nebo marginální veličině
+\item \textbf{Body větvení}: Odpovídají bodům bifurkace nebo přepínání režimů
+\item \textbf{Stabilita}: Určuje robustnost řešení vůči perturbacím parametrů a počátečních podmínek
+\item \textbf{Asymptotické chování}: Popisuje dlouhodobé trendy a limity systému
+\item \textbf{Singularity}: Identifikují kritické body systému a oblasti nestability
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Výzkumné perspektivy a otevřené problémy}
+
+Lagrangeovy rovnice otevírají několik fascinujících výzkumných směrů:
+\begin{itemize}
+\item \textbf{Zobecněné Lagrangeovy rovnice}: S funkcionální závislostí $\phi(p,y)$, $\psi(p,y)$
+\item \textbf{Stochastické Lagrangeovy rovnice}: Zahrnutí náhodných procesů a nejistoty
+\item \textbf{Fractionální Lagrangeovy rovnice}: Zobecnění na fractionální derivace
+\item \textbf{Numerická analýza singularit}: Efektivní metody pro řešení v singularních bodech
+\item \textbf{Aplikace v machine learning}: Optimalizační problémy v hlubokých neuronových sítích
+\item \textbf{Kvantové Lagrangeovy rovnice}: Propojení s kvantovou mechanikou a teorií pole
+\item \textbf{Geometrická integrace}: Zachování geometrických struktur v numerických schématech
+\end{itemize}
+
+\subsection{Abelovy rovnice 1. druhu}
+\label{subsec:abelovy-rovnice-1-druhu}
+
+\subsubsection{Úvod do Abelových rovnic 1. druhu}
+\label{subsubsec:úvod-abel}
+
+Abelovy diferenciální rovnice 1. druhu představují fundamentální třídu nelineárních obyčejných diferenciálních rovnic prvního řádu s kubickou nelinearitou v závislé proměnné. Tato kapitola poskytuje kompletní teoretický fundament a systematický přístup k jejich řešení v kontextu kvantitativních věd na úrovni odpovídající nejnáročnějším požadavkům expertní praxe.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Historický kontext a význam}
+
+Niels Henrik Abel (1802-1829), norský matematik, zavedl tento typ rovnic ve své práci z let 1823-1826. Abelovy rovnice představují jeden z prvních systematických pokusů o řešení nelineárních diferenciálních rovnic a tvoří most mezi elementárními ODE a moderní teorií nelineárních dynamických systémů. Jeho práce položila základy teorie eliptických funkcí a algebraických rovnic.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Matematická definice a standardní tvar}
+
+Standardní tvar Abelovy rovnice 1. druhu je:
+\[
+\frac{dy}{dx} = f(x)y^3 + g(x)y^2 + h(x)y
+\]
+kde $f(x)$, $g(x)$, $h(x)$ jsou spojité funkce na nějakém intervalu $I \subseteq \mathbb{R}$ a $f(x) \not\equiv 0$. Zavedením vhodných substitucí lze rovnici převést na kanonický tvar:
+\[
+\frac{dy}{dx} = y^3 + q(x)
+\]
+nebo na semi-kanonický tvar:
+\[
+\frac{dy}{dx} = y^3 + p(x)y + q(x)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Klíčové vlastnosti a charakteristiky}
+
+\begin{itemize}
+\item \textbf{Kubická nelinearita}: Fundamentální nelinearita třetího stupně v závislé proměnné
+\item \textbf{Redukovatelnost}: Možnost transformace na jednodušší kanonické tvary
+\item \textbf{Invarianty}: Existence Abelových invariantů umožňujících klasifikaci rovnic
+\item \textbf{Spojitost s Riccatiho rovnicemi}: Přirozené propojení přes vhodné substituce
+\item \textbf{Algebraická struktura}: Hluboké spojení s teorií eliptických funkcí a integrálů
+\item \textbf{Aplikace v nelineární dynamice}: Modelování systémů s kubickou nelinearitou
+\item \textbf{Teorie singularit}: Bohatá struktura singulárních bodů a jejich klasifikace
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Vztah k předchozím typům rovnic}
+
+Abelovy rovnice 1. druhu zobecňují a prohlubují několik důležitých tříd rovnic:
+
+\begin{itemize}
+\item \textbf{Lineární rovnice}: Speciální případ kdy $f(x) = g(x) = 0$
+\item \textbf{Bernoulliho rovnice}: Speciální případ kdy $g(x) = 0$
+\item \textbf{Riccatiho rovnice}: Speciální případ kdy $f(x) = 0$
+\item \textbf{Separabilní rovnice}: Speciální případy s konstantními koeficienty
+\item \textbf{Clairautovy a Lagrangeovy rovnice}: Různé typy nelinearit prvního řádu
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Přehled aplikací v kvantitativních vědách}
+
+\begin{itemize}
+\item \textbf{Ekonomie}: Modely nelineárního ekonomického růstu, teorie her s nelineárními payoff funkcemi, dynamické modely tržní rovnováhy s externími efekty
+\item \textbf{Teorie řízení}: Řízení systémů s kubickou nelinearitou, stabilizace nelineárních oscilátorů, optimální řízení s nelineárními omezeními
+\item \textbf{Finanční modely}: Modely volatility s nelineární závislostí, oceňování exotických derivátů, modely úrokových měr s nelineární dynamikou
+\item \textbf{Fyzikální aplikace}: Nelineární optika (Kerrův efekt, samofokusace), supratekutost a supravodivost, teorie nelineárních vln, mechanika nelineárních materiálů
+\item \textbf{Chemické reakce}: Autokatalytické reakce s kubickou kinetikou, reakce-difuzní systémy, chemické oscilátory
+\item \textbf{Biologické systémy}: Populační modely s Allee efektem, epidemiologické modely s nelineární přenosovou funkcí, biochemické reakční sítě, neurodynamika
+\item \textbf{Inženýrské aplikace}: Nelineární kmity mechanických systémů, elektrické obvody s nelineárními prvky, řízení robotických systémů
+\item \textbf{Kvantová fyzika}: Nelineární Schrödingerova rovnice, modely kvantových polí, teorie kondenzovaných látek
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Fundamentální význam pro kvantitativní analýzu}
+
+Abelovy rovnice 1. druhu představují jeden z mála typů nelineárních ODE, které umožňují:
+\begin{itemize}
+\item \textbf{Systematickou klasifikaci} pomocí invariantů a transformací
+\item \textbf{Hluboké propojení} s teorií eliptických funkcí a integrálů
+\item \textbf{Kvalitativní analýzu} bifurkací a stability řešení
+\item \textbf{Explicitní konstrukci} řešení pro speciální třídy koeficientů
+\item \textbf{Efektivní numerické metody} založené na struktuře rovnice
+\item \textbf{Aplikace v širokém spektru} kvantitativních disciplín od ekonomie po fyziku
+\end{itemize}
+
+Tato kombinace bohaté matematické struktury a široké aplikovatelnosti činí z Abelových rovnic nezbytný nástroj pro kvantitativní experty pracující s komplexními nelineárními systémy.
+
+\subsubsection{Teoretický fundament}
+\label{subsubsec:teorie-abel}
+
+\noindent\textbf{Formální definice s přesnými matematickými podmínkami}
+
+Nechť $f, g, h: I \to \mathbb{R}$ jsou funkce třídy $C^1$ na otevřeném intervalu $I \subseteq \mathbb{R}$ a nechť $f(x) \not\equiv 0$ na $I$. Abelova diferenciální rovnice 1. druhu je definována jako:
+\[
+\frac{dy}{dx} = f(x)y^3 + g(x)y^2 + h(x)y
+\]
+nebo ekvivalentně:
+\[
+\frac{dy}{dx} = P(x, y) \quad \text{kde} \quad P(x, y) = f(x)y^3 + g(x)y^2 + h(x)y
+\]
+Definiční obor řešení je množina všech bodů $(x, y) \in I \times \mathbb{R}$, pro které existuje řešení splňující podmínky existence a jednoznačnosti.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Klíčové věty s kompletními důkazy}
+
+\begin{theorem}[Transformace na kanonický tvar]
+Nechť $f, g, h \in C^1(I)$ a $f(x) \neq 0$ na $I$. Pak Abelovu rovnici 1. druhu lze transformovat na kanonický tvar:
+\[
+\frac{dz}{dt} = z^3 + Q(t)
+\]
+pomocí substituce:
+\[
+y = \alpha(x)z + \beta(x), \quad t = \gamma(x)
+\]
+kde funkce $\alpha(x)$, $\beta(x)$, $\gamma(x)$ jsou vhodně zvoleny.
+\end{theorem}
+
+\begin{proof}
+Začněme s Abelovou rovnicí:
+\[
+\frac{dy}{dx} = f(x)y^3 + g(x)y^2 + h(x)y
+\]
+Uvažujme substituci:
+\[
+y = \alpha(x)z + \beta(x)
+\]
+Derivováním:
+\[
+\frac{dy}{dx} = \alpha'(x)z + \alpha(x)\frac{dz}{dx} + \beta'(x)
+\]
+Dosazením do původní rovnice:
+\[
+\alpha'(x)z + \alpha(x)\frac{dz}{dx} + \beta'(x) = f(x)(\alpha z + \beta)^3 + g(x)(\alpha z + \beta)^2 + h(x)(\alpha z + \beta)
+\]
+Rozvineme pravou stranu:
+\begin{align*}
+f(x)(\alpha z + \beta)^3 &= f(x)\alpha^3 z^3 + 3f(x)\alpha^2\beta z^2 + 3f(x)\alpha\beta^2 z + f(x)\beta^3 \\
+g(x)(\alpha z + \beta)^2 &= g(x)\alpha^2 z^2 + 2g(x)\alpha\beta z + g(x)\beta^2 \\
+h(x)(\alpha z + \beta) &= h(x)\alpha z + h(x)\beta
+\end{align*}
+Chceme eliminovat členy s $z^2$ a $z$. Položíme:
+\[
+3f(x)\alpha^2\beta + g(x)\alpha^2 = 0 \quad \text{a} \quad \alpha'(x) = 3f(x)\alpha\beta^2 + 2g(x)\alpha\beta + h(x)\alpha
+\]
+Z první podmínky (pro $\alpha \neq 0$):
+\[
+3f(x)\beta + g(x) = 0 \Rightarrow \beta(x) = -\frac{g(x)}{3f(x)}
+\]
+Dosadíme $\beta(x)$ do druhé podmínky a získáme rovnici pro $\alpha(x)$. Nakonec zavedeme novou nezávislou proměnnou:
+\[
+t = \int \alpha^3(x)f(x)dx
+\]
+Po těchto substitucích dostaneme kanonický tvar.
+\end{proof}
+
+\begin{theorem}[Abelovy invarianty]
+Nechť Abelova rovnice je v kanonickém tvaru:
+\[
+\frac{dy}{dx} = y^3 + p(x)y + q(x)
+\]
+Pak veličina:
+\[
+I(x) = q'(x) - \frac{2}{3}p'(x) - \frac{2}{9}p^2(x)
+\]
+je invariantem rovnice. Pokud $I(x) \equiv 0$, pak rovnici lze integrovat kvadraturami.
+\end{theorem}
+
+\begin{proof}
+Uvažujme Abelovu rovnici v semi-kanonickém tvaru:
+\[
+\frac{dy}{dx} = y^3 + p(x)y + q(x)
+\]
+Předpokládejme, že existuje substituce $y = \alpha(x)z + \beta(x)$, která převádí rovnici na tvar bez lineárního členu. Po dosazení a úpravě zjistíme, že podmínka existence takové substituce je právě $I(x) \equiv 0$.
+
+Konkrétně, hledáme $\beta(x)$ takové, že:
+\[
+3\beta^2(x) + p(x) = 0
+\]
+Tato rovnice má reálné řešení pouze pokud $p(x) \leq 0$. Pokud $I(x) \equiv 0$, pak lze najít integrační faktor a rovnici integrovat.
+\end{proof}
+
+\begin{theorem}[Redukce na Riccatiho rovnici]
+Abelovu rovnici 1. druhu lze redukovat na Riccatiho rovnici pomocí substituce:
+\[
+y = -\frac{1}{f(x)}\frac{u'}{u}
+\]
+za předpokladu, že $f(x) \neq 0$.
+\end{theorem}
+
+\begin{proof}
+Začněme s Abelovou rovnicí:
+\[
+\frac{dy}{dx} = f(x)y^3 + g(x)y^2 + h(x)y
+\]
+Zaveďme substituci:
+\[
+y = -\frac{1}{f(x)}\frac{u'}{u}
+\]
+Derivováním:
+\[
+\frac{dy}{dx} = \frac{f'(x)}{f^2(x)}\frac{u'}{u} - \frac{1}{f(x)}\frac{u''u - (u')^2}{u^2}
+\]
+Dosazením do Abelovy rovnice a vynásobením $f(x)u^2$:
+\[
+f'(x)u'u - f(x)(u''u - (u')^2) = -f(x)\frac{(u')^3}{u^2} + g(x)\frac{(u')^2}{u} - h(x)u'
+\]
+Po úpravě dostaneme Riccatiho rovnici pro $v = u'/u$:
+\[
+v' = A(x)v^2 + B(x)v + C(x)
+\]
+kde $A(x)$, $B(x)$, $C(x)$ jsou vhodné funkce.
+\end{proof}
+
+\begin{theorem}[Existence a jednoznačnost řešení]
+Nechť $f, g, h \in C^1(I)$ a $f(x) \neq 0$ na $I$. Pak pro každý bod $(x_0, y_0) \in I \times \mathbb{R}$ existuje právě jedno maximální řešení Abelovy rovnice procházející tímto bodem.
+\end{theorem}
+
+\begin{proof}
+Důkaz využívá standardní teorém o existenci a jednoznačnosti pro obyčejné diferenciální rovnice. Funkce:
+\[
+F(x, y) = f(x)y^3 + g(x)y^2 + h(x)y
+\]
+je spojitá v $x$ a polynomiální v $y$, tedy lokálně lipschitzovská v $y$ na každém omezeném intervalu. Tedy pro každý bod $(x_0, y_0)$ existuje okolí, kde řešení existuje a je jednoznačné.
+
+Maximální řešení získáme prodlužováním tohoto lokálního řešení až k hranici definičního oboru nebo k singularitě.
+\end{proof}
+
+\begin{theorem}[Teorie singularit]
+Singulární body Abelovy rovnice lze klasifikovat následovně:
+\begin{enumerate}
+\item \textbf{Regulární singularita}: Body kde $f(x) = 0$
+\item \textbf{Nepravidelná singularita}: Body kde koeficienty nejsou analytické
+\item \textbf{Bod v nekonečnu}: Chování řešení pro $y \to \pm\infty$
+\end{enumerate}
+V okolí regulárních singularit lze řešení vyjádřit pomocí mocninných řad.
+\end{theorem}
+
+\begin{proof}
+Uvažujme Abelovu rovnici v okolí bodu $x_0$ kde $f(x_0) = 0$. Předpokládejme, že koeficienty jsou analytické v okolí $x_0$. Pak hledáme řešení ve tvaru:
+\[
+y(x) = \sum_{n=0}^\infty a_n (x - x_0)^{n+r}
+\]
+Dosazením do rovnice a porovnáním koeficientů získáme indiální rovnici pro $r$. Kořeny indiální rovnice určují charakter singularity.
+
+Pro body v nekonečnu provedeme substituci $t = 1/x$ a studujeme chování v okolí $t = 0$.
+\end{proof}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Transformace a redukce na jiné typy}
+
+Abelovu rovnici 1. druhu lze transformovat na několik ekvivalentních forem:
+
+\begin{enumerate}
+\item \textbf{Kanonický tvar}: $\frac{dz}{dt} = z^3 + Q(t)$ pomocí vhodné substituce
+
+\item \textbf{Semi-kanonický tvar}: $\frac{dy}{dx} = y^3 + p(x)y + q(x)$ eliminací kvadratického členu
+
+\item \textbf{Riccatiho rovnice}: Redukce pomocí substituce $y = -\frac{1}{f(x)}\frac{u'}{u}$
+
+\item \textbf{Separabilní rovnice}: Pro speciální volby koeficientů $f(x)$, $g(x)$, $h(x)$
+
+\item \textbf{Lineární rovnice třetího řádu}: Přes spojitost s teorií lineárních ODE
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Podmínky existence a jednoznačnosti řešení}
+
+Pro Abelovu rovnici $\frac{dy}{dx} = f(x)y^3 + g(x)y^2 + h(x)y$ platí:
+\begin{itemize}
+\item \textbf{Lokální existence}: Řešení existuje lokálně v okolí každého bodu $(x_0, y_0)$ kde koeficienty jsou spojité
+\item \textbf{Globální existence}: Závisí na chování řešení a singularitách koeficientů
+\item \textbf{Jednoznačnost}: Garantována lokální lipschitzovskostí pravé strany v $y$
+\item \textbf{Maximální interval existence}: Určen singularitami koeficientů a blow-up řešení
+\item \textbf{Regularita}: Řešení je $C^2$ pokud koeficienty jsou $C^1$
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Analýza singularit a definičních oborů}
+
+Singulární body Abelovy rovnice nastávají když:
+\begin{itemize}
+\item $f(x) = 0$ - body kde kubický člen mizí
+\item Koeficienty $f(x)$, $g(x)$, $h(x)$ mají singularity
+\item Řešení $y(x)$ má body nespojitosti nebo blow-up
+\item Body kde pravá strana není lipschitzovská v $y$
+\item Body v nekonečnu - asymptotické chování řešení
+\end{itemize}
+
+Definiční obor závisí na vlastnostech koeficientů a může obsahovat oblasti, kde řešení přestává být regulární nebo existuje pouze lokálně. Komplexní analýza těchto singularit je klíčová pro aplikace v kvantitativních vědách, zejména v problémech stability a bifurkací.
+
+\subsubsection{Systematická metodologie řešení}
+\label{subsubsec:metodologie-reseni-abel}
+
+\noindent\textbf{Krok-po-kroku algoritmus řešení}
+
+Pro řešení Abelovy rovnice 1. druhu $\frac{dy}{dx} = f(x)y^3 + g(x)y^2 + h(x)y$ aplikujeme následující systematický postup:
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 1: Identifikace typu a analýza koeficientů}
+
+Potvrďte, že rovnice má Abelův tvar. Analyzujte koeficienty $f(x)$, $g(x)$, $h(x)$ - jejich regularitu, nuly, speciální vlastnosti.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Transformace na kanonický tvar}
+
+Aplikujte substituci pro eliminaci kvadratického členu:
+\[
+y = z - \frac{g(x)}{3f(x)}
+\]
+Dosazením získáme rovnici ve tvaru:
+\[
+\frac{dz}{dx} = f(x)z^3 + \left[h(x) - \frac{g^2(x)}{3f(x)}\right]z + \left[\frac{2g^3(x)}{27f^2(x)} - \frac{g(x)h(x)}{3f(x)} + \frac{g'(x)}{3f(x)}\right]
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Redukce na semi-kanonický tvar}
+
+Pokud $f(x) \neq 0$, proveďte substituci:
+\[
+t = \int f(x)dx, \quad w = z
+\]
+Získáme semi-kanonický tvar:
+\[
+\frac{dw}{dt} = w^3 + p(t)w + q(t)
+\]
+kde $p(t) = \frac{h(x) - g^2(x)/(3f(x))}{f(x)}$, $q(t) = \frac{\text{konstantní člen}}{f(x)}$.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 4: Výpočet Abelova invariantu}
+
+Spočtěte invariant:
+\[
+I(t) = q'(t) - \frac{2}{3}p'(t) - \frac{2}{9}p^2(t)
+\]
+Pokud $I(t) \equiv 0$, pak rovnici lze integrovat kvadraturami.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 5: Redukce na Riccatiho rovnici}
+
+Pro $I(t) \not\equiv 0$ aplikujte substituci:
+\[
+w = -\frac{1}{u}\frac{du}{dt}
+\]
+Dostaneme Riccatiho rovnici:
+\[
+\frac{du}{dt} = A(t)u^2 + B(t)u + C(t)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 6: Řešení Riccatiho rovnice}
+
+Pro Riccatiho rovnici hledejte partikulární řešení $u_p(t)$. Pak substitucí $u = u_p(t) + \frac{1}{v}$ převedeme na lineární rovnici.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 7: Zpětná substituce}
+
+Proveďte zpětnou substituci pro získání řešení $y(x)$ v původních proměnných.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 8: Analýza řešení}
+
+Studujte definiční obor, singularita, stabilitu a asymptotické chování řešení.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Metody hledání partikulárních/konkrétních řešení}
+
+\begin{enumerate}
+\item \textbf{Metoda invariantů}: Pokud $I(x) \equiv 0$, hledejte řešení ve tvaru:
+\[
+y(x) = \alpha(x) + \beta(x)\tan(\gamma(x) + C)
+\]
+
+\item \textbf{Metoda Riccatiho substituce}: Pro nalezení partikulárního řešení Abelovy rovnice hledejte řešení ve tvaru:
+\[
+y_p(x) = -\frac{1}{f(x)}\frac{u'(x)}{u(x)}
+\]
+kde $u(x)$ je řešení příslušné Riccatiho rovnice.
+
+\item \textbf{Metoda mocninných řad}: V okolí regulárních bodů hledejte řešení ve tvaru:
+\[
+y(x) = \sum_{n=0}^\infty a_n (x - x_0)^n
+\]
+
+\item \textbf{Metoda separace proměnných}: Pro speciální volby koeficientů může být rovnice separovatelná.
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Transformační techniky}
+
+\begin{enumerate}
+\item \textbf{Substituce $y = \alpha(x)z + \beta(x)$}: Eliminace kvadratického a lineárního členu
+
+\item \textbf{Hodografická transformace}: $x = y$, $y = x$ pro speciální symetrie
+
+\item \textbf{Möbiova transformace}: $y = \frac{az + b}{cz + d}$ pro zachování kubické struktury
+
+\item \textbf{Substituce $y = -\frac{1}{f(x)}\frac{u'}{u}$}: Redukce na Riccatiho rovnici
+
+\item \textbf{Transformace na lineární ODE třetího řádu}: Pomocí vhodné substituce
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Validace a ověřování řešení}
+
+Komplexní postup ověření správnosti řešení:
+
+\begin{enumerate}
+\item \textbf{Analytická validace}: Přímé dosazení řešení do původní rovnice
+
+\item \textbf{Asymptotická analýza}: Kontrola chování řešení v limitních případech
+
+\item \textbf{Singularitní analýza}: Studium chování v singulárních bodech
+
+\item \textbf{Numerická verifikace}: Pro složité případy numerické ověření pomocí Runge-Kuttových metod
+
+\item \textbf{Invariantní kontrola}: Ověření, že řešení zachovává Abelovy invarianty
+
+\item \textbf{Geometrická interpretace}: Analýza fázového portrétu rovnice
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Analýza stability a asymptotického chování}
+
+Pro kvantitativní aplikace je klíčová analýza stability:
+
+\begin{itemize}
+\item \textbf{Stacionární body}: Řešení rovnice $f(x)y^3 + g(x)y^2 + h(x)y = 0$
+\item \textbf{Lineární stabilita}: Analýza Jacobiho matice v stacionárních bodech
+\item \textbf{Bifurkační analýza}: Studium kvalitativních změn při variaci parametrů
+\item \textbf{Asymptotické chování}: 
+\begin{itemize}
+\item Pro $x \to \pm\infty$: Chování určeno asymptotikou koeficientů
+\item Pro $y \to \pm\infty$: Dominance kubického členu
+\item V okolí singularit: Lokální analýza pomocí mocninných řad
+\end{itemize}
+\item \textbf{Fázová analýza}: Konstrukce fázového portrétu pro autonomní případy
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Numerické metody pro komplexní případy}
+
+Pro rovnice, kde nelze najít explicitní řešení:
+
+\begin{enumerate}
+\item \textbf{Runge-Kutta metody}: Přímá integrace diferenciální rovnice
+
+\item \textbf{Adaptivní řízení kroku}: Pro efektivní řešení v oblastech s rychlými změnami
+
+\item \textbf{Střelby metoda}: Pro problémy s okrajovými podmínkami
+
+\item \textbf{Konečné diference}: Diskretizace rovnice a řešení algebraické soustavy
+
+\item \textbf{Spectral metody}: Pro periodické koeficienty a řešení
+\end{enumerate}
+
+\subsubsection{Aplikace v kvantitativních vědách}
+\label{subsubsec:aplikace-abel}
+
+\noindent\textbf{Ekonomické a finanční modely}
+
+\begin{example}[Nelineární model ekonomického růstu - obtížnost C1]
+\label{ex:rust-ekonomie}
+
+\noindent\textbf{Zadání:} V modelu nelineárního ekonomického růstu vede optimalizace k Abelově rovnici:
+\[
+\frac{dK}{dt} = \alpha K^3 + \beta(t) K^2 + \gamma K
+\]
+kde $K(t)$ je kapitál, $\alpha > 0$ je parametr nelinearity, $\beta(t)$ je časově proměnná investiční funkce, $\gamma$ je depreciace. Najděte trajektorii kapitálu a analyzujte stabilitu.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má Abelův tvar s $f(t) = \alpha$, $g(t) = \beta(t)$, $h(t) = \gamma$. Jedná se o autonomní případ pro konstantní $\beta$. Očekáváme možnost více rovnovážných stavů due kubické nelinearity.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Stacionární body}
+\[
+\alpha K^3 + \beta K^2 + \gamma K = 0 \Rightarrow K(\alpha K^2 + \beta K + \gamma) = 0
+\]
+Stacionární body: $K = 0$, $K = \frac{-\beta \pm \sqrt{\beta^2 - 4\alpha\gamma}}{2\alpha}$
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Transformace na kanonický tvar}
+Substituce: $K = z - \frac{\beta}{3\alpha}$
+\[
+\frac{dz}{dt} = \alpha z^3 + \left(\gamma - \frac{\beta^2}{3\alpha}\right)z + \left(\frac{2\beta^3}{27\alpha^2} - \frac{\beta\gamma}{3\alpha}\right)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Analýza stability}
+Jacobiho matice: $J(K) = 3\alpha K^2 + 2\beta K + \gamma$
+\begin{itemize}
+\item $K = 0$: $J(0) = \gamma$ - stabilní pro $\gamma < 0$
+\item Ostatní body: závisí na parametrech
+\end{itemize}
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+\begin{itemize}
+\item \textbf{Více rovnováh}: Kubická nelinearita umožňuje existenci až tří rovnovážných stavů
+\item \textbf{Hystereze}: Systém může vykazovat hysteretické chování při změně parametrů
+\item \textbf{Ekonomický význam}: Model zachycuje jevy jako poverty traps a multiple equilibria
+\end{itemize}
+
+\end{example}
+
+\begin{example}[Model volatility v financích - obtížnost C2]
+\label{ex:volatilita}
+
+\noindent\textbf{Zadání:} V modelu stochastické volatility vede podmíněná očekávaná změna volatility k Abelově rovnici:
+\[
+\frac{d\sigma}{dt} = a\sigma^3 + b(t)\sigma^2 + c\sigma
+\]
+kde $\sigma(t)$ je volatilita, $a < 0$ zajišťuje mean-reversion, $b(t)$ reprezentuje externí šoky. Najděte dynamiku volatility.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má Abelův tvar s $f(t) = a$, $g(t) = b(t)$, $h(t) = c$. Záporné $a$ zajišťuje, že řešení zůstane omezené.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Transformace na Riccatiho rovnici}
+Substituce: $\sigma = -\frac{1}{a}\frac{u'}{u}$
+\[
+\frac{du}{dt} = -b(t)u^2 - c u
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Řešení Riccatiho rovnice}
+Pro konstantní $b$: Jedná se o Bernoulliho rovnici
+\[
+\frac{du}{dt} + c u = -b u^2
+\]
+Substituce $v = u^{-1}$: $\frac{dv}{dt} - c v = b$
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Zpětná substituce}
+\[
+\sigma(t) = -\frac{1}{a}\frac{u'(t)}{u(t)} = \cdots
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+\begin{itemize}
+\item \textbf{Mean-reversion}: Záporný kubický člen zajišťuje návrat volatility k dlouhodobému průměru
+\item \textbf{Volatility clustering}: Model může generovat shlukování volatility
+\item \textbf{Aplikace}: Oceňování opcí, risk management, volatility trading
+\end{itemize}
+
+\end{example}
+
+
+\subsubsection{Početní sekce}
+\paragraph*{Kategorie A: Základní příklady}
+
+\begin{example}[Abelova rovnice s konstantními koeficienty - obtížnost A1]
+\label{ex:abel-konstantni}
+
+\noindent\textbf{Zadání:} Řešte Abelovu rovnici s konstantními koeficienty:
+\[
+\frac{dy}{dx} = y^3 + 3y^2 + 2y
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má $f(x) = 1$, $g(x) = 3$, $h(x) = 2$. Jedná se o autonomní Abelovu rovnici, která je separovatelná.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Separace proměnných}
+\[
+\frac{dy}{dx} = y(y^2 + 3y + 2) = y(y+1)(y+2)
+\]
+\[
+\frac{dy}{y(y+1)(y+2)} = dx
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Rozklad na parciální zlomky}
+\[
+\frac{1}{y(y+1)(y+2)} = \frac{A}{y} + \frac{B}{y+1} + \frac{C}{y+2}
+\]
+Řešením: $A = \frac{1}{2}$, $B = -1$, $C = \frac{1}{2}$
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Integrace}
+\[
+\int \left(\frac{1}{2y} - \frac{1}{y+1} + \frac{1}{2(y+2)}\right) dy = \int dx
+\]
+\[
+\frac{1}{2}\ln|y| - \ln|y+1| + \frac{1}{2}\ln|y+2| = x + C
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 4: Úprava řešení}
+\[
+\ln\left|\frac{y(y+2)}{(y+1)^2}\right| = 2x + 2C
+\]
+\[
+\frac{y(y+2)}{(y+1)^2} = De^{2x}, \quad D = \pm e^{2C}
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+Řešení ukazuje, že pro různé počáteční podmínky trajektorie konvergují k různým stacionárním bodům $y = -2, -1, 0$.
+
+\end{example}
+
+\begin{example}[Abelova rovnice s lineárními koeficienty - obtížnost A2]
+\label{ex:abel-linearni}
+
+\noindent\textbf{Zadání:} Řešte Abelovu rovnici:
+\[
+\frac{dy}{dx} = xy^3 + 2xy^2 + xy
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má $f(x) = x$, $g(x) = 2x$, $h(x) = x$. Lze separovat proměnné po vytknutí $x$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Separace proměnných}
+\[
+\frac{dy}{dx} = x(y^3 + 2y^2 + y) = xy(y+1)^2
+\]
+\[
+\frac{dy}{y(y+1)^2} = x dx
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Rozklad na parciální zlomky}
+\[
+\frac{1}{y(y+1)^2} = \frac{A}{y} + \frac{B}{y+1} + \frac{C}{(y+1)^2}
+\]
+Řešením: $A = 1$, $B = -1$, $C = -1$
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Integrace}
+\[
+\int \left(\frac{1}{y} - \frac{1}{y+1} - \frac{1}{(y+1)^2}\right) dy = \int x dx
+\]
+\[
+\ln|y| - \ln|y+1| + \frac{1}{y+1} = \frac{x^2}{2} + C
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Validace}
+Dosazením do původní rovnice ověříme platnost implicitního řešení.
+
+\end{example}
+
+\paragraph*{Kategorie B: Speciální případy a techniky}
+
+\begin{example}[Transformace na kanonický tvar - obtížnost B1]
+\label{ex:abel-kanonicky}
+
+\noindent\textbf{Zadání:} Transformujte Abelovu rovnici na kanonický tvar:
+\[
+\frac{dy}{dx} = 2x y^3 + 3x^2 y^2 + x^3 y
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má $f(x) = 2x$, $g(x) = 3x^2$, $h(x) = x^3$. Aplikujeme systematický postup transformace na kanonický tvar.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Eliminace kvadratického členu}
+Substituce: $y = z - \frac{g(x)}{3f(x)} = z - \frac{3x^2}{3\cdot 2x} = z - \frac{x}{2}$
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Dosazení a úprava}
+\[
+\frac{dz}{dx} = 2x\left(z - \frac{x}{2}\right)^3 + 3x^2\left(z - \frac{x}{2}\right)^2 + x^3\left(z - \frac{x}{2}\right)
+\]
+Po rozvinutí a zjednodušení:
+\[
+\frac{dz}{dx} = 2x z^3 + \left(x^3 - \frac{3x^3}{2} + \frac{3x^3}{4}\right)z + \text{(konstantní člen)}
+\]
+\[
+\frac{dz}{dx} = 2x z^3 + \frac{x^3}{4}z + \left(-\frac{x^4}{8} + \frac{3x^4}{4} - \frac{x^4}{2}\right)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Transformace nezávislé proměnné}
+$t = \int 2x dx = x^2$, tedy $\frac{dz}{dt} = \frac{dz}{dx}\frac{dx}{dt} = \frac{1}{2x}\frac{dz}{dx}$
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 4: Kanonický tvar}
+Po dosazení a úpravě:
+\[
+\frac{dz}{dt} = z^3 + \frac{1}{8}z + \frac{1}{16}
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+Transformace na kanonický tvar umožňuje standardizovaný přístup k řešení a odhalení invariantních vlastností rovnice.
+
+\end{example}
+
+\begin{example}[Metoda invariantů - obtížnost B2]
+\label{ex:abel-invarianty}
+
+\noindent\textbf{Zadání:} Pro Abelovu rovnici v semi-kanonickém tvaru:
+\[
+\frac{dy}{dx} = y^3 + 3x y + 2x^2
+\]
+vypočítejte Abelův invariant a rozhodněte, zda lze rovnici integrovat kvadraturami.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má $p(x) = 3x$, $q(x) = 2x^2$. Výpočet invariantu $I(x)$ určí integrabilitu rovnice.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Výpočet derivací}
+\[
+p(x) = 3x \Rightarrow p'(x) = 3
+\]
+\[
+q(x) = 2x^2 \Rightarrow q'(x) = 4x
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Abelův invariant}
+\[
+I(x) = q'(x) - \frac{2}{3}p'(x) - \frac{2}{9}p^2(x)
+\]
+\[
+I(x) = 4x - \frac{2}{3}\cdot 3 - \frac{2}{9}(3x)^2 = 4x - 2 - 2x^2
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Analýza invariantu}
+Protože $I(x) = -2x^2 + 4x - 2 \not\equiv 0$, nelze rovnici integrovat kvadraturami.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+Abelův invariant poskytuje mocný nástroj pro klasifikaci rovnic a rozhodování o vhodné metodě řešení.
+
+\end{example}
+
+\paragraph*{Kategorie C: Aplikované úlohy}
+
+\begin{example}[Nelineární optika - Kerrův efekt - obtížnost C2]
+\label{ex:optika-kerr}
+
+\noindent\textbf{Zadání:} V nelineární optice popisuje Kerrův efekt Abelova rovnice:
+\[
+\frac{dI}{dz} = \alpha I^3 + \beta I^2 + \gamma I
+\]
+kde $I(z)$ je intenzita světla, $z$ je vzdálenost, $\alpha$, $\beta$, $\gamma$ jsou materiálové parametry. Najděte distribuci intenzity v prostředí.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice popisuje nelineární šíření světla v optickém vlákně. Kubický člen reprezentuje Kerrův efekt - závislost indexu lomu na intenzitě.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Separace proměnných}
+\[
+\frac{dI}{I(\alpha I^2 + \beta I + \gamma)} = dz
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Analýza kořenů}
+Diskriminant: $D = \beta^2 - 4\alpha\gamma$
+\begin{itemize}
+\item $D > 0$: Tři reálné kořeny, úplný rozklad
+\item $D = 0$: Násobný kořen
+\item $D < 0$: Jeden reálný kořen
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Řešení pro $D > 0$}
+Nechť $I_1, I_2, I_3$ jsou kořeny. Pak:
+\[
+\frac{1}{I(\alpha I^2 + \beta I + \gamma)} = \frac{A}{I} + \frac{B}{I - I_2} + \frac{C}{I - I_3}
+\]
+Integrací získáme implicitní řešení.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+\begin{itemize}
+\item \textbf{Samofokusace}: Pro $\alpha > 0$ může docházet k samofokusaci světelného paprsku
+\item \textbf{Solitory}: Rovnice má solitonová řešení pro speciální volby parametrů
+\item \textbf{Aplikace}: Optická komunikace, nelineární optické zařízení
+\end{itemize}
+
+\end{example}
+
+\begin{example}[Populační dynamika s Allee efektem - obtížnost C1]
+\label{ex:allee-efekt}
+
+\noindent\textbf{Zadání:} V populační dynamice popisuje Allee efekt Abelova rovnice:
+\[
+\frac{dN}{dt} = rN^3 - aN^2 + bN
+\]
+kde $N(t)$ je velikost populace, $r, a, b > 0$ jsou parametry. Analyzujte stabilitu rovnovážných stavů.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Allee efekt popisuje situaci, kdy při nízkých hustotách populace klesá fitness jedinců. Kubický člen zachycuje tuto nelinearitu.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Stacionární body}
+\[
+rN^3 - aN^2 + bN = 0 \Rightarrow N(rN^2 - aN + b) = 0
+\]
+Stacionární body: $N = 0$, $N = \frac{a \pm \sqrt{a^2 - 4rb}}{2r}$
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Podmínky existence}
+Pro existenci tří reálných stacionárních bodů: $a^2 - 4rb > 0$
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Analýza stability}
+Jacobiho matice: $J(N) = 3rN^2 - 2aN + b$
+\begin{itemize}
+\item $N = 0$: $J(0) = b > 0$ - nestabilní
+\item $N_1 = \frac{a - \sqrt{a^2 - 4rb}}{2r}$: $J(N_1) < 0$ - stabilní
+\item $N_2 = \frac{a + \sqrt{a^2 - 4rb}}{2r}$: $J(N_2) > 0$ - nestabilní
+\end{itemize}
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+\begin{itemize}
+\item \textbf{Allee efekt}: Při nízkých hustotách populace klesá pravděpodobnost přežití
+\item \textbf{Bifurkace}: Při změně parametrů může dojít ke kvalitativní změně chování
+\item \textbf{Aplikace}: Ochrana ohrožených druhů, management populací
+\end{itemize}
+
+\end{example}
+
+\paragraph*{Kategorie D: Pokročilé a expertní příklady}
+
+\begin{example}[Numerická analýza komplexní Abelovy rovnice - obtížnost D1]
+\label{ex:numericka-abel}
+
+\noindent\textbf{Zadání:} Pro Abelovu rovnici s periodickými koeficienty:
+\[
+\frac{dy}{dx} = \sin(x) y^3 + \cos(x) y^2 + y
+\]
+proveďte numerickou analýzu řešení a studujte jeho dlouhodobé chování.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice má periodické koeficienty $f(x) = \sin(x)$, $g(x) = \cos(x)$, $h(x) = 1$. Očekáváme možnost periodických, kvaziperiodických nebo chaotických řešení.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Numerická metoda}
+Použijeme Runge-Kuttovu metodu 4. řádu s adaptivním krokem:
+\[
+y_{n+1} = y_n + \frac{h}{6}(k_1 + 2k_2 + 2k_3 + k_4)
+\]
+kde:
+\begin{align*}
+k_1 &= f(x_n, y_n) \\
+k_2 &= f(x_n + \frac{h}{2}, y_n + \frac{h}{2}k_1) \\
+k_3 &= f(x_n + \frac{h}{2}, y_n + \frac{h}{2}k_2) \\
+k_4 &= f(x_n + h, y_n + h k_3)
+\end{align*}
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Analýza stability}
+Pro malá $y$ převládá lineární člen, pro velká $y$ kubický člen. Systém může vykazovat citlivost na počáteční podmínky.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Dlouhodobé chování}
+Numerická simulace ukazuje:
+\begin{itemize}
+\item Pro některé počáteční podmínky: Periodické řešení
+\item Pro jiné: Kvaziperiodické nebo chaotické chování
+\item Závislost na amplitudě periodických koeficientů
+\end{itemize}
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+Periodické Abelovy rovnice mohou vykazovat bohatou dynamiku s aplikacemi v nelineární fyzice a inženýrství.
+
+\end{example}
+
+\begin{example}[Kvalitativní analýza bifurkací - obtížnost D2]
+\label{ex:bifurkace-abel}
+
+\noindent\textbf{Zadání:} Pro Abelovu rovnici s parametrem:
+\[
+\frac{dy}{dx} = y^3 + \mu y^2 + y
+\]
+analyzujte bifurkace při variaci parametru $\mu$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Rovnice obsahuje bifurkační parametr $\mu$. Očekáváme změny v počtu a stabilitě stacionárních bodů.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Stacionární body}
+\[
+y^3 + \mu y^2 + y = y(y^2 + \mu y + 1) = 0
+\]
+Stacionární body: $y = 0$, $y = \frac{-\mu \pm \sqrt{\mu^2 - 4}}{2}$
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Bifurkační body}
+\begin{itemize}
+\item $\mu = 2$: Kořen $y = -1$ (dvojnásobný)
+\item $\mu = -2$: Kořen $y = 1$ (dvojnásobný)
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Bifurkační diagram}
+\begin{itemize}
+\item $|\mu| < 2$: Jeden stacionární bod ($y = 0$)
+\item $|\mu| > 2$: Tři stacionární body
+\item $\mu = \pm 2$: Bod záhybu (fold bifurcation)
+\end{itemize}
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+Abelovy rovnice poskytují bohaté bifurkační scénáře důležité pro porozumění přechodům mezi různými režimy v nelineárních systémech.
+
+\end{example}
+
+\paragraph*{Kategorie E: Insane Challenges}
+
+\begin{example}[Zobecněné Abelovy rovnice vyšších řádů - obtížnost E1]
+\label{ex:zobecnene-abel}
+
+\noindent\textbf{Zadání:} Studujte zobecněnou Abelovu rovnici n-tého řádu:
+\[
+\frac{dy}{dx} = \sum_{k=1}^n f_k(x) y^k
+\]
+a odvoďte podmínky integrability a metody řešení.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Zobecněná Abelova rovnice obsahuje polynom libovolného stupně v závislé proměnné. Speciální případ $n=3$ dává standardní Abelovu rovnici.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Transformace}
+Substituce: $y = z - \frac{f_{n-1}(x)}{n f_n(x)}$ eliminuje člen s $y^{n-1}$.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Redukce stupně}
+Pro $n > 3$ lze postupnými substitucemi redukovat stupeň polynomu, ale obecné řešení neexistuje.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Podmínky integrability}
+Pro $n=4$: Rovnice je integrovatelná kvadraturami pokud splňuje jisté diferenciální invarianty.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+Zobecněné Abelovy rovnice představují aktivní oblast výzkumu v teorii nelineárních diferenciálních rovnic a integrabilních systémů.
+
+\end{example}
+
+\begin{example}[Propojení s teorií eliptických funkcí - obtížnost E3]
+\label{ex:elipticke-funkce}
+
+\noindent\textbf{Zadání:} Ukažte, že Abelova rovnice v kanonickém tvaru:
+\[
+\frac{dy}{dx} = y^3 + p(x)
+\]
+má řešení vyjádřitelné pomocí eliptických funkcí pro konstantní $p$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Analýza problému}
+
+Pro konstantní $p$ se rovnice redukuje na separovatelnou rovnici, jejíž řešení lze vyjádřit pomocí eliptických integrálů.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Řešení}
+
+\noindent\textit{Krok 1: Separace proměnných}
+\[
+\frac{dy}{y^3 + p} = dx
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 2: Eliptický integrál}
+\[
+\int \frac{dy}{y^3 + p} = x + C
+\]
+Tento integrál je eliptický integrál prvního druhu.
+
+\vspace{1\baselineskip}
+
+\noindent\textit{Krok 3: Inverze}
+Řešení $y(x)$ lze vyjádřit pomocí Weierstrassovy eliptické funkce $\wp$:
+\[
+y(x) = \wp(x + C; g_2, g_3)
+\]
+kde $g_2$, $g_3$ jsou invarianty příslušné eliptické křivky.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Interpretace}
+Tento výsledek ukazuje hluboké propojení mezi Abelovými rovnicemi a teorií eliptických funkcí, které tvoří základ moderní algebraické geometrie a teorie čísel.
+
+\end{example}
+
+\subsection{Shrnutí a expertní metodologie}
+\label{subsec:shrnuti-abel}
+
+Abelovy diferenciální rovnice 1. druhu představují fundamentální třídu nelineárních obyčejných diferenciálních rovnic prvního řádu s kubickou nelinearitou a hlubokými spojitostmi s teorií integrabilních systémů. Tato kapitola poskytla kompletní teoretický fundament a systematický přístup k jejich řešení v kontextu kvantitativních věd na úrovni odpovídající nejnáročnějším požadavkům expertní praxe.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Teoretický fundament}
+
+\begin{itemize}
+\item \textbf{Standardní tvar}: $\frac{dy}{dx} = f(x)y^3 + g(x)y^2 + h(x)y$, $f(x) \not\equiv 0$
+\item \textbf{Kanonický tvar}: $\frac{dz}{dt} = z^3 + Q(t)$ dosažitelný vhodnou substitucí
+\item \textbf{Abelovy invarianty}: $I(x) = q'(x) - \frac{2}{3}p'(x) - \frac{2}{9}p^2(x)$ určující integrabilitu
+\item \textbf{Spojitost s Riccatiho rovnicemi}: Redukce pomocí $y = -\frac{1}{f(x)}\frac{u'}{u}$
+\item \textbf{Teorie singularit}: Klasifikace regulárních a nepravidelných singularit
+\item \textbf{Existence a jednoznačnost}: Lokální existence garantována pro spojité koeficienty
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Systematická metodologie řešení}
+
+\begin{enumerate}
+\item \textbf{Identifikace typu}: Ověření Abelova tvaru a analýza koeficientů
+\item \textbf{Transformace na kanonický tvar}: Eliminace kvadratického členu substitucí $y = z - \frac{g(x)}{3f(x)}$
+\item \textbf{Výpočet invariantů}: Stanovení integrability pomocí $I(x)$
+\item \textbf{Redukce na Riccatiho rovnici}: Pro $I(x) \not\equiv 0$ aplikace vhodné substituce
+\item \textbf{Řešení Riccatiho rovnice}: Hledání partikulárního řešení a redukce na lineární rovnici
+\item \textbf{Separace proměnných}: Pro speciální případy konstantních nebo separovatelných koeficientů
+\item \textbf{Numerické metody}: Pro komplexní neredukovatelné případy
+\item \textbf{Analýza řešení}: Studium stability, bifurkací, asymptotického chování
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Aplikace v kvantitativních vědách}
+
+\begin{itemize}
+\item \textbf{Ekonomie}: Modely nelineárního růstu, teorie her, poverty traps
+\item \textbf{Finanční modely}: Stochastická volatilita, oceňování derivátů
+\item \textbf{Fyzikální aplikace}: Nelineární optika (Kerrův efekt), supratekutost, teorie polí
+\item \textbf{Biologické systémy}: Populační dynamika (Allee efekt), epidemiologické modely
+\item \textbf{Chemické reakce}: Autokatalytické procesy, reakce-difuzní systémy
+\item \textbf{Inženýrské aplikace}: Nelineární kmity, optická komunikace, řízení systémů
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Expertní decision tree pro řešení úloh}
+
+\begin{enumerate}
+\item \textbf{Krok 1}: Identifikujte Abelův tvar a analyzujte koeficienty
+\item \textbf{Krok 2}: Transformujte na kanonický/semi-kanonický tvar
+\item \textbf{Krok 3}: Vypočítejte Abelův invariant $I(x)$
+\item \textbf{Krok 4}: Pokud $I(x) \equiv 0$, integrujte kvadraturami
+\item \textbf{Krok 5}: Pokud $I(x) \not\equiv 0$, redukujte na Riccatiho rovnici
+\item \textbf{Krok 6}: Pro Riccatiho rovnici hledejte partikulární řešení
+\item \textbf{Krok 7}: Pokud nelze analyticky, použijte numerické metody
+\item \textbf{Krok 8}: Analyzujte stabilitu a bifurkace řešení
+\item \textbf{Krok 9}: Validujte řešení a interpretujte v kontextu aplikace
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Pokročilé techniky a transformace}
+
+\begin{itemize}
+\item \textbf{Möbiova transformace}: $y = \frac{az + b}{cz + d}$ pro zachování struktury
+\item \textbf{Hodografická transformace}: Záměna rolí proměnných pro speciální symetrie
+\item \textbf{Metoda charakteristik}: Pro spojitost s parciálními diferenciálními rovnicemi
+\item \textbf{Teorie eliptických funkcí}: Pro řešení vyjádřitelná pomocí speciálních funkcí
+\item \textbf{Bifurkační teorie}: Analýza kvalitativních změn při variaci parametrů
+\item \textbf{Asymptotické metody}: Studium chování řešení v limitních režimech
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Příprava na pokročilá témata}
+
+Zvládnutí Abelových rovnic vytváří pevný základ pro:
+\begin{itemize}
+\item \textbf{Obecné nelineární ODE}: Metody řešení polynomiálních nelinearit vyšších řádů
+\item \textbf{Integrabilní systémy}: Teorie Painlevého transcendent, eliptických funkcí
+\item \textbf{Teorie bifurkací}: Analýza kvalitativních změn v dynamických systémech
+\item \textbf{Parciální diferenciální rovnice}: Metoda charakteristik a nelineární vlny
+\item \textbf{Algebraická geometrie}: Studium algebraických křivek a variet
+\item \textbf{Teorie singularity}: Klasifikace a univerzální chování v singulárních bodech
+\item \textbf{Stochastické diferenciální rovnice}: Nelineární systémy s náhodnými perturbacemi
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Kvantitativní interpretační framework}
+
+Pro aplikace v kvantitativních vědách:
+\begin{itemize}
+\item \textbf{Kubická nelinearita}: Modeluje jevy jako saturace, hysterze, multiple equilibria
+\item \textbf{Stacionární body}: Odpovídají rovnovážným stavům systému
+\item \textbf{Stabilita}: Určuje robustnost řešení vůči perturbacím
+\item \textbf{Bifurkace}: Identifikují kritické body kvalitativních změn
+\item \textbf{Asymptotické chování}: Popisuje dlouhodobé trendy a limity systému
+\item \textbf{Singularity}: Odpovídají fázovým přechodům nebo katastrofám
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Výzkumné perspektivy a otevřené problémy}
+
+Abelovy rovnice otevírají několik fascinujících výzkumných směrů:
+\begin{itemize}
+\item \textbf{Obecná teorie integrability}: Podmínky existence řešení v uzavřeném tvaru
+\item \textbf{Kvantové Abelovy rovnice}: Propojení s kvantovou mechanikou a teorií pole
+\item \textbf{Numetická analýza singularit}: Efektivní metody pro řešení v singulárních bodech
+\item \textbf{Aplikace v machine learning}: Nelineární optimalizační problémy
+\item \textbf{Geometrická integrace}: Zachování geometrických struktur v numerických schématech
+\item \textbf{Stochastické verze}: Zahrnutí náhodných procesů a nejistoty
+\item \textbf{Fractionální Abelovy rovnice}: Zobecnění na fractionální derivace
+\end{itemize}
+
+Abelovy rovnice 1. druhu tak představují nejen matematicky bohatou a hlubokou teorii, ale také prakticky mocný nástroj pro modelování a analýzu komplexních nelineárních jevů v širokém spektru kvantitativních disciplín. Jejich zvládnutí na expertní úrovni poskytuje solidní základ pro práci s nejnáročnějšími problémy moderní aplikované matematiky a vědeckého computingu.
+
+
+\subsection{Shrnutí úrovně 2: Speciální nelineární rovnice 1. řádu}
+\label{sec:shrnuti-uroven-2}
+
+\subsubsection{Kompletní přehled osvojených technik}
+\label{subsec:prehled-technik-uroven2}
+
+Úroveň 2 představovala systematické prozkoumání pěti fundamentálních tříd nelineárních obyčejných diferenciálních rovnic prvního řádu, z nichž každá poskytuje jedinečné analytické nástroje a hluboké matematické insighty pro kvantitativní analýzu.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Bernoulliho rovnice}
+\begin{itemize}
+\item \textbf{Standardní tvar}: $\frac{dy}{dx} + P(x)y = Q(x)y^n$, $n \neq 0, 1$
+\item \textbf{Klíčová transformace}: $z = y^{1-n}$ redukuje na lineární rovnici
+\item \textbf{Expertní aplikace}: Modely s nelineární růstovou dynamikou, populační modely s density dependence
+\item \textbf{Kvantitativní význam}: Zachycuje jevy jako saturace růstu, kompetice zdrojů
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Riccatiho rovnice}
+\begin{itemize}
+\item \textbf{Standardní tvar}: $\frac{dy}{dx} = P(x) + Q(x)y + R(x)y^2$, $R(x) \not\equiv 0$
+\item \textbf{Klíčová transformace}: Pro známé partikulární řešení $y_p$ vede $y = y_p + \frac{1}{z}$ na lineární rovnici
+\item \textbf{Univerzální transformace}: $y = -\frac{1}{R(x)}\frac{u'}{u}$ redukuje na lineární rovnici 2. řádu
+\item \textbf{Expertní aplikace}: Teorie řízení (Kalmanův filtr), kvantová mechanika, geometrická optika
+\item \textbf{Kvantitativní význam}: Základní rovnice lineární kvadratické regulace (LQR)
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Clairautovy rovnice}
+\begin{itemize}
+\item \textbf{Standardní tvar}: $y = xy' + f(y')$
+\item \textbf{Klíčová vlastnost}: Dvojí struktura řešení - obecné (přímky) a singulární (obálka)
+\item \textbf{Geometrická interpretace}: Singulární řešení jako obálka rodiny křivek
+\item \textbf{Expertní aplikace}: Variační počet, teorie optimálního řízení, ekonomické modely optimálního zdanění
+\item \textbf{Kvantitativní význam}: Pontrjaginův princip maxima v teorii řízení
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Lagrangeovy rovnice}
+\begin{itemize}
+\item \textbf{Standardní tvar}: $y = x\phi(y') + \psi(y')$
+\item \textbf{Klíčová transformace}: Linearizace na rovnici pro $x(p)$ kde $p = y'$
+\item \textbf{Parametrické řešení}: Přirozené vyjádření pomocí parametru $p$
+\item \textbf{Expertní aplikace}: Dynamická optimalizace, analytická mechanika, teorie pole
+\item \textbf{Kvantitativní význam}: Propojení s Hamilton-Jacobiho teorií
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Abelovy rovnice 1. druhu}
+\begin{itemize}
+\item \textbf{Standardní tvar}: $\frac{dy}{dx} = f(x)y^3 + g(x)y^2 + h(x)y$, $f(x) \not\equiv 0$
+\item \textbf{Klíčové techniky}: Transformace na kanonický tvar, Abelovy invarianty, redukce na Riccatiho rovnici
+\item \textbf{Algebraická struktura}: Hluboké spojení s teorií eliptických funkcí
+\item \textbf{Expertní aplikace}: Nelineární optika, supratekutost, modely s kubickou nelinearitou
+\item \textbf{Kvantitativní význam}: Modelování jevů jako hysterze, multiple equilibria, bifurkace
+\end{itemize}
+
+\subsubsection{Expertní decision tree pro řešení nelineárních ODE 1. řádu}
+\label{subsec:decision-tree-uroven2}
+
+\begin{enumerate}
+\item \textbf{Krok 1: Identifikace typu}
+\begin{itemize}
+\item \textbf{Separabilní}: $\frac{dy}{dx} = f(x)g(y)$ → Přímá integrace
+\item \textbf{Lineární}: $\frac{dy}{dx} + P(x)y = Q(x)$ → Integrační faktor
+\item \textbf{Bernoulliho}: $\frac{dy}{dx} + P(x)y = Q(x)y^n$ → Substituce $z = y^{1-n}$
+\item \textbf{Riccatiho}: $\frac{dy}{dx} = P(x) + Q(x)y + R(x)y^2$ → Hledej partikulární řešení
+\item \textbf{Clairautova}: $y = xy' + f(y')$ → Derivace a analýza větvení
+\item \textbf{Lagrangeova}: $y = x\phi(y') + \psi(y')$ → Linearizace na $x(p)$
+\item \textbf{Abelova}: $\frac{dy}{dx} = f(x)y^3 + g(x)y^2 + h(x)y$ → Transformace na kanonický tvar
+\end{itemize}
+
+\item \textbf{Krok 2: Aplikace specifické metody}
+\begin{itemize}
+\item Pro Bernoulliho: Redukce na lineární tvar
+\item Pro Riccatiho: Redukce na lineární ODE 2. řádu nebo hledání partikulárního řešení
+\item Pro Clairautovu: Konstrukce obecného a singulárního řešení
+\item Pro Lagrangeovu: Parametrizace a řešení lineární rovnice pro $x(p)$
+\item Pro Abelovu: Výpočet invariantů a rozhodování o integrabilitě
+\end{itemize}
+
+\item \textbf{Krok 3: Validace řešení}
+\begin{itemize}
+\item Analytické dosazení do původní rovnice
+\item Kontrola definičních oborů a singularit
+\item Analýza stability a asymptotického chování
+\item Geometrická interpretace řešení
+\end{itemize}
+
+\item \textbf{Krok 4: Kvantitativní interpretace}
+\begin{itemize}
+\item Identifikace fyzikálního/ekonomického významu parametrů
+\item Analýza stability rovnovážných stavů
+\item Studium bifurkací a kvalitativních změn chování
+\item Kalibrace na reálná data
+\end{itemize}
+\end{enumerate}
+
+\subsubsection{Hierarchie obtížnosti a propojení mezi typy}
+\label{subsec:hierarchie-uroven2}
+
+\noindent\textbf{Lineární progrese složitosti}:
+\begin{itemize}
+\item \textbf{Úroveň 1}: Základní typy (separabilní, lineární, exaktní) - přímé integrační metody
+\item \textbf{Úroveň 2}: Speciální nelineární typy - transformační a redukční metody
+\item \textbf{Budoucí úrovně}: Systémy ODE, parciální diferenciální rovnice, stochastické ODE
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Propojení mezi typy}:
+\begin{itemize}
+\item Bernoulliho → Speciální případ Riccatiho ($R(x) = 0$)
+\item Riccatiho → Speciální případ Abelovy ($f(x) = 0$)
+\item Clairautova → Speciální případ Lagrangeovy ($\phi(p) = p$)
+\item Všechny typy → Lze řešit numericky jako fallback option
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Kumulativní získané dovednosti}:
+\begin{itemize}
+\item Schopnost rychlé identifikace typu rovnice
+\item Mistrovství v transformačních technikách
+\item Hluboké porozumění geometrické interpretace
+\item Expertní znalost stability a bifurkací
+\item Schopnost kvantitativní interpretace v aplikovaných kontextech
+\end{itemize}
+
+\subsubsection{Příprava na pokročilá témata}
+\label{subsec:priprava-uroven2}
+
+Zvládnutí úrovně 2 vytváří solidní základ pro následující pokročilá témata:
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Level 3: Lineární ODE vyšších řádů}
+\begin{itemize}
+\item Teorie lineárních prostorů řešení
+\item Metoda variace konstant
+\item Laplaceova transformace
+\item Aplikace v mechanice a elektrotechnice
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Level 4: Systémy ODE}
+\begin{itemize}
+\item Matricový formalismus
+\item Vlastní čísla a vlastní vektory
+\item Fázové portréty a stabilita
+\item Aplikace v populační dynamice a epidemiologii
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Level 5: Parciální diferenciální rovnice}
+\begin{itemize}
+\item Metoda separace proměnných
+\item Fourierova řada a transformace
+\item Vlnová, vedení tepla, Laplaceova rovnice
+\item Aplikace ve fyzice a inženýrství
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Level 6+: Pokročilá témata}
+\begin{itemize}
+\item Stochastické diferenciální rovnice
+\item Fractionální diferenciální rovnice
+\item Teorie singularity a bifurkací
+\item Numerické metody pro PDE
+\end{itemize}
+
+\subsubsection{Kvantitativní aplikace a reálné využití}
+\label{subsec:aplikace-uroven2}
+
+\noindent\textbf{Ekonomie a finance}:
+\begin{itemize}
+\item \textbf{Bernoulliho}: Modely růstu s omezenými zdroji
+\item \textbf{Riccatiho}: Kalmanův filtr v ekonometrii, optimální portfolio
+\item \textbf{Clairautova}: Modely optimálního zdanění (Lafferova křivka)
+\item \textbf{Lagrangeova}: Dynamická optimalizace v makroekonomii
+\item \textbf{Abelova}: Modely s nelineárními preferencemi a externalitami
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Fyzika a inženýrství}:
+\begin{itemize}
+\item \textbf{Bernoulliho}: Rovnice kontinuity, hydrodynamika
+\item \textbf{Riccatiho}: Kvantová mechanika, optika, teorie řízení
+\item \textbf{Clairautova}: Geometrická optika, mechanika
+\item \textbf{Lagrangeova}: Analytická mechanika, teorie pole
+\item \textbf{Abelova}: Nelineární optika, supratekutost
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Biologie a medicína}:
+\begin{itemize}
+\item \textbf{Bernoulliho}: Populační modely, epidemiologie
+\item \textbf{Riccatiho}: Růst nádorů, farmakokinetika
+\item \textbf{Abelova}: Modely s Allee efektem, biochemické reakce
+\end{itemize}
+
+\subsubsection{Expertní metodologie a best practices}
+\label{subsec:metodologie-uroven2}
+
+\noindent\textbf{Systematický přístup k řešení}:
+\begin{enumerate}
+\item Vždy začněte identifikací typu rovnice
+\item Použijte appropriate transformaci pro daný typ
+\item Validujte řešení dosazením do původní rovnice
+\item Analyzujte definiční obor a singularita
+\item Studujte stabilitu a asymptotické chování
+\item Interpretujte výsledky v kontextu aplikace
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Časté chyby a jak se jim vyhnout}:
+\begin{itemize}
+\item \textbf{Špatná identifikace typu}: Vždy ověřte předpoklady daného typu
+\item \textbf{Zanedbání singularit}: Vždy analyzujte body kde koeficienty nejsou definovány
+\item \textbf{Chyby v substitucích}: Pečlivě ověřte derivace a dosazení
+\item \textbf{Ignorování stability}: Vždy studujte citlivost na počáteční podmínky
+\item \textbf{Chybná interpretace}: Vždy ověřte fyzikální/ekonomickou realističnost řešení
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Nástroje pro efektivní práci}:
+\begin{itemize}
+\item Symbolický software (Mathematica, Maple) pro ověření výpočtů
+\item Numerické metody jako fallback pro komplexní případy
+\item Geometrická visualizace pro lepší intuici
+\item Kvantitativní validace na reálných datech
+\end{itemize}
+
+\subsubsection{Závěr a perspektivy}
+\label{subsec:zaver-uroven2}
+
+Úroveň 2 představovala zásadní milník v rozvoji expertních schopností pro práci s diferenciálními rovnicemi. Zatímco úroveň 1 poskytla základní nástroje, úroveň 2 vybavila kvantitativního experta:
+
+\begin{itemize}
+\item \textbf{Hlubokým porozuměním} struktury nelineárních ODE
+\item \textbf{Systematickými metodami} pro řešení komplexních rovnic
+\item \textbf{Geometrickou intuicí} pro interpretaci řešení
+\item \textbf{Aplikačními schopnostmi} v širokém spektru disciplín
+\item \textbf{Přípravou na pokročilá témata} v následujících úrovních
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+Toto shrnutí uzavírá úroveň 2 a vytváří pevný základ pro postup do úrovně 3, kde se budeme zabývat lineárními diferenciálními rovnicemi vyšších řádů a jejich aplikacemi v kvantitativních vědách.
+
+\vspace{1\baselineskip}
+

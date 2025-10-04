@@ -1,0 +1,2855 @@
+\section{Úroveň 3: Lineární obyčejné diferenciální rovnice 2. řádu}
+\label{sec:linearni-ode-2-rad}
+
+\subsection{Úvod do lineárních ODE 2. řádu}
+
+\label{subsec:uvod-linearni-ode-2}
+
+Lineární obyčejné diferenciální rovnice druhého řádu představují jeden z nejdůležitějších a nejvíce studovaných typů diferenciálních rovnic v celé aplikované matematice. Tato kapitola poskytuje kompletní teoretický fundament a systematický přístup k jejich řešení v kontextu kvantitativních věd na úrovni odpovídající nejnáročnějším požadavkům expertní praxe.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Historický kontext a význam}
+
+Vývoj teorie lineárních ODE 2. řádu úzce souvisí s rozvojem klasické mechaniky v 18. a 19. století. Práce matematiků jako Leonhard Euler, Joseph-Louis Lagrange, Pierre-Simon Laplace a Charles-François Sturm položily základy moderní teorie. Lineární ODE 2. řádu představují fundamentální popis kmitavých a vlnových jevů v přírodních vědách a inženýrství, od mechanických oscilátorů po kvantovou mechaniku.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Matematická definice a standardní tvar}
+
+Standardní tvar lineární ODE 2. řádu je:
+\[
+a(x)\frac{d^2y}{dx^2} + b(x)\frac{dy}{dx} + c(x)y = f(x)
+\]
+kde $a(x)$, $b(x)$, $c(x)$ jsou koeficientové funkce a $f(x)$ je funkce pravé strany. Pokud $f(x) \equiv 0$, mluvíme o \textbf{homogenní} rovnici, jinak o \textbf{nehomogenní}. 
+
+Pro $a(x) \neq 0$ lze rovnici přepsat do normovaného tvaru:
+\[
+\frac{d^2y}{dx^2} + P(x)\frac{dy}{dx} + Q(x)y = R(x)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Klíčové vlastnosti a charakteristiky}
+
+\begin{itemize}
+\item \textbf{Linearita}: Superpozice řešení - pokud $y_1$ a $y_2$ jsou řešení, pak $C_1y_1 + C_2y_2$ je také řešení (pro homogenní případ)
+
+\item \textbf{Existence a jednoznačnost}: Pro spojité koeficienty existuje právě jedno řešení splňující počáteční podmínky $y(x_0) = y_0$, $y'(x_0) = y_1$
+
+\item \textbf{Struktura řešení}: Obecné řešení homogenní rovnice tvoří 2-rozměrný vektorový prostor
+
+\item \textbf{Wronskián}: Deterministický nástroj pro testování lineární nezávislosti řešení
+
+\item \textbf{Metoda variace konstant}: Systematický postup pro řešení nehomogenních rovnic
+
+\item \textbf{Speciální funkce}: Řešení často vyjádřitelná pomocí elementárních nebo speciálních funkcí
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Vztah k předchozím úrovním}
+
+Lineární ODE 2. řádu představují přirozené zobecnění a prohloubení probrané látky:
+
+\begin{itemize}
+\item \textbf{Vztah k ODE 1. řádu}: Soustava dvou ODE 1. řádu ekvivalentní jedné ODE 2. řádu
+
+\item \textbf{Vztah k nelineárním ODE}: Lineární rovnice jako lokální aproximace nelineárních systémů
+
+\item \textbf{Vztah k numerickým metodám}: Efektivní algoritmy založené na lineární struktuře
+
+\item \textbf{Vztah k fyzikálním aplikacím}: Přímá souvislost se zákony mechaniky a elektrodynamiky
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Přehled aplikací v kvantitativních vědách}
+
+\begin{itemize}
+\item \textbf{Mechanika}: Kmity pružin, kyvadel, vibrace konstrukcí
+
+\item \textbf{Elektrotechnika}: RLC obvody, elektromagnetické kmity
+
+\item \textbf{Kvantová fyzika}: Schrödingerova rovnice, vlnové funkce
+
+\item \textbf{Akustika a optika}: Vlnová rovnice, šíření vln
+
+\item \textbf{Teorie řízení}: Dynamika lineárních systémů, stabilizace
+
+\item \textbf{Ekonomie}: Dynamické modely, ekonomické oscilace
+
+\item \textbf{Biologie}: Populační modely, biologické rytmy
+
+\item \textbf{Chemické inženýrství}: Reaktorová dynamika, difuzní procesy
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Struktura kapitoly a vzdělávací cíle}
+
+Tato kapitola je organizována do následujících hlavních částí:
+
+\begin{enumerate}
+\item \textbf{Teoretický fundament}: Existence, jednoznačnost, Wronskián, fundamentální systém
+
+\item \textbf{Rovnice s konstantními koeficienty}: Charakteristická rovnice, základní řešení
+
+\item \textbf{Metoda variace konstant}: Systematický přístup k nehomogenním rovnicím
+
+\item \textbf{Rovnice s proměnnými koeficienty}: Redukce řádu, speciální funkce
+
+\item \textbf{Laplaceova transformace}: Algebraizace problémů, počáteční úlohy
+
+\item \textbf{Kvantitativní aplikace}: Reálné modely z fyziky, inženýrství a ekonomie
+
+\item \textbf{Numerické metody}: Diskretizace, diferenční schémata
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Fundamentální význam pro kvantitativní analýzu}
+
+Lineární ODE 2. řádu představují nepostradatelný nástroj pro kvantitativního experta z následujících důvodů:
+
+\begin{itemize}
+\item \textbf{Univerzální popis}: Zachycují základní fyzikální zákony kmitání a šíření vln
+
+\item \textbf{Analytická řešitelnost}: Umožňují explicitní konstrukci řešení v uzavřeném tvaru
+
+\item \textbf{Numerická efektivita}: Lineární struktura umožňuje použití výkonných numerických metod
+
+\item \textbf{Interpretovatelnost}: Řešení mají přímý fyzikální/ekonomický význam
+
+\item \textbf{Robustní teorie}: Kompletní matematický aparát zajišťující spolehlivost výsledků
+
+\item \textbf{Škála aplikací}: Od mikroskopických kvantových systémů po makroskopické inženýrské konstrukce
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+Tato kapitola tedy neposkytuje pouze soubor řešitelských technik, ale vybavuje kvantitativního experta hlubokým porozuměním fundamentálních principů, které tvoří základ pro modelování a analýzu dynamických systémů v širokém spektru vědeckých a inženýrských disciplín.
+
+\subsubsection{Teoretický fundament lineárních ODE 2. řádu}
+\label{subsec:teoreticky-fundament-2rad}
+
+\subsubsection{Existence a jednoznačnost řešení}
+\label{subsubsec:existence-jednoznacnost}
+
+\begin{theorem}[Existence a jednoznačnost pro lineární ODE 2. řádu]
+Nechť funkce $P(x)$, $Q(x)$, $R(x)$ jsou spojité na otevřeném intervalu $I \subseteq \mathbb{R}$ a nechť $x_0 \in I$. Pak pro libovolná reálná čísla $y_0$, $y_1$ existuje právě jedno řešení $y(x)$ počáteční úlohy:
+\[
+\frac{d^2y}{dx^2} + P(x)\frac{dy}{dx} + Q(x)y = R(x), \quad y(x_0) = y_0, \quad y'(x_0) = y_1
+\]
+definované na celém intervalu $I$.
+\end{theorem}
+
+\begin{proof}
+Důkaz využívá Picard-Lindelöfovu větu aplikovanou na ekvivalentní soustavu ODE 1. řádu. Zaveďme:
+\[
+y_1 = y, \quad y_2 = y'
+\]
+Pak původní rovnici lze přepsat jako soustavu:
+\[
+\frac{dy_1}{dx} = y_2, \quad \frac{dy_2}{dx} = -P(x)y_2 - Q(x)y_1 + R(x)
+\]
+Neboli vektorově:
+\[
+\frac{d\mathbf{y}}{dx} = \mathbf{F}(x, \mathbf{y}), \quad \mathbf{y}(x_0) = \begin{pmatrix} y_0 \\ y_1 \end{pmatrix}
+\]
+kde $\mathbf{F}(x, \mathbf{y}) = \begin{pmatrix} y_2 \\ -P(x)y_2 - Q(x)y_1 + R(x) \end{pmatrix}$.
+
+Funkce $\mathbf{F}$ je spojitá v $x$ a lineární v $\mathbf{y}$, tedy lokálně lipschitzovská. Podle Picard-Lindelöfovy věty existuje lokálně právě jedno řešení. Protože rovnice je lineární, toto řešení lze prodloužit na celý interval $I$.
+\end{proof}
+
+\begin{theorem}[Maximální interval existence]
+Pro lineární ODE 2. řádu s koeficienty spojitými na intervalu $I$ je maximální interval existence libovolného řešení právě celý interval $I$.
+\end{theorem}
+
+\begin{proof}
+Důkaz plyne z faktu, že pro lineární rovnice nemůže dojít k blow-up řešení v konečném čase, pokud koeficienty zůstávají omezené. Řešení lze prodlužovat až k hranicím intervalu $I$.
+\end{proof}
+
+\subsubsection{Struktura řešení lineárních ODE 2. řádu}
+\label{subsubsec:struktura-reseni}
+
+\begin{theorem}[Struktura řešení homogenní rovnice]
+Množina všech řešení homogenní lineární ODE 2. řádu:
+\[
+\frac{d^2y}{dx^2} + P(x)\frac{dy}{dx} + Q(x)y = 0
+\]
+tvoří 2-rozměrný vektorový prostor nad $\mathbb{R}$.
+\end{theorem}
+
+\begin{proof}
+Nechť $y_1(x)$ a $y_2(x)$ jsou dvě řešení homogenní rovnice. Pak pro libovolné konstanty $C_1, C_2 \in \mathbb{R}$ je funkce $y(x) = C_1y_1(x) + C_2y_2(x)$ také řešením, neboť:
+\begin{align*}
+\frac{d^2}{dx^2}(C_1y_1 + C_2y_2) &+ P(x)\frac{d}{dx}(C_1y_1 + C_2y_2) + Q(x)(C_1y_1 + C_2y_2) \\
+&= C_1\left[\frac{d^2y_1}{dx^2} + P(x)\frac{dy_1}{dx} + Q(x)y_1\right] + C_2\left[\frac{d^2y_2}{dx^2} + P(x)\frac{dy_2}{dx} + Q(x)y_2\right] \\
+&= C_1 \cdot 0 + C_2 \cdot 0 = 0
+\end{align*}
+Dimenze je 2, protože počáteční podmínky $y(x_0)$ a $y'(x_0)$ lze volit nezávisle.
+\end{proof}
+
+\begin{definition}[Fundamentální systém]
+Dvojice řešení $y_1(x)$, $y_2(x)$ homogenní rovnice tvoří \textbf{fundamentální systém}, pokud jsou lineárně nezávislá na intervalu $I$.
+\end{definition}
+
+\begin{theorem}[Struktura řešení nehomogenní rovnice]
+Nechť $y_h(x)$ je obecné řešení homogenní rovnice a $y_p(x)$ je partikulární řešení nehomogenní rovnice. Pak obecné řešení nehomogenní rovnice je:
+\[
+y(x) = y_h(x) + y_p(x)
+\]
+\end{theorem}
+
+\begin{proof}
+Nechť $y(x)$ je libovolné řešení nehomogenní rovnice a $y_p(x)$ je partikulární řešení. Pak:
+\begin{align*}
+\frac{d^2}{dx^2}(y - y_p) &+ P(x)\frac{d}{dx}(y - y_p) + Q(x)(y - y_p) \\
+&= \left[\frac{d^2y}{dx^2} + P(x)\frac{dy}{dx} + Q(x)y\right] - \left[\frac{d^2y_p}{dx^2} + P(x)\frac{dy_p}{dx} + Q(x)y_p\right] \\
+&= R(x) - R(x) = 0
+\end{align*}
+Tedy $y - y_p$ je řešením homogenní rovnice, takže $y = y_h + y_p$.
+\end{proof}
+
+\subsubsection{Wronskián a lineární nezávislost}
+\label{subsubsec:wronskian}
+
+\begin{definition}[Wronskián]
+Pro dvě funkce $y_1(x)$, $y_2(x)$ definujeme \textbf{Wronskián} jako determinant:
+\[
+W(y_1, y_2)(x) = \begin{vmatrix}
+y_1(x) & y_2(x) \\
+y_1'(x) & y_2'(x)
+\end{vmatrix} = y_1(x)y_2'(x) - y_2(x)y_1'(x)
+\]
+\end{definition}
+
+\begin{theorem}[Abelova-Liouvilleova formule]
+Nechť $y_1(x)$, $y_2(x)$ jsou řešení homogenní rovnice $\frac{d^2y}{dx^2} + P(x)\frac{dy}{dx} + Q(x)y = 0$ na intervalu $I$. Pak jejich Wronskián splňuje:
+\[
+W(x) = W(x_0) \exp\left(-\int_{x_0}^x P(t) dt\right)
+\]
+pro libovolné $x_0 \in I$.
+\end{theorem}
+
+\begin{proof}
+Derivujeme Wronskián:
+\[
+\frac{dW}{dx} = \frac{d}{dx}(y_1y_2' - y_2y_1') = y_1'y_2' + y_1y_2'' - y_2'y_1' - y_2y_1'' = y_1y_2'' - y_2y_1''
+\]
+Protože $y_1$ a $y_2$ jsou řešení, platí:
+\[
+y_1'' = -P(x)y_1' - Q(x)y_1, \quad y_2'' = -P(x)y_2' - Q(x)y_2
+\]
+Dosazením:
+\[
+\frac{dW}{dx} = y_1[-P(x)y_2' - Q(x)y_2] - y_2[-P(x)y_1' - Q(x)y_1] = -P(x)(y_1y_2' - y_2y_1') = -P(x)W
+\]
+Tedy $\frac{dW}{dx} + P(x)W = 0$, což je lineární ODE 1. řádu s řešením:
+\[
+W(x) = W(x_0) \exp\left(-\int_{x_0}^x P(t) dt\right)
+\]
+\end{proof}
+
+\begin{theorem}[Kritérium lineární nezávislosti]
+Nechť $y_1(x)$, $y_2(x)$ jsou řešení homogenní rovnice na intervalu $I$. Pak následující tvrzení jsou ekvivalentní:
+\begin{enumerate}
+\item $y_1$, $y_2$ jsou lineárně nezávislé na $I$
+\item $W(y_1, y_2)(x) \neq 0$ pro všechna $x \in I$
+\item $W(y_1, y_2)(x) \neq 0$ pro nějaké $x \in I$
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) $\Rightarrow$ (2): Sporem. Pokud $W(x_0) = 0$ pro nějaké $x_0$, pak systém:
+\[
+C_1y_1(x_0) + C_2y_2(x_0) = 0, \quad C_1y_1'(x_0) + C_2y_2'(x_0) = 0
+\]
+má netriviální řešení $(C_1, C_2)$. Pak $y = C_1y_1 + C_2y_2$ je řešení s nulovými počátečními podmínkami, tedy $y \equiv 0$, což je spor s lineární nezávislostí.
+
+(2) $\Rightarrow$ (3): Triviální.
+
+(3) $\Rightarrow$ (1): Pokud $W(x_0) \neq 0$, pak z $C_1y_1 + C_2y_2 \equiv 0$ plyne $C_1 = C_2 = 0$, tedy lineární nezávislost.
+\end{proof}
+
+\subsubsection{Operátorový formalismus}
+\label{subsubsec:operatorovy-formalismus}
+
+\begin{definition}[Lineární diferenciální operátor]
+Definujeme \textbf{lineární diferenciální operátor} druhého řádu:
+\[
+L[y] = \frac{d^2y}{dx^2} + P(x)\frac{dy}{dx} + Q(x)y
+\]
+\end{definition}
+
+\begin{theorem}[Vlastnosti lineárního operátoru]
+Operátor $L$ je lineární, tj. pro libovolné funkce $y_1$, $y_2$ a konstanty $C_1$, $C_2$ platí:
+\[
+L[C_1y_1 + C_2y_2] = C_1L[y_1] + C_2L[y_2]
+\]
+\end{theorem}
+
+\begin{proof}
+Přímým výpočtem:
+\begin{align*}
+L[C_1y_1 + C_2y_2] &= \frac{d^2}{dx^2}(C_1y_1 + C_2y_2) + P(x)\frac{d}{dx}(C_1y_1 + C_2y_2) + Q(x)(C_1y_1 + C_2y_2) \\
+&= C_1\frac{d^2y_1}{dx^2} + C_2\frac{d^2y_2}{dx^2} + P(x)\left(C_1\frac{dy_1}{dx} + C_2\frac{dy_2}{dx}\right) + Q(x)(C_1y_1 + C_2y_2) \\
+&= C_1\left[\frac{d^2y_1}{dx^2} + P(x)\frac{dy_1}{dx} + Q(x)y_1\right] + C_2\left[\frac{d^2y_2}{dx^2} + P(x)\frac{dy_2}{dx} + Q(x)y_2\right] \\
+&= C_1L[y_1] + C_2L[y_2]
+\end{align*}
+\end{proof}
+
+\begin{definition}[Adjungovaný operátor]
+K operátoru $L[y] = y'' + P(x)y' + Q(x)y$ definujeme \textbf{adjungovaný operátor}:
+\[
+L^*[y] = y'' - P(x)y' + [Q(x) - P'(x)]y
+\]
+\end{definition}
+
+\begin{theorem}[Vlastnosti adjungovaného operátoru]
+Pro libovolné dvakrát diferencovatelné funkce $u$, $v$ platí Lagrangeova identita:
+\[
+uL[v] - vL^*[u] = \frac{d}{dx}[u'v - uv' + P(x)uv]
+\]
+\end{theorem}
+
+\begin{proof}
+Přímým výpočtem:
+\begin{align*}
+uL[v] &= u(v'' + Pv' + Qv) = uv'' + Puv' + Quv \\
+vL^*[u] &= v(u'' - Pu' + (Q - P')u) = vu'' - Pvu' + (Q - P')uv
+\end{align*}
+Odečtením:
+\[
+uL[v] - vL^*[u] = u v'' - v u'' + P(uv' + u'v) + P'uv = \frac{d}{dx}(uv' - u'v + Puv)
+\]
+\end{proof}
+
+\subsubsection{Singulární body a regulární singularita}
+\label{subsubsec:singularni-body}
+
+\begin{definition}[Regulární bod]
+Bod $x_0$ se nazývá \textbf{regulární bod} rovnice $y'' + P(x)y' + Q(x)y = 0$, pokud funkce $P(x)$ a $Q(x)$ jsou analytické v okolí $x_0$.
+\end{definition}
+
+\begin{definition}[Regulární singularita]
+Bod $x_0$ se nazývá \textbf{regulární singularita}, pokud funkce $(x-x_0)P(x)$ a $(x-x_0)^2Q(x)$ jsou analytické v okolí $x_0$.
+\end{definition}
+
+\begin{definition}[Nepravidelná singularita]
+Bod $x_0$, který není regulárním bodem ani regulární singularitou, se nazývá \textbf{nepravidelná singularita}.
+\end{definition}
+
+\begin{theorem}[Frobeniova metoda]
+V okolí regulární singularity $x_0$ má rovnice alespoň jedno řešení ve tvaru zobecněné mocninné řady:
+\[
+y(x) = (x-x_0)^r \sum_{n=0}^\infty a_n (x-x_0)^n
+\]
+kde $r$ je kořen tzv. indiální rovnice.
+\end{theorem}
+
+\begin{proof}
+Důkaz je založen na metodě neurčitých koeficientů a porovnávání mocnin v rozvoji řešení do řady.
+\end{proof}
+
+\subsubsection{Kvantitativní interpretace a význam}
+\label{subsubsec:kvantitativni-vyznam}
+
+Teoretický fundament lineárních ODE 2. řádu má hluboké implikace pro kvantitativní analýzu:
+
+\begin{itemize}
+\item \textbf{Existence a jednoznačnost}: Zajišťuje korektnost matematických modelů - řešení existuje a je deterministické
+
+\item \textbf{Superpozice}: Umožňuje konstrukci komplexních řešení z jednoduchých základních řešení
+
+\item \textbf{Wronskián}: Poskytuje test pro ověření, zda máme kompletní sadu řešení
+
+\item \textbf{Operátorový formalismus}: Umožňuje elegantní algebraický přístup k problémům
+
+\item \textbf{Singularity}: Identifikace kritických bodů, kde se mění kvalitativní chování systému
+
+\item \textbf{Numerická stabilita}: Lineární struktura zajišťuje dobrou podmíněnost numerických metod
+\end{itemize}
+
+Tento teoretický fundament tvoří nezbytný základ pro systematické studium konkrétních typů lineárních ODE 2. řádu a jejich aplikací v kvantitativních vědách.
+
+
+\subsection{Lineární ODE 2. řádu s konstantními koeficienty}
+\label{subsec:lin-ode-2-konst}
+
+\subsubsection{Úvod a základní definice}
+\label{subsubsec:uvod-konst-koef}
+
+Lineární obyčejné diferenciální rovnice druhého řádu s konstantními koeficienty představují nejdůležitější a nejlépe prostudovanou třídu diferenciálních rovnic v celé aplikované matematice. Tato kapitola poskytuje kompletní teoretický fundament a systematický přístup k jejich řešení v kontextu kvantitativních věd na úrovni odpovídající nejnáročnějším požadavkům expertní praxe.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Základní terminologie a struktura řešení}
+
+Pro nehomogenní rovnici:
+\[
+ay'' + by' + cy = f(x)
+\]
+definujeme:
+
+\begin{itemize}
+\item \textbf{Homogenní rovnice}: $ay'' + by' + cy = 0$
+\item \textbf{Obecné řešení homogenní rovnice} ($y_h$): Obsahuje dvě integrační konstanty
+\item \textbf{Partikulární řešení nehomogenní rovnice} ($y_p$): Jedno konkrétní řešení
+\item \textbf{Obecné řešení nehomogenní rovnice}: $y = y_h + y_p$
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Fundamentální systém a Wronskián}
+
+\begin{definition}[Fundamentální systém]
+Dvě lineárně nezávislá řešení $y_1(x)$, $y_2(x)$ homogenní rovnice tvoří \textbf{fundamentální systém}.
+\end{definition}
+
+\begin{definition}[Wronskián]
+Pro dvě funkce $y_1(x)$, $y_2(x)$ definujeme \textbf{Wronskián}:
+\[
+W(y_1, y_2)(x) = \begin{vmatrix}
+y_1(x) & y_2(x) \\
+y_1'(x) & y_2'(x)
+\end{vmatrix} = y_1(x)y_2'(x) - y_2(x)y_1'(x)
+\]
+\end{definition}
+
+\begin{theorem}[Kritérium lineární nezávislosti]
+Nechť $y_1(x)$, $y_2(x)$ jsou řešení homogenní rovnice na intervalu $I$. Pak jsou lineárně nezávislá právě když $W(y_1, y_2)(x) \neq 0$ pro všechna $x \in I$.
+\end{theorem}
+
+\subsubsection{Kompletní klasifikace řešení homogenní rovnice}
+\label{subsubsec:klasifikace-reseni}
+
+\paragraph{Detailní analýza případu 1: $D > 0$ - Dva různé reálné kořeny}
+
+\begin{theorem}[Řešení pro $D > 0$]
+Nechť $\lambda_1, \lambda_2$ jsou dva různé reálné kořeny charakteristické rovnice $a\lambda^2 + b\lambda + c = 0$. Pak:
+\begin{itemize}
+\item \textbf{Fundamentální systém}: $y_1(x) = e^{\lambda_1 x}$, $y_2(x) = e^{\lambda_2 x}$
+\item \textbf{Wronskián}: $W(x) = (\lambda_2 - \lambda_1)e^{(\lambda_1 + \lambda_2)x} \neq 0$
+\item \textbf{Obecné řešení}: $y_h(x) = C_1 e^{\lambda_1 x} + C_2 e^{\lambda_2 x}$
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+Funkce $y_1 = e^{\lambda_1 x}$ a $y_2 = e^{\lambda_2 x}$ jsou řešeními, neboť splňují charakteristickou rovnici. Jejich Wronskián:
+\[
+W(x) = \begin{vmatrix}
+e^{\lambda_1 x} & e^{\lambda_2 x} \\
+\lambda_1 e^{\lambda_1 x} & \lambda_2 e^{\lambda_2 x}
+\end{vmatrix} = e^{\lambda_1 x} \cdot \lambda_2 e^{\lambda_2 x} - e^{\lambda_2 x} \cdot \lambda_1 e^{\lambda_1 x} = (\lambda_2 - \lambda_1)e^{(\lambda_1 + \lambda_2)x}
+\]
+Protože $\lambda_1 \neq \lambda_2$ a exponenciála je vždy nenulová, platí $W(x) \neq 0$ pro všechna $x$.
+\end{proof}
+
+\paragraph{Detailní analýza případu 2: $D = 0$ - Jeden dvojný reálný kořen}
+
+\begin{theorem}[Řešení pro $D = 0$]
+Nechť $\lambda$ je dvojný reálný kořen charakteristické rovnice. Pak:
+\begin{itemize}
+\item \textbf{Fundamentální systém}: $y_1(x) = e^{\lambda x}$, $y_2(x) = xe^{\lambda x}$
+\item \textbf{Wronskián}: $W(x) = e^{2\lambda x} \neq 0$
+\item \textbf{Obecné řešení}: $y_h(x) = (C_1 + C_2 x)e^{\lambda x}$
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+Metodou redukce řádu: Předpokládejme $y_2(x) = v(x)e^{\lambda x}$. Dosazením do homogenní rovnice:
+\[
+a(v''e^{\lambda x} + 2\lambda v'e^{\lambda x} + \lambda^2 ve^{\lambda x}) + b(v'e^{\lambda x} + \lambda ve^{\lambda x}) + cve^{\lambda x} = 0
+\]
+Po úpravě:
+\[
+e^{\lambda x}[av'' + (2a\lambda + b)v' + (a\lambda^2 + b\lambda + c)v] = 0
+\]
+Protože $\lambda$ je dvojný kořen, platí $a\lambda^2 + b\lambda + c = 0$ a $2a\lambda + b = 0$ (derivace charakteristického polynomu). Tedy:
+\[
+av'' = 0 \Rightarrow v'' = 0 \Rightarrow v(x) = C_1 + C_2x
+\]
+Volbou $v(x) = x$ dostaneme $y_2(x) = xe^{\lambda x}$.
+
+Wronskián:
+\[
+W(x) = \begin{vmatrix}
+e^{\lambda x} & xe^{\lambda x} \\
+\lambda e^{\lambda x} & e^{\lambda x} + \lambda x e^{\lambda x}
+\end{vmatrix} = e^{\lambda x}(e^{\lambda x} + \lambda x e^{\lambda x}) - xe^{\lambda x}(\lambda e^{\lambda x}) = e^{2\lambda x}
+\]
+\end{proof}
+
+\paragraph{Detailní analýza případu 3: $D < 0$ - Komplexně sdružené kořeny}
+
+\begin{theorem}[Řešení pro $D < 0$]
+Nechť $\lambda_{1,2} = \alpha \pm i\beta$ jsou komplexně sdružené kořeny. Pak:
+\begin{itemize}
+\item \textbf{Fundamentální systém}: $y_1(x) = e^{\alpha x}\cos\beta x$, $y_2(x) = e^{\alpha x}\sin\beta x$
+\item \textbf{Wronskián}: $W(x) = \beta e^{2\alpha x} \neq 0$
+\item \textbf{Obecné řešení}: $y_h(x) = e^{\alpha x}(C_1 \cos\beta x + C_2 \sin\beta x)$
+\item \textbf{Alternativní tvar}: $y_h(x) = Ae^{\alpha x}\sin(\beta x + \varphi)$
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+Komplexní řešení: $z_1(x) = e^{(\alpha + i\beta)x}$, $z_2(x) = e^{(\alpha - i\beta)x}$. Pomocí Eulerova vzorce:
+\[
+e^{(\alpha \pm i\beta)x} = e^{\alpha x}(\cos\beta x \pm i\sin\beta x)
+\]
+Reálná řešení získáme jako:
+\[
+y_1(x) = \frac{z_1(x) + z_2(x)}{2} = e^{\alpha x}\cos\beta x, \quad y_2(x) = \frac{z_1(x) - z_2(x)}{2i} = e^{\alpha x}\sin\beta x
+\]
+Wronskián:
+\[
+W(x) = \begin{vmatrix}
+e^{\alpha x}\cos\beta x & e^{\alpha x}\sin\beta x \\
+\alpha e^{\alpha x}\cos\beta x - \beta e^{\alpha x}\sin\beta x & \alpha e^{\alpha x}\sin\beta x + \beta e^{\alpha x}\cos\beta x
+\end{vmatrix} = \beta e^{2\alpha x}
+\]
+Alternativní tvar získáme pomocí identity:
+\[
+C_1\cos\beta x + C_2\sin\beta x = A\sin(\beta x + \varphi), \quad A = \sqrt{C_1^2 + C_2^2}, \quad \tan\varphi = \frac{C_1}{C_2}
+\]
+\end{proof}
+
+\subsubsection{Metoda neurčitých koeficientů - Kompletní systematika}
+\label{subsubsec:metoda-neurcitych-koeficientu}
+
+\paragraph{Základní princip a systematický postup}
+
+Metoda neurčitých koeficientů je založena na principu, že pro určité typy pravých stran $f(x)$ lze partikulární řešení $y_p$ hledat ve tvaru podobném $f(x)$, ale s neurčitými koeficienty.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 1: Analýza pravé strany $f(x)$}
+
+Pravou stranu klasifikujeme podle následující hierarchie:
+
+\begin{enumerate}
+\item \textbf{Polynomy}: $P_n(x) = a_nx^n + a_{n-1}x^{n-1} + \cdots + a_0$
+\item \textbf{Exponenciály}: $e^{kx}$ nebo $P_n(x)e^{kx}$
+\item \textbf{Goniometrické funkce}: $\sin(\omega x)$, $\cos(\omega x)$ nebo jejich kombinace
+\item \textbf{Kombinace}: Součiny výše uvedených funkcí
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Volba základního ansatzu}
+
+Pro každý typ pravé strany volíme odpovídající ansatz:
+
+\begin{itemize}
+\item \textbf{Polynom $P_n(x)$}: $y_p = Q_n(x) = A_nx^n + A_{n-1}x^{n-1} + \cdots + A_0$
+\item \textbf{Exponenciála $e^{kx}$}: $y_p = Ae^{kx}$
+\item \textbf{Goniometrická $\sin(\omega x)$ nebo $\cos(\omega x)$}: $y_p = A\cos(\omega x) + B\sin(\omega x)$
+\item \textbf{Součin $P_n(x)e^{kx}$}: $y_p = Q_n(x)e^{kx}$
+\item \textbf{Součin $e^{kx}\sin(\omega x)$ nebo $e^{kx}\cos(\omega x)$}: $y_p = e^{kx}[A\cos(\omega x) + B\sin(\omega x)]$
+\item \textbf{Kombinace}: Ansatz je součtem odpovídajících ansatzů
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Rezonanční analýza a modifikace ansatzu}
+
+\textbf{Kritický krok}: Zkontrolujeme, zda základní ansatz není řešením homogenní rovnice. Pokud ano, provedeme modifikaci:
+
+\begin{itemize}
+\item Pokud základní ansatz obsahuje funkci, která je řešením homogenní rovnice, vynásobíme celý ansatz $x$
+\item Pokud se jedná o dvojný kořen (např. u polynomu při $\lambda = 0$), vynásobíme $x^2$
+\item Obecně: Pokud základní ansatz obsahuje funkci, která je řešením homogenní rovnice s násobností $m$, vynásobíme $x^m$
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Systematická klasifikace rezonančních případů}
+
+\begin{enumerate}
+\item \textbf{Polynom $P_n(x)$}:
+\begin{itemize}
+\item Pokud $0$ není kořen charakteristické rovnice: $y_p = Q_n(x)$
+\item Pokud $0$ je jednoduchý kořen: $y_p = xQ_n(x)$
+\item Pokud $0$ je dvojný kořen: $y_p = x^2Q_n(x)$
+\end{itemize}
+
+\item \textbf{Exponenciála $e^{kx}$}:
+\begin{itemize}
+\item Pokud $k$ není kořen charakteristické rovnice: $y_p = Ae^{kx}$
+\item Pokud $k$ je jednoduchý kořen: $y_p = Axe^{kx}$
+\item Pokud $k$ je dvojný kořen: $y_p = Ax^2e^{kx}$
+\end{itemize}
+
+\item \textbf{Goniometrické $\sin(\omega x)$, $\cos(\omega x)$}:
+\begin{itemize}
+\item Pokud $i\omega$ není kořen charakteristické rovnice: $y_p = A\cos(\omega x) + B\sin(\omega x)$
+\item Pokud $i\omega$ je kořen: $y_p = x[A\cos(\omega x) + B\sin(\omega x)]$
+\end{itemize}
+
+\item \textbf{Kombinace $P_n(x)e^{kx}$}:
+\begin{itemize}
+\item Pokud $k$ není kořen: $y_p = Q_n(x)e^{kx}$
+\item Pokud $k$ je jednoduchý kořen: $y_p = xQ_n(x)e^{kx}$
+\item Pokud $k$ je dvojný kořen: $y_p = x^2Q_n(x)e^{kx}$
+\end{itemize}
+
+\item \textbf{Kombinace $e^{kx}\sin(\omega x)$}:
+\begin{itemize}
+\item Pokud $k + i\omega$ není kořen: $y_p = e^{kx}[A\cos(\omega x) + B\sin(\omega x)]$
+\item Pokud $k + i\omega$ je kořen: $y_p = xe^{kx}[A\cos(\omega x) + B\sin(\omega x)]$
+\end{itemize}
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Dosazení a určení koeficientů}
+
+\begin{enumerate}
+\item Zvolený ansatz $y_p$ dosadíme do nehomogenní rovnice
+\item Porovnáme koeficienty u stejných funkcí na obou stranách
+\item Získáme soustavu lineárních rovnic pro neurčité koeficienty
+\item Vyřešíme soustavu a určíme hodnoty koeficientů
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Sestavení obecného řešení}
+
+Obecné řešení nehomogenní rovnice je:
+\[
+y(x) = y_h(x) + y_p(x)
+\]
+kde $y_h(x)$ je obecné řešení homogenní rovnice a $y_p(x)$ je nalezené partikulární řešení.
+
+\subsubsection{Metoda variace konstant - Kompletní odvození}
+\label{subsubsec:metoda-variance-konstant}
+
+\paragraph{Systematický postup metody variace konstant}
+
+\begin{theorem}[Metoda variace konstant]
+Nechť $y_1(x)$, $y_2(x)$ tvoří fundamentální systém homogenní rovnice $ay'' + by' + cy = 0$. Pak partikulární řešení nehomogenní rovnice $ay'' + by' + cy = f(x)$ lze hledat ve tvaru:
+\[
+y_p(x) = u_1(x)y_1(x) + u_2(x)y_2(x)
+\]
+kde funkce $u_1(x)$, $u_2(x)$ splňují soustavu:
+\[
+\begin{cases}
+u_1'(x)y_1(x) + u_2'(x)y_2(x) = 0 \\
+u_1'(x)y_1'(x) + u_2'(x)y_2'(x) = \dfrac{f(x)}{a}
+\end{cases}
+\]
+\end{theorem}
+
+\begin{proof}
+\noindent\textbf{Krok 1: Předpoklad a první derivace}
+
+Předpokládáme $y_p = u_1y_1 + u_2y_2$. První derivace:
+\[
+y_p' = u_1'y_1 + u_2'y_2 + u_1y_1' + u_2y_2'
+\]
+Abychom se vyhnuli výskytu $u_1''$, $u_2''$ v druhé derivaci, položíme:
+\[
+u_1'y_1 + u_2'y_2 = 0 \quad \text{(1)}
+\]
+Pak $y_p' = u_1y_1' + u_2y_2'$.
+
+\noindent\textbf{Krok 2: Druhá derivace a dosazení}
+
+Druhá derivace:
+\[
+y_p'' = u_1'y_1' + u_2'y_2' + u_1y_1'' + u_2y_2''
+\]
+Dosadíme $y_p$, $y_p'$, $y_p''$ do nehomogenní rovnice:
+\[
+a(u_1'y_1' + u_2'y_2' + u_1y_1'' + u_2y_2'') + b(u_1y_1' + u_2y_2') + c(u_1y_1 + u_2y_2) = f(x)
+\]
+Úprava:
+\[
+u_1(ay_1'' + by_1' + cy_1) + u_2(ay_2'' + by_2' + cy_2) + a(u_1'y_1' + u_2'y_2') = f(x)
+\]
+Protože $y_1$, $y_2$ jsou řešení homogenní rovnice, první dva členy jsou nulové. Tedy:
+\[
+a(u_1'y_1' + u_2'y_2') = f(x) \quad \text{(2)}
+\]
+
+\noindent\textbf{Krok 3: Řešení soustavy}
+
+Máme soustavu:
+\[
+\begin{cases}
+u_1'y_1 + u_2'y_2 = 0 \\
+u_1'y_1' + u_2'y_2' = \dfrac{f(x)}{a}
+\end{cases}
+\]
+Tuto soustavu řešíme pro $u_1'$, $u_2'$ pomocí Cramerova pravidla. Determinant soustavy je Wronskián:
+\[
+W(x) = \begin{vmatrix}
+y_1 & y_2 \\
+y_1' & y_2'
+\end{vmatrix}
+\]
+Řešení:
+\[
+u_1' = \frac{\begin{vmatrix}
+0 & y_2 \\
+\frac{f(x)}{a} & y_2'
+\end{vmatrix}}{W(x)} = -\frac{y_2 f(x)}{a W(x)}, \quad
+u_2' = \frac{\begin{vmatrix}
+y_1 & 0 \\
+y_1' & \frac{f(x)}{a}
+\end{vmatrix}}{W(x)} = \frac{y_1 f(x)}{a W(x)}
+\]
+
+\noindent\textbf{Krok 4: Integrace}
+
+Integrujeme:
+\[
+u_1(x) = -\int \frac{y_2(x) f(x)}{a W(x)} dx, \quad u_2(x) = \int \frac{y_1(x) f(x)}{a W(x)} dx
+\]
+\end{proof}
+
+\paragraph{Explicitní vzorce pro různé případy}
+
+\begin{itemize}
+\item \textbf{Případ 1: $D > 0$} ($y_1 = e^{\lambda_1 x}$, $y_2 = e^{\lambda_2 x}$, $W(x) = (\lambda_2 - \lambda_1)e^{(\lambda_1 + \lambda_2)x}$)
+\[
+u_1(x) = -\frac{1}{a(\lambda_2 - \lambda_1)}\int e^{-\lambda_1 x} f(x) dx, \quad u_2(x) = \frac{1}{a(\lambda_2 - \lambda_1)}\int e^{-\lambda_2 x} f(x) dx
+\]
+
+\item \textbf{Případ 2: $D = 0$} ($y_1 = e^{\lambda x}$, $y_2 = xe^{\lambda x}$, $W(x) = e^{2\lambda x}$)
+\[
+u_1(x) = -\frac{1}{a}\int x e^{-\lambda x} f(x) dx, \quad u_2(x) = \frac{1}{a}\int e^{-\lambda x} f(x) dx
+\]
+
+\item \textbf{Případ 3: $D < 0$} ($y_1 = e^{\alpha x}\cos\beta x$, $y_2 = e^{\alpha x}\sin\beta x$, $W(x) = \beta e^{2\alpha x}$)
+\[
+u_1(x) = -\frac{1}{a\beta}\int e^{\alpha x}\sin\beta x \cdot f(x) dx, \quad u_2(x) = \frac{1}{a\beta}\int e^{\alpha x}\cos\beta x \cdot f(x) dx
+\]
+\end{itemize}
+
+\subsubsection{Operátorová metoda - Kompletní systematika}
+\label{subsubsec:operatorova-metoda}
+
+\paragraph{Faktorizace diferenciálního operátoru}
+
+\begin{theorem}[Faktorizace operátoru]
+Lineární diferenciální operátor $L = aD^2 + bD + c$ lze faktorizovat jako:
+\[
+L = a(D - \lambda_1)(D - \lambda_2)
+\]
+kde $\lambda_1$, $\lambda_2$ jsou kořeny charakteristické rovnice.
+\end{theorem}
+
+\begin{proof}
+Roznásobením:
+\[
+a(D - \lambda_1)(D - \lambda_2) = a[D^2 - (\lambda_1 + \lambda_2)D + \lambda_1\lambda_2] = aD^2 - a(\lambda_1 + \lambda_2)D + a\lambda_1\lambda_2
+\]
+Podle Viètových vztahů: $\lambda_1 + \lambda_2 = -\frac{b}{a}$, $\lambda_1\lambda_2 = \frac{c}{a}$, tedy:
+\[
+a(D - \lambda_1)(D - \lambda_2) = aD^2 + bD + c = L
+\]
+\end{proof}
+
+\paragraph{Systematický postup operátorové metody}
+
+\begin{enumerate}
+\item \textbf{Faktorizace}: $L[y] = a(D - \lambda_1)(D - \lambda_2)y = f(x)$
+
+\item \textbf{Substituce}: Zaveďme $z = (D - \lambda_2)y$
+
+\item \textbf{První rovnice}: $(D - \lambda_1)z = \frac{f(x)}{a}$
+
+\item \textbf{Řešení pro z}: Toto je lineární ODE 1. řádu:
+\[
+z' - \lambda_1 z = \frac{f(x)}{a}
+\]
+Integrační faktor: $\mu(x) = e^{-\lambda_1 x}$
+\[
+z(x) = e^{\lambda_1 x}\left[\int e^{-\lambda_1 x} \frac{f(x)}{a} dx + C_1\right]
+\]
+
+\item \textbf{Druhá rovnice}: $(D - \lambda_2)y = z(x)$
+
+\item \textbf{Řešení pro y}: Opět lineární ODE 1. řádu:
+\[
+y' - \lambda_2 y = z(x)
+\]
+Integrační faktor: $\nu(x) = e^{-\lambda_2 x}$
+\[
+y(x) = e^{\lambda_2 x}\left[\int e^{-\lambda_2 x} z(x) dx + C_2\right]
+\]
+
+\item \textbf{Výsledek}: Po dosazení za $z(x)$ a úpravě dostaneme obecné řešení.
+\end{enumerate}
+
+Tento kompletní teoretický fundament pokrývá všechny aspekty řešení lineárních ODE 2. řádu s konstantními koeficienty a vytváří pevný základ pro praktické aplikace.
+
+\subsubsection{Kompletní početní sekce - Speciální případy a pokročilé techniky}
+\label{subsubsec:kompletni-pocetni-sekce}
+
+\paragraph{Speciální ansatzy pro kombinované pravé strany}
+
+\begin{example}[Součin polynomu a exponenciály]
+\label{ex:polynom-exp-ansatz}
+
+\noindent\textbf{Zadání:} Řešte rovnici $y'' - 2y' + y = (x^2 + 1)e^{2x}$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Homogenní řešení}
+\[
+\lambda^2 - 2\lambda + 1 = 0 \Rightarrow (\lambda - 1)^2 = 0 \Rightarrow \lambda = 1 \text{ (dvojný)}
+\]
+\[
+y_h(x) = (C_1 + C_2 x)e^{x}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Analýza pravé strany}
+$f(x) = (x^2 + 1)e^{2x}$ - součin polynomu 2. stupně a exponenciály $e^{2x}$
+
+Kořeny charakteristické rovnice: $\lambda = 1$ (dvojný)
+
+Protože $2 \neq 1$, není rezonance.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Volba ansatzu}
+Základní ansatz: $y_p = (Ax^2 + Bx + C)e^{2x}$
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Výpočet derivací}
+\[
+y_p = (Ax^2 + Bx + C)e^{2x}
+\]
+\[
+y_p' = (2Ax + B)e^{2x} + 2(Ax^2 + Bx + C)e^{2x} = [2Ax^2 + (2A + 2B)x + (B + 2C)]e^{2x}
+\]
+\[
+y_p'' = [4Ax + (2A + 2B)]e^{2x} + 2[2Ax^2 + (2A + 2B)x + (B + 2C)]e^{2x}
+\]
+\[
+= [4Ax^2 + (8A + 4B)x + (2A + 4B + 4C)]e^{2x}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Dosazení do rovnice}
+\[
+y_p'' - 2y_p' + y_p = \{[4Ax^2 + (8A + 4B)x + (2A + 4B + 4C)] - 2[2Ax^2 + (2A + 2B)x + (B + 2C)] + [Ax^2 + Bx + C]\}e^{2x}
+\]
+\[
+= [4A - 4A + A]x^2 + [(8A + 4B) - (4A + 4B) + B]x + [(2A + 4B + 4C) - (2B + 4C) + C]
+\]
+\[
+= Ax^2 + (4A + B)x + (2A + 2B + C)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 6: Porovnání koeficientů}
+\[
+\begin{cases}
+A = 1 \\
+4A + B = 0 \\
+2A + 2B + C = 1
+\end{cases}
+\Rightarrow
+\begin{cases}
+A = 1 \\
+B = -4 \\
+C = 7
+\end{cases}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 7: Řešení}
+\[
+y_p(x) = (x^2 - 4x + 7)e^{2x}
+\]
+\[
+y(x) = (C_1 + C_2 x)e^{x} + (x^2 - 4x + 7)e^{2x}
+\]
+
+\end{example}
+
+\begin{example}[Součin polynomu a goniometrické funkce]
+\label{ex:polynom-goniom-ansatz}
+
+\noindent\textbf{Zadání:} Řešte rovnici $y'' + y = x\sin x$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Homogenní řešení}
+\[
+\lambda^2 + 1 = 0 \Rightarrow \lambda = \pm i
+\]
+\[
+y_h(x) = C_1 \cos x + C_2 \sin x
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Analýza rezonance}
+Pravá strana: $f(x) = x\sin x$ - součin polynomu 1. stupně a $\sin x$
+
+Charakteristické kořeny: $\lambda = \pm i$ ⇒ $i\omega = i$ ⇒ $\omega = 1$
+
+Rezonance! Musíme ansatz modifikovat.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Volba ansatzu}
+Základní ansatz pro $x\sin x$ by byl: $y_p = (Ax + B)\cos x + (Cx + D)\sin x$
+
+Ale protože $\cos x$ a $\sin x$ jsou řešení homogenní rovnice, modifikujeme:
+\[
+y_p = x[(Ax + B)\cos x + (Cx + D)\sin x] = (Ax^2 + Bx)\cos x + (Cx^2 + Dx)\sin x
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Výpočet derivací}
+\[
+y_p = (Ax^2 + Bx)\cos x + (Cx^2 + Dx)\sin x
+\]
+\[
+y_p' = (2Ax + B)\cos x - (Ax^2 + Bx)\sin x + (2Cx + D)\sin x + (Cx^2 + Dx)\cos x
+\]
+\[
+= [(2A + C)x^2 + (2C + B + D)x + B]\cos x + [(-A + 2C)x^2 + (-B + 2D)x + D]\sin x
+\]
+\[
+y_p'' = \text{(po rozsáhlém výpočtu)} = [(-3A + 4C)x^2 + (-3B + 4D + 4A)x + (2A - B + 2D)]\cos x + [(-4A - 3C)x^2 + (-4B - 3D + 2C)x + (2C - D - 2B)]\sin x
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Dosazení a porovnání}
+\[
+y_p'' + y_p = [4Cx^2 + (4D + 4A)x + (2A + 2D)]\cos x + [-4Ax^2 + (-4B + 2C)x + (2C - 2B)]\sin x = x\sin x
+\]
+Porovnání koeficientů:
+\[
+\begin{cases}
+4C = 0 \\
+4D + 4A = 0 \\
+2A + 2D = 0 \\
+-4A = 1 \\
+-4B + 2C = 1 \\
+2C - 2B = 0
+\end{cases}
+\Rightarrow
+\begin{cases}
+A = -\frac{1}{4} \\
+B = -\frac{1}{4} \\
+C = 0 \\
+D = \frac{1}{4}
+\end{cases}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 6: Řešení}
+\[
+y_p(x) = \left(-\frac{1}{4}x^2 - \frac{1}{4}x\right)\cos x + \left(\frac{1}{4}x\right)\sin x
+\]
+\[
+y(x) = C_1 \cos x + C_2 \sin x - \frac{1}{4}x(x + 1)\cos x + \frac{1}{4}x\sin x
+\]
+
+\end{example}
+
+\begin{example}[Součin exponenciály a goniometrické funkce]
+\label{ex:exp-goniom-ansatz}
+
+\noindent\textbf{Zadání:} Řešte rovnici $y'' - 2y' + 2y = e^{x}\cos x$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Homogenní řešení}
+\[
+\lambda^2 - 2\lambda + 2 = 0 \Rightarrow \lambda = 1 \pm i
+\]
+\[
+y_h(x) = e^{x}(C_1 \cos x + C_2 \sin x)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Analýza rezonance}
+Pravá strana: $f(x) = e^{x}\cos x$
+
+Charakteristické kořeny: $\lambda = 1 \pm i$ ⇒ $k + i\omega = 1 + i$ ⇒ $k = 1$, $\omega = 1$
+
+Rezonance! Ansatz musíme modifikovat.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Volba ansatzu}
+Základní ansatz: $y_p = e^{x}(A\cos x + B\sin x)$
+
+Ale toto je řešení homogenní rovnice ⇒ modifikujeme:
+\[
+y_p = xe^{x}(A\cos x + B\sin x)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Výpočet derivací}
+\[
+y_p = xe^{x}(A\cos x + B\sin x)
+\]
+\[
+y_p' = e^{x}[(A + Ax + Bx)\cos x + (B + Bx - Ax)\sin x]
+\]
+\[
+y_p'' = e^{x}[(2A + 2B + Ax)\cos x + (2B - 2A + Bx)\sin x]
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Dosazení}
+\[
+y_p'' - 2y_p' + 2y_p = e^{x}[-2B\cos x + 2A\sin x] = e^{x}\cos x
+\]
+Porovnání:
+\[
+\begin{cases}
+-2B = 1 \\
+2A = 0
+\end{cases}
+\Rightarrow
+\begin{cases}
+A = 0 \\
+B = -\frac{1}{2}
+\end{cases}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 6: Řešení}
+\[
+y_p(x) = -\frac{1}{2}xe^{x}\sin x
+\]
+\[
+y(x) = e^{x}(C_1 \cos x + C_2 \sin x) - \frac{1}{2}xe^{x}\sin x
+\]
+
+\end{example}
+
+\paragraph{Speciální případy s násobnou rezonancí}
+
+\begin{example}[Dvojná rezonance u polynomu]
+\label{ex:dvojna-rezonance-polynom}
+
+\noindent\textbf{Zadání:} Řešte rovnici $y'' = 3x + 2$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Homogenní řešení}
+\[
+\lambda^2 = 0 \Rightarrow \lambda = 0 \text{ (dvojný)}
+\]
+\[
+y_h(x) = C_1 + C_2 x
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Analýza rezonance}
+Pravá strana: $f(x) = 3x + 2$ (polynom 1. stupně)
+
+Kořeny charakteristické rovnice: $\lambda = 0$ (dvojný) ⇒ dvojná rezonance!
+
+Základní ansatz $y_p = Ax + B$ je řešení homogenní rovnice.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Modifikace ansatzu}
+Protože 0 je dvojný kořen, násobíme $x^2$:
+\[
+y_p = x^2(Ax + B) = Ax^3 + Bx^2
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Dosazení}
+\[
+y_p' = 3Ax^2 + 2Bx, \quad y_p'' = 6Ax + 2B
+\]
+\[
+y_p'' = 6Ax + 2B = 3x + 2
+\]
+Porovnání:
+\[
+\begin{cases}
+6A = 3 \\
+2B = 2
+\end{cases}
+\Rightarrow
+\begin{cases}
+A = \frac{1}{2} \\
+B = 1
+\end{cases}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Řešení}
+\[
+y_p(x) = \frac{1}{2}x^3 + x^2
+\]
+\[
+y(x) = C_1 + C_2 x + \frac{1}{2}x^3 + x^2
+\]
+
+\end{example}
+
+\begin{example}[Dvojná rezonance u exponenciály]
+\label{ex:dvojna-rezonance-exp}
+
+\noindent\textbf{Zadání:} Řešte rovnici $y'' - 4y' + 4y = e^{2x}$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Homogenní řešení}
+\[
+\lambda^2 - 4\lambda + 4 = 0 \Rightarrow (\lambda - 2)^2 = 0 \Rightarrow \lambda = 2 \text{ (dvojný)}
+\]
+\[
+y_h(x) = (C_1 + C_2 x)e^{2x}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Analýza rezonance}
+Pravá strana: $f(x) = e^{2x}$
+
+Kořeny charakteristické rovnice: $\lambda = 2$ (dvojný) ⇒ dvojná rezonance!
+
+Základní ansatz $y_p = Ae^{2x}$ je řešení homogenní rovnice.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Modifikace ansatzu}
+Protože 2 je dvojný kořen, násobíme $x^2$:
+\[
+y_p = Ax^2e^{2x}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Výpočet derivací}
+\[
+y_p = Ax^2e^{2x}
+\]
+\[
+y_p' = 2Axe^{2x} + 2Ax^2e^{2x} = 2Ax(1 + x)e^{2x}
+\]
+\[
+y_p'' = 2Ae^{2x} + 8Axe^{2x} + 4Ax^2e^{2x} = 2A(1 + 4x + 2x^2)e^{2x}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Dosazení}
+\[
+y_p'' - 4y_p' + 4y_p = [2A(1 + 4x + 2x^2) - 8Ax(1 + x) + 4Ax^2]e^{2x} = 2Ae^{2x} = e^{2x}
+\]
+\[
+2A = 1 \Rightarrow A = \frac{1}{2}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 6: Řešení}
+\[
+y_p(x) = \frac{1}{2}x^2e^{2x}
+\]
+\[
+y(x) = (C_1 + C_2 x)e^{2x} + \frac{1}{2}x^2e^{2x}
+\]
+
+\end{example}
+
+\paragraph{Kombinace více typů pravých stran}
+
+\begin{example}[Kombinace polynomu a goniometrické funkce]
+\label{ex:kombinace-vice-typu}
+
+\noindent\textbf{Zadání:} Řešte rovnici $y'' + y = x + \sin x$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Homogenní řešení}
+\[
+\lambda^2 + 1 = 0 \Rightarrow \lambda = \pm i
+\]
+\[
+y_h(x) = C_1 \cos x + C_2 \sin x
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Analýza pravých stran}
+Máme dvě pravé strany: $f_1(x) = x$, $f_2(x) = \sin x$
+
+Pro $f_1(x) = x$: Žádná rezonance (0 není kořen)
+Pro $f_2(x) = \sin x$: Rezonance! ($i$ je kořen)
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Ansatz pro jednotlivé části}
+Pro $f_1(x) = x$: $y_{p1} = Ax + B$
+
+Pro $f_2(x) = \sin x$: Základní ansatz $A\cos x + B\sin x$ je řešení homogenní rovnice ⇒ modifikujeme: $y_{p2} = x(C\cos x + D\sin x)$
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Celkový ansatz}
+\[
+y_p = y_{p1} + y_{p2} = Ax + B + x(C\cos x + D\sin x)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Výpočet a dosazení}
+\[
+y_p' = A + C\cos x + D\sin x + x(-C\sin x + D\cos x)
+\]
+\[
+y_p'' = -2C\sin x + 2D\cos x + x(-C\cos x - D\sin x)
+\]
+Dosazení:
+\[
+y_p'' + y_p = [A + 2D]x + B + 2D\cos x - 2C\sin x = x + \sin x
+\]
+Porovnání:
+\[
+\begin{cases}
+A = 1 \\
+B + 2D = 0 \\
+2D = 0 \\
+-2C = 1
+\end{cases}
+\Rightarrow
+\begin{cases}
+A = 1 \\
+B = 0 \\
+C = -\frac{1}{2} \\
+D = 0
+\end{cases}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 6: Řešení}
+\[
+y_p(x) = x - \frac{1}{2}x\cos x
+\]
+\[
+y(x) = C_1 \cos x + C_2 \sin x + x - \frac{1}{2}x\cos x
+\]
+
+\end{example}
+
+\begin{example}[Kombinace exponenciály a goniometrické funkce]
+\label{ex:kombinace-exp-goniom}
+
+\noindent\textbf{Zadání:} Řešte rovnici $y'' - 3y' + 2y = e^{x} + \cos x$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Homogenní řešení}
+\[
+\lambda^2 - 3\lambda + 2 = 0 \Rightarrow \lambda_1 = 1, \lambda_2 = 2
+\]
+\[
+y_h(x) = C_1 e^{x} + C_2 e^{2x}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Analýza pravých stran}
+$f_1(x) = e^{x}$: Rezonance! ($\lambda = 1$ je kořen)
+$f_2(x) = \cos x$: Žádná rezonance ($i$ není kořen)
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Ansatz pro jednotlivé části}
+Pro $f_1(x) = e^{x}$: Základní ansatz $Ae^{x}$ je řešení ⇒ modifikujeme: $y_{p1} = Axe^{x}$
+
+Pro $f_2(x) = \cos x$: $y_{p2} = B\cos x + C\sin x$
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Celkový ansatz}
+\[
+y_p = Axe^{x} + B\cos x + C\sin x
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Výpočet derivací}
+\[
+y_p' = Ae^{x} + Axe^{x} - B\sin x + C\cos x
+\]
+\[
+y_p'' = 2Ae^{x} + Axe^{x} - B\cos x - C\sin x
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 6: Dosazení}
+\[
+y_p'' - 3y_p' + 2y_p = [-Ae^{x}] + [(-B - 3C + 2B)\cos x + (-C + 3B + 2C)\sin x] = e^{x} + \cos x
+\]
+\[
+= -Ae^{x} + (B - 3C)\cos x + (3B + C)\sin x = e^{x} + \cos x
+\]
+Porovnání:
+\[
+\begin{cases}
+-A = 1 \\
+B - 3C = 1 \\
+3B + C = 0
+\end{cases}
+\Rightarrow
+\begin{cases}
+A = -1 \\
+B = \frac{1}{10} \\
+C = -\frac{3}{10}
+\end{cases}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 7: Řešení}
+\[
+y_p(x) = -xe^{x} + \frac{1}{10}\cos x - \frac{3}{10}\sin x
+\]
+\[
+y(x) = C_1 e^{x} + C_2 e^{2x} - xe^{x} + \frac{1}{10}\cos x - \frac{3}{10}\sin x
+\]
+
+\end{example}
+
+\paragraph{Pokročilé metody a speciální případy}
+
+\begin{example}[Metoda variace konstant s Wronskiánem - detailní výpočet]
+\label{ex:variace-konstant-wronskian}
+
+\noindent\textbf{Zadání:} Řešte rovnici $y'' - y = \frac{1}{e^x + e^{-x}}$ metodou variace konstant.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Homogenní řešení a Wronskián}
+\[
+\lambda^2 - 1 = 0 \Rightarrow \lambda = \pm 1
+\]
+\[
+y_1(x) = e^{x}, \quad y_2(x) = e^{-x}
+\]
+\[
+W(x) = \begin{vmatrix}
+e^{x} & e^{-x} \\
+e^{x} & -e^{-x}
+\end{vmatrix} = -1 - 1 = -2
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Soustava pro $u_1'$, $u_2'$}
+\[
+\begin{cases}
+u_1'e^{x} + u_2'e^{-x} = 0 \\
+u_1'e^{x} - u_2'e^{-x} = \frac{1}{e^x + e^{-x}}
+\end{cases}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Řešení soustavy pomocí Cramerova pravidla}
+\[
+u_1' = \frac{
+\begin{vmatrix}
+0 & e^{-x} \\
+\frac{1}{e^x + e^{-x}} & -e^{-x}
+\end{vmatrix}}{W(x)} = \frac{0 \cdot (-e^{-x}) - e^{-x} \cdot \frac{1}{e^x + e^{-x}}}{-2} = \frac{e^{-x}}{2(e^x + e^{-x})}
+\]
+\[
+u_2' = \frac{
+\begin{vmatrix}
+e^{x} & 0 \\
+e^{x} & \frac{1}{e^x + e^{-x}}
+\end{vmatrix}}{W(x)} = \frac{e^{x} \cdot \frac{1}{e^x + e^{-x}} - 0 \cdot e^{x}}{-2} = -\frac{e^{x}}{2(e^x + e^{-x})}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Zjednodušení výrazů}
+\[
+u_1' = \frac{e^{-x}}{2(e^x + e^{-x})} = \frac{1}{2(e^{2x} + 1)}
+\]
+\[
+u_2' = -\frac{e^{x}}{2(e^x + e^{-x})} = -\frac{e^{2x}}{2(e^{2x} + 1)}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Integrace}
+\[
+u_1(x) = \int \frac{1}{2(e^{2x} + 1)} dx = \frac{1}{2} \int \frac{e^{-2x}}{1 + e^{-2x}} dx
+\]
+Substitucí $t = e^{-2x}$, $dt = -2e^{-2x}dx$:
+\[
+u_1(x) = -\frac{1}{4} \int \frac{1}{1 + t} dt = -\frac{1}{4} \ln|1 + t| + K_1 = -\frac{1}{4} \ln(1 + e^{-2x}) + K_1
+\]
+
+\vspace{0.5\baselineskip}
+
+\[
+u_2(x) = -\int \frac{e^{2x}}{2(e^{2x} + 1)} dx = -\frac{1}{4} \int \frac{2e^{2x}}{e^{2x} + 1} dx
+\]
+Substitucí $t = e^{2x} + 1$, $dt = 2e^{2x}dx$:
+\[
+u_2(x) = -\frac{1}{4} \int \frac{1}{t} dt = -\frac{1}{4} \ln|t| + K_2 = -\frac{1}{4} \ln(e^{2x} + 1) + K_2
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 6: Partikulární řešení}
+\[
+y_p(x) = u_1(x)y_1(x) + u_2(x)y_2(x)
+\]
+\[
+= \left[-\frac{1}{4} \ln(1 + e^{-2x}) + K_1\right]e^{x} + \left[-\frac{1}{4} \ln(e^{2x} + 1) + K_2\right]e^{-x}
+\]
+\[
+= -\frac{1}{4}e^{x}\ln(1 + e^{-2x}) - \frac{1}{4}e^{-x}\ln(e^{2x} + 1) + K_1e^{x} + K_2e^{-x}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 7: Obecné řešení}
+\[
+y(x) = C_1 e^{x} + C_2 e^{-x} - \frac{1}{4}e^{x}\ln(1 + e^{-2x}) - \frac{1}{4}e^{-x}\ln(e^{2x} + 1)
+\]
+
+\end{example}
+
+\begin{example}[Operátorová metoda s faktorizací - komplexní případ]
+\label{ex:operatorova-metoda-faktorizace}
+
+\noindent\textbf{Zadání:} Řešte rovnici $y'' + 4y' + 13y = e^{-2x}\cos 3x$ operátorovou metodou.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Faktorizace operátoru}
+\[
+\lambda^2 + 4\lambda + 13 = 0 \Rightarrow \lambda = -2 \pm 3i
+\]
+\[
+L = D^2 + 4D + 13 = (D + 2 - 3i)(D + 2 + 3i)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Substituce}
+Nechť $z = (D + 2 + 3i)y$
+
+Pak $(D + 2 - 3i)z = e^{-2x}\cos 3x$
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Řešení pro z}
+\[
+z' + (2 - 3i)z = e^{-2x}\cos 3x
+\]
+Integrační faktor: $\mu(x) = e^{(2 - 3i)x}$
+\[
+z(x) = e^{-(2 - 3i)x} \left[ \int e^{(2 - 3i)x} e^{-2x}\cos 3x dx + C_1 \right]
+\]
+\[
+= e^{-2x + 3ix} \left[ \int e^{-3ix}\cos 3x dx + C_1 \right]
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Výpočet integrálu}
+\[
+\int e^{-3ix}\cos 3x dx = \int e^{-3ix} \cdot \frac{e^{3ix} + e^{-3ix}}{2} dx = \frac{1}{2} \int (1 + e^{-6ix}) dx
+\]
+\[
+= \frac{1}{2} \left( x + \frac{e^{-6ix}}{-6i} \right) = \frac{x}{2} + \frac{ie^{-6ix}}{12}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Dosazení za z}
+\[
+z(x) = e^{-2x + 3ix} \left[ \frac{x}{2} + \frac{ie^{-6ix}}{12} + C_1 \right]
+= \frac{x}{2}e^{-2x + 3ix} + \frac{i}{12}e^{-2x - 3ix} + C_1 e^{-2x + 3ix}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 6: Rovnice pro y}
+\[
+(D + 2 + 3i)y = z(x)
+\]
+\[
+y' + (2 + 3i)y = \frac{x}{2}e^{-2x + 3ix} + \frac{i}{12}e^{-2x - 3ix} + C_1 e^{-2x + 3ix}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 7: Integrační faktor pro y}
+\[
+\nu(x) = e^{(2 + 3i)x}
+\]
+\[
+y(x) = e^{-(2 + 3i)x} \left[ \int e^{(2 + 3i)x} \left( \frac{x}{2}e^{-2x + 3ix} + \frac{i}{12}e^{-2x - 3ix} + C_1 e^{-2x + 3ix} \right) dx + C_2 \right]
+\]
+\[
+= e^{-2x - 3ix} \left[ \int \left( \frac{x}{2}e^{6ix} + \frac{i}{12} + C_1 e^{6ix} \right) dx + C_2 \right]
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 8: Výpočet integrálů}
+\[
+\int \frac{x}{2}e^{6ix} dx = \frac{1}{2} \cdot \frac{e^{6ix}(6ix - 1)}{(6i)^2} = \frac{e^{6ix}(6ix - 1)}{-72}
+\]
+\[
+\int \frac{i}{12} dx = \frac{ix}{12}
+\]
+\[
+\int C_1 e^{6ix} dx = C_1 \frac{e^{6ix}}{6i}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 9: Konečné řešení}
+Po dosazení a úpravě:
+\[
+y(x) = e^{-2x} \left( A\cos 3x + B\sin 3x + \frac{x}{12}\sin 3x \right)
+\]
+
+\end{example}
+
+\paragraph{Speciální případy s degenerovanými kořeny}
+
+\begin{example}[Rovnice s nulovým kořenem dvojnásobným]
+\label{ex:dvojny-nulovy-koren}
+
+\noindent\textbf{Zadání:} Řešte rovnici $y'' = \cos x$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Homogenní řešení}
+\[
+\lambda^2 = 0 \Rightarrow \lambda = 0 \text{ (dvojný)}
+\]
+\[
+y_h(x) = C_1 + C_2 x
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Analýza rezonance}
+Pravá strana: $f(x) = \cos x$
+
+Charakteristické kořeny: $\lambda = 0$ (dvojný)
+
+Žádná rezonance, protože $\cos x$ není řešení homogenní rovnice.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Ansatz}
+\[
+y_p = A\cos x + B\sin x
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Dosazení}
+\[
+y_p'' = -A\cos x - B\sin x
+\]
+\[
+y_p'' = -A\cos x - B\sin x = \cos x
+\]
+Porovnání:
+\[
+\begin{cases}
+-A = 1 \\
+-B = 0
+\end{cases}
+\Rightarrow
+\begin{cases}
+A = -1 \\
+B = 0
+\end{cases}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Řešení}
+\[
+y_p(x) = -\cos x
+\]
+\[
+y(x) = C_1 + C_2 x - \cos x
+\]
+
+\end{example}
+
+\begin{example}[Rovnice s čistě imaginárními kořeny dvojnásobnými]
+\label{ex:dvojny-imaginary-koren}
+
+\noindent\textbf{Zadání:} Řešte rovnici $y'''' + 2y'' + y = \sin x$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Charakteristická rovnice}
+\[
+\lambda^4 + 2\lambda^2 + 1 = 0 \Rightarrow (\lambda^2 + 1)^2 = 0 \Rightarrow \lambda = \pm i \text{ (dvojný)}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Homogenní řešení}
+\[
+y_h(x) = (C_1 + C_2 x)\cos x + (C_3 + C_4 x)\sin x
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Analýza rezonance}
+Pravá strana: $f(x) = \sin x$
+
+Protože $\sin x$ je řešení homogenní rovnice a $i$ je dvojný kořen, musíme ansatz modifikovat násobením $x^2$.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Ansatz}
+\[
+y_p = x^2(A\cos x + B\sin x)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Výpočet derivací}
+\[
+y_p = Ax^2\cos x + Bx^2\sin x
+\]
+\[
+y_p' = (2Ax + Bx^2)\cos x + (-Ax^2 + 2Bx)\sin x
+\]
+\[
+y_p'' = (2A + 4Bx - Ax^2)\cos x + (-4Ax + 2B - Bx^2)\sin x
+\]
+\[
+y_p''' = (6B - 6Ax - Bx^2)\cos x + (-6A - 6Bx + Ax^2)\sin x
+\]
+\[
+y_p'''' = (-12A - 8Bx + Ax^2)\cos x + (-8B + 12Ax + Bx^2)\sin x
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 6: Dosazení}
+\[
+y_p'''' + 2y_p'' + y_p = [-8B\cos x + 12A\sin x] = \sin x
+\]
+Porovnání:
+\[
+\begin{cases}
+-8B = 0 \\
+12A = 1
+\end{cases}
+\Rightarrow
+\begin{cases}
+A = \frac{1}{12} \\
+B = 0
+\end{cases}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 7: Řešení}
+\[
+y_p(x) = \frac{1}{12}x^2\cos x
+\]
+\[
+y(x) = (C_1 + C_2 x)\cos x + (C_3 + C_4 x)\sin x + \frac{1}{12}x^2\cos x
+\]
+
+\end{example}
+
+\paragraph{Kategorie D: Pokročilé a expertní příklady}
+
+\begin{example}[Rovnice s parametrem - bifurkační analýza]
+\label{ex:rovnice-s-parametrem}
+
+\noindent\textbf{Zadání:} Analyzujte rovnici $y'' + 2\alpha y' + (\alpha^2 + 1)y = 0$ v závislosti na parametru $\alpha$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Charakteristická rovnice}
+\[
+\lambda^2 + 2\alpha\lambda + (\alpha^2 + 1) = 0
+\]
+\[
+\lambda = \frac{-2\alpha \pm \sqrt{4\alpha^2 - 4(\alpha^2 + 1)}}{2} = \frac{-2\alpha \pm \sqrt{-4}}{2} = -\alpha \pm i
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Obecné řešení}
+\[
+y(x) = e^{-\alpha x}(C_1 \cos x + C_2 \sin x)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Kvalitativní analýza}
+\begin{itemize}
+\item \textbf{$\alpha > 0$}: Exponenciální útlum - stabilní řešení
+\item \textbf{$\alpha = 0$}: Netlumené kmity - stabilní ale ne asymptoticky
+\item \textbf{$\alpha < 0$}: Exponenciální růst - nestabilní řešení
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Bifurkační bod}
+Bifurkace nastává při $\alpha = 0$ - přechod mezi stabilním a nestabilním chováním.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Fázový portrét}
+Pro $\alpha > 0$: Spirálový atraktor
+Pro $\alpha = 0$: Střed - periodické řešení
+Pro $\alpha < 0$: Spirálový repelor
+
+\end{example}
+
+\begin{example}[Singulární perturbace - boundary layer]
+\label{ex:singularni-perturbace}
+
+\noindent\textbf{Zadání:} Analyzujte rovnici $\epsilon y'' + y' + y = 0$, $y(0) = 0$, $y(1) = 1$ pro malé $\epsilon > 0$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Vnější řešení (outer solution)}
+Pro $\epsilon \to 0$: $y' + y = 0 \Rightarrow y_{\text{outer}} = Ae^{-x}$
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Boundary layer v $x = 0$}
+Zavedeme rychlou proměnnou: $\xi = \frac{x}{\epsilon}$
+
+Rovnice v rychlých proměnných:
+\[
+\frac{d^2y}{d\xi^2} + \frac{dy}{d\xi} + \epsilon y = 0
+\]
+Pro $\epsilon \to 0$: $\frac{d^2y}{d\xi^2} + \frac{dy}{d\xi} = 0$
+
+Řešení: $y_{\text{inner}} = B + Ce^{-\xi}$
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Spojení řešení}
+Z okrajové podmínky v $x = 0$: $y_{\text{inner}}(0) = B + C = 0$
+
+Asymptotická shoda: $\lim_{\xi \to \infty} y_{\text{inner}} = \lim_{x \to 0} y_{\text{outer}}$
+
+$B = A$, $C = -A$
+
+Z okrajové podmínky v $x = 1$: $y_{\text{outer}}(1) = Ae^{-1} = 1 \Rightarrow A = e$
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Složené řešení}
+\[
+y(x) = y_{\text{outer}} + y_{\text{inner}} - \text{společná část} = e^{1-x} - e^{1-x/\epsilon}
+\]
+
+\end{example}
+
+\paragraph{Kategorie E: Insane Challenges}
+
+\begin{example}[Rovnice s periodickými koeficienty - Hillova rovnice]
+\label{ex:hillova-rovnice}
+
+\noindent\textbf{Zadání:} Analyzujte Mathieovu rovnici $y'' + (a - 2q\cos 2x)y = 0$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Floquetova teorie}
+Řešení mají tvar: $y(x) = e^{\mu x}p(x)$, kde $p(x)$ je periodická s periodou $\pi$.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Stabilní a nestabilní oblasti}
+Pro určité hodnoty $(a, q)$ existují stabilní periodická řešení, pro jiné řešení rostou exponenciálně.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Aplikace}
+\begin{itemize}
+\item \textbf{Kvantová mechanika}: Elektron v periodickém potenciálu
+\item \textbf{Parametrické rezonance}: Kyvadlo s periodicky se měnící délkou
+\item \textbf{Optika}: Vlnovody s periodickou modulací
+\end{itemize}
+
+\end{example}
+
+\begin{example}[Rovnice s zpožděním - DDE]
+\label{ex:rovnice-se-zpozdenim}
+
+\noindent\textbf{Zadání:} Analyzujte rovnici $y''(t) + y(t-\tau) = 0$.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Ansatz}
+$y(t) = e^{\lambda t}$
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Charakteristická rovnice}
+\[
+\lambda^2 + e^{-\lambda\tau} = 0
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Analýza stability}
+Pro malá $\tau$: Stabilní řešení
+Pro kritické $\tau$: Hopfova bifurkace - vznik periodických řešení
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Aplikace}
+\begin{itemize}
+\item \textbf{Biologie}: Modely populační dynamiky se zpožděnou reprodukcí
+\item \textbf{Ekonomie}: Modely s časovými zpožděními v rozhodování
+\item \textbf{Řízení}: Systémy se zpožděnou zpětnou vazbou
+\end{itemize}
+
+\end{example}
+
+Tato kompletní početní sekce pokrývá všechny aspekty řešení lineárních ODE 2. řádu s konstantními koeficienty od základních příkladů po pokročilé expertní techniky, včetně speciálních případů, parametrických analýz a aplikací v moderní vědě.
+
+\subsubsection{Aplikace v kvantitativních vědách - Kompletní fyzikální modely}
+\label{subsubsec:aplikace-kvantitativni}
+
+\paragraph{Detailní analýza mechanických kmitů}
+
+\begin{example}[Tlumený harmonický oscilátor s vnějším buzením]
+\label{ex:kompletni-mechanicky-oscilator}
+
+\noindent\textbf{Fyzikální model:} Pružina s viskózním tlumením a harmonickým buzením
+\[
+m\frac{d^2x}{dt^2} + c\frac{dx}{dt} + kx = F_0\cos(\omega t)
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Normovaný tvar a parametry systému}
+\[
+\frac{d^2x}{dt^2} + 2\delta\frac{dx}{dt} + \omega_0^2 x = f_0\cos(\omega t)
+\]
+kde:
+\begin{align*}
+\delta &= \frac{c}{2m} \quad \text{(tlumicí parametr)} \\
+\omega_0 &= \sqrt{\frac{k}{m}} \quad \text{(vlastní úhlová frekvence)} \\
+f_0 &= \frac{F_0}{m} \quad \text{(normovaná amplituda buzení)} \\
+Q &= \frac{\omega_0}{2\delta} \quad \text{(činitel jakosti)}
+\end{align*}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Homogenní řešení - přechodový děj}
+\[
+x_h(t) = e^{-\delta t}(A\cos\omega_d t + B\sin\omega_d t)
+\]
+kde $\omega_d = \sqrt{\omega_0^2 - \delta^2}$ je úhlová frekvence tlumených kmitů.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Partikulární řešení - stacionární stav}
+Ansatz: $x_p(t) = C\cos(\omega t - \varphi)$
+
+Dosazením do rovnice:
+\[
+[-\omega^2 C\cos(\omega t - \varphi) - 2\delta\omega C\sin(\omega t - \varphi) + \omega_0^2 C\cos(\omega t - \varphi)] = f_0\cos(\omega t)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Amplitudová a fázová charakteristika}
+Pomocí komplexní metody: $x_p(t) = \text{Re}[X e^{i\omega t}]$, kde $X = Ce^{-i\varphi}$
+
+\[
+(-\omega^2 + 2i\delta\omega + \omega_0^2)X = f_0
+\]
+\[
+X = \frac{f_0}{\omega_0^2 - \omega^2 + 2i\delta\omega}
+\]
+Amplituda:
+\[
+C = |X| = \frac{f_0}{\sqrt{(\omega_0^2 - \omega^2)^2 + (2\delta\omega)^2}}
+\]
+Fázový posun:
+\[
+\varphi = \arg(X) = \arctan\left(\frac{2\delta\omega}{\omega_0^2 - \omega^2}\right)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Rezonanční frekvence a maximální amplituda}
+Derivací $C(\omega)$:
+\[
+\frac{dC}{d\omega} = 0 \Rightarrow \omega_r = \sqrt{\omega_0^2 - 2\delta^2}
+\]
+Maximální amplituda:
+\[
+C_{\text{max}} = \frac{f_0}{2\delta\sqrt{\omega_0^2 - \delta^2}}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 6: Energetická bilance}
+Okamžitý výkon: $P(t) = F(t)\dot{x}(t) = F_0\cos(\omega t) \cdot [-\omega C\sin(\omega t - \varphi)]$
+
+Střední výkon za periodu:
+\[
+\langle P \rangle = \frac{1}{T}\int_0^T P(t)dt = \frac{1}{2}F_0\omega C\sin\varphi
+\]
+Protože $\sin\varphi = \frac{2\delta\omega C}{f_0}$, dostáváme:
+\[
+\langle P \rangle = \frac{1}{2}c\omega^2 C^2
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 7: Kvalitativní analýza chování}
+\begin{itemize}
+\item \textbf{Podkritické tlumení ($\delta < \omega_0$)}: Kmitavý přechodový děj
+\item \textbf{Kritické tlumení ($\delta = \omega_0$)}: Nejrychlejší návrat do rovnováhy
+\item \textbf{Překmitové tlumení ($\delta > \omega_0$)}: Aperiodický návrat
+\item \textbf{Rezonance ($\omega = \omega_r$)}: Maximální amplituda kmitů
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 8: Praktické aplikace}
+\begin{itemize}
+\item \textbf{Stavební inženýrství}: Návrh konstrukcí odolných proti zemětřesení
+\item \textbf{Autoindustrie}: Tlumiče pérování vozidel
+\item \textbf{Elektrotechnika}: Mechanické filtry a rezonátory
+\item \textbf{Letectví}: Analýza flutteru křídel
+\end{itemize}
+
+\end{example}
+
+\paragraph{Kompletní analýza elektrických obvodů}
+
+\begin{example}[RLC sériový obvod s harmonickým buzením]
+\label{ex:kompletni-rlc-obvod}
+
+\noindent\textbf{Fyzikální model:} Sériový RLC obvod
+\[
+L\frac{d^2Q}{dt^2} + R\frac{dQ}{dt} + \frac{1}{C}Q = E_0\cos(\omega t)
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Normovaný tvar a základní parametry}
+\[
+\frac{d^2Q}{dt^2} + 2\alpha\frac{dQ}{dt} + \omega_0^2 Q = \frac{E_0}{L}\cos(\omega t)
+\]
+kde:
+\begin{align*}
+\alpha &= \frac{R}{2L} \quad \text{(tlumicí parametr)} \\
+\omega_0 &= \frac{1}{\sqrt{LC}} \quad \text{(rezonanční frekvence)} \\
+Q_{\text{faktor}} &= \frac{\omega_0}{2\alpha} = \frac{1}{R}\sqrt{\frac{L}{C}} \quad \text{(činitel jakosti)}
+\end{align*}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Komplexní impedance a proud}
+\[
+Z = R + i\left(\omega L - \frac{1}{\omega C}\right) = |Z|e^{i\varphi}
+\]
+\[
+|Z| = \sqrt{R^2 + \left(\omega L - \frac{1}{\omega C}\right)^2}, \quad \tan\varphi = \frac{\omega L - \frac{1}{\omega C}}{R}
+\]
+Komplexní amplituda proudu:
+\[
+I_0 = \frac{E_0}{|Z|}, \quad I(t) = \frac{E_0}{|Z|}\cos(\omega t - \varphi)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Napětí na jednotlivých prvcích}
+\begin{align*}
+U_R(t) &= RI(t) = \frac{RE_0}{|Z|}\cos(\omega t - \varphi) \\
+U_L(t) &= L\frac{dI}{dt} = \frac{\omega LE_0}{|Z|}\cos\left(\omega t - \varphi + \frac{\pi}{2}\right) \\
+U_C(t) &= \frac{1}{C}\int I dt = \frac{E_0}{\omega C|Z|}\cos\left(\omega t - \varphi - \frac{\pi}{2}\right)
+\end{align*}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Rezonanční charakteristiky}
+Rezonanční frekvence: $\omega_r = \omega_0 = \frac{1}{\sqrt{LC}}$
+
+Při rezonanci:
+\begin{align*}
+|Z|_{\text{min}} &= R \\
+I_0_{\text{max}} &= \frac{E_0}{R} \\
+U_L = U_C &= Q_{\text{faktor}} \cdot E_0
+\end{align*}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Křivky rezonance}
+Šířka pásma: $\Delta\omega = \frac{\omega_0}{Q} = 2\alpha$
+
+Relativní šířka pásma: $\frac{\Delta\omega}{\omega_0} = \frac{1}{Q}$
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 6: Přechodové jevy}
+Homogenní řešení:
+\[
+Q_h(t) = e^{-\alpha t}(A\cos\omega_d t + B\sin\omega_d t), \quad \omega_d = \sqrt{\omega_0^2 - \alpha^2}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 7: Energetická bilance}
+Okamžitý výkon: $P(t) = E(t)I(t)$
+
+Činný výkon: $P_{\text{avg}} = \frac{1}{2}E_0 I_0\cos\varphi = \frac{1}{2}I_0^2 R$
+
+Jalový výkon: $Q_{\text{avg}} = \frac{1}{2}E_0 I_0\sin\varphi$
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 8: Aplikace v praxi}
+\begin{itemize}
+\item \textbf{Rádiová technika}: Naladění přijímačů na vysílače
+\item \textbf{Energetika}: Kompenzace jalového výkonu
+\item \textbf{Medicína}: MRI skenery - rezonanční obvody
+\item \textbf{Metrologie}: Přesné frekvenční standardy
+\end{itemize}
+
+\end{example}
+
+\paragraph{Kvantové mechanické aplikace}
+
+\begin{example}[Časově nezávislá Schrödingerova rovnice]
+\label{ex:schrodingerova-rovnice}
+
+\noindent\textbf{Fyzikální model:} Stacionární Schrödingerova rovnice
+\[
+-\frac{\hbar^2}{2m}\frac{d^2\psi}{dx^2} + V(x)\psi = E\psi
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Volná částice ($V(x) = 0$)}
+\[
+\frac{d^2\psi}{dx^2} + k^2\psi = 0, \quad k = \frac{\sqrt{2mE}}{\hbar}
+\]
+Řešení: $\psi(x) = Ae^{ikx} + Be^{-ikx}$ - rovinné vlny
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Částice v potenciálové jámě}
+\[
+V(x) = \begin{cases}
+0 & \text{pro } 0 < x < L \\
+\infty & \text{jinak}
+\end{cases}
+\]
+Okrajové podmínky: $\psi(0) = \psi(L) = 0$
+
+Řešení: $\psi_n(x) = \sqrt{\frac{2}{L}}\sin\left(\frac{n\pi x}{L}\right)$, $E_n = \frac{n^2\pi^2\hbar^2}{2mL^2}$
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Harmonický oscilátor}
+\[
+V(x) = \frac{1}{2}m\omega^2 x^2
+\]
+\[
+\frac{d^2\psi}{dx^2} + \left(\frac{2mE}{\hbar^2} - \frac{m^2\omega^2}{\hbar^2}x^2\right)\psi = 0
+\]
+Řešení: Hermitovy polynomy $\psi_n(x) = N_n H_n(\xi)e^{-\xi^2/2}$, kde $\xi = \sqrt{\frac{m\omega}{\hbar}}x$
+
+Energie: $E_n = \hbar\omega\left(n + \frac{1}{2}\right)$
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Tunelový jev - pravoúhlá bariéra}
+\[
+V(x) = \begin{cases}
+V_0 & \text{pro } 0 < x < a \\
+0 & \text{jinak}
+\end{cases}
+\]
+Pro $E < V_0$:
+\begin{align*}
+\text{Oblast I (x < 0)} &: \psi_I(x) = e^{ikx} + Re^{-ikx} \\
+\text{Oblast II (0 < x < a)} &: \psi_{II}(x) = Ae^{\kappa x} + Be^{-\kappa x} \\
+\text{Oblast III (x > a)} &: \psi_{III}(x) = Te^{ikx}
+\end{align*}
+kde $k = \frac{\sqrt{2mE}}{\hbar}$, $\kappa = \frac{\sqrt{2m(V_0 - E)}}{\hbar}$
+
+Koeficient průchodu: $T = \left|\frac{2ik\kappa}{(k^2 - \kappa^2)\sinh(\kappa a) + 2ik\kappa\cosh(\kappa a)}\right|^2$
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Kvantování a diskrétní spektra}
+\begin{itemize}
+\item \textbf{Vázané stavy}: Diskrétní energetické hladiny
+\item \textbf{Rozptylové stavy}: Spojité spektrum
+\item \textbf{Kvantová čísla}: Charakterizace stavů systému
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 6: Aplikace v moderní fyzice}
+\begin{itemize}
+\item \textbf{Polovodičová technika}: Tunelové diody, kvantové tečky
+\item \textbf{Lasery}: Kvantové přechody mezi energetickými hladinami
+\item \textbf{STM}: Rastrovací tunelová mikroskopie
+\item \textbf{Kvantové computing}: Qubity a kvantové brány
+\end{itemize}
+
+\end{example}
+
+\paragraph{Ekonomické a biologické aplikace}
+
+\begin{example}[Modely ekonomického růstu]
+\label{ex:ekonomicke-modely}
+
+\noindent\textbf{Model:} Dynamika kapitálu a investic
+\[
+\frac{d^2K}{dt^2} + \delta\frac{dK}{dt} + \alpha K = I(t)
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Interpretace parametrů}
+\begin{align*}
+K(t) &: \text{stav kapitálu} \\
+I(t) &: \text{investiční funkce} \\
+\delta &: \text{rychlost depreciace} \\
+\alpha &: \text{produktivita kapitálu}
+\end{align*}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Řešení pro konstantní investice}
+Pro $I(t) = I_0$:
+\[
+K(t) = K_h(t) + \frac{I_0}{\alpha}
+\]
+kde $K_h(t)$ je řešení homogenní rovnice.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Stabilita ekonomického systému}
+Charakteristická rovnice: $\lambda^2 + \delta\lambda + \alpha = 0$
+
+Stabilita při: $\delta > 0$, $\alpha > 0$ (kladná depreciace a produktivita)
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Ekonomické cykly}
+Pro $\delta^2 - 4\alpha < 0$: Ekonomické oscilace s periodou $T = \frac{2\pi}{\sqrt{\alpha - \frac{\delta^2}{4}}}$
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Politické intervence}
+Vládní stimulace: $I(t) = I_0 + A\cos(\omega t)$
+
+Rezonance při: $\omega = \sqrt{\alpha - \frac{\delta^2}{2}}$
+
+\end{example}
+
+\begin{example}[Biologické populační modely]
+\label{ex:biologicke-modely}
+
+\noindent\textbf{Model:} Populace s věkovou strukturou
+\[
+\frac{d^2N}{dt^2} + (\mu + \gamma)\frac{dN}{dt} + \mu\gamma N = R(t)
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Biologická interpretace}
+\begin{align*}
+N(t) &: \text{velikost populace} \\
+\mu &: \text{úmrtnost} \\
+\gamma &: \text{porodnost} \\
+R(t) &: \text{vnější migrace}
+\end{align*}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Růstové scénáře}
+\begin{itemize}
+\item $\mu\gamma > 0$: Stabilní populace
+\item $\mu\gamma < 0$: Exponenciální růst/úbytek
+\item $\mu = \gamma$: Kritický případ
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Seasonální variace}
+$R(t) = R_0(1 + \epsilon\cos(\omega t))$ - sezónní migrace
+
+Rezonance při: $\omega = \sqrt{\mu\gamma - \frac{(\mu + \gamma)^2}{2}}$
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Aplikace v ekologii}
+\begin{itemize}
+\item \textbf{Ochrana druhů}: Management ohrožených populací
+\item \textbf{Lesnictví}: Modelování růstu lesních porostů
+\item \textbf{Rybářství}: Kvóty pro udržitelný lov
+\end{itemize}
+
+\end{example}
+
+\paragraph{Inženýrské aplikace a řídicí systémy}
+
+\begin{example}[Teorie řízení - PID regulátor]
+\label{ex:pid-regulator}
+
+\noindent\textbf{Systém:} Druhého řádu s PID regulací
+\[
+\frac{d^2y}{dt^2} + a\frac{dy}{dt} + by = K_p e(t) + K_i \int e(t) dt + K_d \frac{de}{dt}
+\]
+kde $e(t) = r(t) - y(t)$ je regulační odchylka.
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Diferenciální rovnice systému}
+\[
+\frac{d^2y}{dt^2} + (a + K_d)\frac{dy}{dt} + (b + K_p)y + K_i \int y dt = K_p r(t) + K_d \frac{dr}{dt} + K_i \int r(t) dt
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Stabilita řízeného systému}
+Charakteristická rovnice:
+\[
+\lambda^3 + (a + K_d)\lambda^2 + (b + K_p)\lambda + K_i = 0
+\]
+Routh-Hurwitzovo kritérium:
+\begin{align*}
+(a + K_d) &> 0 \\
+(a + K_d)(b + K_p) - K_i &> 0 \\
+K_i &> 0
+\end{align*}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Optimální seřízení regulátoru}
+\begin{itemize}
+\item \textbf{Ziegler-Nichols}: Empirická metoda
+\item \textbf{Cohen-Coon}: Analytické seřízení
+\item \textbf{IMC}: Vnitřní modelové řízení
+\end{itemize}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Přechodová charakteristika}
+\begin{itemize}
+\item \textbf{Překmit}: Závisí na $K_d$
+\item \textbf{Doba ustálení}: Závisí na $K_p$
+\item \textbf{Statická odchylka}: Eliminována $K_i$
+\end{itemize}
+
+\end{example}
+
+Tato kompletní sekce aplikací demonstruje hluboké propojení teorie lineárních ODE 2. řádu s reálnými problémy v kvantitativních vědách, od fundamentální fyziky po aplikované inženýrství a ekonomii.
+
+\subsubsection{Numerické metody a počítačové simulace}
+\label{subsubsec:numericke-metody}
+
+\paragraph{Metoda konečných diferencí}
+
+\begin{example}[Diskretizace pomocí centrálních diferencí]
+\label{ex:metoda-konecnych-diferencí}
+
+\noindent\textbf{Úloha:} Numerické řešení okrajové úlohy
+\[
+y'' + p(x)y' + q(x)y = r(x), \quad y(a) = \alpha, \quad y(b) = \beta
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Diskretizace intervalu}
+\[
+x_i = a + i\cdot h, \quad i = 0, 1, \dots, N, \quad h = \frac{b-a}{N}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Aproximace derivací}
+\begin{align*}
+y'(x_i) &\approx \frac{y_{i+1} - y_{i-1}}{2h} \quad \text{(centrální diference 1. řádu)} \\
+y''(x_i) &\approx \frac{y_{i+1} - 2y_i + y_{i-1}}{h^2} \quad \text{(centrální diference 2. řádu)}
+\end{align*}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Diskretizovaná rovnice}
+\[
+\frac{y_{i+1} - 2y_i + y_{i-1}}{h^2} + p(x_i)\frac{y_{i+1} - y_{i-1}}{2h} + q(x_i)y_i = r(x_i)
+\]
+Úprava:
+\[
+\left(1 - \frac{h}{2}p_i\right)y_{i-1} + (-2 + h^2 q_i)y_i + \left(1 + \frac{h}{2}p_i\right)y_{i+1} = h^2 r_i
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Trojúhelníková soustava rovnic}
+\[
+\begin{cases}
+A_i y_{i-1} + B_i y_i + C_i y_{i+1} = D_i, & i = 1, 2, \dots, N-1 \\
+y_0 = \alpha, \quad y_N = \beta
+\end{cases}
+\]
+kde:
+\begin{align*}
+A_i &= 1 - \frac{h}{2}p(x_i) \\
+B_i &= -2 + h^2 q(x_i) \\
+C_i &= 1 + \frac{h}{2}p(x_i) \\
+D_i &= h^2 r(x_i)
+\end{align*}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Řešení pomocí Thomasova algoritmu}
+\begin{enumerate}
+\item Dopředná substituce:
+\[
+\beta_1 = \frac{C_1}{B_1}, \quad \gamma_1 = \frac{D_1}{B_1}
+\]
+\[
+\beta_i = \frac{C_i}{B_i - A_i\beta_{i-1}}, \quad \gamma_i = \frac{D_i - A_i\gamma_{i-1}}{B_i - A_i\beta_{i-1}}, \quad i = 2, 3, \dots, N-1
+\]
+
+\item Zpětná substituce:
+\[
+y_{N-1} = \gamma_{N-1}
+\]
+\[
+y_i = \gamma_i - \beta_i y_{i+1}, \quad i = N-2, N-3, \dots, 1
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 6: Analýza přesnosti a stability}
+Lokální chyba: $O(h^2)$
+Globální chyba: $O(h^2)$
+Podmínka stability: $h < \frac{2}{\max|p(x)|}$
+
+\end{example}
+
+\paragraph{Runge-Kuttovy metody}
+
+\begin{example}[Metoda 4. řádu pro ODE 2. řádu]
+\label{ex:runge-kutta-4-rad}
+
+\noindent\textbf{Úloha:} Numerické řešení počáteční úlohy
+\[
+y'' = f(x, y, y'), \quad y(x_0) = y_0, \quad y'(x_0) = y'_0
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Převod na soustavu 1. řádu}
+\[
+\begin{cases}
+y' = z \\
+z' = f(x, y, z) \\
+y(x_0) = y_0, \quad z(x_0) = z_0
+\end{cases}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: RK4 pro soustavu}
+Pro krok z $x_n$ do $x_{n+1} = x_n + h$:
+
+\begin{align*}
+k_1 &= h \cdot z_n \\
+l_1 &= h \cdot f(x_n, y_n, z_n) \\
+k_2 &= h \cdot \left(z_n + \frac{l_1}{2}\right) \\
+l_2 &= h \cdot f\left(x_n + \frac{h}{2}, y_n + \frac{k_1}{2}, z_n + \frac{l_1}{2}\right) \\
+k_3 &= h \cdot \left(z_n + \frac{l_2}{2}\right) \\
+l_3 &= h \cdot f\left(x_n + \frac{h}{2}, y_n + \frac{k_2}{2}, z_n + \frac{l_2}{2}\right) \\
+k_4 &= h \cdot (z_n + l_3) \\
+l_4 &= h \cdot f(x_n + h, y_n + k_3, z_n + l_3)
+\end{align*}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Aktualizace řešení}
+\[
+y_{n+1} = y_n + \frac{1}{6}(k_1 + 2k_2 + 2k_3 + k_4)
+\]
+\[
+z_{n+1} = z_n + \frac{1}{6}(l_1 + 2l_2 + 2l_3 + l_4)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Adaptivní řízení kroku}
+Lokální chyba: $\epsilon = \frac{|y_{n+1} - \tilde{y}_{n+1}|}{15}$
+kde $\tilde{y}_{n+1}$ je řešení s krokem $h/2$.
+
+Nový krok: $h_{\text{new}} = 0.9 \cdot h \cdot \left(\frac{\text{tolerance}}{\epsilon}\right)^{1/5}$
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Implementační detaily}
+\begin{itemize}
+\item Počáteční krok: $h_0 = 0.1 \cdot \min(1, \frac{1}{\max|f|})$
+\item Maximální krok: $h_{\text{max}} = 0.1$
+\item Minimální krok: $h_{\text{min}} = 10^{-6}$
+\item Tolerance: $10^{-6}$ až $10^{-12}$
+\end{itemize}
+
+\end{example}
+
+\paragraph{Spectral metody}
+
+\begin{example}[Spectral metoda s Fourierovou bází]
+\label{ex:spectral-metoda}
+
+\noindent\textbf{Úloha:} Periodická okrajová úloha
+\[
+y'' + p(x)y' + q(x)y = r(x), \quad y(0) = y(2\pi)
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Fourierova expanze řešení}
+\[
+y(x) = \sum_{k=-N}^{N} \hat{y}_k e^{ikx}
+\]
+\[
+y'(x) = \sum_{k=-N}^{N} ik\hat{y}_k e^{ikx}
+\]
+\[
+y''(x) = \sum_{k=-N}^{N} (-k^2)\hat{y}_k e^{ikx}
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Diskretizace v Fourierově prostoru}
+Rovnice se stává:
+\[
+\sum_{k=-N}^{N} \left[-k^2 + ikp(x) + q(x)\right]\hat{y}_k e^{ikx} = r(x)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Kolokační metoda}
+Vzorkování v $x_j = \frac{2\pi j}{2N+1}$, $j = 0, 1, \dots, 2N$:
+\[
+\sum_{k=-N}^{N} \left[-k^2 + ikp(x_j) + q(x_j)\right]\hat{y}_k e^{ikx_j} = r(x_j)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Soustava lineárních rovnic}
+\[
+\mathbf{A}\mathbf{\hat{y}} = \mathbf{r}
+\]
+kde $A_{jk} = [-k^2 + ikp(x_j) + q(x_j)]e^{ikx_j}$
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Řešení pomocí FFT}
+\begin{enumerate}
+\item Vypočítat $\mathbf{r}$ v uzlových bodech
+\item Aplikovat FFT: $\mathbf{\hat{r}} = \text{FFT}(\mathbf{r})$
+\item Řešit diagonální systém: $\hat{y}_k = \frac{\hat{r}_k}{-k^2 + ik\bar{p} + \bar{q}}$
+\item Aplikovat inverzní FFT: $\mathbf{y} = \text{IFFT}(\mathbf{\hat{y}})$
+\end{enumerate}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 6: Exponenciální konvergence}
+Pro analytická data: $\|\hat{y}_k\| \sim e^{-c|k|}$
+
+\end{example}
+
+\paragraph{Variational metody}
+
+\begin{example}[Metoda konečných prvků pro ODE 2. řádu]
+\label{ex:metoda-konecnych-prvku}
+
+\noindent\textbf{Úloha:} Varíační formulace
+\[
+-\frac{d}{dx}\left(p(x)\frac{dy}{dx}\right) + q(x)y = r(x), \quad y(a) = \alpha, \quad y(b) = \beta
+\]
+
+\vspace{1.5\baselineskip}
+
+\noindent\textbf{Krok 1: Slabá formulace}
+Násobení testovací funkcí $v(x)$ a integrace:
+\[
+\int_a^b \left[-v\frac{d}{dx}\left(p\frac{dy}{dx}\right) + qvy\right] dx = \int_a^b vr dx
+\]
+Integrace per partes:
+\[
+\int_a^b p\frac{dy}{dx}\frac{dv}{dx} dx + \int_a^b qvy dx = \int_a^b vr dx + \left[vp\frac{dy}{dx}\right]_a^b
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 2: Konečnoprvková diskretizace}
+Rozklad intervalu: $a = x_0 < x_1 < \dots < x_N = b$
+
+Bázové funkce: $\phi_i(x)$ - lineární "stany"
+
+Aproximace: $y(x) \approx \sum_{j=0}^N y_j \phi_j(x)$
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 3: Galerkinova metoda}
+Volba $v = \phi_i$:
+\[
+\sum_{j=0}^N y_j \left[\int_a^b p\phi_j'\phi_i' dx + \int_a^b q\phi_j\phi_i dx\right] = \int_a^b r\phi_i dx
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 4: Sestavení matic}
+\[
+\mathbf{K}\mathbf{y} = \mathbf{f}
+\]
+kde:
+\begin{align*}
+K_{ij} &= \int_a^b p(x)\phi_j'(x)\phi_i'(x) dx + \int_a^b q(x)\phi_j(x)\phi_i(x) dx \\
+f_i &= \int_a^b r(x)\phi_i(x) dx
+\end{align*}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 5: Numerická integrace}
+Gaussovy kvadraturní body na každém prvku:
+\[
+\int_{x_{k-1}}^{x_k} f(x) dx \approx \frac{h_k}{2} \sum_{m=1}^M w_m f\left(\frac{x_{k-1} + x_k}{2} + \frac{h_k}{2}\xi_m\right)
+\]
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Krok 6: Aplikace okrajových podmínek}
+Dirichletovy podmínky: $y_0 = \alpha$, $y_N = \beta$
+
+Modifikace soustavy:
+\begin{align*}
+K_{00} &= 1, \quad K_{0j} = 0 \ (j \neq 0), \quad f_0 = \alpha \\
+K_{NN} &= 1, \quad K_{Nj} = 0 \ (j \neq N), \quad f_N = \beta
+\end{align*}
+
+\end{example}
+
+\paragraph{Software implementace a praktické aspekty}
+
+\begin{example}[Python implementace numerických metod]
+\label{ex:python-implementace}
+
+\noindent\textbf{Runge-Kutta 4. řádu:}
+\begin{verbatim}
+import numpy as np
+from scipy.integrate import solve_ivp
+import matplotlib.pyplot as plt
+
+def ode_system(x, y, params):
+    # y = [y, y']
+    p, q, r = params
+    return [y[1], r(x) - p(x)*y[1] - q(x)*y[0]]
+
+def rk4_step(f, x, y, h, params):
+    k1 = h * np.array(f(x, y, params))
+    k2 = h * np.array(f(x + h/2, y + k1/2, params))
+    k3 = h * np.array(f(x + h/2, y + k2/2, params))
+    k4 = h * np.array(f(x + h, y + k3, params))
+    return y + (k1 + 2*k2 + 2*k3 + k4) / 6
+
+def solve_ode_rk4(f, t_span, y0, h, params):
+    t0, tf = t_span
+    t_values = np.arange(t0, tf + h, h)
+    y_values = np.zeros((len(t_values), len(y0)))
+    y_values[0] = y0
+    
+    for i in range(1, len(t_values)):
+        y_values[i] = rk4_step(f, t_values[i-1], y_values[i-1], h, params)
+    
+    return t_values, y_values
+\end{verbatim}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Metoda konečných diferencí:}
+\begin{verbatim}
+def finite_difference(a, b, alpha, beta, N, p, q, r):
+    h = (b - a) / N
+    x = np.linspace(a, b, N+1)
+    
+    # Sestavení matice
+    A = np.zeros((N+1, N+1))
+    b_vec = np.zeros(N+1)
+    
+    # Vnitřní body
+    for i in range(1, N):
+        A[i, i-1] = 1 - h/2 * p(x[i])
+        A[i, i] = -2 + h**2 * q(x[i])
+        A[i, i+1] = 1 + h/2 * p(x[i])
+        b_vec[i] = h**2 * r(x[i])
+    
+    # Okrajové podmínky
+    A[0, 0] = 1
+    b_vec[0] = alpha
+    A[N, N] = 1
+    b_vec[N] = beta
+    
+    # Řešení soustavy
+    y = np.linalg.solve(A, b_vec)
+    return x, y
+\end{verbatim}
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Analýza chyby a konvergence:}
+\begin{verbatim}
+def error_analysis(exact_solution, numerical_solution, h_values):
+    errors = []
+    for h in h_values:
+        # Výpočet numerického řešení
+        x_num, y_num = finite_difference(...)
+        
+        # Výpočet přesného řešení v uzlových bodech
+        y_exact = exact_solution(x_num)
+        
+        # Výpočet maximální chyby
+        error = np.max(np.abs(y_num - y_exact))
+        errors.append(error)
+    
+    return errors
+
+# Studium konvergence
+h_values = [0.1, 0.05, 0.025, 0.0125]
+errors = error_analysis(exact_sol, num_sol, h_values)
+
+# Lineární regrese pro určení řádu přesnosti
+log_h = np.log(h_values)
+log_err = np.log(errors)
+order = -np.polyfit(log_h, log_err, 1)[0]
+\end{verbatim}
+
+\end{example}
+
+\paragraph{Praktické aspekty a optimalizace}
+
+\begin{itemize}
+\item \textbf{Výběr metody}: 
+\begin{itemize}
+\item Nízká přesnost: Eulerova metoda
+\item Střední přesnost: Runge-Kutta 4
+\item Vysoká přesnost: Spectral metody
+\item Tuhé soustavy: Implicitní metody
+\end{itemize}
+
+\item \textbf{Řízení kroku}: 
+\begin{itemize}
+\item Adaptivní metody: RK45, DOPRI5
+\item Kriterium stability: CFL podmínka
+\item Optimalizace: Balanc mezi přesností a výpočetním časem
+\end{itemize}
+
+\item \textbf{Paralelní výpočty}:
+\begin{itemize}
+\item Doménová dekompozice
+\item Paralelní lineární algebra
+\item GPU akcelerace
+\end{itemize}
+
+\item \textbf{Validace výsledků}:
+\begin{itemize}
+\item Konzistence s analytickým řešením
+\item Studium konvergence
+\item Fyzikální realističnost
+\item Nezávislost na numerických parametrech
+\end{itemize}
+\end{itemize}
+
+Tato kompletní numerická sekce poskytuje expertní nástroje pro řešení reálných problémů, kde analytická řešení nejsou dostupná, a demonstruje hluboké propojení mezi teoretickou matematikou a praktickým výpočetním inženýrstvím.
+
+\subsection{Lineární ODE s Proměnnými Koeficienty}
+
+\subsubsection{Úvod a Matematický Fundament}
+
+\paragraph*{Historický Kontext a Geneze Teorie}
+Teorie lineárních diferenciálních rovnic s proměnnými koeficienty procházela třemi zásadními fázemi vývoje:
+
+\subparagraph*{Klasické Období (19. století)}
+\begin{itemize}
+\item \textbf{Georg Frobenius (1873)}: Systematická Frobeniova metoda publikována v \"Über die Integration der linearen Differentialgleichungen durch Reihen\" - fundamentální práce pro řešení v okolí regularních singulárních bodů
+\item \textbf{Lazar Fuchs (1866-1884)}: Fuchsova teorie regularních singularit, Fuchsovy podmínky pro rovnice druhého řádu s proměnnými koeficienty
+\item \textbf{Émile Picard (1891-1896)}: Iterativní metody důkazu existence řešení pro rovnice s proměnnými koeficienty
+\end{itemize}
+
+\subparagraph*{Moderní Období (1900-1950)}
+\begin{itemize}
+\item \textbf{George D. Birkhoff (1908-1913)}: Asymptotické vlastnosti řešení rovnic s proměnnými koeficienty, Birkhoffova normalní forma
+\item \textbf{Hermann Weyl (1910)}: Spektrální teorie singulárních Sturm-Liouvilleových operátorů s proměnnými koeficienty
+\item \textbf{Einar Hille (1930-1940)}: Oscilační teorie a kvalitativní vlastnosti řešení rovnic s proměnnými koeficienty
+\end{itemize}
+
+\paragraph*{Formální Matematická Definice a Základní Koncepty}
+
+\subparagraph*{Obecný Tvar a Normalizace}
+Uvažujme lineární diferenciální rovnici $n$-tého řádu s proměnnými koeficienty:
+\[
+a_n(x)\frac{d^ny}{dx^n} + a_{n-1}(x)\frac{d^{n-1}y}{dx^{n-1}} + \cdots + a_1(x)\frac{dy}{dx} + a_0(x)y = f(x)
+\]
+kde $a_i(x) \in C(I)$ jsou spojité funkce na intervalu $I \subseteq \mathbb{R}$ a $a_n(x) \neq 0$ na $I$.
+
+\subparagraph*{Normalizovaný Tvar}
+Dělením vedoucím koeficientem získáváme:
+\[
+\frac{d^ny}{dx^n} + p_{n-1}(x)\frac{d^{n-1}y}{dx^{n-1}} + \cdots + p_1(x)\frac{dy}{dx} + p_0(x)y = g(x)
+\]
+kde $p_i(x) = \frac{a_i(x)}{a_n(x)}$ a $g(x) = \frac{f(x)}{a_n(x)}$.
+
+\subparagraph*{Diferenciálně Algebraický Přístup}
+Uvažujme diferenciální operátor:
+\[
+L = a_n(x)D^n + a_{n-1}(x)D^{n-1} + \cdots + a_1(x)D + a_0(x)
+\]
+kde $D = \frac{d}{dx}$ a $a_i(x)$ jsou funkce z příslušného funkčního prostoru.
+
+\paragraph*{Systematická Klasifikace Bodů a Singularit}
+
+\subparagraph*{Základní Klasifikace Bodů}
+Pro rovnici v normalizovaném tvaru na intervalu $I$:
+\begin{itemize}
+\item \textbf{Regularní bod}: Všechny funkce $p_i(x)$ jsou spojité (resp. analytické) v okolí $x_0$
+\item \textbf{Singulární bod}: Některá funkce $p_i(x)$ není spojitá (resp. analytická) v $x_0$
+\end{itemize}
+
+\subparagraph*{Fuchsova Teorie pro Rovnice s Proměnnými Koeficienty}
+Pro rovnici $n$-tého řádu v normalizovaném tvaru má bod $x_0$:
+
+\begin{theorem}[Fuchsova Kritéria pro Reálné Proměnné]
+Bod $x_0$ je regularní singulární právě tehdy, když pro každé $k = 0, 1, \dots, n-1$ má funkce $p_k(x)$ singularitu v $x_0$ řádu nejvýše $n-k$.
+\end{theorem}
+
+\subparagraph*{Podrobná Klasifikace Singulárních Bodů}
+\begin{enumerate}
+\item \textbf{Regularní singulární body}: 
+\begin{itemize}
+\item Pro rovnici 2. řádu: $(x-x_0)p(x)$ a $(x-x_0)^2q(x)$ analytické v $x_0$
+\item Obecně: $(x-x_0)^{n-k}p_k(x)$ analytické v $x_0$ pro $k=0,\dots,n-1$
+\end{itemize}
+
+\item \textbf{Nepravidelné singulární body}: Některá $(x-x_0)^{n-k}p_k(x)$ není analytická v $x_0$
+\end{enumerate}
+
+\paragraph*{Existenční Teorie a Vlastnosti Řešení}
+
+\subparagraph*{Základní Věta o Existenci a Jednoznačnosti}
+\begin{theorem}[Picard-Lindelöf pro Proměnné Koeficienty]
+Nechť funkce $p_0(x), p_1(x), \dots, p_{n-1}(x), g(x)$ jsou spojité na otevřeném intervalu $I$. Pak pro libovolný bod $x_0 \in I$ a libovolné počáteční podmínky $y(x_0), y'(x_0), \dots, y^{(n-1)}(x_0)$ existuje právě jedno řešení definované na celém intervalu $I$.
+\end{theorem}
+
+\subparagraph*{Prostor Řešení a Wronskián}
+Pro homogenní rovnici $n$-tého řádu tvoří množina všech řešení $n$-rozměrný vektorový prostor.
+
+\vspace{1\baselineskip}
+
+\noindent\textbf{Wronskián} $n$ funkcí $y_1(x), \dots, y_n(x)$:
+\[
+W(y_1, \dots, y_n)(x) = \det\begin{pmatrix}
+y_1(x) & \cdots & y_n(x) \\
+y_1'(x) & \cdots & y_n'(x) \\
+\vdots & \ddots & \vdots \\
+y_1^{(n-1)}(x) & \cdots & y_n^{(n-1)}(x)
+\end{pmatrix}
+\]
+
+\subparagraph*{Abelova-Liouvilleova Formule}
+Pro homogenní rovnici druhého řádu $y'' + p(x)y' + q(x)y = 0$ platí:
+\[
+W(x) = W(x_0) \exp\left(-\int_{x_0}^x p(t) dt\right)
+\]
+
+\paragraph*{Srovnání s Rovnicemi s Konstantními Koeficienty}
+
+\subparagraph*{Zásadní Strukturální Rozdíly}
+\begin{table}[h]
+\centering
+\begin{tabular}{p{0.45\textwidth}p{0.45\textwidth}}
+\textbf{Konstantní Koeficienty} & \textbf{Proměnné Koeficienty} \\
+\midrule
+Řešení: exponenciální funkce & Řešení: často mocninné řady, speciální funkce \\
+Globální existence zaručena & Existence závisí na vlastnostech koeficientů \\
+Charakteristická rovnice algebraická & Indiciální rovnice pro lokální analýzu \\
+Wronskián: exponenciální funkce & Wronskián: obecná funkce daná Abelovou formulí \\
+Spektrum: typicky diskrétní & Spektrum: může být spojité i diskrétní \\
+\end{tabular}
+\end{table}
+
+\paragraph*{Funkční Prostory a Regularita Řešení}
+
+\subparagraph*{Závislost na Regularitě Koeficientů}
+\begin{itemize}
+\item \textbf{Spojité koeficienty}: Řešení $n$-krát spojitě diferencovatelné
+\item \textbf{Analytické koeficienty}: Řešení analytická (Cauchy-Kowalevská)
+\item \textbf{Měřitelné koeficienty}: Řešení ve smyslu distribucí
+\end{itemize}
+
+\subparagraph*{Maximální Interval Existence}
+Pro rovnice s proměnnými koeficienty je maximální interval existence určen:
+\begin{itemize}
+\item Body, kde $a_n(x) = 0$ (vedoucí koeficient)
+\item Singularitami koeficientů $p_i(x)$
+\item Chováním řešení v nekonečnu
+\end{itemize}
+
+\paragraph*{Kvalitativní Vlastnosti a Chování Řešení}
+
+\subparagraph*{Lokální a Globální Chování}
+\begin{itemize}
+\item \textbf{Oscilační vlastnosti}: Řešení mohou měnit oscilační chování v závislosti na $x$
+\item \textbf{Asymptotické chování}: Růst a decay řešení závisí na asymptotice koeficientů
+\item \textbf{Stabilita}: Závisí na lokálních vlastnostech koeficientů
+\end{itemize}
+
+\subparagraph*{Vliv Parametrů a Koeficientů}
+Malé změny v koeficientech mohou vést k kvalitativně odlišnému chování řešení, což činí numerickou analýzu náročnou a vyžaduje speciální asymptotické metody.
+
